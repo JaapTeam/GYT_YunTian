@@ -271,130 +271,312 @@
 </div>
 
 <div class="main-content">
-    <div class="breadcrumbs" id="breadcrumbs">
-        <script type="text/javascript">
-            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
-        </script>
+<div class="breadcrumbs" id="breadcrumbs">
+    <script type="text/javascript">
+        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+    </script>
 
-        <ul class="breadcrumb">
-            <li>
-                <i class="icon-home home-icon"></i>
-                <a href="index.html">首页</a>
-            </li>
-            <li class="active">港运通业务管理</li>
-        </ul><!-- .breadcrumb -->
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home home-icon"></i>
+            <a href="index.html">首页</a>
+        </li>
+        <li class="active">其它信息管理</li>
+        <li class="active">公司信息管理</li>
+    </ul><!-- .breadcrumb -->
 
+</div>
+
+<div class="page-content">
+
+<div class="row">
+<div class="col-xs-12">
+<!-- PAGE CONTENT BEGINS -->
+
+<div class="row">
+<div class="col-xs-12">
+<h3 class="header smaller lighter blue">公司信息管理</h3>
+
+<div class="table-header">
+
+    <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+        <a class="white" href="add_cards.html">
+            <i class="icon-plus-sign bigger-110">
+                <span class="">新增</span>
+            </i>
+        </a>
     </div>
+                                        
+</div>
 
-    <div class="page-content">
-        <div class="page-header">
-            <h1>
-                港运通业务管理
-                <small>
-                    <i class="icon-double-angle-right"></i>
-                    业务办理
-                </small>
-                <small>
-                    <i class="icon-double-angle-right"></i>
-                    查看审查结果
-                </small>
-            </h1>
-        </div><!-- /.page-header -->
+<div class="table-responsive">
+<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+<thead>
+<tr>
+    <th class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </th>
+    <th>公司名称</th>
+    <th>所属行业</th>
+    <th>登记车辆</th>
+    <th>持卡数量</th>
+    <th>状态</th>
+    <th>登记日期</th>
+</tr>
+</thead>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <!-- PAGE CONTENT BEGINS -->
-                <div class="col-sm-12">
-                    <h3 class="header smaller lighter green">
-                        <i class="icon-bullhorn"></i>
-                        审查结果
-                    </h3>
+<tbody>
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+    <td><a href="truck_list.html">23台车辆</a></td>
+    <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+</tbody>
+</table>
+                                        
+<div class="row">
+    <div class="col-sm-12">
+        <div class="dataTables_paginate padding-10">
+            <ul class="pagination">
+                <li class="prev disabled"><a href="#">
+                        <i class="icon-double-angle-left"></i>
+                    </a>
+                </li>
+                <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#"><i class="icon-double-angle-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
 
-                    <div class="alert alert-danger">
-                        <strong>
-                            <i class="icon-remove"></i>
-                            规则A:
-                        </strong>
 
-                        申办企业名下车辆有超限超载违法记录！
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-success">
-                        <strong>
-                            <i class="icon-ok"></i>
-                            规则A:
-                        </strong>
-
-                        申办企业名下车辆无超限超载违法记录！
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-danger">
-                        <strong>
-                            <i class="icon-remove"></i>
-                            规则A:
-                        </strong>
-
-                        原企业名下车辆有超限超载违法记录！
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-success">
-                        <strong>
-                            <i class="icon-ok"></i>
-                            规则A:
-                        </strong>
-
-                        原企业名下车辆无超限超载违法记录！
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-danger">
-                        <strong>
-                            <i class="icon-remove"></i>
-                            规则B:
-                        </strong>
-
-                        原车牌号已经进行过一次更换港运通!
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-danger">
-                        <strong>
-                            <i class="icon-remove"></i>
-                            规则B:
-                        </strong>
-
-                        车辆年审不符合要求！
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-success">
-                        <strong>
-                            <i class="icon-ok"></i>
-                            规则B:
-                        </strong>
-
-                        车辆年审符合要求！
-                        <br>
-                    </div>
-                    
-                    <div class="alert alert-danger">
-                        <strong>
-                            <i class="icon-remove"></i>
-                            规则A:
-                        </strong>
-
-                        公司名下车辆有超限超载违法记录！
-                        <br>
-                    </div>
-
-                </div>
-                <!-- PAGE CONTENT ENDS -->
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.page-content -->
+<!-- PAGE CONTENT ENDS -->
+</div><!-- /.col -->
+</div><!-- /.row -->
+</div><!-- /.page-content -->
 </div><!-- /.main-content -->
 
 <div class="ace-settings-container" id="ace-settings-container">
@@ -471,6 +653,10 @@
     <script src="assets/js/typeahead-bs2.min.js"></script>
 
     <!-- page specific plugin scripts -->
+
+    <script src="assets/js/jquery.dataTables.min.js"></script>
+    <script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+
     <!--[if lte IE 8]>
         <script src="assets/js/excanvas.min.js"></script>
     <![endif]-->
