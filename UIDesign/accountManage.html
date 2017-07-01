@@ -100,7 +100,7 @@
         </div><!-- /.container -->
     </div>
 
-    <div class="main-container" id="main-container">
+        <div class="main-container" id="main-container">
         <script type="text/javascript">
             try { ace.settings.check('main-container', 'fixed') } catch (e) { }
         </script>
@@ -154,10 +154,29 @@
                     </li>
 
                     <li>
-                        <a href="CardsManage.html">
-                            <i class=" icon-credit-card"></i>
-                            <span class="menu-text"> 港运通信息管理 </span>
+                        <a href="javascript:();" class="dropdown-toggle">
+                            <i class="icon-credit-card"></i>
+                            <span class="menu-text"> 港运通业务管理 </span>
+
+                            <b class="arrow icon-angle-down"></b>
                         </a>
+
+                        <ul class="submenu">
+                            <li>
+                                <a href="add_cards.html">
+                                    <i class="icon-file-alt"></i>
+                                    业务办理
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="CardsManage.html">
+                                    <i class="icon-user"></i>
+                                    信息查询
+                                </a>
+                            </li>
+
+                        </ul>
                     </li>
 
                     <li>
@@ -262,26 +281,251 @@
                             <i class="icon-home home-icon"></i>
                             <a href="index.html">首页</a>
                         </li>
-                        <li class="active">系统管理</li>
-                        <li class="active">账户管理</li>
+                        <li class="active">帐号管理</li>
                     </ul><!-- .breadcrumb -->
 
                 </div>
 
                 <div class="page-content">
-                    <div class="page-header">
-                        <h1>
-                            账户管理
-                            <small>
-                                <i class="icon-double-angle-right"></i>
-                                查看
-                            </small>
-                        </h1>
-                    </div><!-- /.page-header -->
 
                     <div class="row">
                         <div class="col-xs-12">
                             <!-- PAGE CONTENT BEGINS -->
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h3 class="header smaller lighter blue">帐号管理</h3>
+
+                                    <div class="table-header">
+
+                                        <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+                                            <a class="white" href="#">
+                                                <i class="icon-plus-sign bigger-110">
+                                                    <span class="">新增用户</span>
+                                                </i>
+                                            </a>
+
+                                            <a class="white" href="#">
+                                                <i class="icon-plus-sign bigger-110">
+                                                    <span class="">新增用户</span>
+                                                </i>
+                                            </a>
+
+                                            <a class="white" href="#">
+                                                <i class="icon-plus-sign bigger-110">
+                                                    <span class="">新增用户</span>
+                                                </i>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="table-responsive">
+                                    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                        <th>序号</th>
+                                        <th>用户名</th>
+                                        <th>密码</th>
+                                        <th>用户姓名</th>
+                                        <th>邮箱</th>
+                                        <th>联系方式</th>
+                                        <th>状态</th>
+                                        <th>角色</th>
+                                        <th>创建日期</th>
+                                        <!--link to log detail page, to view the logs with user-->
+                                        <th>日志信息</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr>
+                                        <td class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td><a href="javascript:;">0001</a></td>
+                                        <td>
+                                            amdin
+                                        </td>
+                                        <td>123456</td>
+                                        <td >
+                                            张三
+                                        </td>
+                                        <td>1234567@qq.com</td>
+                                        <td>
+                                           13888888888
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">正常</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">超级管理员</span>
+                                        </td>
+                                        <td>2017/06/25</td>
+                                        <td class="hidden-480">
+                                            <a href="javascript:();">
+                                                Logs
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td><a href="javascript:;">0001</a></td>
+                                        <td>
+                                            amdin
+                                        </td>
+                                        <td>123456</td>
+                                        <td>
+                                            张三
+                                        </td>
+                                        <td>1234567@qq.com</td>
+                                        <td>
+                                            13888888888
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">正常</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">超级管理员</span>
+                                        </td>
+                                        <td>2017/06/25</td>
+                                        <td class="hidden-480">
+                                            <a href="javascript:();">
+                                                Logs
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td><a href="javascript:;">0001</a></td>
+                                        <td>
+                                            amdin
+                                        </td>
+                                        <td>123456</td>
+                                        <td>
+                                            张三
+                                        </td>
+                                        <td>1234567@qq.com</td>
+                                        <td>
+                                            13888888888
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">正常</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">超级管理员</span>
+                                        </td>
+                                        <td>2017/06/25</td>
+                                        <td class="hidden-480">
+                                            <a href="javascript:();">
+                                                Logs
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </td>
+                                        <td><a href="javascript:;">0001</a></td>
+                                        <td>
+                                            amdin
+                                        </td>
+                                        <td>123456</td>
+                                        <td>
+                                            张三
+                                        </td>
+                                        <td>1234567@qq.com</td>
+                                        <td>
+                                            13888888888
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">正常</span>
+                                        </td>
+                                        <td>
+                                            <span class="label label-sm label-success">超级管理员</span>
+                                        </td>
+                                        <td>2017/06/25</td>
+                                        <td class="hidden-480">
+                                            <a href="javascript:();">
+                                                Logs
+                                            </a>
+                                        </td>
+                                    </tr>
+                                        <tr>
+                                            <td class="center">
+                                                <label>
+                                                    <input type="checkbox" class="ace" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </td>
+                                            <td><a href="javascript:;">0001</a></td>
+                                            <td>
+                                                amdin
+                                            </td>
+                                            <td>123456</td>
+                                            <td>
+                                                张三
+                                            </td>
+                                            <td>1234567@qq.com</td>
+                                            <td>
+                                                13888888888
+                                            </td>
+                                            <td>
+                                                <span class="label label-sm label-success">正常</span>
+                                            </td>
+                                            <td>
+                                                <span class="label label-sm label-success">超级管理员</span>
+                                            </td>
+                                            <td>2017/06/25</td>
+                                            <td class="hidden-480">
+                                                <a href="javascript:();">
+                                                    Logs
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                        
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="dataTables_paginate padding-10">
+                                                <ul class="pagination">
+                                                    <li class="prev disabled"><a href="#">
+                                                        <i class="icon-double-angle-left"></i>
+                                                    </a>
+                                                    </li>
+                                                    <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#"><i class="icon-double-angle-right"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <!-- PAGE CONTENT ENDS -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -340,7 +584,7 @@
         <a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
             <i class="icon-double-angle-up icon-only bigger-110"></i>
         </a>
-    </div><!-- /.main-container -->
+    </div><!-- /.main-container --><!-- /.main-container -->
     <!-- basic scripts -->
     <!--[if !IE]> -->
 
