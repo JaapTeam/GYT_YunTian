@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>超载超限信息管理</title>
+    <title>控制台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -281,45 +281,32 @@
             <i class="icon-home home-icon"></i>
             <a href="index.html">首页</a>
         </li>
-        <li class="active">超载超限信息管理</li>
+        <li class="active">其它信息管理</li>
+        <li class="active">公司信息管理</li>
     </ul><!-- .breadcrumb -->
 
 </div>
 
 <div class="page-content">
-<!-- /.page-header -->
 
 <div class="row">
 <div class="col-xs-12">
 <!-- PAGE CONTENT BEGINS -->
 
-
 <div class="row">
 <div class="col-xs-12">
-<h3 class="header smaller lighter blue">超载超限信息库</h3>
+<h3 class="header smaller lighter blue">公司信息管理</h3>
 
 <div class="table-header">
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-        <a class="white" href="#">
+        <a class="white" href="add_cards.html">
             <i class="icon-plus-sign bigger-110">
                 <span class="">新增</span>
             </i>
         </a>
-
-        <a class="white" href="#">
-            <i class="icon-cloud-upload bigger-110">
-                <span class="">批量导入</span>
-            </i>
-        </a>
-                                            
-        <a class="white" href="#">
-            <i class="icon-cloud-download bigger-110">
-                <span class="">导出</span>
-            </i>
-        </a>
     </div>
-
+                                        
 </div>
 
 <div class="table-responsive">
@@ -332,18 +319,12 @@
             <span class="lbl"></span>
         </label>
     </th>
-    <th>违法记录序号</th>
-    <th>车牌号</th>
-    <th>车辆类别</th>
-    <th>所属企业</th>
-    <th>违规事项</th>
-    <th>处理状态</th>
-    <th>是否整改</th>
-    <th>违法日期</th>
-    <th>记录日期</th>
-    <th>通知日期</th>
-    <th>移除日期</th>
-    <th></th>
+    <th>公司名称</th>
+    <th>所属行业</th>
+    <th>登记车辆</th>
+    <th>持卡数量</th>
+    <th>状态</th>
+    <th>登记日期</th>
 </tr>
 </thead>
 
@@ -355,24 +336,19 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
 <tr>
     <td class="center">
         <label>
@@ -380,24 +356,19 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -405,24 +376,18 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -430,24 +395,20 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -455,24 +416,19 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -480,24 +436,20 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -505,24 +457,20 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+    <td><a href="truck_list.html">23台车辆</a></td>
+    <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -530,24 +478,19 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-                                                
+    
 <tr>
     <td class="center">
         <label>
@@ -555,40 +498,72 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>204802</td>
-    <td>粤BBY731</td>
-    <td>重型半挂牵引车</td>
     <td>深圳市XXX运输有限公司</td>
-    <td>深圳超限</td>
-    <td>已记录</td>
-    <td>是</td>
-    <td>2017/06/13</td>
-    <td>2017/06/14</td>
-    <td>2017/06/18</td>
-    <td>-</td>
     <td>
-        <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
-        </a>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
     </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <span class="label label-sm label-success">正常</span>
+    </td>
+    <td>2015/03/21</td>
 </tr>
-
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
+    
+<tr>
+    <td class="center">
+        <label>
+            <input type="checkbox" class="ace" />
+            <span class="lbl"></span>
+        </label>
+    </td>
+    <td>深圳市XXX运输有限公司</td>
+    <td>
+        <span class="label label-sm label-success">普通货运</span>
+        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+    </td>
+   <td><a href="truck_list.html">23台车辆</a></td>
+   <td><a href="card_company_list.html">20张港运通</a></td>
+    <td>
+        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+    </td>
+    <td>2015/03/21</td>
+</tr>
 </tbody>
 </table>
-
+                                        
 <div class="row">
     <div class="col-sm-12">
         <div class="dataTables_paginate padding-10">
             <ul class="pagination">
-                <li class="prev disabled">
-                    <a href="#">
+                <li class="prev disabled"><a href="#">
                         <i class="icon-double-angle-left"></i>
                     </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li class="next"><a href="#"><i class="icon-double-angle-right"></i></a></li>
+                <li class="active"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li class="next"><a href="#"><i class="icon-double-angle-right"></i></a></li>
             </ul>
         </div>
     </div>
@@ -678,6 +653,10 @@
     <script src="assets/js/typeahead-bs2.min.js"></script>
 
     <!-- page specific plugin scripts -->
+
+    <script src="assets/js/jquery.dataTables.min.js"></script>
+    <script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+
     <!--[if lte IE 8]>
         <script src="assets/js/excanvas.min.js"></script>
     <![endif]-->
