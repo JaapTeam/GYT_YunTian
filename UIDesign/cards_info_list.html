@@ -121,7 +121,7 @@
                 <i class="icon-user"></i>
             </a>
 
-            <a class="btn btn-info" href="CardsManage.html">
+            <a class="btn btn-info" href="cards_info_list.html">
                 <i class="icon-credit-card"></i>
             </a>
 
@@ -146,84 +146,26 @@
     </div><!-- #sidebar-shortcuts -->
     <!--Left Menu-->
     <ul class="nav nav-list">
-        <li class="active">
-            <a href="index.html">
-                <i class="icon-dashboard"></i>
-                <span class="menu-text"> 控制台 </span>
+
+        <li>
+            <a href="handle_service.html">
+                <i class="icon-briefcase"></i>
+                <span class="menu-text"> 业务办理 </span>
             </a>
         </li>
 
         <li>
-            <a href="javascript:();" class="dropdown-toggle">
+            <a href="cards_info_list.html" class="dropdown-toggle">
                 <i class="icon-credit-card"></i>
-                <span class="menu-text"> 港运通业务管理 </span>
-
-                <b class="arrow icon-angle-down"></b>
+                <span class="menu-text"> 港运通信息库 </span>
             </a>
-
-            <ul class="submenu">
-                <li>
-                    <a href="add_cards.html">
-                        <i class="icon-file-alt"></i>
-                        业务办理
-                    </a>
-                </li>
-
-                <li>
-                    <a href="CardsManage.html">
-                        <i class="icon-user"></i>
-                        信息查询
-                    </a>
-                </li>
-
-            </ul>
         </li>
 
         <li>
             <a href="overload.html">
                 <i class="icon-truck"></i>
-                <span class="menu-text"> 超载超限信息管理 </span>
+                <span class="menu-text"> 超载超限信息库 </span>
             </a>
-        </li>
-
-
-        <li>
-            <a href="javascript:();" class="dropdown-toggle">
-                <i class="icon-cogs"></i>
-                <span class="menu-text"> 其它信息管理 </span>
-
-                <b class="arrow icon-angle-down"></b>
-            </a>
-
-            <ul class="submenu">
-                <li>
-                    <a href="company.html">
-                        <i class="icon-file-alt"></i>
-                        公司信息管理
-                    </a>
-                </li>
-
-                <li>
-                    <a href="trade_list.html">
-                        <i class="icon-user"></i>
-                        行业信息管理
-                    </a>
-                </li>
-
-                <li>
-                    <a href="truck_category_list.html">
-                        <i class="icon-user"></i>
-                        车辆类别管理
-                    </a>
-                </li>
-
-                <li>
-                    <a href="truck_list.html">
-                        <i class="icon-user"></i>
-                        车辆信息管理
-                    </a>
-                </li>
-            </ul>
         </li>
 
         <li>
@@ -281,8 +223,7 @@
             <i class="icon-home home-icon"></i>
             <a href="index.html">首页</a>
         </li>
-        <li class="active">其它信息管理</li>
-        <li class="active">公司信息管理</li>
+        <li class="active">港运通信息管理</li>
     </ul><!-- .breadcrumb -->
 
 </div>
@@ -295,7 +236,7 @@
 
 <div class="row">
 <div class="col-xs-12">
-<h3 class="header smaller lighter blue">公司信息管理</h3>
+<h3 class="header smaller lighter blue">港运通受理查询</h3>
 
 <div class="table-header">
 
@@ -303,6 +244,18 @@
         <a class="white" href="add_cards.html">
             <i class="icon-plus-sign bigger-110">
                 <span class="">新增</span>
+            </i>
+        </a>
+
+        <a class="white" href="#">
+            <i class="icon-cloud-upload bigger-110">
+                <span class="">批量导入</span>
+            </i>
+        </a>
+
+        <a class="white" href="#">
+            <i class="icon-cloud-download bigger-110">
+                <span class="">导出</span>
             </i>
         </a>
     </div>
@@ -319,12 +272,16 @@
             <span class="lbl"></span>
         </label>
     </th>
-    <th>公司名称</th>
-    <th>所属行业</th>
-    <th>登记车辆</th>
-    <th>持卡数量</th>
-    <th>状态</th>
-    <th>登记日期</th>
+    <th>申请批次号</th>
+    <th>来源</th>
+    <th>业务类型</th>
+    <th>申请企业</th>
+    <th>申请数量</th>
+    <th>车牌号</th>
+    <th>报废车牌号</th>
+    <th>审批意见</th>
+    <th>受理日期</th>
+    <th>审批时间</th>
 </tr>
 </thead>
 
@@ -336,19 +293,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>车辆过户</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <span class="label label-sm label-success">正常</span>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-success">
+            <i class="icon-ok bigger-120">同意办理</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
+
 <tr>
     <td class="center">
         <label>
@@ -356,19 +326,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>天然气车辆</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-warning">
+            <i class="icon-edit bigger-120">待审批</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
-    
+
 <tr>
     <td class="center">
         <label>
@@ -376,18 +359,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>以旧换新</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <span class="label label-sm label-success">正常</span>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-warning">
+            <i class="icon-edit bigger-120">待审批</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
-    
+
 <tr>
     <td class="center">
         <label>
@@ -395,20 +392,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>以旧换新</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-warning">
+            <i class="icon-edit bigger-120">待审批</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
-    
+
 <tr>
     <td class="center">
         <label>
@@ -416,19 +425,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>以旧换新</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <span class="label label-sm label-success">正常</span>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-warning">
+            <i class="icon-edit bigger-120">待审批</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
-    
+
 <tr>
     <td class="center">
         <label>
@@ -436,20 +458,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>以旧换新</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-warning">
+            <i class="icon-edit bigger-120">待审批</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
-    
+
 <tr>
     <td class="center">
         <label>
@@ -457,20 +491,32 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        罗湖
     </td>
-    <td><a href="truck_list.html">23台车辆</a></td>
-    
+    <td>以旧换新</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
+    <td>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-danger">
+            <i class="icon-ban-circle bigger-120">不同意办理</i>
+        </a>
+    </td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
-    
+
 <tr>
     <td class="center">
         <label>
@@ -478,79 +524,30 @@
             <span class="lbl"></span>
         </label>
     </td>
-    <td>深圳市XXX运输有限公司</td>
+    <td><a href="javascript:;">102401</a></td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        罗湖
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
+    <td>以旧换新</td>
+    <td class="hidden-480">
+        <a href="javascript:();">深圳市XXX货物运输有限公司</a>
+    </td>
+    <td>2</td>
     <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
+        <span class="label label-sm label-success">粤BBY831</span>
+        <span class="label label-sm label-success">粤BBY882</span>
     </td>
-    <td>2015/03/21</td>
-</tr>
-    
-<tr>
-    <td class="center">
-        <label>
-            <input type="checkbox" class="ace" />
-            <span class="lbl"></span>
-        </label>
-    </td>
-    <td>深圳市XXX运输有限公司</td>
     <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
+        <span class="label label-sm label-success">粤BBY731</span>
+        <span class="label label-sm label-success">粤BBY631</span>
     </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
     <td>
-        <span class="label label-sm label-success">正常</span>
+        <a class="btn btn-xs btn-warning">
+            <i class="icon-edit bigger-120">待审批</i>
+        </a>
     </td>
-    <td>2015/03/21</td>
-</tr>
-    
-<tr>
-    <td class="center">
-        <label>
-            <input type="checkbox" class="ace" />
-            <span class="lbl"></span>
-        </label>
-    </td>
-    <td>深圳市XXX运输有限公司</td>
-    <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
-    </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
-    <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
-    </td>
-    <td>2015/03/21</td>
-</tr>
-    
-<tr>
-    <td class="center">
-        <label>
-            <input type="checkbox" class="ace" />
-            <span class="lbl"></span>
-        </label>
-    </td>
-    <td>深圳市XXX运输有限公司</td>
-    <td>
-        <span class="label label-sm label-success">普通货运</span>
-        <span class="label label-sm label-warning">货物专用运输（集装箱）</span>
-        <span class="label label-sm label-danger">货物专用运输（罐式）</span>
-    </td>
-   <td><a href="truck_list.html">23台车辆</a></td>
-   
-    <td>
-        <a class="label label-sm label-warning" href="overload_company_record_detail.html">2条违法记录</a>
-    </td>
-    <td>2015/03/21</td>
+    <td>2017/06/25</td>
+    <td>2017/06/28</td>
 </tr>
 </tbody>
 </table>
