@@ -1,0 +1,821 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>控制台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- basic styles -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+    <!--[if IE 7]>
+        <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!-- page specific plugin styles -->
+    <!-- ace styles -->
+
+    <link rel="stylesheet" href="assets/css/ace.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+
+    <script src="assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="navbar navbar-default" id="navbar">
+        <script type="text/javascript">
+            try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+        </script>
+
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="javascript:();" class="navbar-brand">
+                    <small>
+                        <i class="icon-leaf"></i>
+                        后台管理系统
+                    </small>
+                </a><!-- /.brand -->
+            </div><!-- /.navbar-header -->
+
+            <div class="navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="javascript:();" class="dropdown-toggle">
+                            <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+                            <span class="user-info">
+                                <small>欢迎光临,</small>
+                                朱成强
+                            </span>
+
+                            <i class="icon-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+                            <li>
+                                <a href="javascript:();">
+                                    <i class="icon-user"></i>
+                                    个人资料
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:();">
+                                    <i class="icon-key"></i>
+                                    修改密码
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:();">
+                                    <i class="icon-file-alt"></i>
+                                    操作日志
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="javascript:();">
+                                    <i class="icon-off"></i>
+                                    退出
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul><!-- /.ace-nav -->
+            </div><!-- /.navbar-header -->
+        </div><!-- /.container -->
+    </div>
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        </script>
+
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="javascript:();">
+                <span class="menu-text"></span>
+            </a>
+
+            <div class="sidebar" id="sidebar">
+                <script type="text/javascript">
+                    try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+                </script>
+
+                <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                        <a class="btn btn-success" href="accountManage.html">
+                            <i class="icon-user"></i>
+                        </a>
+
+                        <a class="btn btn-info" href="cards_info_list.html">
+                            <i class="icon-credit-card"></i>
+                        </a>
+
+                        <a class="btn btn-warning" href="overload.html">
+                            <i class="icon-truck"></i>
+                        </a>
+
+                        <a class="btn btn-danger" href="securityManage.html">
+                            <i class="icon-key"></i>
+                        </a>
+                    </div>
+
+                    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+                        <span class="btn btn-success"></span>
+
+                        <span class="btn btn-info"></span>
+
+                        <span class="btn btn-warning"></span>
+
+                        <span class="btn btn-danger"></span>
+                    </div>
+                </div><!-- #sidebar-shortcuts -->
+                <!--Left Menu-->
+                <ul class="nav nav-list">
+
+                    <li>
+                        <a href="handle_service.html">
+                            <i class="icon-briefcase"></i>
+                            <span class="menu-text"> 业务办理 </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="cards_info_list.html" class="dropdown-toggle">
+                            <i class="icon-credit-card"></i>
+                            <span class="menu-text"> 港运通信息库 </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="overload.html">
+                            <i class="icon-truck"></i>
+                            <span class="menu-text"> 超载超限信息库 </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:();" class="dropdown-toggle">
+                            <i class="icon-cogs"></i>
+                            <span class="menu-text"> 系统管理 </span>
+
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
+
+                        <ul class="submenu">
+                            <li>
+                                <a href="logs.html">
+                                    <i class="icon-file-alt"></i>
+                                    日志管理
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="accountManage.html">
+                                    <i class="icon-user"></i>
+                                    账户管理
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="securityManage.html">
+                                    <i class="icon-key"></i>
+                                    修改密码
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul><!-- /.nav-list -->
+
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                </div>
+
+                <script type="text/javascript">
+                    try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+                </script>
+            </div>
+
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <script type="text/javascript">
+                        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                    </script>
+
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li class="active">控制台</li>
+                    </ul><!-- .breadcrumb -->
+
+                </div>
+
+                <div class="page-content">
+                    <!-- /.page-header -->
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- PAGE CONTENT BEGINS -->
+
+                            <div class="row">
+                                <div class="col-sm-12 infobox-container">
+
+                                    <div class="infobox infobox-green">
+                                        <div class="infobox-icon">
+                                            <i class="icon-credit-card"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">29800</span>
+                                            <div class="infobox-content">港运通总量</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="infobox infobox-green2  ">
+                                        <div class="infobox-icon">
+                                            <i class="icon-wrench"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">11</span>
+                                            <div class="infobox-content">本月整改完成</div>
+                                        </div>
+
+                                        <div class="badge badge-success">
+                                            +32%
+                                            <i class="icon-arrow-up"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="infobox infobox-pink  ">
+                                        <div class="infobox-icon">
+                                            <i class="icon-camera"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">30</span>
+                                            <div class="infobox-content">本月违法记录</div>
+                                        </div>
+                                        <div class="stat stat-important">4%</div>
+                                    </div>
+
+                                    <div class="infobox infobox-red  ">
+                                        <div class="infobox-icon">
+                                            <i class="icon-bookmark"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">212</span>
+                                            <div class="infobox-content">本月受理申请</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="infobox infobox-orange2  ">
+                                        <div class="infobox-icon">
+                                            <i class="icon-download-alt"></i>
+                                        </div>
+
+                                        <div class="infobox-data">
+                                            <span class="infobox-data-number">200</span>
+                                            <div class="infobox-content">本月完成办理</div>
+                                        </div>
+
+                                        <div class="badge badge-success">
+                                            7.2%
+                                            <i class="icon-arrow-up"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 ui-sortable">
+                                    <div class="widget-box">
+                                        <div class="widget-header header-color-red">
+                                            <h5 class="bigger lighter">
+                                                <i class="icon-table"></i>
+                                                待办申请
+                                            </h5>
+
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main no-padding">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead class="thin-border-bottom">
+                                                        <tr>
+                                                            <th>
+                                                                <i class="icon-suitcase"></i>
+                                                                申办公司
+                                                            </th>
+
+                                                            <th>
+                                                                申办车牌
+                                                            </th>
+                                                            <th class="hidden-480">审查状态</th>
+                                                            <th class="hidden-480"></th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-suitcase"></i>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="label label-sm label-info">粤BB0888</span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-success arrowed-in-right">
+                                                                <i class="icon-ok">通过</i>
+                                                            </span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-success" href="javascript:;">办理</a>
+                                                        </td>
+                                                    </tr>
+                                                        
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-suitcase"></i>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="label label-sm label-info">粤BB0888</span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                             <span class="label label-success arrowed-in-right">
+                                                                <i class="icon-ok">通过</i>
+                                                            </span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-success" href="javascript:;">办理</a>
+                                                        </td>
+                                                    </tr>
+                                                        
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-suitcase"></i>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="label label-sm label-info">粤BB0888</span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                             <span class="label label-success arrowed-in-right">
+                                                                <i class="icon-ok">通过</i>
+                                                            </span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-success" href="javascript:;">办理</a>
+                                                        </td>
+                                                    </tr>
+                                                        
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-suitcase"></i>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="label label-sm label-info">粤BB0888</span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                             <span class="label label-success arrowed-in-right">
+                                                                <i class="icon-ok">通过</i>
+                                                            </span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-success" href="javascript:;">办理</a>
+                                                        </td>
+                                                    </tr>
+                                                        
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-suitcase"></i>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+
+                                                        <td>
+                                                            <span class="label label-sm label-info">粤BB0888</span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                             <span class="label label-success arrowed-in-right">
+                                                                <i class="icon-ok">通过</i>
+                                                            </span>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-success" href="javascript:;">办理</a>
+                                                        </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div id="container" style="min-width:280px;height:280px"></div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 ui-sortable">
+                                    <div class="widget-box">
+                                        <div class="widget-header header-color-blue">
+                                            <h5 class="bigger lighter">
+                                                <i class=" icon-search"></i>
+                                                审查记录
+                                            </h5>
+
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main no-padding">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead class="thin-border-bottom">
+                                                        <tr>
+                                                            <th>
+                                                                <i class="icon-eye-open"></i>
+                                                                申办批次
+                                                            </th>
+
+                                                            <th>
+                                                                审查企业
+                                                            </th>
+                                                            <th>审查车辆</th>
+                                                            <th class="hidden-480">Status</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <i class="icon-eye-open"></i>
+                                                                102302
+                                                            </td>
+
+                                                            <td>
+                                                                深圳市XXX物流有限公司
+                                                            </td>
+                                                            <td><span class="label label-sm label-info">粤BB0888</span></td>
+                                                            <td class="hidden-480">
+                                                                <span class="label label-sm label-danger">
+                                                                    <i class="icon-ban-circle"> 未通过</i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <i class="icon-eye-open"></i>
+                                                                102302
+                                                            </td>
+
+                                                            <td>
+                                                                深圳市XXX物流有限公司
+                                                            </td>
+                                                            <td><span class="label label-sm label-info">粤BB0888</span></td>
+                                                            <td class="hidden-480">
+                                                                <span class="label label-sm label-danger">
+                                                                    <i class="icon-ban-circle"> 未通过</i>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-eye-open"></i>
+                                                            102302
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+                                                        <td><span class="label label-sm label-info">粤BB0888</span></td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-sm label-danger">
+                                                                <i class="icon-ban-circle"> 未通过</i>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-eye-open"></i>
+                                                            102302
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+                                                        <td><span class="label label-sm label-info">粤BB0888</span></td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-sm label-danger">
+                                                                <i class="icon-ban-circle"> 未通过</i>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                        
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-eye-open"></i>
+                                                            102302
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX物流有限公司
+                                                        </td>
+                                                        <td><span class="label label-sm label-info">粤BB0888</span></td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-sm label-danger">
+                                                                <i class="icon-ban-circle"> 未通过</i>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-6 ui-sortable">
+                                    <div class="widget-box">
+                                        <div class="widget-header header-color-dark">
+                                            <h5 class="bigger lighter">
+                                                <i class="icon-legal"></i>
+                                                待整改车辆
+                                            </h5>
+
+                                        </div>
+
+                                        <div class="widget-body">
+                                            <div class="widget-main no-padding">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead class="thin-border-bottom">
+                                                        <tr>
+                                                            <th>
+                                                                <i class="icon-truck"></i>
+                                                                车牌号
+                                                            </th>
+
+                                                            <th>
+                                                                所属公司
+                                                            </th>
+                                                            <th class="hidden-480">违法记录</th>
+                                                            <th class="hidden-480">处理进度</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-truck"></i>
+                                                            粤BB0281
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX运输公司
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-link" href="#">2次违法记录</a>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-warning">已通知</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-truck"></i>
+                                                            粤BB0281
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX运输公司
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-link" href="#">2次违法记录</a>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-danger">已记录</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-truck"></i>
+                                                            粤BB0281
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX运输公司
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-link" href="#">2次违法记录</a>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-danger">已记录</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <i class="icon-truck"></i>
+                                                            粤BB0281
+                                                        </td>
+
+                                                        <td>
+                                                            深圳市XXX运输公司
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <a class="btn btn-minier btn-link" href="#">2次违法记录</a>
+                                                        </td>
+                                                        <td class="hidden-480">
+                                                            <span class="label label-success">已整改</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- PAGE CONTENT ENDS -->
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.page-content -->
+            </div><!-- /.main-content -->
+
+            <div class="ace-settings-container" id="ace-settings-container">
+                <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
+                    <i class="icon-cog bigger-150"></i>
+                </div>
+
+                <div class="ace-settings-box" id="ace-settings-box">
+                    <div>
+                        <div class="pull-left">
+                            <select id="skin-colorpicker" class="hide">
+                                <option data-skin="default" value="#438EB9">#438EB9</option>
+                                <option data-skin="skin-1" value="#222A2D">#222A2D</option>
+                                <option data-skin="skin-2" value="#C6487E">#C6487E</option>
+                                <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
+                            </select>
+                        </div>
+                        <span>&nbsp; 选择皮肤</span>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
+                        <label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
+                        <label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
+                        <label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
+                        <label class="lbl" for="ace-settings-rtl">切换到左边</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
+                        <label class="lbl" for="ace-settings-add-container">
+                            切换窄屏
+                            <b></b>
+                        </label>
+                    </div>
+                </div>
+            </div><!-- /#ace-settings-container -->
+        </div><!-- /.main-container-inner -->
+
+        <a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="icon-double-angle-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+    <!--[if !IE]> -->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
+    </script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+        </script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+    </script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/typeahead-bs2.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+
+    <script type="text/javascript">
+            $(function () {
+                $('#container').highcharts({
+                    credits: {
+                        enabled: false
+                    },
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: '行业分布占比',
+                        floating: true,
+                        align: 'right',
+                        x: 0,
+                        y: 50
+                    },
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'top',
+                        layout: 'vertical',
+                        x: 0,
+                        y: 100
+                    },
+                    tooltip: {
+                        headerFormat: '{series.name}<br>',
+                        pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: '行业分布占比',
+                        data: [
+                            ['普通货运', 45.0],
+                            ['货物专用运输（罐式）', 11],
+                            ['货物专用运输（集装箱）', 44]
+                        ]
+                    }]
+                });
+            });
+
+    </script>
+
+    <!--[if lte IE 8]>
+        <script src="assets/js/excanvas.min.js"></script>
+    <![endif]-->
+    <!-- ace scripts -->
+
+    <script src="assets/js/ace-elements.min.js"></script>
+    <script src="assets/js/ace.min.js"></script>
+
+    <!-- inline scripts related to this page -->
+
+    <script src="assets/js/highcharts/highcharts.js"></script>
+    <script src="assets/js/highcharts/exporting.js"></script>
+    <script src="assets/js/highcharts/highcharts-zh_CN.js"></script>
+</body>
+</html>
