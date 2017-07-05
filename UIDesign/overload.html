@@ -1,25 +1,25 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>超载超限信息管理</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- basic styles -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
 
     <!--[if IE 7]>
-        <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+        <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css"/>
     <![endif]-->
     <!-- page specific plugin styles -->
     <!-- ace styles -->
 
-    <link rel="stylesheet" href="assets/css/ace.min.css" />
-    <link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
-    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="assets/css/ace.min.css"/>
+    <link rel="stylesheet" href="assets/css/ace-rtl.min.css"/>
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css"/>
 
     <!--[if lte IE 8]>
-        <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+        <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
     <![endif]-->
     <!-- inline styles related to this page -->
     <!-- ace settings handler -->
@@ -36,12 +36,15 @@
 <body>
 <div class="navbar navbar-default" id="navbar">
     <script type="text/javascript">
-        try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+        try {
+            ace.settings.check('navbar', 'fixed')
+        } catch (e) {
+        }
     </script>
 
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
-            <a href="javascript:();" class="navbar-brand">
+            <a href="index.html" class="navbar-brand">
                 <small>
                     <i class="icon-leaf"></i>
                     后台管理系统
@@ -53,7 +56,7 @@
             <ul class="nav ace-nav">
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="javascript:();" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+                        <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo"/>
                         <span class="user-info">
                             <small>欢迎光临,</small>
                             朱成强
@@ -102,7 +105,10 @@
 
 <div class="main-container" id="main-container">
 <script type="text/javascript">
-    try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+    try {
+        ace.settings.check('main-container', 'fixed')
+    } catch (e) {
+    }
 </script>
 
 <div class="main-container-inner">
@@ -112,7 +118,10 @@
 
 <div class="sidebar" id="sidebar">
     <script type="text/javascript">
-        try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+        try {
+            ace.settings.check('sidebar', 'fixed')
+        } catch (e) {
+        }
     </script>
 
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -150,24 +159,57 @@
         <li>
             <a href="handle_service.html">
                 <i class="icon-briefcase"></i>
-                <span class="menu-text"> 业务办理 </span>
+                <span class="menu-text"> 港运通业务办理 </span>
             </a>
         </li>
-
         <li>
-            <a href="cards_info_list.html" class="dropdown-toggle">
+            <a href="javascript:();" class="dropdown-toggle">
                 <i class="icon-credit-card"></i>
-                <span class="menu-text"> 港运通信息库 </span>
-            </a>
-        </li>
+                <span class="menu-text"> 港运通数据管理 </span>
 
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="logs.html">
+                        <i class="icon-file-alt"></i>
+                        港运通信息数据库
+                    </a>
+                </li>
+
+                <li>
+                    <a href="accountManage.html">
+                        <i class="icon-file-alt"></i>
+                        港运通成功办理信息数据库
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li>
-            <a href="overload.html">
-                <i class="icon-truck"></i>
-                <span class="menu-text"> 超载超限信息库 </span>
-            </a>
-        </li>
+            <a href="javascript:();" class="dropdown-toggle">
+                <i class="icon-credit-card"></i>
+                <span class="menu-text"> 超载超限数据管理 </span>
 
+                <b class="arrow icon-angle-down"></b>
+            </a>
+            <ul class="submenu">
+                <li>
+                    <a href="logs.html">
+                        <i class="icon-file-alt"></i>
+                        超载超限信息数据库
+                    </a>
+                </li>
+
+                <li>
+                    <a href="accountManage.html">
+                        <i class="icon-file-alt"></i>
+                        超载超限整改信息数据库
+                    </a>
+                </li>
+            </ul>
+
+        </li>
         <li>
             <a href="javascript:();" class="dropdown-toggle">
                 <i class="icon-cogs"></i>
@@ -208,14 +250,20 @@
     </div>
 
     <script type="text/javascript">
-        try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+        try {
+            ace.settings.check('sidebar', 'collapsed')
+        } catch (e) {
+        }
     </script>
 </div>
 
 <div class="main-content">
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">
-        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+        try {
+            ace.settings.check('breadcrumbs', 'fixed')
+        } catch (e) {
+        }
     </script>
 
     <ul class="breadcrumb">
@@ -254,7 +302,7 @@
                 <span class="">批量导入</span>
             </i>
         </a>
-                                            
+
         <a class="white" href="#">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
@@ -270,7 +318,7 @@
 <tr>
     <th class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </th>
@@ -293,7 +341,7 @@
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -310,15 +358,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -335,15 +383,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -360,15 +408,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -385,15 +433,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -410,15 +458,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -435,15 +483,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -460,15 +508,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -485,15 +533,15 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
-                                                
+
 <tr>
     <td class="center">
         <label>
-            <input type="checkbox" class="ace" />
+            <input type="checkbox" class="ace"/>
             <span class="lbl"></span>
         </label>
     </td>
@@ -510,7 +558,7 @@
     <td>-</td>
     <td>
         <a class="btn btn-info btn-sm btn-small" href="javascript:;">
-            <i class="icon-remove">移除</i> 
+            <i class="icon-remove">移除</i>
         </a>
     </td>
 </tr>
@@ -527,10 +575,20 @@
                         <i class="icon-double-angle-left"></i>
                     </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li class="next"><a href="#"><i class="icon-double-angle-right"></i></a></li>
+                <li class="active">
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li class="next">
+                    <a href="#">
+                        <i class="icon-double-angle-right"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -546,53 +604,6 @@
 </div><!-- /.page-content -->
 </div><!-- /.main-content -->
 
-<div class="ace-settings-container" id="ace-settings-container">
-    <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
-        <i class="icon-cog bigger-150"></i>
-    </div>
-
-    <div class="ace-settings-box" id="ace-settings-box">
-        <div>
-            <div class="pull-left">
-                <select id="skin-colorpicker" class="hide">
-                    <option data-skin="default" value="#438EB9">#438EB9</option>
-                    <option data-skin="skin-1" value="#222A2D">#222A2D</option>
-                    <option data-skin="skin-2" value="#C6487E">#C6487E</option>
-                    <option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
-                </select>
-            </div>
-            <span>&nbsp; 选择皮肤</span>
-        </div>
-
-        <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
-            <label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
-        </div>
-
-        <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
-            <label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
-        </div>
-
-        <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
-            <label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
-        </div>
-
-        <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
-            <label class="lbl" for="ace-settings-rtl">切换到左边</label>
-        </div>
-
-        <div>
-            <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
-            <label class="lbl" for="ace-settings-add-container">
-                切换窄屏
-                <b></b>
-            </label>
-        </div>
-    </div>
-</div><!-- /#ace-settings-container -->
 </div><!-- /.main-container-inner -->
 
 <a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
@@ -609,12 +620,13 @@
     <!-- <![endif]-->
     <!--[if IE]>
         <script type="text/javascript">
-            window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+            window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>" + "<" + "script>");
         </script>
     <![endif]-->
 
     <script type="text/javascript">
-        if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+        if ("ontouchend" in document)
+            document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/typeahead-bs2.min.js"></script>
