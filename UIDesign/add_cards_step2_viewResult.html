@@ -389,7 +389,7 @@
 </div><!-- /.main-container -->
 <!-- basic scripts -->
 <!--[if !IE]> -->
-
+    <script src="assets/js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
         window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
     </script>
@@ -400,7 +400,12 @@
             window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
         </script>
     <![endif]-->
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var result = "<%=request.getParameter('result')%>";
+            alert(result);
+        });
+    </script>
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
