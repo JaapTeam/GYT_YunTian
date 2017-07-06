@@ -402,6 +402,9 @@
     <![endif]-->
     <script type="text/javascript">
         $(document).ready(function() {
+            // 现在这不是以一个ASP.NET 网站运行的，你不能用这种获取方式，先不要做这个处理。
+            // 这只是给客户看的代码，没必要写到这个程度
+            // 能够有个样子就行了。没必要做到结果完全正确。
             var result = "<%=request.getParameter('result')%>";
             alert(result);
         });
@@ -413,9 +416,11 @@
     <script src="assets/js/typeahead-bs2.min.js"></script>
 
     <!-- page specific plugin scripts -->
+
     <!--[if lte IE 8]>
         <script src="assets/js/excanvas.min.js"></script>
     <![endif]-->
+
     <!-- ace scripts -->
 
     <script src="assets/js/ace-elements.min.js"></script>
