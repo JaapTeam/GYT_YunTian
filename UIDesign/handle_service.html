@@ -633,7 +633,7 @@
             if (box === "AL") {
                 var gasIllegal = $("#_sp_gas_Illegal").html();
                 var gasVerify = $("#_rd_gas_verify input:radio:checked").val();
-                if (gasIllegal === "否") {
+                if (gasIllegal === "是") {
                     return false;
                 }
                 if (gasVerify === "no") {
@@ -645,7 +645,7 @@
                 var transferIllegal = $("#_sp_transfer_Illegal").html();
                 var transferCancel = $("#_rd_transfer_cancel input:radio:checked").val(); 
                 var transferVerify = $("#_rd_gas_verify input:radio:checked").val();
-                if (transferIllegal === "否") {
+                if (transferIllegal === "是") {
                     return false;
                 }
                 if (transferCancel === "no") {
@@ -662,7 +662,7 @@
                 var newTransfer = $("#_rd_new_transfer input:radio:checked").val();
                 var newState = $("#_rd_new_state input:radio:checked").val();
                 var newInfo = $("#_rd_new_infor input:radio:checked").val();
-                if (newIllegal === "否") {
+                if (newIllegal === "是") {
                     return false;
                 }
                 if (newIQuota === "否") {

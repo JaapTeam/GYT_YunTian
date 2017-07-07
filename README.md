@@ -1,4 +1,4 @@
-## 任务日志
+﻿## 任务日志
 
 #### 2017/07/01
 ----
@@ -27,3 +27,7 @@
    
 #### 2017/07/06
  - [添加项目计划](https://github.com/orgs/JaapTeam/projects/1)
+
+#### 2017/07/08
+1.按需求修改完成业务办理界面
+ - ~~UIDesign/handle_service.html~~
