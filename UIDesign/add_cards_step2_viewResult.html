@@ -285,94 +285,91 @@
                         审查结果
                     </h3>
                     <form class="form-horizontal" role="form">
-                        <div class="alert alert-danger">
-                            <strong>
-                                <i class="icon-remove"></i>
-                                规则A:
-                            </strong>
+                       
+                        <div id="success"><div class="alert alert-danger">
+                                <strong>
+                                    <i class="icon-remove"></i>
+                                    规则A:
+                                </strong>
 
-                            申办企业名下车辆有超限超载违法记录！
-                            <br>
-                        </div>
+                                原企业名下车辆有超限超载违法记录！
+                                <br>
+                            </div>
+                            <div class="alert alert-danger">
+                                <strong>
+                                    <i class="icon-remove"></i>
+                                    规则A:
+                                </strong>
 
-                        <div class="alert alert-success">
-                            <strong>
-                                <i class="icon-ok"></i>
-                                规则A:
-                            </strong>
+                                申办企业名下车辆有超限超载违法记录！
+                                <br>
+                            </div>
+                            <div class="alert alert-danger">
+                                <strong>
+                                    <i class="icon-remove"></i>
+                                    规则B:
+                                </strong>
 
-                            申办企业名下车辆无超限超载违法记录！
-                            <br>
-                        </div>
+                                原车牌号已经进行过一次更换港运通!
+                                <br>
+                            </div>
+                            <div class="alert alert-danger">
+                                <strong>
+                                    <i class="icon-remove"></i>
+                                    规则B:
+                                </strong>
 
-                        <div class="alert alert-danger">
-                            <strong>
-                                <i class="icon-remove"></i>
-                                规则A:
-                            </strong>
+                                车辆年审不符合要求！
+                                <br>
+                            </div>
+                            <div class="alert alert-danger">
+                                <strong>
+                                    <i class="icon-remove"></i>
+                                    规则A:
+                                </strong>
 
-                            原企业名下车辆有超限超载违法记录！
-                            <br>
-                        </div>
+                                公司名下车辆有超限超载违法记录！
+                                <br>
+                            </div>
+                            <div class="alert alert-success">
+                                <strong>
+                                    <i class="icon-ok"></i>
+                                    规则A:
+                                </strong>
 
-                        <div class="alert alert-success">
-                            <strong>
-                                <i class="icon-ok"></i>
-                                规则A:
-                            </strong>
+                                原企业名下车辆无超限超载违法记录！
+                                <br>
+                            </div></div>
+                        <div id="fail">
+                            <div class="alert alert-success">
+                                <strong>
+                                    <i class="icon-ok"></i>
+                                    规则A:
+                                </strong>
 
-                            原企业名下车辆无超限超载违法记录！
-                            <br>
-                        </div>
+                                申办企业名下车辆无超限超载违法记录！
+                                <br>
+                            </div>
 
-                        <div class="alert alert-danger">
-                            <strong>
-                                <i class="icon-remove"></i>
-                                规则B:
-                            </strong>
+                            <div class="alert alert-success">
+                                <strong>
+                                    <i class="icon-ok"></i>
+                                    规则B:
+                                </strong>
 
-                            原车牌号已经进行过一次更换港运通!
-                            <br>
-                        </div>
-
-                        <div class="alert alert-danger">
-                            <strong>
-                                <i class="icon-remove"></i>
-                                规则B:
-                            </strong>
-
-                            车辆年审不符合要求！
-                            <br>
-                        </div>
-
-                        <div class="alert alert-success">
-                            <strong>
-                                <i class="icon-ok"></i>
-                                规则B:
-                            </strong>
-
-                            车辆年审符合要求！
-                            <br>
-                        </div>
-
-                        <div class="alert alert-danger">
-                            <strong>
-                                <i class="icon-remove"></i>
-                                规则A:
-                            </strong>
-
-                            公司名下车辆有超限超载违法记录！
-                            <br>
-                        </div>
-
-                        <div class="clearfix form-actions">
-                            <div class="col-md-offset-5 col-md-9">
-                                <button class="btn btn-info" type="button">
-                                    <i class="icon-indent-right bigger-110"></i>
-                                    保存
-                                </button>
+                                车辆年审符合要求！
+                                <br>
+                            </div>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-5 col-md-9">
+                                    <button class="btn btn-info" type="button">
+                                        <i class="icon-indent-right bigger-110"></i>
+                                        保存
+                                    </button>
+                                </div>
                             </div>
                         </div>
+ 
                     </form>
                 </div>
                 <!-- PAGE CONTENT ENDS -->
@@ -405,9 +402,15 @@
             // 现在这不是以一个ASP.NET 网站运行的，你不能用这种获取方式，先不要做这个处理。
             // 这只是给客户看的代码，没必要写到这个程度
             // 能够有个样子就行了。没必要做到结果完全正确。
-            var result = "<%=request.getParameter('result')%>";
+            var result = getUrlParam("result");
             alert(result);
         });
+
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
     </script>
     <script type="text/javascript">
         if ("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
