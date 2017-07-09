@@ -1,0 +1,15 @@
+﻿@using Abp.Web.Mvc.Extensions
+@model LearningForAbp.Web.Models.Tasks.IndexViewModel
+    
+@{
+    ViewBag.Title = L("TaskList");
+    ViewBag.ActiveMenu = "TaskList"; //Matches with the menu name in SimpleTaskAppNavigationProvider to highlight the menu item
+}
+
+
+<h2>
+    <!--任务清单展示-->
+    <div class="row" id="taskList">
+        @{ Html.RenderPartial("_List", Model.Tasks); }
+    </div>
+</h2>
