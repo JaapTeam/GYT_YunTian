@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="assets/css/ace-skins.min.css"/>
     <link rel="stylesheet" href="assets/css/datepicker.css"/>
     <link rel="stylesheet" href="assets/css/chosen.css"/>
-
+    <link href="assets/css/daterangepicker.css" rel="stylesheet"/>
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
     <![endif]-->
@@ -285,8 +285,24 @@
 <div class="col-xs-12">
 <!-- PAGE CONTENT BEGINS -->
 <div class="div-inline">
+<div class="div-inline">
+    <div class="input-group col-xs-5">
+        <span>查询时间：</span>
+        <span class="input-group-addon">
+                <i class="icon-calendar bigger-110"></i>
+            </span>
+
+        <input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1">
+    </div>
+    <div>
+        <button type="submit" class="btn btn-small btn-info icon-search" style="margin-left: 20px; height: 34px; border: none">查询</button>
+    </div>
+</div>
+
+
+<div class="div-inline">
     <div class="div-inline" style="height: 50px; line-height: 45px">
-        公司名称：
+        <span style="margin-left: 10px">公司名称：</span>
         <select class=" chosen-select" style="display: none; width: 200px">
             <option value="">&nbsp;</option>
             <option value="AL">深圳驹马物流公司</option>
@@ -306,29 +322,6 @@
 
     </div>
 
-    <ul style="margin-left: 0px">
-        <li class="list-unstyled" style="float: left">违法日期：</li>
-        <li class="list-unstyled" style="float: left">
-            <div class="input-group input-group-sm" style="width: 200px;">
-                <input type="text" class="form-control hasDatepicker">
-                <span class="input-group-addon">
-                                                <i class="icon-calendar"></i>
-                                            </span>
-            </div>
-        </li>
-
-        <li class="list-unstyled" style="float: left; margin-left: 5px"> 至：</li>
-        <li class="list-unstyled" style="float: left">
-            <div class="input-group input-group-sm" style="width: 200px;">
-                <input type="text" class="form-control hasDatepicker">
-                <span class="input-group-addon">
-                                                <i class="icon-calendar"></i>
-                                            </span>
-            </div>
-        </li>
-    </ul>
-
-    <button type="submit" class="btn btn-small btn-info icon-search" style="margin-left: 20px; margin-top: -20px">查询</button>
 </div>
 
 <div class="table-header" style="margin-top: 20px">
@@ -406,6 +399,33 @@
                 <span class="label label-sm label-success">已整改</span>
             </td>
         </tr>
+            <tr>
+                <td class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;">102401</a>
+                </td>
+                <td>深圳市XXX货物运输有限公司</td>
+                <td>
+                    <span class="label label-sm label-warning">粤BBY833</span>
+                </td>
+                <td>物流</td>
+                <td>张三</td>
+                <td>
+                    2017/06/25
+                </td>
+                <td>深圳超限</td>
+                <td>25</td>
+                <td>8</td>
+                <td>深圳7月超限信息</td>
+                <td>
+                    <span class="label label-sm label-success">已整改</span>
+                </td>
+            </tr>
         <tr>
             <td class="center">
                 <label>
@@ -434,6 +454,33 @@
                 <span class="label label-sm label-success">已整改</span>
             </td>
         </tr>
+            <tr>
+                <td class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;">102401</a>
+                </td>
+                <td>深圳市XXX货物运输有限公司</td>
+                <td>
+                    <span class="label label-sm label-warning">粤BBY833</span>
+                </td>
+                <td>物流</td>
+                <td>张三</td>
+                <td>
+                    2017/06/25
+                </td>
+                <td>深圳超限</td>
+                <td>25</td>
+                <td>8</td>
+                <td>深圳7月超限信息</td>
+                <td>
+                    <span class="label label-sm label-success">已整改</span>
+                </td>
+            </tr>
         <tr>
             <td class="center">
                 <label>
@@ -461,6 +508,33 @@
                 <span class="label label-sm label-success">已整改</span>
             </td>
         </tr>
+            <tr>
+                <td class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;">102401</a>
+                </td>
+                <td>深圳市XXX货物运输有限公司</td>
+                <td>
+                    <span class="label label-sm label-warning">粤BBY833</span>
+                </td>
+                <td>物流</td>
+                <td>张三</td>
+                <td>
+                    2017/06/25
+                </td>
+                <td>深圳超限</td>
+                <td>25</td>
+                <td>8</td>
+                <td>深圳7月超限信息</td>
+                <td>
+                    <span class="label label-sm label-success">已整改</span>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -523,39 +597,13 @@
         if ("ontouchend" in document)
             document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
     </script>
-    <script type="text/javascript">
-        jQuery(function($) {
 
-            $(".hasDatepicker")
-                .datepicker({
-                    showOtherMonths: true,
-                    selectOtherMonths: false,
-                    //isRTL:true,
-                    /*
-                    changeMonth: true,
-                    changeYear: true,
-
-                    showButtonPanel: true,
-                    beforeShow: function() {
-                        //change button colors
-                        var datepicker = $(this).datepicker( "widget" );
-                        setTimeout(function(){
-                            var buttons = datepicker.find('.ui-datepicker-buttonpane')
-                            .find('button');
-                            buttons.eq(0).addClass('btn btn-xs');
-                            buttons.eq(1).addClass('btn btn-xs btn-success');
-                            buttons.wrapInner('<span class="bigger-110" />');
-                        }, 0);
-                    }
-            */
-                });
-        });
-    </script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/typeahead-bs2.min.js"></script>
 
     <!-- page specific plugin scripts -->
-
+    <script src="assets/js/date-time/daterangepicker.min.js"></script>
+    <script src="assets/js/date-time/moment.min.js"></script>
     <script src="assets/js/jquery.dataTables.min.js"></script>
     <script src="assets/js/jquery.dataTables.bootstrap.js"></script>
     <script src="assets/js/date-time/bootstrap-datepicker.min.js"></script>
@@ -572,7 +620,13 @@
 
     <script type="text/javascript">
         jQuery(function($) {
-
+            $('input[name=date-range-picker]')
+                .daterangepicker()
+                .prev()
+                .on(ace.click_event,
+                    function() {
+                        $(this).next().focus();
+                    });
 
             $(".chosen-select").chosen();
 
@@ -615,3 +669,4 @@
 
     </body>
     </html>
+</div>
