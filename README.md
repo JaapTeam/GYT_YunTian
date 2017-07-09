@@ -1,4 +1,4 @@
-### 2017/07/01 (Paul Yang)
+﻿### 2017/07/01 (Paul Yang)
 ----
 1. 完成空白页面及其附属页面设计
  - UIDesign\card_company_list.html
@@ -6,3 +6,5 @@
  - UIDesign\trade_list.html
  - UIDesign\truck_category_list.html
  - UIDesign\truck_list.html
+
+2. rebase
