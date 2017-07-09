@@ -31,6 +31,8 @@ namespace LearningForAbp
                 .LifestyleTransient());
 
             // 解析依赖，并进行映射规则创建
+
+           
             Configuration.Modules.AbpAutoMapper().Configurators.Add(mapper =>
             {
                 var mappers = IocManager.IocContainer.ResolveAll<IDtoMapping>();
