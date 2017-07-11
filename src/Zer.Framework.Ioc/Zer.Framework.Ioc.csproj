@@ -7,8 +7,8 @@
     <ProjectGuid>{9C3474F2-8429-4DD0-AFE7-9EE60952A5D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS.Framework.Ioc</RootNamespace>
-    <AssemblyName>DMS.Framework.Ioc</AssemblyName>
+    <RootNamespace>Zer.Framework.Ioc</RootNamespace>
+    <AssemblyName>Zer.Framework.Ioc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

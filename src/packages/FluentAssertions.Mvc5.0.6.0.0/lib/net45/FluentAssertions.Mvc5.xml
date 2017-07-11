@@ -1,0 +1,544 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FluentAssertions.Mvc5</name>
+    </assembly>
+    <members>
+        <member name="T:FluentAssertions.Mvc.ActionResultAssertions">
+            <summary>
+            Contains a number of methods to assert that an <see cref="T:System.Web.Mvc.ActionResult"/> is in the expected state.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.#ctor(System.Web.Mvc.ActionResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ActionResultAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeContentResult">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.ContentResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeContentResult(System.String,System.Object[])">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.ContentResult"/>.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeEmptyResult">
+            <summary>
+            Asserts that the subject is an <see cref="T:System.Web.Mvc.EmptyResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeEmptyResult(System.String,System.Object[])">
+            <summary>
+            Asserts that the subject is an <see cref="T:System.Web.Mvc.EmptyResult"/>.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeRedirectToRouteResult">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.RedirectToRouteResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeRedirectToRouteResult(System.String,System.Object[])">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.RedirectToRouteResult"/>.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BePartialViewResult">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.PartialViewResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BePartialViewResult(System.String,System.Object[])">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.PartialViewResult"/>.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeRedirectResult">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.RedirectResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeRedirectResult(System.String,System.Object[])">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.RedirectResult"/>.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeViewResult">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.ViewResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ActionResultAssertions.BeViewResult(System.String,System.Object[])">
+            <summary>
+            Asserts that the subject is a <see cref="T:System.Web.Mvc.ViewResult"/>.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="T:FluentAssertions.Mvc.AssertionsExtensions">
+            <summary>
+            Contains extension methods for custom assertions in unit tests.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.AssertionsExtensions.Should(System.Web.Mvc.ActionResult)">
+            <summary>
+            Returns an <see cref="T:FluentAssertions.Mvc.ActionResultAssertions"/> object that can be used to assert the
+            current <see cref="T:System.Web.Mvc.ActionResult"/>.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.AssertionsExtensions.Should(System.Web.Routing.RouteData)">
+            <summary>
+            Returns an <see cref="T:FluentAssertions.Mvc.RouteDataAssertions"/> object that can be used to assert the
+            current <see cref="T:System.Web.Routing.RouteData"/>.
+            </summary>
+        </member>
+        <member name="T:FluentAssertions.Mvc.ContentResultAssertions">
+            <summary>
+            Contains a number of methods to assert that a <see cref="T:System.Web.Mvc.ContentResult"/> is in the expected state.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ContentResultAssertions.#ctor(System.Web.Mvc.ContentResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ContentResultAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ContentResultAssertions.WithContent(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the content is exactly the same as the expected content, ignoring the casing.
+            </summary>
+            <param name="expectedContent">The expected content string.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ContentResultAssertions.WithContentType(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the content type is the expected content type.
+            </summary>
+            <param name="expectedContentType">The expected content type.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ContentResultAssertions.WithContentEncoding(System.Text.Encoding,System.String,System.Object[])">
+            <summary>
+            Asserts that the content encoding is the expected content encoding type.
+            </summary>
+            <param name="expectedEncoding">The expected content encoding type.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="T:FluentAssertions.Mvc.FailureMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.CommonFailMessage">
+            <summary>
+              Looks up a localized string similar to Expected {0} to be &apos;{1}&apos; but found &apos;{2}&apos;.
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.RouteData_DataTokens_ContainsKey">
+            <summary>
+              Looks up a localized string similar to RouteData.DataTokens does not contain key {0}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.RouteData_DataTokens_HaveValue">
+            <summary>
+              Looks up a localized string similar to Expected RouteData.DataTokens[{0}] to have value {1}, but found {2}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.RouteData_Values_ContainsKey">
+            <summary>
+              Looks up a localized string similar to RouteData.Values does not contain key {0}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.RouteData_Values_HaveValue">
+            <summary>
+              Looks up a localized string similar to Expected RouteData.Values[{0}] to have value {1}, but found {2}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ViewResult_MasterName">
+            <summary>
+              Looks up a localized string similar to Expected MasterName to be {0} but found {1}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ViewResultBase_NullModel">
+            <summary>
+              Looks up a localized string similar to Expected Model to be of type {0}, but no Model was supplied..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ViewResultBase_ViewData_ContainsKey">
+            <summary>
+              Looks up a localized string similar to ViewData does not contain key of {0}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ViewResultBase_ViewData_HaveValue">
+            <summary>
+              Looks up a localized string similar to Expected ViewData[{0}] to have value {1}, but found {2}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ViewResultBase_ViewName">
+            <summary>
+              Looks up a localized string similar to Expected ViewName to be {0} but found {1}..
+            </summary>
+        </member>
+        <member name="P:FluentAssertions.Mvc.FailureMessages.ViewResultBase_WithDefaultViewName">
+            <summary>
+              Looks up a localized string similar to Expected default view, but view {0} was rendered..
+            </summary>
+        </member>
+        <member name="T:FluentAssertions.Mvc.ViewResultBaseAssertions`1">
+            <summary>
+            Contains a number of methods to assert that a <see cref="T:System.Web.Mvc.ViewResultBase"/> is in the expected state.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultBaseAssertions`1.#ctor(System.Web.Mvc.ViewResultBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ViewResultBaseAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultBaseAssertions`1.WithViewName(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the view name is the expected view name.
+            </summary>
+            <param name="expectedViewName">The view name.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultBaseAssertions`1.WithViewData(System.String,System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that the view data contains the expected data.
+            </summary>
+            <param name="key">The expected view data key.</param>
+            <param name="expectedValue">The expected view data.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultBaseAssertions`1.WithTempData(System.String,System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that the temp data contains the expected data.
+            </summary>
+            <param name="key">The expected temp data key.</param>
+            <param name="expectedValue">The expected temp data.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultBaseAssertions`1.ModelAs``1">
+            <summary>
+            Asserts the model is of the expected type.
+            </summary>
+            <typeparam name="TModel">The expected type.</typeparam>
+            <returns>The typed model.</returns>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultBaseAssertions`1.WithDefaultViewName(System.String,System.Object[])">
+            <summary>
+            Asserts that the default view will be used.
+            </summary>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="P:FluentAssertions.Mvc.ViewResultBaseAssertions`1.Model">
+            <summary>
+            The model.
+            </summary>
+        </member>
+        <member name="T:FluentAssertions.Mvc.RedirectResultAssertions">
+            <summary>
+            Contains a number of methods to assert that a <see cref="T:System.Web.Mvc.RedirectResult"/> is in the expected state.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectResultAssertions.#ctor(System.Web.Mvc.RedirectResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RedirectResultAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectResultAssertions.WithUrl(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the url is the expected url.
+            </summary>
+            <param name="expectedUrl">The expected url.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectResultAssertions.WithPermanent(System.Boolean,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect is permanent.
+            </summary>
+            <param name="expectedPermanent">Should the expected redirect be permanent.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="T:FluentAssertions.Mvc.RedirectToRouteAssertions">
+            <summary>
+            Contains a number of methods to assert that a <see cref="T:System.Web.Mvc.RedirectToRouteResult"/> is in the expected state.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.#ctor(System.Web.Mvc.RedirectToRouteResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ContentResultAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.WithPermanent(System.Boolean,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect is permanent.
+            </summary>
+            <param name="expectedPermanent">Should the redirect be permanent.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.WithRouteName(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect has the expected route name.
+            </summary>
+            <param name="expectedRouteName">The expected route name.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.WithRouteValue(System.String,System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect has the expected route value.
+            </summary>
+            <param name="key">The expected route value key.</param>
+            <param name="expectedValue">The expected route value.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.WithController(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect has the expected controller name.
+            </summary>
+            <param name="expectedControllerName">The expected controller name.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.WithAction(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect has the expected action.
+            </summary>
+            <param name="expectedAction">The expected action.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RedirectToRouteAssertions.WithArea(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the redirect has the expected area.
+            </summary>
+            <param name="expectedArea">The expected area.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="P:FluentAssertions.Mvc.RedirectToRouteAssertions.Context">
+            <summary>
+            Returns the type of the subject the assertion applies on.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RouteDataAssertions.#ctor(System.Web.Routing.RouteData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RouteDataAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RouteDataAssertions.HaveController(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the route data has the expected controller name.
+            </summary>
+            <param name="expectedControllerName">The expected controller name.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RouteDataAssertions.HaveAction(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the route data has the expected action name.
+            </summary>
+            <param name="expectedActionName">The expected action name.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RouteDataAssertions.HaveDataToken(System.String,System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that the route data has the expected data token.
+            </summary>
+            <param name="key">The expected data token key value.</param>
+            <param name="expectedValue">The expected data token value.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="M:FluentAssertions.Mvc.RouteDataAssertions.HaveValue(System.String,System.Object,System.String,System.Object[])">
+            <summary>
+            Asserts that the route data has the expected value.
+            </summary>
+            <param name="key">The expected key.</param>
+            <param name="expectedValue">The expected value.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+        <member name="T:FluentAssertions.Mvc.ViewResultAssertions">
+            <summary>
+            Contains a number of methods to assert that a <see cref="T:System.Web.Mvc.ViewResult"/> is in the expected state.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultAssertions.#ctor(System.Web.Mvc.ViewResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ViewResultAssertions" /> class.
+            </summary>
+        </member>
+        <member name="M:FluentAssertions.Mvc.ViewResultAssertions.WithMasterName(System.String,System.String,System.Object[])">
+            <summary>
+            Asserts that the master name is the expected master name.
+            </summary>
+            <param name="expectedMasterName">The expected master name.</param>
+            <param name="reason">
+            A formatted phrase as is supported by <see cref="M:System.String.Format(System.String,System.Object[])"/> explaining why the assertion 
+            is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+            </param>
+            <param name="reasonArgs">
+            Zero or more objects to format using the placeholders in <see cref="!:reason"/>.
+            </param>
+        </member>
+    </members>
+</doc>

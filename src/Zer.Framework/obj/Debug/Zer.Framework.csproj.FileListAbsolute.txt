@@ -14,3 +14,12 @@ C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework\bin\Debug\z
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework\obj\Debug\DMS.Framework.dll
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework\obj\Debug\DMS.Framework.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\bin\Debug\Webdiyer.MvcPager.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\bin\Debug\Webdiyer.MvcPager.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\bin\Debug\Zer.Framework.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\bin\Debug\Zer.Framework.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\obj\Debug\Zer.Framework.csprojResolveAssemblyReference.cache
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\obj\Debug\Zer.Framework.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework\obj\Debug\Zer.Framework.pdb

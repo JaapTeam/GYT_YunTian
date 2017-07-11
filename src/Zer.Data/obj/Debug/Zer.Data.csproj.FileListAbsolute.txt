@@ -26,3 +26,17 @@ C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Data\bin\Debug\Entity
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Data\obj\Debug\Zer.Data.csprojResolveAssemblyReference.cache
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Data\obj\Debug\DMS.Data.dll
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Data\obj\Debug\DMS.Data.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\EntityFramework.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\EntityFramework.Extended.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\EntityFramework.SqlServer.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\EntityFramework.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\EntityFramework.Extended.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\EntityFramework.SqlServer.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\obj\Debug\Zer.Data.csprojResolveAssemblyReference.cache
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\Zer.Data.dll.config
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\Zer.Data.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\Zer.Data.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\Zer.Entities.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\bin\Debug\Zer.Entities.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\obj\Debug\Zer.Data.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Data\obj\Debug\Zer.Data.pdb

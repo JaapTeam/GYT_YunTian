@@ -7,8 +7,8 @@
     <ProjectGuid>{875FC68E-339B-41F5-AE9C-CBE034918D8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS.Framework.Logs</RootNamespace>
-    <AssemblyName>DMS.Framework.Logs</AssemblyName>
+    <RootNamespace>Zer.Framework.Logs</RootNamespace>
+    <AssemblyName>Zer.Framework.Logs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

@@ -12,3 +12,11 @@ C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\De
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\Debug\log4net.xml
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\obj\Debug\DMS.Framework.Logs.dll
 C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\obj\Debug\DMS.Framework.Logs.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\bin\Debug\log4net.config
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\bin\Debug\log4net.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\bin\Debug\log4net.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\obj\Debug\Zer.Framework.Logs.csprojResolveAssemblyReference.cache
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\bin\Debug\Zer.Framework.Logs.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\bin\Debug\Zer.Framework.Logs.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\obj\Debug\Zer.Framework.Logs.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Logs\obj\Debug\Zer.Framework.Logs.pdb

@@ -7,8 +7,8 @@
     <ProjectGuid>{442CF3FC-3C02-424D-8726-41BAC8AF255D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS.Data</RootNamespace>
-    <AssemblyName>DMS.Data</AssemblyName>
+    <RootNamespace>Zer.Data</RootNamespace>
+    <AssemblyName>Zer.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

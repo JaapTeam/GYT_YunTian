@@ -7,8 +7,8 @@
     <ProjectGuid>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DMS.Framework</RootNamespace>
-    <AssemblyName>DMS.Framework</AssemblyName>
+    <RootNamespace>Zer.Framework</RootNamespace>
+    <AssemblyName>Zer.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -54,6 +54,7 @@
     <Compile Include="Extensions\IntExtension.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Extensions\StringFilterExtension.cs" />
     <Compile Include="IpHelper.cs" />
     <Compile Include="JsonData.cs" />
     <Compile Include="Md5Helper.cs" />
