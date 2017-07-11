@@ -1,0 +1,66 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\log4net.config
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Services.dll.config
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Services.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Services.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Data.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.Ioc.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.Logs.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.Web.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\EntityFramework.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\EntityFramework.Extended.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\EntityFramework.SqlServer.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\Autofac.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\log4net.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\Newtonsoft.Json.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Data.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.Ioc.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.Logs.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.Web.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\DMS.Framework.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\EntityFramework.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\EntityFramework.Extended.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\EntityFramework.SqlServer.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\Autofac.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\log4net.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\Newtonsoft.Json.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\obj\Debug\DMS.Services.csprojResolveAssemblyReference.cache
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\obj\Debug\DMS.Services.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\obj\Debug\DMS.Services.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\Webdiyer.MvcPager.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\Webdiyer.MvcPager.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Services\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\obj\Debug\DMS.Services.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\obj\Debug\DMS.Services.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\obj\Debug\DMS.Services.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\log4net.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Services.dll.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Services.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Services.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Data.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Entities.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.Extended.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Webdiyer.MvcPager.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Autofac.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\log4net.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Data.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Entities.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Ioc.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.Extended.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Webdiyer.MvcPager.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Autofac.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\log4net.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll

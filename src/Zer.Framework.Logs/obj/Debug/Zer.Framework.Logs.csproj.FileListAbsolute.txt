@@ -1,0 +1,14 @@
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\log4net.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\log4net.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\log4net.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\Debug\log4net.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\Debug\log4net.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\bin\Debug\log4net.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\obj\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Logs\obj\Debug\DMS.Framework.Logs.pdb

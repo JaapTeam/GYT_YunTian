@@ -1,0 +1,16 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Debug\log4net.config
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Debug\DMS.Framework.Logs.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Debug\DMS.Framework.Logs.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Debug\log4net.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Debug\log4net.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\log4net.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\log4net.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\bin\Debug\log4net.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Logs\obj\Debug\DMS.Framework.Logs.pdb

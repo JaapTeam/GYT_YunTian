@@ -1,0 +1,8 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Release\log4net.config
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Release\DMS.Framework.Logs.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Release\DMS.Framework.Logs.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Release\log4net.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\bin\Release\log4net.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\obj\Release\DMS.Framework.Logs.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\obj\Release\DMS.Framework.Logs.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Logs\obj\Release\DMS.Framework.Logs.csprojResolveAssemblyReference.cache

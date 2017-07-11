@@ -1,0 +1,14 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\DMS.Data.dll.config
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\DMS.Data.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\DMS.Data.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\EntityFramework.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\EntityFramework.Extended.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\EntityFramework.SqlServer.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\EntityFramework.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\EntityFramework.Extended.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Release\EntityFramework.SqlServer.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\obj\Release\DMS.Data.csprojResolveAssemblyReference.cache
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\obj\Release\DMS.Data.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\obj\Release\DMS.Data.pdb

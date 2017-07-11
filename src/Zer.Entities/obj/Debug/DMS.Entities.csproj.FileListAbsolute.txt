@@ -1,0 +1,22 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\DMS.Framework.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\DMS.Framework.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\obj\Debug\DMS.Entities.csprojResolveAssemblyReference.cache
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\obj\Debug\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\obj\Debug\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\Webdiyer.MvcPager.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\Webdiyer.MvcPager.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\DMS.Entities.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\DMS.Entities.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\DMS.Framework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\Webdiyer.MvcPager.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\DMS.Framework.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\Webdiyer.MvcPager.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\obj\Debug\DMS.Entities.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\obj\Debug\DMS.Entities.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Entities\obj\Debug\DMS.Entities.pdb
