@@ -10,10 +10,13 @@ namespace Zer.Services.Users
 {
     public interface IUserInfoService
     {
+
         UserInfoDto GetById(int userId);
         UserInfoDto GetByUserName(string userName);
-        bool VerifyUserNameAndPassword(string userName, string password);
+        LoginStatus VerifyUserNameAndPassword(string userName, string password);
 
         RegistResult Regist(string userName, string password);
+
+        bool ChangePassword(int userId, string newPassword);
     }
 }

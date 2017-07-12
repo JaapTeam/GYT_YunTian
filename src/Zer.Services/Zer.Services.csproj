@@ -65,6 +65,7 @@
     <Compile Include="Users\Dto\UserInfoDto.cs" />
     <Compile Include="Users\IUserInfoService.cs" />
     <Compile Include="Users\Dto\RegistResult.cs" />
+    <Compile Include="Users\Dto\LoginStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zer.Data\Zer.Data.csproj">

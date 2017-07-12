@@ -43,7 +43,19 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Login(string userName, string password)
         {
-            return View();
+            if (userName.CheckBadStr() || password.CheckBadStr())
+            {
+                throw new ArgumentException("参数含有非法字符！");
+            }
+
+            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName,password);
+
+            if (loginResult != LoginStatus.Success)
+            {
+                return View("Error");
+            }
+
+            return View("Success");
         }
     }
 }

@@ -37,7 +37,7 @@ namespace com.gyt.ms.Tests.Controllers
                 // Act
                 var actual = ctrl.Regist(username, password);
 
-                //// Assert
+                // Assert
                 actual.Should().BeViewResult().WithViewName(expectedPageName);
             }
         }
@@ -46,8 +46,8 @@ namespace com.gyt.ms.Tests.Controllers
         {
             var mockUserInfoService = new Mock<IUserInfoService>();
             mockUserInfoService.Setup(x => x.Regist("admin", "1234567")).Returns(() => RegistResult.UserNameExists);
-            mockUserInfoService.Setup(x => x.Regist("correctUserName", "correctUserName"))
-                .Returns(() => RegistResult.Success);
+            //mockUserInfoService.Setup(x => x.Regist("correctUserName", "correctUserName"))
+            //    .Returns(() => RegistResult.Success);
             return mockUserInfoService.Object;
         }
     }
