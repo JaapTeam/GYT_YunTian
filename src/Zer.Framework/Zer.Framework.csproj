@@ -59,6 +59,7 @@
     <Compile Include="JsonData.cs" />
     <Compile Include="Md5Helper.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Mvc\ResultCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

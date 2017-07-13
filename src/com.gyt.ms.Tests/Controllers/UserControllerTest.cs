@@ -13,6 +13,7 @@ namespace com.gyt.ms.Tests.Controllers
     public class UserControllerTest : ControllerTestBase
     {
         [Test]
+        [Category("User.Regist")]
         [ExpectedException(typeof(ArgumentException))]
         public void TestForRegist_UnsafeInput_ThrowArgumentException()
         {

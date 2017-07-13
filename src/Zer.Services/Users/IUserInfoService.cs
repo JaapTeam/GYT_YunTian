@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DMS.Entities.User;
 using Zer.Services.Users.Dto;
 
 namespace Zer.Services.Users
 {
-    public interface IUserInfoService
+    public interface IUserInfoService : IDomainService
     {
 
         UserInfoDto GetById(int userId);

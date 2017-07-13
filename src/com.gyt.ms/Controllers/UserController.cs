@@ -8,7 +8,7 @@ using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserInfoService _userInfoService;
         public UserController(IUserInfoService userInfoService)
@@ -52,10 +52,20 @@ namespace com.gyt.ms.Controllers
 
             if (loginResult != LoginStatus.Success)
             {
+                // TODO: Unit test coding
+                Session["UserInfo"] = _userInfoService.GetByUserName(userName);
+
                 return View("Error");
             }
 
             return View("Success");
+        }
+
+        public JsonResult Logout()
+        {
+            // TODO: unit test coding
+            Session["UserInfo"] = null;
+            return Success();
         }
     }
 }

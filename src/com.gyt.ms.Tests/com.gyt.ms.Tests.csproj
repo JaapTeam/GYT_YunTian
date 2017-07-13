@@ -100,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BaseControllerTest.cs" />
     <Compile Include="Controllers\ControllerTestBase.cs" />
     <Compile Include="Controllers\UserController_Login_Test.cs" />
     <Compile Include="Controllers\UserControllerTest.cs" />
@@ -116,6 +117,14 @@
     <ProjectReference Include="..\com.gyt.ms\com.gyt.ms.csproj">
       <Project>{5B74A32D-DA18-45C1-91E6-D70CF3E14AF4}</Project>
       <Name>com.gyt.ms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
+      <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
+      <Name>Zer.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.Framework\Zer.Framework.csproj">
+      <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
+      <Name>Zer.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.NUnit\Zer.NUnit.csproj">
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
