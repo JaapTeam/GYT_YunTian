@@ -17,5 +17,9 @@ namespace Zer.Services.Users
         RegistResult Regist(string userName, string password);
 
         bool ChangePassword(int userId, string newPassword);
+
+        FrozenResult LetUserFrozen(int userId);
+
+        ThawResult LetUserThaw(int userId);
     }
 }

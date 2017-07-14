@@ -1,8 +1,10 @@
 using System;
 using com.gyt.ms.Controllers;
+using FluentAssertions;
 using FluentAssertions.Mvc;
 using Moq;
 using NUnit.Framework;
+using Zer.Entities.User;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
 using Zer.NUnit;
@@ -39,6 +41,29 @@ namespace com.gyt.ms.Tests.Controllers
             }
         }
 
+        [Test]
+        [Category("User.Login")]
+        public void TestForLogin_LoginSuccess_WriteSessionSuccess()
+        {
+            using (var control = new UserController(MockUserInfoServiceForTest()))
+            {
+                // Arrange
+                var expected = new UserInfoDto()
+                {
+                    DisplayName = "Paul",
+                    State = UserState.Active,
+                    UserName = "correctusername"
+                };
+
+                // act
+                control.Login("correctusername", "1234567");
+                var actual = HttpContext.Session["UserInfo"] as UserInfoDto;
+
+                actual.Should().NotBeNull();
+                actual.ShouldBeEquivalentTo(expected);
+            }
+        }
+
         public static IUserInfoService MockUserInfoServiceForTest()
         {
             var mock = new Mock<IUserInfoService>();
@@ -53,6 +78,15 @@ namespace com.gyt.ms.Tests.Controllers
 
             mock.Setup(x => x.VerifyUserNameAndPassword("correctusername", "1234567"))
                 .Returns(() => LoginStatus.Success);
+
+            mock.Setup(x => x.GetByUserName("correctusername"))
+                .Returns(() => new UserInfoDto()
+                {
+                    DisplayName = "Paul",
+                    State =  UserState.Active,
+                    UserName = "correctusername"
+                });
+
             return mock.Object;
         }
     }

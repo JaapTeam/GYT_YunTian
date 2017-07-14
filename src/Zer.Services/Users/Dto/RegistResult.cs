@@ -3,6 +3,6 @@
     public enum RegistResult
     {
         Success=0,
-        UserNameExists=1
+        UserNameExists=1,
     }
 }

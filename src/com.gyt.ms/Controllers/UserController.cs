@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
@@ -48,14 +49,16 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("参数含有非法字符！");
             }
 
-            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName,password);
+            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password);
 
             if (loginResult != LoginStatus.Success)
             {
                 return View("Error");
             }
-
-            Session["UserInfo"] = _userInfoService.GetByUserName(userName);
+            var userinfoDto = _userInfoService.GetByUserName(userName);
+            
+            // Todo:写不进Session 
+            //Session["UserInfo"] = userinfoDto;
             return View("Success");
         }
 
@@ -64,6 +67,30 @@ namespace com.gyt.ms.Controllers
             // TODO: unit test coding
             Session["UserInfo"] = null;
             return Success();
+        }
+
+        public JsonResult Frozon(int userId)
+        {
+            var frozonResult = _userInfoService.LetUserFrozen(userId);
+
+            if (frozonResult == FrozenResult.Success)
+            {
+                return Success(FrozenResult.Success);
+            }
+
+            return Fail();
+        }
+
+        public JsonResult Thaw(int userId)
+        {
+            var frozonResult = _userInfoService.LetUserThaw(userId);
+
+            if (frozonResult == ThawResult.Success)
+            {
+                return Success();
+            }
+
+            return Fail();
         }
     }
 }

@@ -24,6 +24,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+*.cache
+*.txt
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -287,3 +289,15 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/src/Zer.Data/obj/Debug/*.cache
+/src/Zer.Entities/obj/Debug/*.cache
+/src/Zer.Framework.Ioc/obj/Debug/*.cache
+/src/Zer.Framework.Logs/obj/Debug/*.cache
+/src/Zer.Framework/obj/Debug/*.cache
+/src/Zer.Services/obj/Debug/*.cache
+/src/Zer.Data/obj/Debug/*.txt
+/src/Zer.Entities/obj/Debug/*.txt
+/src/Zer.Framework.Ioc/obj/Debug/*.txt
+/src/Zer.Framework.Logs/obj/Debug/*.txt
+/src/Zer.Framework/obj/Debug/*.txt
+/src/Zer.Services/obj/Debug/*.txt
