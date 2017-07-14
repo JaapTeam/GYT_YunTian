@@ -17,6 +17,7 @@ namespace com.gyt.ms.Tests
         public virtual IUserInfoService GetMockUserInfoService()
         {
             var mock = new Mock<IUserInfoService>();
+
             mock.Setup(x => x.GetByUserName("administrator"))
                 .Returns(() => new UserInfoDto
                 {

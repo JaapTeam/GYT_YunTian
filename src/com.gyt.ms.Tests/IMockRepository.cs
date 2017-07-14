@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,18 +11,5 @@ namespace com.gyt.ms.Tests
     {
         HttpContext GetMockHttpContext();
         IUserInfoService GetMockUserInfoService();
-    }
-
-    public class MockRepository : IMockRepository
-    {
-        public HttpContext GetMockHttpContext()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IUserInfoService GetMockUserInfoService()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

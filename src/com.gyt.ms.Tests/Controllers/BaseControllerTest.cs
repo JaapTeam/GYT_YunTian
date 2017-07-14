@@ -21,7 +21,7 @@ namespace com.gyt.ms.Tests.Controllers
         [Description("正常获取Session，返回期望值")]
         public void TestForGetCurrentUser_Normal_ReturnCorrectResult()
         {
-            using (var userController = new UserController(MockUserInfoServiceForTest()))
+            using (var userController = new UserController(MockRepository.GetMockUserInfoService()))
             {
                 // Arrange
                 var expected = new UserInfoDto()
@@ -38,9 +38,8 @@ namespace com.gyt.ms.Tests.Controllers
 
                 userController.ControllerContext = mockContext.Object;
 
-                userController.Login("paulyang", "1234567");
-
                 // Act
+                userController.Login("paulyang", "1234567");
                 var actual = userController.CurrentUser;
 
                 // Assert
