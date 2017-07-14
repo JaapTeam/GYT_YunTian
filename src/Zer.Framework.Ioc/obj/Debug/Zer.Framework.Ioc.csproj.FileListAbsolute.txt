@@ -1,0 +1,19 @@
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Ioc\bin\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Ioc\bin\Debug\DMS.Framework.Ioc.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Ioc\bin\Debug\Autofac.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Ioc\bin\Debug\Autofac.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Ioc\obj\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Framework.Ioc\obj\Debug\DMS.Framework.Ioc.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Ioc\bin\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Ioc\bin\Debug\DMS.Framework.Ioc.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Ioc\bin\Debug\Autofac.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Ioc\bin\Debug\Autofac.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Ioc\obj\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Framework.Ioc\obj\Debug\DMS.Framework.Ioc.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\bin\Debug\Autofac.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\bin\Debug\Autofac.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\obj\Debug\Zer.Framework.Ioc.csprojResolveAssemblyReference.cache
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\bin\Debug\Zer.Framework.Ioc.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\bin\Debug\Zer.Framework.Ioc.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\obj\Debug\Zer.Framework.Ioc.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Framework.Ioc\obj\Debug\Zer.Framework.Ioc.pdb

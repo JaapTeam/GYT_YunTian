@@ -1,0 +1,6 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Ioc\bin\Release\DMS.Framework.Ioc.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Ioc\bin\Release\DMS.Framework.Ioc.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Ioc\bin\Release\Autofac.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Ioc\bin\Release\Autofac.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Ioc\obj\Release\DMS.Framework.Ioc.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Framework.Ioc\obj\Release\DMS.Framework.Ioc.pdb

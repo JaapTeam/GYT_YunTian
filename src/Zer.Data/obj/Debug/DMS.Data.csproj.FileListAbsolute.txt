@@ -1,0 +1,16 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\DMS.Data.dll.config
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\DMS.Data.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\DMS.Data.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\EntityFramework.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\EntityFramework.Extended.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\EntityFramework.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\EntityFramework.Extended.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\obj\Debug\DMS.Data.csprojResolveAssemblyReference.cache
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\obj\Debug\DMS.Data.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Data\obj\Debug\DMS.Data.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Data\obj\Debug\DMS.Data.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Data\obj\Debug\DMS.Data.dll

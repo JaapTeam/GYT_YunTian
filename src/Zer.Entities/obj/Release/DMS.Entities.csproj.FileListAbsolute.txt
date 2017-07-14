@@ -1,0 +1,11 @@
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\obj\Release\DMS.Entities.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\obj\Release\DMS.Entities.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\DMS.Framework.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\DMS.Framework.pdb
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\obj\Release\DMS.Entities.csprojResolveAssemblyReference.cache
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\Webdiyer.MvcPager.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\Webdiyer.MvcPager.xml
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\zh-CHS\Webdiyer.MvcPager.resources.dll
+D:\公司服务器\DMS.BI.V2\V2\DMS.Entities\bin\Release\zh-CHT\Webdiyer.MvcPager.resources.dll

@@ -1,0 +1,93 @@
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\log4net.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Services.dll.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Services.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Services.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Data.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Entities.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.Extended.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Webdiyer.MvcPager.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Autofac.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\log4net.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Data.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Entities.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Ioc.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\DMS.Framework.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.Extended.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Webdiyer.MvcPager.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\Autofac.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\log4net.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\obj\Debug\Zer.Services.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\obj\Debug\DMS.Services.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\DMS.Services\obj\Debug\DMS.Services.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\log4net.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Services.dll.config
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Services.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Services.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Data.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Entities.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Framework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Framework.Ioc.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Framework.Logs.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\EntityFramework.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\EntityFramework.Extended.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\Webdiyer.MvcPager.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\Autofac.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\log4net.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Data.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Entities.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Framework.Ioc.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Framework.Logs.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\DMS.Framework.pdb
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\EntityFramework.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\EntityFramework.Extended.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\Webdiyer.MvcPager.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\Autofac.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\log4net.xml
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\obj\Debug\Zer.Services.csprojResolveAssemblyReference.cache
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\obj\Debug\DMS.Services.dll
+C:\Users\zsx\Documents\Visual Studio 2013\Projects\ERP\Zer.Services\obj\Debug\DMS.Services.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\log4net.config
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\EntityFramework.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\EntityFramework.Extended.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\EntityFramework.SqlServer.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Webdiyer.MvcPager.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Autofac.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\log4net.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\EntityFramework.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\EntityFramework.Extended.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\EntityFramework.SqlServer.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Webdiyer.MvcPager.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Autofac.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\log4net.xml
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\zh-CHS\Webdiyer.MvcPager.resources.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\zh-CHT\Webdiyer.MvcPager.resources.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\obj\Debug\Zer.Services.csprojResolveAssemblyReference.cache
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Services.dll.config
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Services.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Services.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Data.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Entities.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Framework.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Framework.Ioc.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Framework.Logs.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Data.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Entities.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Framework.Ioc.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Framework.Logs.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\bin\Debug\Zer.Framework.pdb
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\obj\Debug\Zer.Services.dll
+E:\GithubRepository\sprint2_framework_origin_paul\src\Zer.Services\obj\Debug\Zer.Services.pdb
