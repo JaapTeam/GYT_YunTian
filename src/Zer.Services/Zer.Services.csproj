@@ -61,10 +61,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Company\Dto\CompanyInfoDto.cs" />
+    <Compile Include="Company\ICompanyService.cs" />
+    <Compile Include="IDomainService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\Dto\UserInfoDto.cs" />
     <Compile Include="Users\IUserInfoService.cs" />
     <Compile Include="Users\Dto\RegistResult.cs" />
+    <Compile Include="Users\Dto\LoginStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zer.Data\Zer.Data.csproj">

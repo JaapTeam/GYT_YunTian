@@ -8,7 +8,7 @@ using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserInfoService _userInfoService;
         public UserController(IUserInfoService userInfoService)
@@ -43,7 +43,27 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Login(string userName, string password)
         {
-            return View();
+            if (userName.CheckBadStr() || password.CheckBadStr())
+            {
+                throw new ArgumentException("参数含有非法字符！");
+            }
+
+            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName,password);
+
+            if (loginResult != LoginStatus.Success)
+            {
+                return View("Error");
+            }
+
+            Session["UserInfo"] = _userInfoService.GetByUserName(userName);
+            return View("Success");
+        }
+
+        public JsonResult Logout()
+        {
+            // TODO: unit test coding
+            Session["UserInfo"] = null;
+            return Success();
         }
     }
 }
