@@ -52,12 +52,10 @@ namespace com.gyt.ms.Controllers
 
             if (loginResult != LoginStatus.Success)
             {
-                // TODO: Unit test coding
-                Session["UserInfo"] = _userInfoService.GetByUserName(userName);
-
                 return View("Error");
             }
 
+            Session["UserInfo"] = _userInfoService.GetByUserName(userName);
             return View("Success");
         }
 

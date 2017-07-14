@@ -1,4 +1,5 @@
-﻿using System.Web.Helpers;
+﻿using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using com.gyt.ms.Controllers;
 using FluentAssertions;
@@ -29,6 +30,13 @@ namespace com.gyt.ms.Tests.Controllers
                     UserName = "Paulyang",
                     State = UserState.Active
                 };
+
+                var mockContext = new Mock<ControllerContext>();
+
+                mockContext.SetupSet(x => x.HttpContext.Session["UserInfo"] = expected);
+                mockContext.Setup(x => x.HttpContext.Session["UserInfo"]).Returns(expected);
+
+                userController.ControllerContext = mockContext.Object;
 
                 userController.Login("paulyang", "1234567");
 
