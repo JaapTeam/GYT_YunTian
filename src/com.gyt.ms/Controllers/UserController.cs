@@ -92,5 +92,27 @@ namespace com.gyt.ms.Controllers
 
             return Fail();
         }
+
+        public JsonResult ChangePasswrod(int userId,string newPassword)
+        {
+            if (newPassword.CheckBadStr())
+            {
+                throw new ArgumentException("参数含有非法字符！");
+            }
+
+            if (newPassword.IsNullOrEmpty()||newPassword.Length<6)
+            {
+                throw new ArgumentException("密码长度小于6！"); 
+            }
+
+            var changePasswordResult = _userInfoService.ChangePassword(userId,newPassword);
+
+            if (changePasswordResult==ChangePasswordResult.Success)
+            {
+                return Success();
+            }
+
+            return Fail();
+        }
     }
 }
