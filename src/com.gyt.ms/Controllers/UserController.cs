@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
@@ -16,29 +17,34 @@ namespace com.gyt.ms.Controllers
             _userInfoService = userInfoService;
         }
 
-        public ActionResult Regist(string userName, string password)
+        public JsonResult Regist(string userName, string password)
         {
+            if (userName.IsNullOrEmpty() ||
+                password.IsNullOrEmpty() )
+            {
+                throw new ArgumentException("用户名或密码不能为空！");
+            }
+
             if (userName.CheckBadStr() || password.CheckBadStr())
             {
                 throw new ArgumentException("参数含有非法字符！");
             }
 
-            if (userName.IsNullOrEmpty() ||
-                password.IsNullOrEmpty() ||
+            if (
                 userName.Length <= 6 ||
                 password.Length < 6)
             {
-                return View("Error");
+                throw new ArgumentException("用户名或密码的长度不能小于6！");
             }
 
             var registResult = _userInfoService.Regist(userName, password);
 
             if (registResult == RegistResult.UserNameExists)
             {
-                return View("Error");
+                return Fail();
             }
 
-            return View("Login");
+            return Success();
         }
 
         public ActionResult Login(string userName, string password)
@@ -48,14 +54,15 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("参数含有非法字符！");
             }
 
-            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName,password);
+            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password);
 
             if (loginResult != LoginStatus.Success)
             {
                 return View("Error");
             }
-
-            Session["UserInfo"] = _userInfoService.GetByUserName(userName);
+            var userinfoDto = _userInfoService.GetByUserName(userName);
+            
+            Session["UserInfo"] = userinfoDto;
             return View("Success");
         }
 
@@ -64,6 +71,52 @@ namespace com.gyt.ms.Controllers
             // TODO: unit test coding
             Session["UserInfo"] = null;
             return Success();
+        }
+
+        public JsonResult Frozon(int userId)
+        {
+            var frozonResult = _userInfoService.LetUserFrozen(userId);
+
+            if (frozonResult == FrozenResult.Success)
+            {
+                return Success(FrozenResult.Success);
+            }
+
+            return Fail();
+        }
+
+        public JsonResult Thaw(int userId)
+        {
+            var frozonResult = _userInfoService.LetUserThaw(userId);
+
+            if (frozonResult == ThawResult.Success)
+            {
+                return Success();
+            }
+
+            return Fail();
+        }
+
+        public JsonResult ChangePasswrod(int userId,string newPassword)
+        {
+            if (newPassword.CheckBadStr())
+            {
+                throw new ArgumentException("参数含有非法字符！");
+            }
+
+            if (newPassword.IsNullOrEmpty()||newPassword.Length<6)
+            {
+                throw new ArgumentException("密码长度小于6！"); 
+            }
+
+            var changePasswordResult = _userInfoService.ChangePassword(userId,newPassword);
+
+            if (changePasswordResult==ChangePasswordResult.Success)
+            {
+                return Success();
+            }
+
+            return Fail();
         }
     }
 }
