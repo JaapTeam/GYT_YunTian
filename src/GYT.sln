@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BDE513
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.NUnit", "Zer.NUnit\Zer.NUnit.csproj", "{8FBC4074-6297-40CA-B96C-AD025C488B08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework.UnitTest.Tests", "Zer.FrameWork.UnitTest.Tests\Zer.Framework.UnitTest.Tests.csproj", "{8AD01D39-4E62-4407-8E8D-C795C4A67E82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{8FBC4074-6297-40CA-B96C-AD025C488B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FBC4074-6297-40CA-B96C-AD025C488B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FBC4074-6297-40CA-B96C-AD025C488B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +96,6 @@ Global
 		{5B74A32D-DA18-45C1-91E6-D70CF3E14AF4} = {D8C615ED-B1C8-4775-9942-3040B924F757}
 		{98FC1C7C-4D10-4AB6-B04A-E07174B29A79} = {F6348613-77A6-4D79-890F-E8654B1B6228}
 		{8FBC4074-6297-40CA-B96C-AD025C488B08} = {12F80F9A-0ED1-4695-919E-34AF88CB9237}
+		{8AD01D39-4E62-4407-8E8D-C795C4A67E82} = {F6348613-77A6-4D79-890F-E8654B1B6228}
 	EndGlobalSection
 EndGlobal
