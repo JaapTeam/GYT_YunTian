@@ -4,7 +4,7 @@
 > 为了在导入和导出时对数据列进行排序，增加此属性
 > 使用案例:
 
-`
+```
     public class CompanyInfoDto
     {
         [ExportDisplayName("编号")]
@@ -23,4 +23,4 @@
         [Sort(4)]
         public DateTime CreateDate { get; set; }
     }
-`
+```
