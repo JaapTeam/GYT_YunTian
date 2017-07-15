@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
@@ -16,6 +18,18 @@ namespace com.gyt.ms.Controllers
                     return null;
 
                 return HttpContext.Session["UserInfo"] as UserInfoDto;
+            }
+        }
+
+        /// <summary>
+        /// 验证输入字符串是否有非法字符
+        /// </summary>
+        /// <param name="inputStrings"></param>
+        protected void ValidataInputString(params string[] inputStrings)
+        {
+            if (inputStrings.Any(x => x.CheckBadStr()))
+            {
+                throw new ArgumentException("参数含有非法字符！");
             }
         }
 

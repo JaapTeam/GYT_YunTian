@@ -1,19 +1,11 @@
-using System.Web.Mvc;
-
 namespace com.gyt.ms.Tests.Controllers
 {
-    public abstract class ControllerTestBase : Controller
+    public abstract class ControllerTestBase 
     {
+        protected JsonHelper JsonHelper { get; private set; }
         protected ControllerTestBase()
         {
-            MockRepository = new MockRepository();
+            JsonHelper = new JsonHelper();
         }
-
-        protected ControllerTestBase(IMockRepository mockRepository)
-        {
-            MockRepository = mockRepository;
-        }
-        
-        protected IMockRepository MockRepository { get; private set; }
     }
 }

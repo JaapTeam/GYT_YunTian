@@ -8,7 +8,7 @@ using Zer.Services.Company.Dto;
 
 namespace Zer.Services.Company
 {
-    public interface ICompanyService
+    public interface ICompanyService : IDomainService
     {
         #region query
 
