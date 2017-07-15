@@ -17,29 +17,34 @@ namespace com.gyt.ms.Controllers
             _userInfoService = userInfoService;
         }
 
-        public ActionResult Regist(string userName, string password)
+        public JsonResult Regist(string userName, string password)
         {
+            if (userName.IsNullOrEmpty() ||
+                password.IsNullOrEmpty() )
+            {
+                throw new ArgumentException("用户名或密码不能为空！");
+            }
+
             if (userName.CheckBadStr() || password.CheckBadStr())
             {
                 throw new ArgumentException("参数含有非法字符！");
             }
 
-            if (userName.IsNullOrEmpty() ||
-                password.IsNullOrEmpty() ||
+            if (
                 userName.Length <= 6 ||
                 password.Length < 6)
             {
-                return View("Error");
+                throw new ArgumentException("用户名或密码的长度不能小于6！");
             }
 
             var registResult = _userInfoService.Regist(userName, password);
 
             if (registResult == RegistResult.UserNameExists)
             {
-                return View("Error");
+                return Fail();
             }
 
-            return View("Login");
+            return Success();
         }
 
         public ActionResult Login(string userName, string password)
@@ -57,8 +62,7 @@ namespace com.gyt.ms.Controllers
             }
             var userinfoDto = _userInfoService.GetByUserName(userName);
             
-            // Todo:写不进Session 
-            //Session["UserInfo"] = userinfoDto;
+            Session["UserInfo"] = userinfoDto;
             return View("Success");
         }
 

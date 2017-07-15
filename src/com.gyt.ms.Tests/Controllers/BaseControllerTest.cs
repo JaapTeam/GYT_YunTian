@@ -87,20 +87,5 @@ namespace com.gyt.ms.Tests.Controllers
             Assert.Fail();
         }
 
-        private IUserInfoService MockUserInfoServiceForTest()
-        {
-            var mock = new Mock<IUserInfoService>();
-            mock.Setup(x => x.GetByUserName("Paulyang"))
-                .Returns(() => new UserInfoDto
-                                   {
-                                       DisplayName = "Paul",
-                                       UserName = "Paulyang",
-                                       State = UserState.Active
-                                   });
-            mock.Setup(x => x.VerifyUserNameAndPassword(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(() => LoginStatus.Success);
-
-            return mock.Object;
-        }
     }
 }

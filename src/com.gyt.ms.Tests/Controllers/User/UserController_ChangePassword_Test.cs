@@ -10,7 +10,7 @@ using Zer.NUnit;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
 
-namespace com.gyt.ms.Tests.Controllers
+namespace com.gyt.ms.Tests.Controllers.User
 {
     [TestFixture]
     public class UserControllerChangePasswordTest:ControllerTestBase

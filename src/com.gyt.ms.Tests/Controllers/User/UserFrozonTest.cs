@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Helpers;
-using System.Web.Mvc;
-using System.Web.UI;
+﻿using System.Web.Mvc;
 using com.gyt.ms.Controllers;
 using FluentAssertions;
-using FluentAssertions.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
 using Zer.Framework.Extensions;
@@ -17,7 +8,7 @@ using Zer.Framework.Mvc;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
 
-namespace com.gyt.ms.Tests.Controllers
+namespace com.gyt.ms.Tests.Controllers.User
 {
     [TestFixture]
     public class UserFrozonTest : ControllerTestBase
