@@ -32,7 +32,7 @@ namespace Zer.Services.Company
 
         #region Insert
 
-        bool Add(CompanyInfo model);
+        void Add(CompanyInfo model);
 
         bool AddRange(List<CompanyInfo> list);
 
