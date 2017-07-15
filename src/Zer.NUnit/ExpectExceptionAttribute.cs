@@ -7,14 +7,14 @@ using NUnit.Framework.Internal.Commands;
 namespace Zer.NUnit
 {
     /// <summary>
-    /// A simple ExpectedExceptionAttribute
+    /// A simple ExpectExceptionAttribute
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public class ExpectedExceptionAttribute : NUnitAttribute, IWrapTestMethod
+    public class ExpectExceptionAttribute : NUnitAttribute, IWrapTestMethod
     {
         private readonly Type _expectedExceptionType;
 
-        public ExpectedExceptionAttribute(Type type)
+        public ExpectExceptionAttribute(Type type)
         {
             _expectedExceptionType = type;
         }

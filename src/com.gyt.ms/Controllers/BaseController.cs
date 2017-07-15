@@ -25,7 +25,7 @@ namespace com.gyt.ms.Controllers
         /// 验证输入字符串是否有非法字符
         /// </summary>
         /// <param name="inputStrings"></param>
-        protected void ValidataInputString(params string[] inputStrings)
+        public void ValidataInputString(params string[] inputStrings)
         {
             if (inputStrings.Any(x => x.CheckBadStr()))
             {

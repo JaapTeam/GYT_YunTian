@@ -104,15 +104,16 @@
     <Compile Include="Controllers\JsonHelper.cs" />
     <Compile Include="Controllers\BaseControllerTest.cs" />
     <Compile Include="Controllers\ControllerTestBase.cs" />
-    <Compile Include="Controllers\UserController_Login_Test.cs" />
-    <Compile Include="Controllers\UserControllerTest.cs" />
+    <Compile Include="Controllers\User\UserControllerTest.cs" />
+    <Compile Include="Controllers\User\UserController_ChangePassword_Test.cs" />
+    <Compile Include="Controllers\User\UserController_Login_Test.cs" />
+    <Compile Include="Controllers\User\UserFrozonTest.cs" />
     <Compile Include="MockService.cs" />
     <Compile Include="MockService\MockCompanyService.cs" />
     <Compile Include="MockService\MockRepository.cs" />
     <Compile Include="MockSpecific.cs" />
     <Compile Include="MockService\MockUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

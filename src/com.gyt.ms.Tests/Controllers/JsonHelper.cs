@@ -17,14 +17,9 @@ namespace com.gyt.ms.Tests.Controllers
             return SuccessExpected("", msg);
         }
 
-        public JsonResult SuccessExpected<T>(T data, string msg = "")
-        {
-            return Json(new { C = ResultCode.Success.ToInt(), msg, data }, JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult SuccessExpected(object data, string msg = "")
         {
-            return Json(new { C = ResultCode.Success.ToInt(), msg, data }, JsonRequestBehavior.AllowGet);
+            return Json(new { C = ResultCode.Success.ToInt(), msg = msg, data }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult FailExpected(string msg = "")
