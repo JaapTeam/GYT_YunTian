@@ -58,7 +58,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Description(@"")]
         public void TestForGetCompanyById_IncorrectId_ReturnNull()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService,CompanyInfoDto>.Mock()))
             {
                 var companyId = 112;
                 CompanyInfoDto data = null;
@@ -75,7 +75,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Description(@"")]
         public void TestForGetCompanyById_CorrectId_ReturnExpectedResult()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService, CompanyInfoDto>.Mock()))
             {
                 var companyId = 1;
                 CompanyInfoDto data = new CompanyInfoDto() {CompanyName = "深圳市天马物流有限公司", Id = 1, TraderRange = "天然气运输"};
@@ -92,7 +92,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Description(@"")]
         public void TestForGetCompanyById_NoInput_ReturnJsonResultWithNull()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService, CompanyInfoDto>.Mock()))
             {
                 CompanyInfoDto data = null;
                 var expected = JsonHelper.SuccessExpected(data);
@@ -109,7 +109,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [TestCase("深圳市天马物流有限公司", true,Description = "存在的公司名，返回 true")]
         public void TestForCompanyIsExists_NotExistsFullName_ReturnJsonWithTrue(string fullName,bool expected)
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService, CompanyInfoDto>.Mock()))
             {
                 var actual = ctrl.CompanyIsExists(fullName);
 
@@ -121,7 +121,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Category("Company")]
         public void TestForAddCompany_NormalFlow_ReturnJsonWithTrue()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService, CompanyInfoDto>.Mock()))
             {
                 var dto = new CompanyInfoDto() { CompanyName = "深圳市万利物流有限公司" ,TraderRange = "集装箱运输"};
 
@@ -135,7 +135,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Category("Company")]
         public void TestForAddCompany_ExistsCompanyName_ReturnJsonWithFalse()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService, CompanyInfoDto>.Mock()))
             {
                 var dto = new CompanyInfoDto() { CompanyName = "深圳市天马物流有限公司", TraderRange = "集装箱运输" };
 
