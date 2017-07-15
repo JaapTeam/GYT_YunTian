@@ -48,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\SortAttribute.cs" />
     <Compile Include="Exception\BaseException.cs" />
     <Compile Include="Exception\CustomException.cs" />
     <Compile Include="Export\Attributes\ExportDisplayNameAttribute.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Extensions\StringFilterExtension.cs" />
     <Compile Include="Import\Import.cs" />
-    <Compile Include="Import\Attributes\SortAttribute.cs" />
     <Compile Include="IpHelper.cs" />
     <Compile Include="JsonData.cs" />
     <Compile Include="Md5Helper.cs" />
