@@ -4,19 +4,19 @@ using Zer.Services;
 
 namespace com.gyt.ms.Tests
 {
-    public static class MockService<T>
-        where T : class, IDomainService
+    public static class MockService<TService,TEntityDto>
+        where TService : class, IDomainService<TEntityDto,int>
     {
         /// <summary>
         /// 创建Mock服务
         /// </summary>
-        public static T Mock()
+        public static TService Mock()
         {
-            var typeName = typeof(T).Name.Substring(1);
+            var typeName = typeof(TService).Name.Substring(1);
             string fullTypeName = string.Format("com.gyt.ms.Tests.MockService.Mock{0}", typeName);
 
             var mockRepository = Activator.CreateInstance(Type.GetType(fullTypeName))
-                as MockRepository<T>;
+                as MockRepository<TService,TEntityDto>;
 
             return mockRepository.GetService();
         }

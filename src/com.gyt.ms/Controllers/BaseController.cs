@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebGrease.Css.Extensions;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
 using Zer.Services.Users.Dto;
@@ -31,6 +33,24 @@ namespace com.gyt.ms.Controllers
             {
                 throw new ArgumentException("参数含有非法字符！");
             }
+        }
+
+        /// <summary>
+        /// 验证输入字符串是否有非法字符
+        /// </summary>
+        /// <param name="inputStrings"></param>
+        public void ValidataInputString(params string[][] inputStrings)
+        {
+            inputStrings.ForEach(ValidataInputString);
+        }
+
+        /// <summary>
+        /// 验证输入字符串是否有非法字符
+        /// </summary>
+        /// <param name="inputStrings"></param>
+        public void ValidataInputString(params IEnumerable<string>[] inputStrings)
+        {
+            inputStrings.Select(x => x.ToArray()).ForEach(ValidataInputString);
         }
 
         protected JsonResult Success()

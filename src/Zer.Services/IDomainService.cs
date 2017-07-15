@@ -1,6 +1,9 @@
-﻿namespace Zer.Services
+using Zer.Entities;
+
+namespace Zer.Services
 {
-    public interface  IDomainService
+    public interface  IDomainService<TEntity>:IDomainService<TEntity,int>
+        where TEntity:IEntity<int>
     {
     }
 }

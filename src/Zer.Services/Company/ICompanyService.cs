@@ -8,11 +8,9 @@ using Zer.Services.Company.Dto;
 
 namespace Zer.Services.Company
 {
-    public interface ICompanyService : IDomainService
+    public interface ICompanyService : IDomainService<CompanyInfoDto,int>
     {
         #region query
-
-        CompanyInfoDto GetById(int id);
 
         /// <summary>
         /// 模糊查询，输入公司名称关键字，查询包含该字符的公司信息

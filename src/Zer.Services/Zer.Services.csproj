@@ -59,16 +59,24 @@
       <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Zer.Services">
+      <HintPath>..\com.gyt.ms\Bin\Zer.Services.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Company\Dto\CompanyInfoDto.cs" />
     <Compile Include="Company\ICompanyService.cs" />
+    <Compile Include="DomainServiceBase.cs" />
     <Compile Include="IDomainService.cs" />
+    <Compile Include="IDomainServiceOfPrimaryKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Truck\Dto\TruckInfoDto.cs" />
+    <Compile Include="Truck\ITruckInfoService.cs" />
     <Compile Include="Users\Dto\ChangePasswordResult.cs" />
     <Compile Include="Users\Dto\UserInfoDto.cs" />
     <Compile Include="Users\Dto\FrozenResult.cs" />
     <Compile Include="Users\Dto\ThawResult.cs" />
+    <Compile Include="Users\Impl\UserInfoService.cs" />
     <Compile Include="Users\IUserInfoService.cs" />
     <Compile Include="Users\Dto\RegistResult.cs" />
     <Compile Include="Users\Dto\LoginStatus.cs" />

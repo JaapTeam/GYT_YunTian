@@ -6,7 +6,7 @@ using Zer.Services.Company.Dto;
 
 namespace com.gyt.ms.Tests.MockService
 {
-    public class MockCompanyService : MockRepository<ICompanyService>
+    public class MockCompanyService : MockRepository<ICompanyService, CompanyInfoDto>
     {
         protected override void SetMock()
         {

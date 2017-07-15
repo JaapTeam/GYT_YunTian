@@ -5,7 +5,7 @@ using Zer.Services.Users.Dto;
 
 namespace com.gyt.ms.Tests.MockService
 {
-    public class MockUserInfoService : MockRepository<IUserInfoService>
+    public class MockUserInfoService : MockRepository<IUserInfoService, UserInfoDto>
     {
         protected override void SetMock()
         {
