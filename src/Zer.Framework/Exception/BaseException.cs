@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Zer.Framework
+namespace Zer.Framework.Exception
 {
 
 
@@ -10,7 +10,7 @@ namespace Zer.Framework
     /// Represents errors that occur during application execution
     /// </summary>
     [Serializable]
-    public class BaseException : Exception
+    public class BaseException : System.Exception
     {
         public int ExceptionCode { get; set; }
         /// <summary>
@@ -57,7 +57,7 @@ namespace Zer.Framework
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
-        public BaseException(string message, Exception innerException)
+        public BaseException(string message, System.Exception innerException)
             : base(message, innerException)
         {
         }

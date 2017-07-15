@@ -48,7 +48,7 @@ namespace Zer.Framework
             //文件不存在
             if (!File.Exists(filePath))
             {
-                throw new Exception("文件不存在");
+                throw new System.Exception("文件不存在");
             }
             var bs = MD5.Create().ComputeHash(new FileStream(filePath, FileMode.Open));
             var sb = new StringBuilder();

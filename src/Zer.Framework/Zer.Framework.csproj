@@ -48,7 +48,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseException.cs" />
+    <Compile Include="Exception\BaseException.cs" />
+    <Compile Include="Exception\CustomException.cs" />
     <Compile Include="Export\Attributes\ExportDisplayNameAttribute.cs" />
     <Compile Include="Export\Export.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
@@ -57,6 +58,8 @@
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Extensions\StringFilterExtension.cs" />
+    <Compile Include="Import\Import.cs" />
+    <Compile Include="Import\Attributes\SortAttribute.cs" />
     <Compile Include="IpHelper.cs" />
     <Compile Include="JsonData.cs" />
     <Compile Include="Md5Helper.cs" />
@@ -67,9 +70,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Import\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
