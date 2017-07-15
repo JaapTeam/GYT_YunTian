@@ -60,7 +60,7 @@ namespace com.gyt.ms.Tests.Controllers
         [Description("正常获取Session，返回期望值")]
         public void TestForGetCurrentUser_Normal_ReturnCorrectResult()
         {
-            using (var userController = new UserController(MockService<IUserInfoService>.Mock()))
+            using (var userController = new UserController(MockService<IUserInfoService, UserInfoDto>.Mock()))
             {
                 // Arrange
                 var expected = new UserInfoDto()

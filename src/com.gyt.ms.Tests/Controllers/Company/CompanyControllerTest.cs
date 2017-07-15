@@ -21,7 +21,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Description(@"输入不存在的公司简称时，返回空列表")]
         public void TestForGetCopanyByLikeName_InputNotExistsLikeName_ReturnSuccessAndEmptyContent()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService, CompanyInfoDto>.Mock()))
             {
                 var likeName = "天空物流"; 
                 var expected = new List<CompanyInfoDto>();
@@ -37,7 +37,7 @@ namespace com.gyt.ms.Tests.Controllers.Company
         [Description(@"输入存在的公司简称时，返回所有存在公司列表")]
         public void TestForGetCopanyByLikeName_InputExistsLikeName_ReturnSuccessAndEmptyContent()
         {
-            using (var ctrl = new CompanyController(MockService<ICompanyService>.Mock()))
+            using (var ctrl = new CompanyController(MockService<ICompanyService,CompanyInfoDto>.Mock()))
             {
                 var likeName = "海线物流";
                 var expected = new List<CompanyInfoDto>()

@@ -7,10 +7,8 @@ using Zer.Services.Users.Dto;
 
 namespace Zer.Services.Users
 {
-    public interface IUserInfoService : IDomainService
+    public interface IUserInfoService : IDomainService<UserInfoDto, int>
     {
-
-        UserInfoDto GetById(int userId);
         UserInfoDto GetByUserName(string userName);
         LoginStatus VerifyUserNameAndPassword(string userName, string password);
 
