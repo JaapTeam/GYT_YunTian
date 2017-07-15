@@ -43,6 +43,14 @@ namespace Zer.Framework.Extensions
             return HttpUtility.HtmlEncode(str);
         }
 
+        /// <summary>
+        /// 非常不安全的类型转换,请慎用
+        /// </summary>
+        public static T To<T>(this string value)
+        {
+            return (T)Convert.ChangeType(value, typeof(T));
+        }
+
         public static int ToInt(this string str)
         {
             int val;
