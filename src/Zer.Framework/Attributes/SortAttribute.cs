@@ -1,6 +1,6 @@
 using System;
 
-namespace Zer.Framework.Import.Attributes
+namespace Zer.Framework.Attributes
 {
     public class SortAttribute:Attribute
     {

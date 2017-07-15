@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Zer.Framework.Exception;
 using Zer.Framework.Export.Attributes;
+using Zer.Framework.Import.Attributes;
 
 namespace Zer.Framework.Export
 {
@@ -56,19 +58,27 @@ namespace Zer.Framework.Export
         {
             var displayNameList = new List<string>();
 
-            foreach (var propertyInfo in type.GetProperties())
+            var properties = type.GetProperties()
+                                 .OrderBy(x =>
+                                     {
+                                         var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
+                                         if (sortAttribute == null)
+                                         {
+                                             throw new CustomException(
+                                                 "缺少属性" + typeof(SortAttribute).FullName,
+                                                 "属性名:",
+                                                 x.Name
+                                             );
+                                         }
+                                         return sortAttribute.Index;
+                                     })
+                                 .ToList();
+
+            foreach (var propertyInfo in properties)
             {
                 var displayAttribute = propertyInfo.GetCustomAttribute(typeof(ExportDisplayNameAttribute)) as ExportDisplayNameAttribute;
 
-                if (displayAttribute != null)
-                {
-                    displayNameList.Add(displayAttribute.DisplayName);
-                }
-
-                else
-                {
-                    displayNameList.Add(propertyInfo.Name);
-                }
+                displayNameList.Add(displayAttribute != null ? displayAttribute.DisplayName : propertyInfo.Name);
             }
 
             return GenerateLineString(displayNameList.ToArray());
@@ -82,7 +92,21 @@ namespace Zer.Framework.Export
         public static string GenerateLineString<T>(T obj)
             where T : class
         {
-            var values = typeof(T).GetProperties().Select(x => x.GetValue(obj).ToString()).ToArray();
+            var values = typeof(T).GetProperties()
+                .OrderBy(x =>
+                    {
+                        var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
+                        if (sortAttribute == null)
+                        {
+                            throw new CustomException(
+                                "缺少属性"+ typeof(SortAttribute).FullName,
+                                "属性名:",
+                                x.Name
+                                );
+                        }
+                        return sortAttribute.Index;
+                    })
+                .Select(x => x.GetValue(obj).ToString()).ToArray();
             return GenerateLineString(values);
         }
     }
