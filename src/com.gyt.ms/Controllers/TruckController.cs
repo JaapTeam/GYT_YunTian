@@ -20,29 +20,56 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult GetTruckInfoById(int truckId=0)
         {
+            if (truckId == 0)
+            {
+                return Fail();
+            }
             var dto = _truckInfoService.GetById(truckId);
+
+            if (dto == null)
+            {
+                return Fail("未查询到相关数据！");
+            }
             return Success(dto);
         }
 
         public JsonResult GetTruckInfoListByCompanyId(int companyId=0)
         {
+            if (companyId==0)
+            {
+                return Fail();
+            }
+
             var list = _truckInfoService.GetListByCompanyId(companyId);
+
+            if (list.Count<=0)
+            {
+                return Fail("未查询到相关数据！");
+            }
             return Success(list);
         }
 
         public JsonResult GetTruckInforByTruckNo(string truckNo)
         {
             ValidataInputString(truckNo);
+            
             var dto = _truckInfoService.GetByTruckNo(truckNo);
+
+            if (dto.Id==0)
+            {
+                return Fail("未查询到相关数据！");
+            }
+
             return Success(dto);
         }
 
         public JsonResult AddRange(List<TruckInfoDto> listInfo)
         {
-            foreach (TruckInfoDto truckInfoDto in listInfo)
-            {
-                ValidataInputString(truckInfoDto.ConpanyName,truckInfoDto.DriverName,truckInfoDto.FrontTruckNo,truckInfoDto.RearTruckNo);
-            }
+            ValidataInputString(
+                listInfo.Select(x => x.CompanyName),
+                listInfo.Select(x => x.DriverName),
+                listInfo.Select(x => x.FrontTruckNo),
+                listInfo.Select(x => x.RearTruckNo));
 
             var result = _truckInfoService.AddRange(listInfo);
 
@@ -51,7 +78,7 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult Add(TruckInfoDto infoDto)
         {
-            ValidataInputString(infoDto.ConpanyName, infoDto.DriverName, infoDto.FrontTruckNo, infoDto.RearTruckNo);
+            ValidataInputString(infoDto.CompanyName, infoDto.DriverName, infoDto.FrontTruckNo, infoDto.RearTruckNo);
 
             var result = _truckInfoService.Add(infoDto);
 
