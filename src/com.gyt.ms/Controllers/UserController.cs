@@ -20,15 +20,12 @@ namespace com.gyt.ms.Controllers
         public JsonResult Regist(string userName, string password)
         {
             if (userName.IsNullOrEmpty() ||
-                password.IsNullOrEmpty() )
+                password.IsNullOrEmpty())
             {
                 throw new ArgumentException("用户名或密码不能为空！");
             }
 
-            if (userName.CheckBadStr() || password.CheckBadStr())
-            {
-                throw new ArgumentException("参数含有非法字符！");
-            }
+            ValidataInputString(userName, password);
 
             if (
                 userName.Length <= 6 ||
@@ -49,10 +46,7 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Login(string userName, string password)
         {
-            if (userName.CheckBadStr() || password.CheckBadStr())
-            {
-                throw new ArgumentException("参数含有非法字符！");
-            }
+            ValidataInputString(userName, password);
 
             var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password);
 
@@ -61,7 +55,7 @@ namespace com.gyt.ms.Controllers
                 return View("Error");
             }
             var userinfoDto = _userInfoService.GetByUserName(userName);
-            
+
             Session["UserInfo"] = userinfoDto;
             return View("Success");
         }
@@ -77,12 +71,7 @@ namespace com.gyt.ms.Controllers
         {
             var frozonResult = _userInfoService.LetUserFrozen(userId);
 
-            if (frozonResult == FrozenResult.Success)
-            {
-                return Success(FrozenResult.Success);
-            }
-
-            return Fail();
+            return frozonResult == FrozenResult.Success ? Success() : Fail();
         }
 
         public JsonResult Thaw(int userId)
@@ -97,21 +86,18 @@ namespace com.gyt.ms.Controllers
             return Fail();
         }
 
-        public JsonResult ChangePasswrod(int userId,string newPassword)
+        public JsonResult ChangePasswrod(int userId, string newPassword)
         {
-            if (newPassword.CheckBadStr())
+            ValidataInputString(newPassword);
+
+            if (newPassword.IsNullOrEmpty() || newPassword.Length < 6)
             {
-                throw new ArgumentException("参数含有非法字符！");
+                throw new ArgumentException("密码长度小于6！");
             }
 
-            if (newPassword.IsNullOrEmpty()||newPassword.Length<6)
-            {
-                throw new ArgumentException("密码长度小于6！"); 
-            }
+            var changePasswordResult = _userInfoService.ChangePassword(userId, newPassword);
 
-            var changePasswordResult = _userInfoService.ChangePassword(userId,newPassword);
-
-            if (changePasswordResult==ChangePasswordResult.Success)
+            if (changePasswordResult == ChangePasswordResult.Success)
             {
                 return Success();
             }

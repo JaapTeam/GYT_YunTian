@@ -1,13 +1,9 @@
-﻿using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
+﻿using System;
 using com.gyt.ms.Controllers;
 using FluentAssertions;
-using Moq;
 using NUnit.Framework;
 using Zer.Entities.User;
-using Zer.Framework.Extensions;
-using Zer.Framework.Mvc;
+using Zer.NUnit;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
 
@@ -18,10 +14,53 @@ namespace com.gyt.ms.Tests.Controllers
     {
         [Test]
         [Category("BaseController")]
+        [ExpectException(typeof(ArgumentException))]
+        [Description("输入任意非法字符串，都会抛出异常")]
+        public void TestForValidataInputString_inputAnyUnsaveString_ThrowException()
+        {
+            using (var ctrl = new BaseController())
+            {
+                var stringList = new[]
+                {
+                    "admin",
+                    "sss\"sss"
+                };
+
+                ctrl.ValidataInputString(stringList);
+            }
+        }
+
+        [Test]
+        [Category("BaseController")]
+        [Description("输入字符串全部合法，不抛出异常")]
+        public void TestForValidataInputString_inputAllAreSave_NoExceptionThrow()
+        {
+            using (var ctrl = new BaseController())
+            {
+                var stringList = new[]
+                {
+                    "admin",
+                    "123434534",
+                    "sdfsddfsdf"
+                };
+
+                try
+                {
+                    ctrl.ValidataInputString(stringList);
+                }
+                catch
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        [Test]
+        [Category("BaseController")]
         [Description("正常获取Session，返回期望值")]
         public void TestForGetCurrentUser_Normal_ReturnCorrectResult()
         {
-            using (var userController = new UserController(MockRepository.GetMockUserInfoService()))
+            using (var userController = new UserController(MockService<IUserInfoService>.Mock()))
             {
                 // Arrange
                 var expected = new UserInfoDto()
@@ -31,12 +70,8 @@ namespace com.gyt.ms.Tests.Controllers
                     State = UserState.Active
                 };
 
-                var mockContext = new Mock<ControllerContext>();
 
-                mockContext.SetupSet(x => x.HttpContext.Session["UserInfo"] = expected);
-                mockContext.Setup(x => x.HttpContext.Session["UserInfo"]).Returns(expected);
-
-                userController.ControllerContext = mockContext.Object;
+                userController.ControllerContext = MockSpecific.GetMockControllerContextWithSesionUserInfo(expected);
 
                 // Act
                 userController.Login("paulyang", "1234567");
@@ -47,45 +82,44 @@ namespace com.gyt.ms.Tests.Controllers
             }
         }
 
-        [Test]
-        [Category("BaseController")]
-        [Description("正常获取Session，返回期望值")]
-        public void TestForGetCurrentUser_NoSession_ReturnNull()
-        {
-            Assert.Fail();
-        }
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("正常获取Session，返回期望值")]
+        //public void TestForGetCurrentUser_NoSession_ReturnNull()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("")]
-        public void TestForSuccess_NoMessage_ReturnExpectedJsonResult()
-        {
-            Assert.Fail();
-        }
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("")]
+        //public void TestForSuccess_NoMessage_ReturnExpectedJsonResult()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("")]
-        public void TestForSuccess_JustMessage_ReturnExpectedJsonResult()
-        {
-            Assert.Fail();
-        }
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("")]
+        //public void TestForSuccess_JustMessage_ReturnExpectedJsonResult()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("")]
-        public void TestForSuccess_FullParameters_ReturnExpectedJsonResult()
-        {
-            Assert.Fail();
-        }
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("")]
+        //public void TestForSuccess_FullParameters_ReturnExpectedJsonResult()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("")]
-        public void TestForFail_Normal_ReturnExpectedJsonResult()
-        {
-            Assert.Fail();
-        }
-
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("")]
+        //public void TestForFail_Normal_ReturnExpectedJsonResult()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }
