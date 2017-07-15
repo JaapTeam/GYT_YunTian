@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using Zer.Framework.Attributes;
 using Zer.Framework.Export;
 using Zer.Framework.Export.Attributes;
 
@@ -16,11 +15,11 @@ namespace Zer.FrameWork.UnitTest.Tests
     public class ExportTest
     {
         [Test]
-        [NUnit.Framework.Category("Core.Export")]
+        [Category("Core.Export")]
         public void TestFor_GenerateLineString_AnyStringArray_ReturnCorrectResult()
         {
             // Arrange
-            var strArray = new string[] { "Id", "CompanyName", "TraderRange", "CreateData", "ApproverName" };
+            var strArray = new[] { "Id", "CompanyName", "TraderRange", "CreateData", "ApproverName" };
             var expected = "Id" + "," + "CompanyName" + "," + "TraderRange" + "," + "CreateData" + "," + "ApproverName";
 
             // Act
@@ -31,12 +30,12 @@ namespace Zer.FrameWork.UnitTest.Tests
         }
 
         [Test]
-        [NUnit.Framework.Category("Core.Export")]
+        [Category("Core.Export")]
         public void TestFor_GenerateLineString_AnyObject_ReturnCorrectResult()
         {
             // Arrange
-            var companyInfoDto = new CompanyInfoDto() { CompanyName = "深圳市致远高新科技有限公司", Id = 1, TraderRange = "软件开发与运营", CreateDate = DateTime.Now.AddYears(-1) };
-            var expected = "1" + "," + "深圳市致远高新科技有限公司" + "," + "软件开发与运营" + "," + DateTime.Now.AddYears(-1);
+            var companyInfoDto = new CompanyInfoDto { CompanyName = "深圳市致远高新科技有限公司", Id = 1, TraderRange = "软件开发与运营", CreateDate = DateTime.Now.AddYears(-1) };
+            var expected = "1" + "," + "软件开发与运营" + "," + "深圳市致远高新科技有限公司" + "," + DateTime.Now.AddYears(-1);
 
             // Act
             var actual = Export.GenerateLineString(companyInfoDto);
@@ -49,7 +48,7 @@ namespace Zer.FrameWork.UnitTest.Tests
         [Category("Core.Export")]
         public void TsetFor_GenerateHeaderLineString_InputGenericTypeParameter_ReturnCorrectResult()
         {
-            var expected = "编号" + "," + "公司名称" + "," + "经营范围" + "," + "创建日期";
+            var expected = "编号" + "," + "经营范围" + "," + "公司名称" + "," + "创建日期";
 
             var actual = Export.GenerateHeaderLineString<CompanyInfoDto>();
 
@@ -60,7 +59,7 @@ namespace Zer.FrameWork.UnitTest.Tests
         [Category("Core.Export")]
         public void TsetFor_GenerateHeaderLineString_InputType_ReturnCorrectResult()
         {
-            var expected = "编号" + "," + "公司名称" + "," + "经营范围" + "," + "创建日期";
+            var expected = "编号" + "," + "经营范围" + "," + "公司名称" + "," + "创建日期";
 
             var actual = Export.GenerateHeaderLineString(typeof(CompanyInfoDto));
 
@@ -125,15 +124,19 @@ namespace Zer.FrameWork.UnitTest.Tests
         private class CompanyInfoDto
         {
             [ExportDisplayName("编号")]
+            [Sort(1)]
             public int Id { get; set; }
 
             [ExportDisplayName("公司名称")]
+            [Sort(3)]
             public string CompanyName { get; set; }
 
             [ExportDisplayName("经营范围")]
+            [Sort(2)]
             public string TraderRange { get; set; }
 
             [ExportDisplayName("创建日期")]
+            [Sort(4)]
             public DateTime CreateDate { get; set; }
         }
     }

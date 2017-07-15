@@ -4,9 +4,9 @@ using System.IO;
 using System.Text;
 using FluentAssertions;
 using NUnit.Framework;
+using Zer.Framework.Attributes;
 using Zer.Framework.Export.Attributes;
 using Zer.Framework.Extensions;
-using Zer.Framework.Import.Attributes;
 
 namespace Zer.Framework.UnitTest.Tests
 {
@@ -17,7 +17,7 @@ namespace Zer.Framework.UnitTest.Tests
         [Category("Core.Import")]
         public void TestFor_ConvertTo_NormalFlow_ReturnExpectedResult()
         {
-            var inputString = "1" + "," + "深圳市致远高新科技有限公司" + "," + "软件开发与运营" + "," + "2017-7-12";
+            var inputString = "1" + "," + "软件开发与运营" + "," + "深圳市致远高新科技有限公司" + "," + "2017-7-12";
 
             var expected = new CompanyInfoDto()
             {
