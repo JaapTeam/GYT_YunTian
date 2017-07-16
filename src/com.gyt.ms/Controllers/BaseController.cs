@@ -41,6 +41,7 @@ namespace com.gyt.ms.Controllers
         /// <param name="inputStrings"></param>
         public void ValidataInputString(params string[][] inputStrings)
         {
+            // TODO:Unit Test
             inputStrings.ForEach(ValidataInputString);
         }
 
@@ -50,6 +51,7 @@ namespace com.gyt.ms.Controllers
         /// <param name="inputStrings"></param>
         public void ValidataInputString(params IEnumerable<string>[] inputStrings)
         {
+            // TODO:Unit Test
             inputStrings.Select(x => x.ToArray()).ForEach(ValidataInputString);
         }
 
@@ -71,6 +73,12 @@ namespace com.gyt.ms.Controllers
         protected JsonResult Fail(string msg = "")
         {
             return Json(new { C = ResultCode.Fail.ToInt(), msg = msg, data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        protected FileResult ExportCsv(byte[] data, string fileName)
+        {
+            // TODO:Unit Test
+            return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv",fileName, DateTime.Now));
         }
     }
 }

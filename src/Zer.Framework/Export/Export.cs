@@ -10,14 +10,22 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.Framework.Export
 {
-    
     public class Export
-       
     {
+        public static byte[] GetBuffer<T>(IEnumerable<T> data) 
+            where T : class
+        {
+            // TODO:Unit Test
+            var stringBuilder = ConvertToMultipleLineString(data);
+            var contexnt = stringBuilder.ToString();
+            return Encoding.Default.GetBytes(contexnt);
+        }
+
         public static void WriteData<T>(StreamWriter streamWriter, IEnumerable<T> data) where T : class
         {
+            // TODO:Unit Test
             var stringBuilder = ConvertToMultipleLineString(data);
-
+            
             //将字符串写入流
             streamWriter.WriteAsync(stringBuilder.ToString());
             streamWriter.Flush();
