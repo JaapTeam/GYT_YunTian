@@ -30,7 +30,7 @@ namespace Zer.Framework.Export
             streamWriter.WriteAsync(stringBuilder.ToString());
             streamWriter.Flush();
         }
-
+        
         public static StringBuilder ConvertToMultipleLineString<T>(IEnumerable<T> data) where T : class
         {
             // 从数据转为字符串
@@ -100,13 +100,14 @@ namespace Zer.Framework.Export
             where T : class
         {
             var values = typeof(T).GetProperties()
+                .Where(x => x.GetCustomAttribute(typeof(IgnoreAttribute)) == null)
                 .OrderBy(x =>
                     {
                         var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
                         if (sortAttribute == null)
                         {
                             throw new CustomException(
-                                "缺少属性"+ typeof(SortAttribute).FullName,
+                                "缺少属性" + typeof(SortAttribute).FullName,
                                 "属性名:",
                                 x.Name
                                 );

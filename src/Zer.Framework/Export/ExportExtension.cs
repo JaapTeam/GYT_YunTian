@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Zer.Framework.Export
 {
@@ -7,7 +7,6 @@ namespace Zer.Framework.Export
         public static byte[] GetBuffer<T>(this IEnumerable<T> list)
             where T : class
         {
-            // TODO:Unit test
             return Export.GetBuffer(list);
         }
     }

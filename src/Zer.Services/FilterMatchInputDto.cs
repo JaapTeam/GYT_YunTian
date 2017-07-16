@@ -1,7 +1,4 @@
-﻿namespace Zer.Services
+namespace Zer.Services
 {
-    public class FilterMatchInputDto
-    {
-        
-    }
+    public class FilterMatchInputDto { }
 }

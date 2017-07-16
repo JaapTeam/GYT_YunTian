@@ -63,18 +63,18 @@ namespace com.gyt.ms.Controllers
             return Success(dto);
         }
 
-        public JsonResult AddRange(List<TruckInfoDto> listInfo)
-        {
-            ValidataInputString(
-                listInfo.Select(x => x.CompanyName),
-                listInfo.Select(x => x.DriverName),
-                listInfo.Select(x => x.FrontTruckNo),
-                listInfo.Select(x => x.RearTruckNo));
+        //public JsonResult AddRange(List<TruckInfoDto> listInfo)
+        //{
+        //    ValidataInputString(
+        //        listInfo.Select(x => x.CompanyName),
+        //        listInfo.Select(x => x.DriverName),
+        //        listInfo.Select(x => x.FrontTruckNo),
+        //        listInfo.Select(x => x.RearTruckNo));
 
-            var result = _truckInfoService.AddRange(listInfo);
+        //    var result = _truckInfoService.AddRange(listInfo);
 
-            return Success(result);
-        }
+        //    return Success(result);
+        //}
 
         public JsonResult Add(TruckInfoDto infoDto)
         {
