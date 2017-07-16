@@ -64,6 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardsInfo\Dto\CardsInfoDto.cs" />
+    <Compile Include="CardsInfo\ICardsInfoService.cs" />
+    <Compile Include="CardsSuccessInfo\ICardsSuccessInfo.cs" />
+    <Compile Include="CardsSuccessInfo\Dto\CardsSuccessInfoDto.cs" />
     <Compile Include="Company\Dto\CompanyInfoDto.cs" />
     <Compile Include="Company\ICompanyService.cs" />
     <Compile Include="DomainServiceBase.cs" />
