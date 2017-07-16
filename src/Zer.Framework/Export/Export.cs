@@ -7,29 +7,30 @@ using System.Text;
 using Zer.Framework.Attributes;
 using Zer.Framework.Exception;
 using Zer.Framework.Export.Attributes;
-using System.Web.Mvc;
 
 namespace Zer.Framework.Export
 {
     public class Export
     {
-        public static void WriteData<T>(StreamWriter streamWriter, IEnumerable<T> data) where T : class
-        {
-            var stringBuilder = ConvertToMultipleLineString(data);
-
-            //将字符串写入流
-            streamWriter.WriteAsync(stringBuilder.ToString());
-            streamWriter.Flush();
-        }
-
-        public static byte[] GetBuffer<T>(IEnumerable<T> data)
+        public static byte[] GetBuffer<T>(IEnumerable<T> data) 
             where T : class
         {
+            // TODO:Unit Test
             var stringBuilder = ConvertToMultipleLineString(data);
             var contexnt = stringBuilder.ToString();
             return Encoding.Default.GetBytes(contexnt);
         }
 
+        public static void WriteData<T>(StreamWriter streamWriter, IEnumerable<T> data) where T : class
+        {
+            // TODO:Unit Test
+            var stringBuilder = ConvertToMultipleLineString(data);
+            
+            //将字符串写入流
+            streamWriter.WriteAsync(stringBuilder.ToString());
+            streamWriter.Flush();
+        }
+        
         public static StringBuilder ConvertToMultipleLineString<T>(IEnumerable<T> data) where T : class
         {
             // 从数据转为字符串
