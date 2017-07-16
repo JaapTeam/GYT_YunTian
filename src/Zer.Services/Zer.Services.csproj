@@ -76,6 +76,8 @@
     <Compile Include="IDomainServiceOfPrimaryKey.cs" />
     <Compile Include="LngAllowance\ILngAllowanceService.cs" />
     <Compile Include="LngAllowance\Dto\LngAllowanceInfoDto.cs" />
+    <Compile Include="Logs\Dto\LogsDto.cs" />
+    <Compile Include="Logs\ILogsService.cs" />
     <Compile Include="OverloadRecrod\IOverloadRecrodService.cs" />
     <Compile Include="OverloadRecrod\Dto\OverloadRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
