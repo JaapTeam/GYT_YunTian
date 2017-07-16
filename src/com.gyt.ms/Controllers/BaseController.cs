@@ -72,5 +72,10 @@ namespace com.gyt.ms.Controllers
         {
             return Json(new { C = ResultCode.Fail.ToInt(), msg = msg, data = "" }, JsonRequestBehavior.AllowGet);
         }
+
+        protected FileResult ExportCsv(byte[] data, string fileName)
+        {
+            return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv", fileName, DateTime.Now));
+        }
     }
 }

@@ -64,11 +64,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FilterMatchInputDto.cs" />
     <Compile Include="Company\Dto\CompanyInfoDto.cs" />
     <Compile Include="Company\ICompanyService.cs" />
     <Compile Include="DomainServiceBase.cs" />
     <Compile Include="IDomainService.cs" />
     <Compile Include="IDomainServiceOfPrimaryKey.cs" />
+    <Compile Include="OverloadRecrod\IOverloadRecrodService.cs" />
+    <Compile Include="OverloadRecrod\Dto\OverloadRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Truck\Dto\TruckInfoDto.cs" />
     <Compile Include="Truck\ITruckInfoService.cs" />
