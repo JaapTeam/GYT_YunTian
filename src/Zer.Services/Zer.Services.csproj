@@ -64,6 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardsInfo\Dto\CardsInfoDto.cs" />
+    <Compile Include="CardsInfo\ICardsInfoService.cs" />
+    <Compile Include="CardsSuccessInfo\ICardsSuccessInfo.cs" />
+    <Compile Include="CardsSuccessInfo\Dto\CardsSuccessInfoDto.cs" />
     <Compile Include="Company\Dto\CompanyInfoDto.cs" />
     <Compile Include="Company\ICompanyService.cs" />
     <Compile Include="DomainServiceBase.cs" />
@@ -72,6 +76,8 @@
     <Compile Include="IDomainServiceOfPrimaryKey.cs" />
     <Compile Include="LngAllowance\ILngAllowanceService.cs" />
     <Compile Include="LngAllowance\Dto\LngAllowanceInfoDto.cs" />
+    <Compile Include="Logs\Dto\LogsDto.cs" />
+    <Compile Include="Logs\ILogsService.cs" />
     <Compile Include="OverloadRecrod\IOverloadRecrodService.cs" />
     <Compile Include="OverloadRecrod\Dto\OverloadRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
