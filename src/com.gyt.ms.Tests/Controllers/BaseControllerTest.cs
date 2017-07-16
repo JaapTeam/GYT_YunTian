@@ -87,7 +87,7 @@ namespace com.gyt.ms.Tests.Controllers
         //[Description("正常获取Session，返回期望值")]
         //public void TestForGetCurrentUser_NoSession_ReturnNull()
         //{
-        //    Assert.Fail();
+        //    Assert.Reject();
         //}
 
         //[Test]
@@ -95,7 +95,7 @@ namespace com.gyt.ms.Tests.Controllers
         //[Description("")]
         //public void TestForSuccess_NoMessage_ReturnExpectedJsonResult()
         //{
-        //    Assert.Fail();
+        //    Assert.Reject();
         //}
 
         //[Test]
@@ -103,7 +103,7 @@ namespace com.gyt.ms.Tests.Controllers
         //[Description("")]
         //public void TestForSuccess_JustMessage_ReturnExpectedJsonResult()
         //{
-        //    Assert.Fail();
+        //    Assert.Reject();
         //}
 
         //[Test]
@@ -111,7 +111,7 @@ namespace com.gyt.ms.Tests.Controllers
         //[Description("")]
         //public void TestForSuccess_FullParameters_ReturnExpectedJsonResult()
         //{
-        //    Assert.Fail();
+        //    Assert.Reject();
         //}
 
         //[Test]
@@ -119,7 +119,7 @@ namespace com.gyt.ms.Tests.Controllers
         //[Description("")]
         //public void TestForFail_Normal_ReturnExpectedJsonResult()
         //{
-        //    Assert.Fail();
+        //    Assert.Reject();
         //}
     }
 }

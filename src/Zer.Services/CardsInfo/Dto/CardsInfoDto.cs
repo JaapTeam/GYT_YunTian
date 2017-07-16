@@ -38,28 +38,28 @@ namespace Zer.Services.CardsInfo.Dto
         /// 申办企业编号
         /// </summary>
         [Ignore]
-        public int BidCompanyId { get; set; }
+        public int RequestCompanyId { get; set; }
 
         /// <summary>
         /// 申办企业名称
         /// </summary>
         [Sort(5)]
         [ExportDisplayName("申办企业名称")]
-        public int BidCompanyNamed { get; set; }
+        public int RequestCompanyNamed { get; set; }
 
         /// <summary>
         /// 申报车牌号
         /// </summary>
         [Sort(6)]
         [ExportDisplayName("申报车牌号")]
-        public string BidTruckNo { get; set; }
+        public string RequestTruckNo { get; set; }
 
         /// <summary>
         /// 申办日期
         /// </summary>
         [Sort(7)]
         [ExportDisplayName("申办日期")]
-        public DateTime BidDateTime { get; set; }
+        public DateTime RequestDateTime { get; set; }
 
         /// <summary>
         /// 经办人
