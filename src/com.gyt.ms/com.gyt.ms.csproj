@@ -122,6 +122,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\TruckController.cs" />
@@ -173,6 +175,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Error\" />
     <Folder Include="Views\Truck\" />
   </ItemGroup>
   <ItemGroup>

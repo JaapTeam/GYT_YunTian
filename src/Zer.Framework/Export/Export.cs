@@ -7,12 +7,11 @@ using System.Text;
 using Zer.Framework.Attributes;
 using Zer.Framework.Exception;
 using Zer.Framework.Export.Attributes;
+using System.Web.Mvc;
 
 namespace Zer.Framework.Export
 {
-    
     public class Export
-       
     {
         public static void WriteData<T>(StreamWriter streamWriter, IEnumerable<T> data) where T : class
         {
@@ -21,6 +20,14 @@ namespace Zer.Framework.Export
             //将字符串写入流
             streamWriter.WriteAsync(stringBuilder.ToString());
             streamWriter.Flush();
+        }
+
+        public static byte[] GetBuffer<T>(IEnumerable<T> data)
+            where T : class
+        {
+            var stringBuilder = ConvertToMultipleLineString(data);
+            var contexnt = stringBuilder.ToString();
+            return Encoding.Default.GetBytes(contexnt);
         }
 
         public static StringBuilder ConvertToMultipleLineString<T>(IEnumerable<T> data) where T : class
@@ -92,13 +99,14 @@ namespace Zer.Framework.Export
             where T : class
         {
             var values = typeof(T).GetProperties()
+                .Where(x => x.GetCustomAttribute(typeof(IgnoreAttribute)) == null)
                 .OrderBy(x =>
                     {
                         var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
                         if (sortAttribute == null)
                         {
                             throw new CustomException(
-                                "缺少属性"+ typeof(SortAttribute).FullName,
+                                "缺少属性" + typeof(SortAttribute).FullName,
                                 "属性名:",
                                 x.Name
                                 );
