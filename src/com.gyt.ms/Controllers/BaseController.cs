@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using com.gyt.ms.Models;
 using WebGrease.Css.Extensions;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
@@ -79,6 +80,43 @@ namespace com.gyt.ms.Controllers
         {
             // TODO:Unit Test
             return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv",fileName, DateTime.Now));
+        }
+
+        public ActionResult LeftMenu(int id = 0)
+        {
+            List<MenuItem> menuItems = new List<MenuItem>();
+            MenuItem businessHandle=new MenuItem();
+            businessHandle.Id = 0;
+            businessHandle.TextInfo = "港运通业务办理";
+            businessHandle.Icon = "icon-briefcase";
+
+            MenuItem businessHandleChild = new MenuItem();
+            businessHandleChild.Id = 1;
+            businessHandleChild.ActionName = "Index";
+            businessHandleChild.ControllerName = "BusinessHandle";
+            businessHandleChild.TextInfo = "港运通业务办理";
+            businessHandleChild.IsCurrentPage = false;
+            businessHandleChild.Icon = "icon-briefcase";
+
+            businessHandle.ChildItems=new List<MenuItem>();
+            businessHandle.ChildItems.Add(businessHandleChild);
+            menuItems.Add(businessHandle);
+
+            foreach (var item in menuItems)
+            {
+                if (item.ChildItems == null) continue;
+                foreach (var child in item.ChildItems)
+                {
+                    if (child.Id == id)
+                    {
+                        item.IsCurrentPage = true;
+                        child.IsCurrentPage = true;
+                    }
+                }
+            }
+
+            ViewBag.MenuItems = menuItems;
+            return PartialView("LeftMenu");
         }
     }
 }
