@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Zer.Framework.Entities;
 
-namespace Zer.Entities.Truck
+namespace Zer.Entities
 {
-    public class TruckInfo:EntityBase
+    public class TruckInfo : EntityBase
     {
         public string FrontTruckNo { get; set; }
         public string RearTruckNo { get; set; }
         public int CompanyId { get; set; }
-        public int DriverId {get;set ;}
+        public int DriverId { get; set; }
     }
 
     public enum TruckState

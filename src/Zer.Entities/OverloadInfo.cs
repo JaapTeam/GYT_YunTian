@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Zer.Framework.Entities;
 
-namespace Zer.Entities.OverloadInfo
+namespace Zer.Entities
 {
     public class OverloadInfo : EntityBase
     {

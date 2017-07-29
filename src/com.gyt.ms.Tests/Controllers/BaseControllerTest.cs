@@ -2,7 +2,8 @@
 using com.gyt.ms.Controllers;
 using FluentAssertions;
 using NUnit.Framework;
-using Zer.Entities.User;
+using Zer.Entities;
+using Zer.Framework.Entities;
 using Zer.NUnit;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;

@@ -1,6 +1,6 @@
 using System;
 
-namespace Zer.Entities
+namespace Zer.Framework.Entities
 {
     public interface ICreateTime
     {

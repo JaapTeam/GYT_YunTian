@@ -1,5 +1,6 @@
 using Moq;
-using Zer.Entities.User;
+using Zer.Entities;
+using Zer.Framework.Entities;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
 

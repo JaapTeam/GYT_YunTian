@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Mvc;
 using com.gyt.ms.Tests.MockService;
 using Moq;
-using Zer.Entities.User;
 using Zer.Services.Company;
 using Zer.Services.Company.Dto;
 using Zer.Services.Users;
