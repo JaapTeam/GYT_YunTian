@@ -5,7 +5,12 @@
     var menuList = ViewBag.MenuItems as List<MenuItem>;
 }
 <ul class="nav nav-list">
-    
+    <li>
+        <a href="@Url.Action("Index","Home",new {id=14})">
+            <i class="icon-home"></i>
+            <span class="menu-text"> 首页 </span>
+        </a>
+    </li>
     @{
         if (menuList != null)
         {
@@ -23,8 +28,8 @@
                         <ul class="submenu">
                             @foreach (var child in menu.ChildItems)
                             {
-                                <li class="@(menu.IsCurrentPage?"active":"")">
-                                    <a href="@Url.Action(child.ActionName,child.ControllerName)">
+                                <li class="@(child.IsCurrentPage ? "active" : "")">
+                                    <a href="@Url.Action(child.ActionName, child.ControllerName, new { id = child.Id })">
                                         <i class="@child.Icon"></i>
                                         @child.TextInfo
                                     </a>

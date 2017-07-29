@@ -138,8 +138,12 @@
     <Compile Include="App_Start\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessHandleController.cs" />
-    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GYTInfoController.cs" />
+    <Compile Include="Controllers\GYTHandleRecrodController.cs" />
+    <Compile Include="Controllers\LNGSubsidyInfoController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\OverLoadChangeInfoController.cs" />
     <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LngAllowanceController.cs" />
@@ -273,7 +277,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -294,8 +300,15 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\LeftMenu.cshtml" />
     <Content Include="Views\BusinessHandle\Index.cshtml" />
-    <Content Include="Views\Company\Index.cshtml" />
-  </ItemGroup>
+    <Content Include="Views\GYTInfo\Index.cshtml" />
+    <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
+    <Content Include="Views\OverLoadChangeInfo\Index.cshtml" />
+    <Content Include="Views\LNGSubsidyInfo\Index.cshtml" />
+    <Content Include="Views\OverloadRecrod\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\AccountManage.cshtml" />    <Content Include="Views\Company\Index.cshtml" />  </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Common\" />
