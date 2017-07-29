@@ -25,7 +25,6 @@ namespace com.gyt.ms.Controllers
             var companyInfo = new CompanyInfo()
             {
                 CompanyName = companyInfoDto.CompanyName,
-                State = State.Active,
                 TraderRange = companyInfoDto.TraderRange
             };
 

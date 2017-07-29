@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Zer.Services</RootNamespace>
     <AssemblyName>Zer.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -68,6 +68,7 @@
     <Compile Include="CardsInfo\ICardsInfoService.cs" />
     <Compile Include="CardsSuccessInfo\ICardsSuccessInfo.cs" />
     <Compile Include="CardsSuccessInfo\Dto\CardsSuccessInfoDto.cs" />
+    <Compile Include="Company\Impl\CompanyService.cs" />
     <Compile Include="Company\Dto\CompanyInfoDto.cs" />
     <Compile Include="Company\ICompanyService.cs" />
     <Compile Include="DomainServiceBase.cs" />
@@ -113,14 +114,16 @@
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
+      <Project>{d828abaf-ef29-4635-967e-c80291b3c4b3}</Project>
+      <Name>Zer.GytDataService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ERP\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

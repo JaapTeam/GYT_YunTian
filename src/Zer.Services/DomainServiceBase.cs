@@ -5,6 +5,7 @@ namespace Zer.Services
 {
     public abstract class DomainServiceBase<TEntityDto>:IDomainService<TEntityDto,int>
     {
+
         public abstract TEntityDto GetById(int id);
 
         public abstract List<TEntityDto> GetAll();

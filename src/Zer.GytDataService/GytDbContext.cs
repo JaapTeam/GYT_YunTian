@@ -5,6 +5,11 @@ namespace Zer.GytDataService
 {
     public class GytDbContext : DbContext
     {
+        public GytDbContext()
+            :base("GytDbContext")
+        {
+            
+        }
         public GytDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             
