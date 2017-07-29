@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var activeId=0;
+    activeId = ViewBag.ActiveId;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -145,7 +149,7 @@
                     </div>
                 </div><!-- #sidebar-shortcuts -->
                 <!--Left Menu-->
-                @{Html.RenderAction("leftmenu", "Base",new {id=1});}
+                @{Html.RenderAction("leftmenu", "Base",new {id=activeId});}
                 <!-- /.nav-list -->
 
                 <div class="sidebar-collapse" id="sidebar-collapse">
@@ -231,3 +235,4 @@
     @RenderSection("scripts", false)
         </body>
 </html>
+

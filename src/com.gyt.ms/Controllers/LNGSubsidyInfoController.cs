@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace com.gyt.ms.Controllers
 {
-    public class BusinessHandleController : BaseController
+    public class LNGSubsidyInfoController : BaseController
     {
-        // GET: BusinessHandle
+        // GET: LNGSubsidyInfo
         public ActionResult Index()
         {
-            ViewBag.ActiveId = 1;
+            ViewBag.ActiveId = 9;
             return View();
         }
     }

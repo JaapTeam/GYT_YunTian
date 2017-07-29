@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace com.gyt.ms.Controllers
 {
-    public class BusinessHandleController : BaseController
+    public class GYTInfoController : BaseController
     {
-        // GET: BusinessHandle
+        // GET: GYTInfo
         public ActionResult Index()
         {
-            ViewBag.ActiveId = 1;
+            ViewBag.ActiveId = 3;
             return View();
         }
     }

@@ -82,10 +82,11 @@ namespace com.gyt.ms.Controllers
             return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv",fileName, DateTime.Now));
         }
 
-        public ActionResult LeftMenu(int id = 0)
+        public ActionResult LeftMenu(int id)
         {
+            #region 港运通业务办理
             List<MenuItem> menuItems = new List<MenuItem>();
-            MenuItem businessHandle=new MenuItem();
+            MenuItem businessHandle = new MenuItem();
             businessHandle.Id = 0;
             businessHandle.TextInfo = "港运通业务办理";
             businessHandle.Icon = "icon-briefcase";
@@ -98,9 +99,129 @@ namespace com.gyt.ms.Controllers
             businessHandleChild.IsCurrentPage = false;
             businessHandleChild.Icon = "icon-briefcase";
 
-            businessHandle.ChildItems=new List<MenuItem>();
+            businessHandle.ChildItems = new List<MenuItem>();
             businessHandle.ChildItems.Add(businessHandleChild);
             menuItems.Add(businessHandle);
+            #endregion
+
+            #region 港运通数据管理
+
+            MenuItem gytDataManage = new MenuItem();
+            gytDataManage.Id = 2;
+            gytDataManage.TextInfo = "港运通数据管理";
+            gytDataManage.Icon = "icon-credit-card";
+
+            MenuItem gytInfo = new MenuItem();
+            gytInfo.Id = 3;
+            gytInfo.ActionName = "Index";
+            gytInfo.ControllerName = "GYTInfo";
+            gytInfo.TextInfo = "港运通信息数据库";
+            gytInfo.IsCurrentPage = false;
+            gytInfo.Icon = "icon-file-alt";
+
+            MenuItem gtyHandleRecrod = new MenuItem();
+            gtyHandleRecrod.Id = 4;
+            gtyHandleRecrod.ActionName = "Index";
+            gtyHandleRecrod.ControllerName = "GYTHandleRecrod";
+            gtyHandleRecrod.TextInfo = "港运通办理信息数据库";
+            gtyHandleRecrod.IsCurrentPage = false;
+            gtyHandleRecrod.Icon = "icon-file-alt";
+
+            gytDataManage.ChildItems = new List<MenuItem>();
+            gytDataManage.ChildItems.Add(gytInfo);
+            gytDataManage.ChildItems.Add(gtyHandleRecrod);
+            menuItems.Add(gytDataManage);
+
+            #endregion
+
+            #region 超载超限数据管理
+
+            MenuItem overLoadDataManage= new MenuItem();
+            overLoadDataManage.Id = 5;
+            overLoadDataManage.TextInfo = "超载超限数据管理";
+            overLoadDataManage
+                .Icon = "icon-credit-card";
+
+            MenuItem overLoadRecrod = new MenuItem();
+            overLoadRecrod.Id = 6;
+            overLoadRecrod.ActionName = "Index";
+            overLoadRecrod.ControllerName = "OverLoadRecrod";
+            overLoadRecrod.TextInfo = "超载超限信息数据库";
+            overLoadRecrod.IsCurrentPage = false;
+            overLoadRecrod.Icon = "icon-file-alt";
+
+            MenuItem overLoadChange = new MenuItem();
+            overLoadChange.Id = 7;
+            overLoadChange.ActionName = "Index";
+            overLoadChange.ControllerName = "OverLoadChangeInfo";
+            overLoadChange.TextInfo = "超载超限整改信息数据库";
+            overLoadChange.IsCurrentPage = false;
+            overLoadChange.Icon = "icon-file-alt";
+
+            overLoadDataManage.ChildItems = new List<MenuItem>();
+            overLoadDataManage.ChildItems.Add(overLoadRecrod);
+            overLoadDataManage.ChildItems.Add(overLoadChange);
+            menuItems.Add(overLoadDataManage);
+
+            #endregion
+
+            #region LNG补贴信息数据库
+            MenuItem lgnInfo = new MenuItem();
+            lgnInfo.Id = 8;
+            lgnInfo.TextInfo = "LNG补贴信息数据库";
+            lgnInfo.Icon = "icon-credit-card";
+
+            MenuItem lgnInfoChild = new MenuItem();
+            lgnInfoChild.Id = 9;
+            lgnInfoChild.ActionName = "Index";
+            lgnInfoChild.ControllerName = "LNGSubsidyInfo";
+            lgnInfoChild.TextInfo = "LNG补贴信息数据库";
+            lgnInfoChild.IsCurrentPage = false;
+            lgnInfoChild.Icon = "icon-file-alt";
+
+            lgnInfo.ChildItems = new List<MenuItem>();
+            lgnInfo.ChildItems.Add(lgnInfoChild);
+            menuItems.Add(lgnInfo);
+            #endregion
+
+            #region  系统管理
+
+            MenuItem systemManage = new MenuItem();
+            systemManage.Id = 10;
+            systemManage.TextInfo = "系统管理";
+            systemManage.Icon = "icon-cogs";
+
+            MenuItem logInfo = new MenuItem();
+            logInfo.Id = 11;
+            logInfo.ActionName = "Index";
+            logInfo.ControllerName = "Log";
+            logInfo.TextInfo = "日志管理";
+            logInfo.IsCurrentPage = false;
+            logInfo.Icon = "icon-file-alt";
+
+            MenuItem accountManage = new MenuItem();
+            accountManage.Id = 12;
+            accountManage.ActionName = "AccountManage";
+            accountManage.ControllerName = "User";
+            accountManage.TextInfo = "账户管理";
+            accountManage.IsCurrentPage = false;
+            accountManage.Icon = "icon-file-alt";
+
+            MenuItem changPassword = new MenuItem();
+            changPassword.Id = 13;
+            changPassword.ActionName = "ChangePassword";
+            changPassword.ControllerName = "User";
+            changPassword.TextInfo = "修改密码";
+            changPassword.IsCurrentPage = false;
+            changPassword.Icon = "icon-file-alt";
+
+            systemManage.ChildItems = new List<MenuItem>();
+            systemManage.ChildItems.Add(logInfo);
+            systemManage.ChildItems.Add(accountManage);
+            systemManage.ChildItems.Add(changPassword);
+            menuItems.Add(systemManage);
+
+            #endregion
 
             foreach (var item in menuItems)
             {
