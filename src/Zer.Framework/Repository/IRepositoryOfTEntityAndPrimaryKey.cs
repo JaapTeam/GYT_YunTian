@@ -8,7 +8,10 @@ using Zer.Framework.Entities;
 
 namespace Zer.Framework.Repository
 {
-    public interface IRepository { }
+    public interface IRepository : IDataService
+    {
+        
+    }
 
     public interface IRepository<TEntity, TPrimaryKey> : IRepository
         where TEntity : class ,IEntity<TPrimaryKey>

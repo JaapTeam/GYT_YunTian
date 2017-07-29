@@ -3,14 +3,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Zer.Entities;
+using Zer.Framework;
 using Zer.Services.Company.Dto;
 
 namespace Zer.Services.Company
 {
-    public interface ICompanyService : IDomainService<CompanyInfoDto,int>
+    public interface ICompanyService : IAppService
     {
-        #region query
-
         /// <summary>
         /// 模糊查询，输入公司名称关键字，查询包含该字符的公司信息
         /// </summary>
@@ -25,15 +24,12 @@ namespace Zer.Services.Company
         /// <returns></returns>
         bool Exists(string companyFullName);
 
-        #endregion
-
-        #region Insert
-
         void Add(CompanyInfo model);
 
         bool AddRange(List<CompanyInfo> list);
 
-        #endregion
+        CompanyInfoDto GetById(int id);
+
 
     }
 }

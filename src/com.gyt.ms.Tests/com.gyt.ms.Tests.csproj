@@ -36,6 +36,9 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
@@ -107,6 +110,7 @@
     <Compile Include="Controllers\OverloadRecrod\OverloadControllerTest.cs" />
     <Compile Include="Controllers\Truck\TruckControllerTest.cs" />
     <Compile Include="Controllers\User\UserControllerTest.cs" />
+    <Compile Include="Flow\FlowTest.cs" />
     <Compile Include="MockService.cs" />
     <Compile Include="MockService\MockOverloadRecrodService.cs" />
     <Compile Include="MockService\MockTruckInfoService.cs" />
@@ -131,9 +135,17 @@
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.Framework.EntityFramework\Zer.Framework.EntityFramework.csproj">
+      <Project>{40616615-103E-4A83-A1D0-07834A509D3C}</Project>
+      <Name>Zer.Framework.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zer.Framework\Zer.Framework.csproj">
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
+      <Project>{D828ABAF-EF29-4635-967E-C80291B3C4B3}</Project>
+      <Name>Zer.GytDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.NUnit\Zer.NUnit.csproj">
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
@@ -144,6 +156,7 @@
       <Name>Zer.Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

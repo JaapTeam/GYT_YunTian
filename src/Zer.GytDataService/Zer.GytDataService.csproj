@@ -49,8 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompanyInfoDataService.cs" />
+    <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="GytDbContext.cs" />
+    <Compile Include="ICompanyInfoDataService.cs" />
     <Compile Include="Migrations\201707290815219_setup_database.cs" />
     <Compile Include="Migrations\201707290815219_setup_database.Designer.cs">
       <DependentUpon>201707290815219_setup_database.cs</DependentUpon>

@@ -71,10 +71,7 @@
     <Compile Include="Company\Impl\CompanyService.cs" />
     <Compile Include="Company\Dto\CompanyInfoDto.cs" />
     <Compile Include="Company\ICompanyService.cs" />
-    <Compile Include="DomainServiceBase.cs" />
     <Compile Include="FilterMatchInputDto.cs" />
-    <Compile Include="IDomainService.cs" />
-    <Compile Include="IDomainServiceOfPrimaryKey.cs" />
     <Compile Include="LngAllowance\ILngAllowanceService.cs" />
     <Compile Include="LngAllowance\Dto\LngAllowanceInfoDto.cs" />
     <Compile Include="Logs\Dto\LogsDto.cs" />

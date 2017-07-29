@@ -2,37 +2,18 @@
 using System.Collections.Generic;
 using Zer.Entities;
 using Zer.GytDataService;
+using Zer.GytDataService.Impl;
 using Zer.Services.Company.Dto;
 
 namespace Zer.Services.Company.Impl
 {
     public class CompanyService : ICompanyService
     {
-        private readonly CompanyInfoDataService companyInfoDataService;
+        private readonly ICompanyInfoDataService _companyInfoDataService;
 
-        public CompanyService(CompanyInfoDataService companyInfoDataService)
+        public CompanyService(ICompanyInfoDataService companyInfoDataService)
         {
-            this.companyInfoDataService = companyInfoDataService;
-        }
-
-        public CompanyInfoDto GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<CompanyInfoDto> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Add(CompanyInfoDto model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool AddRange(List<CompanyInfoDto> list)
-        {
-            throw new NotImplementedException();
+            this._companyInfoDataService = companyInfoDataService;
         }
 
         public List<CompanyInfoDto> GetByLikeName(string likeName)
@@ -54,5 +35,17 @@ namespace Zer.Services.Company.Impl
         {
             throw new NotImplementedException();
         }
+
+        public CompanyInfoDto GetById(int id)
+        {
+            var entity = _companyInfoDataService.GetById(1);
+            return new CompanyInfoDto()
+            {
+                CompanyName = entity.CompanyName,
+                Id = entity.Id,
+                TraderRange = entity.TraderRange
+            };
+        }
+        
     }
 }
