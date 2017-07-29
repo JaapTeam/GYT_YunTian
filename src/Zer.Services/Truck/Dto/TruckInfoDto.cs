@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Zer.Entities.Truck;
+using Zer.Entities;
 
 namespace Zer.Services.Truck.Dto
 {

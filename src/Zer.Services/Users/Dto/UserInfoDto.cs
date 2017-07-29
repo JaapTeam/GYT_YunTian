@@ -1,4 +1,5 @@
-﻿using Zer.Entities.User;
+﻿using Zer.Entities;
+using Zer.Framework.Entities;
 
 namespace Zer.Services.Users.Dto
 {
