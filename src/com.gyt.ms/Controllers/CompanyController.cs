@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Entities;
 using Zer.Framework.Extensions;
@@ -24,17 +25,28 @@ namespace com.gyt.ms.Controllers
             return View(dto);
         }
 
-        public JsonResult AddCompany(CompanyInfoDto companyInfoDto)
+        public ActionResult DemoForAdd()
         {
-            ValidataInputString(companyInfoDto.CompanyName, companyInfoDto.TraderRange);
-
-            var companyInfo = new CompanyInfo()
+            var dto = new CompanyInfoDto()
             {
-                CompanyName = companyInfoDto.CompanyName,
-                TraderRange = companyInfoDto.TraderRange
+                CompanyName = "Zer software .CLT",
+                TraderRange = "Software devlopement"
             };
 
-            if (_companyService.Exists(companyInfoDto.CompanyName))
+            _companyService.Add(Mapper.Map<CompanyInfo>(dto));
+
+            return RedirectToAction("Index");
+        }
+
+        public JsonResult AddCompany(CompanyInfoDto companyInfoDto)
+        {
+            if (companyInfoDto == null) return Fail();
+
+            ValidataInputString(companyInfoDto.CompanyName, companyInfoDto.TraderRange);
+
+            var companyInfo = Mapper.Map<CompanyInfo>(companyInfoDto);
+
+            if (_companyService.Exists(companyInfo.CompanyName))
             {
                 return Fail("公司名称已经存在!");
             }

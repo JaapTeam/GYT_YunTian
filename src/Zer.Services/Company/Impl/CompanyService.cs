@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Zer.Entities;
 using Zer.GytDataService;
 using Zer.GytDataService.Impl;
@@ -18,17 +20,18 @@ namespace Zer.Services.Company.Impl
 
         public List<CompanyInfoDto> GetByLikeName(string likeName)
         {
-            throw new NotImplementedException();
+            return Mapper.Map<List<CompanyInfoDto>>(_companyInfoDataService.GetAll()
+                .Where(x => x.CompanyName.Contains(likeName)).ToList());
         }
 
         public bool Exists(string companyFullName)
         {
-            throw new NotImplementedException();
+            return _companyInfoDataService.GetAll().Any(x => x.CompanyName.Equals(companyFullName));
         }
 
         public void Add(CompanyInfo model)
         {
-            throw new NotImplementedException();
+            _companyInfoDataService.Insert(model);
         }
 
         public bool AddRange(List<CompanyInfo> list)
@@ -39,12 +42,9 @@ namespace Zer.Services.Company.Impl
         public CompanyInfoDto GetById(int id)
         {
             var entity = _companyInfoDataService.GetById(1);
-            return new CompanyInfoDto()
-            {
-                CompanyName = entity.CompanyName,
-                Id = entity.Id,
-                TraderRange = entity.TraderRange
-            };
+            
+
+            return Mapper.Map<CompanyInfoDto>(entity);
         }
         
     }
