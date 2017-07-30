@@ -2,9 +2,10 @@
 using System;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using Zer.Services.Users;
-using Zer.Services.Users.Dto;
 using Zer.Framework.Extensions;
+using Zer.GytDto;
+using Zer.GytDto.UserInfo;
+using Zer.Services;
 
 
 namespace com.gyt.ms.Controllers

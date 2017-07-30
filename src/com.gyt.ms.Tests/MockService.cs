@@ -1,11 +1,12 @@
 using System;
 using com.gyt.ms.Tests.MockService;
+using Zer.Framework;
 using Zer.Services;
 
 namespace com.gyt.ms.Tests
 {
     public static class MockService<TService,TEntityDto>
-        where TService : class, IDomainService<TEntityDto,int>
+        where TService : class, IAppService
     {
         /// <summary>
         /// 创建Mock服务

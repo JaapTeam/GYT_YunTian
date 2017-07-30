@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Zer.Services</RootNamespace>
     <AssemblyName>Zer.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\com.gyt.ms\Bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -55,48 +59,21 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Zer.Services">
-      <HintPath>..\com.gyt.ms\Bin\Zer.Services.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardsInfo\Dto\CardsInfoDto.cs" />
-    <Compile Include="CardsInfo\ICardsInfoService.cs" />
-    <Compile Include="CardsSuccessInfo\ICardsSuccessInfo.cs" />
-    <Compile Include="CardsSuccessInfo\Dto\CardsSuccessInfoDto.cs" />
-    <Compile Include="Company\Dto\CompanyInfoDto.cs" />
-    <Compile Include="Company\ICompanyService.cs" />
-    <Compile Include="DomainServiceBase.cs" />
-    <Compile Include="FilterMatchInputDto.cs" />
-    <Compile Include="IDomainService.cs" />
-    <Compile Include="IDomainServiceOfPrimaryKey.cs" />
-    <Compile Include="LngAllowance\ILngAllowanceService.cs" />
-    <Compile Include="LngAllowance\Dto\LngAllowanceInfoDto.cs" />
-    <Compile Include="Logs\Dto\LogsDto.cs" />
-    <Compile Include="Logs\ILogsService.cs" />
-    <Compile Include="OverloadRecrod\IOverloadRecrodService.cs" />
-    <Compile Include="OverloadRecrod\Dto\OverloadRecrodDto.cs" />
+    <Compile Include="ICardsInfoService.cs" />
+    <Compile Include="ICardsSuccessInfo.cs" />
+    <Compile Include="Impl\CompanyService.cs" />
+    <Compile Include="ICompanyService.cs" />
+    <Compile Include="ILngAllowanceService.cs" />
+    <Compile Include="ILogsService.cs" />
+    <Compile Include="IOverloadRecrodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Truck\Dto\TruckInfoDto.cs" />
-    <Compile Include="Truck\ITruckInfoService.cs" />
-    <Compile Include="Users\Dto\ChangePasswordResult.cs" />
-    <Compile Include="Users\Dto\UserInfoDto.cs" />
-    <Compile Include="Users\Dto\FrozenResult.cs" />
-    <Compile Include="Users\Dto\ThawResult.cs" />
-    <Compile Include="Users\Impl\UserInfoService.cs" />
-    <Compile Include="Users\IUserInfoService.cs" />
-    <Compile Include="Users\Dto\RegistResult.cs" />
-    <Compile Include="Users\Dto\LoginStatus.cs" />
+    <Compile Include="ITruckInfoService.cs" />
+    <Compile Include="Impl\UserInfoService.cs" />
+    <Compile Include="IUserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zer.Data\Zer.Data.csproj">
-      <Project>{442CF3FC-3C02-424D-8726-41BAC8AF255D}</Project>
-      <Name>Zer.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
@@ -113,14 +90,20 @@
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
+      <Project>{d828abaf-ef29-4635-967e-c80291b3c4b3}</Project>
+      <Name>Zer.GytDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
+      <Project>{85e45342-8fcd-434b-a552-8aa41360a3be}</Project>
+      <Name>Zer.GytDto</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ERP\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

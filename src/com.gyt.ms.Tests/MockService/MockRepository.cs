@@ -1,10 +1,11 @@
 ﻿using Moq;
+using Zer.Framework;
 using Zer.Services;
 
 namespace com.gyt.ms.Tests.MockService
 {
-    public abstract class MockRepository<T,TEntityDto>
-        where T : class,IDomainService<TEntityDto,int>
+    public abstract class MockRepository<T, TEntityDto>
+        where T : class, IAppService
     {
         protected Mock<T> Mock { get; private set; }
 
