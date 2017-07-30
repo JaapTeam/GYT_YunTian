@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zer.Framework.Export;
 using Zer.Services;
+using Zer.Services.LngAllowance.Dto;
 
 namespace com.gyt.ms.Controllers
 {
@@ -17,6 +18,11 @@ namespace com.gyt.ms.Controllers
         {
             // TODO: 功能未完成
             _lngAllowanceService = lngAllowanceService;
+        }
+
+        public LngAllowanceController()
+        {
+            
         }
 
         // GET: LngAllowance
@@ -31,6 +37,7 @@ namespace com.gyt.ms.Controllers
         {
             // TODO:Unit Test
             var list = _lngAllowanceService.GetList(idList);
+            
             return ExportCsv(list.GetBuffer(), "LNG补贴信息");
         }
     }

@@ -127,5 +127,13 @@ namespace com.gyt.ms.Controllers
             ViewBag.ActiveId = 12;
             return View();
         }
+
+        public ActionResult AccountInfo(string viewType, int activeId = 0, int userId = 0)
+        {
+            ViewBag.ActiveId = activeId;
+            ViewBag.UserInfo=new UserInfoDto(){UserId = 0001,UserName = "zhangsan",DisplayName = "张三", State = UserState.Active};
+            ViewBag.ViewType = viewType;
+            return View();
+        }
     }
 }

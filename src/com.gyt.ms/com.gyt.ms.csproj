@@ -308,8 +308,12 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
-    <Content Include="Views\User\AccountManage.cshtml" />    <Content Include="Views\Company\Index.cshtml" />  </ItemGroup>
-  <ItemGroup>
+    
+    <Content Include="Views\User\AccountManage.cshtml" />
+    <Content Include="Views\User\AccountInfo.cshtml" />
+    <Content Include="Views\Log\LogInfo.cshtml" />
+  </ItemGroup>
+    <Content Include="Views\User\AccountManage.cshtml" />    <Content Include="Views\Company\Index.cshtml" />  </ItemGroup>  <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
