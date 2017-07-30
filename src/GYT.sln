@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Data", "Zer.Data\Zer.Data.csproj", "{442CF3FC-3C02-424D-8726-41BAC8AF255D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Entities", "Zer.Entities\Zer.Entities.csproj", "{CCBD3F93-64C6-40EB-A213-1F762F04796E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework", "Zer.Framework\Zer.Framework.csproj", "{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}"
@@ -40,16 +38,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework.EntityFramewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.GytDataService", "Zer.GytDataService\Zer.GytDataService.csproj", "{D828ABAF-EF29-4635-967E-C80291B3C4B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.GytDto", "Zer.GytDto\Zer.GytDto.csproj", "{85E45342-8FCD-434B-A552-8AA41360A3BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{442CF3FC-3C02-424D-8726-41BAC8AF255D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{442CF3FC-3C02-424D-8726-41BAC8AF255D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{442CF3FC-3C02-424D-8726-41BAC8AF255D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{442CF3FC-3C02-424D-8726-41BAC8AF255D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CCBD3F93-64C6-40EB-A213-1F762F04796E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CCBD3F93-64C6-40EB-A213-1F762F04796E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCBD3F93-64C6-40EB-A213-1F762F04796E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,12 +90,15 @@ Global
 		{D828ABAF-EF29-4635-967E-C80291B3C4B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D828ABAF-EF29-4635-967E-C80291B3C4B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D828ABAF-EF29-4635-967E-C80291B3C4B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85E45342-8FCD-434B-A552-8AA41360A3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85E45342-8FCD-434B-A552-8AA41360A3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85E45342-8FCD-434B-A552-8AA41360A3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85E45342-8FCD-434B-A552-8AA41360A3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{442CF3FC-3C02-424D-8726-41BAC8AF255D} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
 		{CCBD3F93-64C6-40EB-A213-1F762F04796E} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
 		{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3} = {12F80F9A-0ED1-4695-919E-34AF88CB9237}
 		{9C3474F2-8429-4DD0-AFE7-9EE60952A5D4} = {12F80F9A-0ED1-4695-919E-34AF88CB9237}
@@ -111,5 +110,6 @@ Global
 		{8AD01D39-4E62-4407-8E8D-C795C4A67E82} = {F6348613-77A6-4D79-890F-E8654B1B6228}
 		{40616615-103E-4A83-A1D0-07834A509D3C} = {12F80F9A-0ED1-4695-919E-34AF88CB9237}
 		{D828ABAF-EF29-4635-967E-C80291B3C4B3} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
+		{85E45342-8FCD-434B-A552-8AA41360A3BE} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
 	EndGlobalSection
 EndGlobal

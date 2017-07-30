@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Moq;
 using Zer.Entities;
-using Zer.Services.Company;
-using Zer.Services.Company.Dto;
+using Zer.GytDto;
+using Zer.Services;
 
 namespace com.gyt.ms.Tests.MockService
 {

@@ -59,42 +59,21 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Zer.Services">
-      <HintPath>..\com.gyt.ms\Bin\Zer.Services.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardsInfo\Dto\CardsInfoDto.cs" />
-    <Compile Include="CardsInfo\ICardsInfoService.cs" />
-    <Compile Include="CardsSuccessInfo\ICardsSuccessInfo.cs" />
-    <Compile Include="CardsSuccessInfo\Dto\CardsSuccessInfoDto.cs" />
-    <Compile Include="Company\Impl\CompanyService.cs" />
-    <Compile Include="Company\Dto\CompanyInfoDto.cs" />
-    <Compile Include="Company\ICompanyService.cs" />
-    <Compile Include="FilterMatchInputDto.cs" />
-    <Compile Include="LngAllowance\ILngAllowanceService.cs" />
-    <Compile Include="LngAllowance\Dto\LngAllowanceInfoDto.cs" />
-    <Compile Include="Logs\Dto\LogsDto.cs" />
-    <Compile Include="Logs\ILogsService.cs" />
-    <Compile Include="OverloadRecrod\IOverloadRecrodService.cs" />
-    <Compile Include="OverloadRecrod\Dto\OverloadRecrodDto.cs" />
+    <Compile Include="ICardsInfoService.cs" />
+    <Compile Include="ICardsSuccessInfo.cs" />
+    <Compile Include="Impl\CompanyService.cs" />
+    <Compile Include="ICompanyService.cs" />
+    <Compile Include="ILngAllowanceService.cs" />
+    <Compile Include="ILogsService.cs" />
+    <Compile Include="IOverloadRecrodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Truck\Dto\TruckInfoDto.cs" />
-    <Compile Include="Truck\ITruckInfoService.cs" />
-    <Compile Include="Users\Dto\ChangePasswordResult.cs" />
-    <Compile Include="Users\Dto\UserInfoDto.cs" />
-    <Compile Include="Users\Dto\FrozenResult.cs" />
-    <Compile Include="Users\Dto\ThawResult.cs" />
-    <Compile Include="Users\Impl\UserInfoService.cs" />
-    <Compile Include="Users\IUserInfoService.cs" />
-    <Compile Include="Users\Dto\RegistResult.cs" />
-    <Compile Include="Users\Dto\LoginStatus.cs" />
+    <Compile Include="ITruckInfoService.cs" />
+    <Compile Include="Impl\UserInfoService.cs" />
+    <Compile Include="IUserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zer.Data\Zer.Data.csproj">
-      <Project>{442CF3FC-3C02-424D-8726-41BAC8AF255D}</Project>
-      <Name>Zer.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
@@ -114,6 +93,10 @@
     <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
       <Project>{d828abaf-ef29-4635-967e-c80291b3c4b3}</Project>
       <Name>Zer.GytDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
+      <Project>{85e45342-8fcd-434b-a552-8aa41360a3be}</Project>
+      <Name>Zer.GytDto</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

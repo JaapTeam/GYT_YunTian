@@ -134,7 +134,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WindsorControllerFactory.cs" />
-    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\OverloadRecrodController.cs" />
@@ -204,10 +203,6 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zer.Data\Zer.Data.csproj">
-      <Project>{442cf3fc-3c02-424d-8726-41bac8af255d}</Project>
-      <Name>Zer.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
@@ -223,6 +218,10 @@
     <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
       <Project>{d828abaf-ef29-4635-967e-c80291b3c4b3}</Project>
       <Name>Zer.GytDataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
+      <Project>{85E45342-8FCD-434B-A552-8AA41360A3BE}</Project>
+      <Name>Zer.GytDto</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.Services\Zer.Services.csproj">
       <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>

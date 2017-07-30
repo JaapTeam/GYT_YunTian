@@ -4,8 +4,8 @@ using Castle.Windsor.Installer;
 using Zer.Framework.Dependency;
 using Zer.GytDataService;
 using Zer.GytDataService.Impl;
-using Zer.Services.Company;
-using Zer.Services.Company.Impl;
+using Zer.Services;
+using Zer.Services.Impl;
 
 namespace com.gyt.ms
 {

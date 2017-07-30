@@ -147,6 +147,10 @@
       <Project>{D828ABAF-EF29-4635-967E-C80291B3C4B3}</Project>
       <Name>Zer.GytDataService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
+      <Project>{85E45342-8FCD-434B-A552-8AA41360A3BE}</Project>
+      <Name>Zer.GytDto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zer.NUnit\Zer.NUnit.csproj">
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
       <Name>Zer.NUnit</Name>

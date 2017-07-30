@@ -10,7 +10,6 @@ using Zer.Framework;
 using Zer.Framework.Dependency;
 using Zer.GytDataService;
 using Zer.GytDataService.Impl;
-using Zer.Services.Company;
 
 namespace com.gyt.ms.Tests.Flow
 {

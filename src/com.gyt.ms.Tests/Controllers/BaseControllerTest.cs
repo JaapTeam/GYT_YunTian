@@ -4,9 +4,9 @@ using FluentAssertions;
 using NUnit.Framework;
 using Zer.Entities;
 using Zer.Framework.Entities;
+using Zer.GytDto.UserInfo;
 using Zer.NUnit;
-using Zer.Services.Users;
-using Zer.Services.Users.Dto;
+using Zer.Services;
 
 namespace com.gyt.ms.Tests.Controllers
 {

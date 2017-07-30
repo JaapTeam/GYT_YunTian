@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using WebGrease.Css.Extensions;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
-using Zer.Services.Users.Dto;
+using Zer.GytDto.UserInfo;
 
 namespace com.gyt.ms.Controllers
 {

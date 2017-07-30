@@ -5,8 +5,8 @@ using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Entities;
 using Zer.Framework.Extensions;
-using Zer.Services.Company;
-using Zer.Services.Company.Dto;
+using Zer.GytDto;
+using Zer.Services;
 
 namespace com.gyt.ms.Controllers
 {

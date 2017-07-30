@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Zer.Framework.Dependency;
+using Zer.GytDto;
 
 namespace com.gyt.ms
 {
@@ -18,7 +19,7 @@ namespace com.gyt.ms
             
             IocConfig.Config();
 
-            AutoMapperConfig.MapperRegist();
+            AutoMapperConfig.Initialze();
         }
 
         protected void Application_End()

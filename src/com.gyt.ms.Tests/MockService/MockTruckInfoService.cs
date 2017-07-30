@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zer.Services.Truck;
-using Zer.Services.Truck.Dto;
+using Zer.GytDto;
+using Zer.Services;
 
 namespace com.gyt.ms.Tests.MockService
 {
