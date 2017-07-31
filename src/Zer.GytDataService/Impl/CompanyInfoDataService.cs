@@ -14,5 +14,6 @@ namespace Zer.GytDataService.Impl
         {
             return new CompanyInfo() {CompanyName = "test companyName", TraderRange = "test for trader range", Id = 1};
         }
+
     }
 }

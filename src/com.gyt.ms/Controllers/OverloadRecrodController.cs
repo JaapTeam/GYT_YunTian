@@ -15,16 +15,21 @@ namespace com.gyt.ms.Controllers
     {
         private readonly IOverloadRecrodService _overloadRecrodService;
 
+        public OverloadRecrodController()
+        {
+           
+        }
+
         public OverloadRecrodController(IOverloadRecrodService overloadRecrodService)
         {
             _overloadRecrodService = overloadRecrodService;
         }
 
-        //public ActionResult Index()
-        //{
-        //    var dto = new List<OverloadRecrodDto>();
-        //    return View(dto);
-        //}
+        public ActionResult Index()
+        {
+            ViewBag.ActiveId = 6;
+            return View();
+        }
 
         //ToDo:单元测试
         public JsonResult Chang(int id=0)

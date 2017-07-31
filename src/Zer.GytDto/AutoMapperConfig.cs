@@ -21,6 +21,11 @@ namespace Zer.GytDto
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
                 
             });
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Log, LogsDto>().ReverseMap();
+
+            });
             HasInitialzed = true;
         }
     }

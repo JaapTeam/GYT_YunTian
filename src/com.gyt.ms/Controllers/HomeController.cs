@@ -10,6 +10,7 @@ namespace com.gyt.ms.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.ActiveId = 14;
             return View();
         }
 
