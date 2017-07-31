@@ -2,6 +2,7 @@
 using System;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Zer.Entities;
 using Zer.Framework.Extensions;
 using Zer.GytDto;
 using Zer.GytDto.UserInfo;

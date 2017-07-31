@@ -1,3 +1,6 @@
+using Zer.Framework.Attributes;
+using Zer.Framework.Export.Attributes;
+
 namespace Zer.GytDto
 {
     public class LngAllowanceInfoDto
