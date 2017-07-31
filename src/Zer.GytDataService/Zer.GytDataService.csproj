@@ -62,10 +62,14 @@
     <Compile Include="GytDbContext.cs" />
     <Compile Include="ICompanyInfoDataService.cs" />
     <Compile Include="ILogDataService.cs" />
-    <Compile Include="Impl\LogService.cs" />
+    <Compile Include="Impl\LogDataService.cs" />
     <Compile Include="Migrations\201707290815219_setup_database.cs" />
     <Compile Include="Migrations\201707290815219_setup_database.Designer.cs">
       <DependentUpon>201707290815219_setup_database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707311446073_addLogEntity.cs" />
+    <Compile Include="Migrations\201707311446073_addLogEntity.Designer.cs">
+      <DependentUpon>201707311446073_addLogEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +95,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707290815219_setup_database.resx">
       <DependentUpon>201707290815219_setup_database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707311446073_addLogEntity.resx">
+      <DependentUpon>201707311446073_addLogEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
