@@ -15,24 +15,9 @@ namespace com.gyt.ms
         {
             IocManager.Instance.IocContainer.Install(FromAssembly.This());
 
-            //IocManager.Instance.IocContainer.Register(
-            //    Classes.FromThisAssembly()
-            //    .IncludeNonPublicTypes()
-            //    .BasedOn<IDataService>()
-            //    .WithService.Self()
-            //    .WithService.DefaultInterfaces()
-            //    .LifestyleTransient()
-            //);
-
-            IocManager.Instance.Register(
-                Component.For<ICompanyInfoDataService, CompanyInfoDataService>()
-                    .ImplementedBy<CompanyInfoDataService>()
-                    .LifestyleTransient(),
-                Component.For<ICompanyService, CompanyService>()
-                    .ImplementedBy<CompanyService>()
-                    .LifestyleTransient()
-            );
-
+            new DataServiceModule().Initial();
+            new ApplicationServiceModule().Initial();
+            
             ControllerBuilder.Current.SetControllerFactory(
                 new WindsorControllerFactory(IocManager.Instance.IocContainer.Kernel));
         }

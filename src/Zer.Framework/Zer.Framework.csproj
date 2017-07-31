@@ -83,6 +83,7 @@
     <Compile Include="Attributes\IgnoreAttribute.cs" />
     <Compile Include="Attributes\SortAttribute.cs" />
     <Compile Include="Dependency\IocManager.cs" />
+    <Compile Include="Module\ModuleBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\ICreateTime.cs" />
     <Compile Include="Entities\IEntity.cs" />

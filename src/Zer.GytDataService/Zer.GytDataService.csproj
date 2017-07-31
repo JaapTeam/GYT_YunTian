@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServiceModule.cs" />
     <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="GytDbContext.cs" />
     <Compile Include="ICompanyInfoDataService.cs" />
@@ -66,7 +67,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceInstall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

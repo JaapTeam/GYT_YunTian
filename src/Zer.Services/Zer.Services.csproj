@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServiceModule.cs" />
     <Compile Include="ICardsInfoService.cs" />
     <Compile Include="ICardsSuccessInfo.cs" />
     <Compile Include="Impl\CompanyService.cs" />
