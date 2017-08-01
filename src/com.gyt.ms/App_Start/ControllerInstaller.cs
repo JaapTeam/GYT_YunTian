@@ -12,9 +12,10 @@ namespace com.gyt.ms
         {
             container.Register(Classes.FromThisAssembly()
                 .BasedOn<IController>()
-                .If(Component.IsInSameNamespaceAs<HomeController>())
-                .If(t => t.Name.EndsWith("Controller"))
-                .Configure(c => c.LifestyleTransient())
+                .LifestyleTransient()
+                //.If(Component.IsInSameNamespaceAs<HomeController>())
+                //.If(t => t.Name.EndsWith("Controller"))
+                //.Configure(c => c.LifestyleTransient())
             );
 
         }

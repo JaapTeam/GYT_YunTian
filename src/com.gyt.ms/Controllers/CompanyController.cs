@@ -21,6 +21,7 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.ActiveId = 0;
             var dto = _companyService.GetById(1);
             return View(dto);
         }

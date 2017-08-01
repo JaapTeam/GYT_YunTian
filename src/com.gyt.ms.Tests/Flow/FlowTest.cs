@@ -10,6 +10,7 @@ using Zer.Framework;
 using Zer.Framework.Dependency;
 using Zer.GytDataService;
 using Zer.GytDataService.Impl;
+using Zer.Services;
 
 namespace com.gyt.ms.Tests.Flow
 {
@@ -32,17 +33,10 @@ namespace com.gyt.ms.Tests.Flow
             //        .WithServiceFirstInterface()
             //);
 
-            IocManager.Instance.Register(
-                Component.For<ICompanyInfoDataService,CompanyInfoDataService>()
-                         .ImplementedBy<CompanyInfoDataService>()
-                         .LifestyleTransient()
-                );
+            var logsService = IocManager.Instance.Resolve<ICompanyInfoDataService>();
+            var list = logsService.GetById(1);
 
-            var appService = IocManager.Instance.Resolve<ICompanyInfoDataService>();
-
-            var actaul = appService.GetById(1);
-
-            actaul.Should().NotBeNull();
+            list.Should().NotBeNull();
         }
 
     }

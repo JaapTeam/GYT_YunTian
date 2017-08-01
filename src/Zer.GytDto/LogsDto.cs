@@ -11,11 +11,13 @@ namespace Zer.GytDto
         public int Id { get; set; }
 
         [Ignore]
+        [Sort(9)]
+        
         public int UserId { get; set; }
 
         [Sort(2)]
         [ExportDisplayName("用户")]
-        public string UserName { get; set; }
+        public string DisplayName { get; set; }
 
         [Sort(3)]
         [ExportDisplayName("操作类型")]

@@ -2,6 +2,7 @@
 using System;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Zer.Entities;
 using Zer.Framework.Extensions;
 using Zer.GytDto;
 using Zer.GytDto.UserInfo;
@@ -12,10 +13,20 @@ namespace com.gyt.ms.Controllers
 {
     public class UserController : BaseController
     {
+        public UserController()
+        {
+          
+        }
+
         private readonly IUserInfoService _userInfoService;
         public UserController(IUserInfoService userInfoService)
         {
             _userInfoService = userInfoService;
+        }
+
+        public ActionResult Index()
+        {
+            return View();
         }
 
         public JsonResult Regist(string userName, string password)
@@ -104,6 +115,26 @@ namespace com.gyt.ms.Controllers
             }
 
             return Fail();
+        }
+
+        public ActionResult ChangePassword()
+        {
+            ViewBag.ActiveId = 13;
+            return View();
+        }
+
+        public ActionResult AccountManage()
+        {
+            ViewBag.ActiveId = 12;
+            return View();
+        }
+
+        public ActionResult AccountInfo(string viewType, int activeId = 0, int userId = 0)
+        {
+            ViewBag.ActiveId = activeId;
+            ViewBag.UserInfo=new UserInfoDto(){UserId = 0001,UserName = "zhangsan",DisplayName = "张三", State = UserState.Active};
+            ViewBag.ViewType = viewType;
+            return View();
         }
     }
 }

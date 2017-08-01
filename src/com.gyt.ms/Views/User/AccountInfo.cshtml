@@ -1,0 +1,45 @@
+﻿@using Zer.GytDto.UserInfo
+
+@{
+    ViewBag.Title = "AccountInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userInfo = ViewBag.UserInfo as UserInfoDto;
+}
+
+<h3 class="header smaller lighter blue">用户详情</h3>
+
+<div class="profile-user-info profile-user-info-striped">
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 用户编号 </div>
+
+        <div class="profile-info-value">
+            <input type="text" style="border: 5px;height:16px" value="@userInfo.UserId" />
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 用户名 </div>
+
+        <div class="profile-info-value">
+            <input type="text" style="border: 5px;height:16px" value="@userInfo.UserName" />
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 用户姓名 </div>
+
+        <div class="profile-info-value">
+            <input type="text" style="border: 5px;height:16px" value="@userInfo.DisplayName" />
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 用户状态 </div>
+
+        <div class="profile-info-value">
+            <input type="text" style="border: 5px;height:16px" value="@userInfo.State" />
+        </div>
+    </div>
+</div>
+
+

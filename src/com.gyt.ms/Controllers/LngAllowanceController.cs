@@ -19,6 +19,11 @@ namespace com.gyt.ms.Controllers
             _lngAllowanceService = lngAllowanceService;
         }
 
+        public LngAllowanceController()
+        {
+            
+        }
+
         // GET: LngAllowance
         public ActionResult Index()
         {
@@ -31,6 +36,7 @@ namespace com.gyt.ms.Controllers
         {
             // TODO:Unit Test
             var list = _lngAllowanceService.GetList(idList);
+            
             return ExportCsv(list.GetBuffer(), "LNG补贴信息");
         }
     }
