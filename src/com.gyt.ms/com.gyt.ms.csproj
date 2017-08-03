@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
-          Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -22,9 +20,6 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,17 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference
-      Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+    <Reference Include="AutoMapper, Version=4.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference
-      Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -76,8 +70,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference
-      Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -85,36 +78,30 @@
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference
-      Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference
-      Include="System.Web.Mvc, Version=__MvcPagesVersion__, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=__MvcPagesVersion__, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference
-      Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference
-      Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference
-      Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference
-      Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
@@ -145,130 +132,24 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ControllerInstaller.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BusinessHandleController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\GYTInfoController.cs" />
-    <Compile Include="Controllers\GYTHandleRecrodController.cs" />
-    <Compile Include="Controllers\LNGSubsidyInfoController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
-    <Compile Include="Controllers\OverLoadChangeInfoController.cs" />
-    <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LngAllowanceController.cs" />
+    <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\TruckController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\MenuItem.cs" />
-    <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\avatars\avatar.png" />
-    <Content Include="assets\avatars\avatar1.png" />
-    <Content Include="assets\avatars\avatar2.png" />
-    <Content Include="assets\avatars\avatar3.png" />
-    <Content Include="assets\avatars\avatar4.png" />
-    <Content Include="assets\avatars\avatar5.png" />
-    <Content Include="assets\avatars\profile-pic.jpg" />
-    <Content Include="assets\avatars\user.jpg" />
-    <Content Include="assets\css\ace-ie.min.css" />
-    <Content Include="assets\css\ace-rtl.min.css" />
-    <Content Include="assets\css\ace-skins.min.css" />
-    <Content Include="assets\css\ace.min.css" />
-    <Content Include="assets\css\bootstrap-editable.css" />
-    <Content Include="assets\css\bootstrap-timepicker.css" />
-    <Content Include="assets\css\bootstrap.min.css" />
-    <Content Include="assets\css\chosen.css" />
-    <Content Include="assets\css\colorbox.css" />
-    <Content Include="assets\css\colorpicker.css" />
-    <Content Include="assets\css\datepicker.css" />
-    <Content Include="assets\css\daterangepicker.css" />
-    <Content Include="assets\css\dropzone.css" />
-    <Content Include="assets\css\font-awesome-ie7.min.css" />
-    <Content Include="assets\css\font-awesome.min.css" />
-    <Content Include="assets\css\fullcalendar.css" />
-    <Content Include="assets\css\images\loading.gif" />
-    <Content Include="assets\css\jquery-ui-1.10.3.custom.min.css" />
-    <Content Include="assets\css\jquery-ui-1.10.3.full.min.css" />
-    <Content Include="assets\css\jquery.gritter.css" />
-    <Content Include="assets\css\select2.css" />
-    <Content Include="assets\css\ui.jqgrid.css" />
-    <Content Include="assets\images\gallery\image-1.jpg" />
-    <Content Include="assets\images\gallery\image-2.jpg" />
-    <Content Include="assets\images\gallery\image-3.jpg" />
-    <Content Include="assets\images\gallery\image-4.jpg" />
-    <Content Include="assets\images\gallery\image-5.jpg" />
-    <Content Include="assets\images\gallery\image-6.jpg" />
-    <Content Include="assets\images\gallery\thumb-1.jpg" />
-    <Content Include="assets\images\gallery\thumb-2.jpg" />
-    <Content Include="assets\images\gallery\thumb-3.jpg" />
-    <Content Include="assets\images\gallery\thumb-4.jpg" />
-    <Content Include="assets\images\gallery\thumb-5.jpg" />
-    <Content Include="assets\images\gallery\thumb-6.jpg" />
-    <Content Include="assets\js\ace-elements.min.js" />
-    <Content Include="assets\js\ace-extra.min.js" />
-    <Content Include="assets\js\ace.min.js" />
-    <Content Include="assets\js\additional-methods.min.js" />
-    <Content Include="assets\js\bootbox.min.js" />
-    <Content Include="assets\js\bootstrap-colorpicker.min.js" />
-    <Content Include="assets\js\bootstrap-tag.min.js" />
-    <Content Include="assets\js\bootstrap-wysiwyg.min.js" />
-    <Content Include="assets\js\bootstrap.min.js" />
-    <Content Include="assets\js\chosen.jquery.min.js" />
-    <Content Include="assets\js\date-time\bootstrap-datepicker.min.js" />
-    <Content Include="assets\js\date-time\bootstrap-timepicker.min.js" />
-    <Content Include="assets\js\date-time\daterangepicker.min.js" />
-    <Content Include="assets\js\date-time\moment.min.js" />
-    <Content Include="assets\js\dropzone.min.js" />
-    <Content Include="assets\js\excanvas.min.js" />
-    <Content Include="assets\js\flot\jquery.flot.min.js" />
-    <Content Include="assets\js\flot\jquery.flot.pie.min.js" />
-    <Content Include="assets\js\flot\jquery.flot.resize.min.js" />
-    <Content Include="assets\js\fuelux\data\fuelux.tree-sampledata.js" />
-    <Content Include="assets\js\fuelux\fuelux.spinner.min.js" />
-    <Content Include="assets\js\fuelux\fuelux.tree.min.js" />
-    <Content Include="assets\js\fuelux\fuelux.wizard.min.js" />
-    <Content Include="assets\js\fullcalendar.min.js" />
-    <Content Include="assets\js\highcharts\exporting.js" />
-    <Content Include="assets\js\highcharts\highcharts-zh_CN.js" />
-    <Content Include="assets\js\highcharts\highcharts.js" />
-    <Content Include="assets\js\html5shiv.js" />
-    <Content Include="assets\js\jqGrid\i18n\grid.locale-en.js" />
-    <Content Include="assets\js\jqGrid\jquery.jqGrid.min.js" />
-    <Content Include="assets\js\jquery-1.10.2.min.js" />
-    <Content Include="assets\js\jquery-2.0.3.min.js" />
-    <Content Include="assets\js\jquery-ui-1.10.3.custom.min.js" />
-    <Content Include="assets\js\jquery-ui-1.10.3.full.min.js" />
-    <Content Include="assets\js\jquery.autosize.min.js" />
-    <Content Include="assets\js\jquery.colorbox-min.js" />
-    <Content Include="assets\js\jquery.dataTables.bootstrap.js" />
-    <Content Include="assets\js\jquery.dataTables.min.js" />
-    <Content Include="assets\js\jquery.easy-pie-chart.min.js" />
-    <Content Include="assets\js\jquery.gritter.min.js" />
-    <Content Include="assets\js\jquery.hotkeys.min.js" />
-    <Content Include="assets\js\jquery.inputlimiter.1.3.1.min.js" />
-    <Content Include="assets\js\jquery.knob.min.js" />
-    <Content Include="assets\js\jquery.maskedinput.min.js" />
-    <Content Include="assets\js\jquery.mobile.custom.min.js" />
-    <Content Include="assets\js\jquery.nestable.min.js" />
-    <Content Include="assets\js\jquery.slimscroll.min.js" />
-    <Content Include="assets\js\jquery.sparkline.min.js" />
-    <Content Include="assets\js\jquery.ui.touch-punch.min.js" />
-    <Content Include="assets\js\jquery.validate.min.js" />
-    <Content Include="assets\js\markdown\bootstrap-markdown.min.js" />
-    <Content Include="assets\js\markdown\markdown.min.js" />
-    <Content Include="assets\js\respond.min.js" />
-    <Content Include="assets\js\select2.min.js" />
-    <Content Include="assets\js\typeahead-bs2.min.js" />
-    <Content Include="assets\js\x-editable\ace-editable.min.js" />
-    <Content Include="assets\js\x-editable\bootstrap-editable.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -276,7 +157,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="assets\font\fontawesome-webfont.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -289,9 +169,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -306,29 +184,15 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\User\Login.cshtml" />
-    <Content Include="Views\Shared\Success.cshtml" />
-    <Content Include="Views\LngAllowance\Index.cshtml" />
-    <Content Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Shared\LeftMenu.cshtml" />
-    <Content Include="Views\BusinessHandle\Index.cshtml" />
-    <Content Include="Views\GYTInfo\Index.cshtml" />
-    <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
-    <Content Include="Views\OverLoadChangeInfo\Index.cshtml" />
-    <Content Include="Views\LNGSubsidyInfo\Index.cshtml" />
-    <Content Include="Views\OverloadRecrod\Index.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\User\AccountManage.cshtml" />
-    <Content Include="Views\User\AccountInfo.cshtml" />
-    <Content Include="Views\Log\LogInfo.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\LngAllowance\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Common\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\Truck\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -343,16 +207,12 @@
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zer.Framework.EntityFramework\Zer.Framework.EntityFramework.csproj">
-      <Project>{40616615-103E-4A83-A1D0-07834A509D3C}</Project>
-      <Name>Zer.Framework.EntityFramework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zer.Framework\Zer.Framework.csproj">
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
-      <Project>{d828abaf-ef29-4635-967e-c80291b3c4b3}</Project>
+      <Project>{D828ABAF-EF29-4635-967E-C80291B3C4B3}</Project>
       <Name>Zer.GytDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
@@ -370,9 +230,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import
-    Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets"
-    Condition="false" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
@@ -382,9 +240,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>6032</DevelopmentServerPort>
+          <DevelopmentServerPort>3872</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:6032/</IISUrl>
+          <IISUrl>http://localhost:3872/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -394,13 +252,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。启用“NuGet 程序包还原”可下载这些程序包。有关详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
