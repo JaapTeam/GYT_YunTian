@@ -55,10 +55,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Webdiyer.MvcPager, Version=3.0.2015.802, Culture=neutral, PublicKeyToken=f6872c5a09aed72c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Webdiyer.MvcPager.3.0.1.1\lib\Webdiyer.MvcPager.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Zer.Services">
       <HintPath>..\com.gyt.ms\Bin\Zer.Services.dll</HintPath>
     </Reference>
@@ -80,17 +76,9 @@
     <Compile Include="IUserInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zer.Data\Zer.Data.csproj">
-      <Project>{442CF3FC-3C02-424D-8726-41BAC8AF255D}</Project>
-      <Name>Zer.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zer.Framework.Ioc\Zer.Framework.Ioc.csproj">
-      <Project>{9C3474F2-8429-4DD0-AFE7-9EE60952A5D4}</Project>
-      <Name>Zer.Framework.Ioc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.Framework.Logs\Zer.Framework.Logs.csproj">
       <Project>{875FC68E-339B-41F5-AE9C-CBE034918D8D}</Project>
