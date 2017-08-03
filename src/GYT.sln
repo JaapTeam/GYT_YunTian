@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.NUnit", "Zer.NUnit\Zer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework.UnitTest.Tests", "Zer.FrameWork.UnitTest.Tests\Zer.Framework.UnitTest.Tests.csproj", "{8AD01D39-4E62-4407-8E8D-C795C4A67E82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.GytDto", "Zer.GytDto\Zer.GytDto.csproj", "{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AD01D39-4E62-4407-8E8D-C795C4A67E82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +103,6 @@ Global
 		{98FC1C7C-4D10-4AB6-B04A-E07174B29A79} = {F6348613-77A6-4D79-890F-E8654B1B6228}
 		{8FBC4074-6297-40CA-B96C-AD025C488B08} = {12F80F9A-0ED1-4695-919E-34AF88CB9237}
 		{8AD01D39-4E62-4407-8E8D-C795C4A67E82} = {F6348613-77A6-4D79-890F-E8654B1B6228}
+		{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
 	EndGlobalSection
 EndGlobal

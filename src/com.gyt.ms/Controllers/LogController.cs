@@ -4,9 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Zer.Framework.Export;
+using Zer.GytDto;
 using Zer.Services;
-using Zer.Services.Logs;
-using Zer.Services.Logs.Dto;
 
 namespace com.gyt.ms.Controllers
 {

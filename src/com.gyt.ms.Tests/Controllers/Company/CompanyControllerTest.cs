@@ -8,8 +8,8 @@ using com.gyt.ms.Controllers;
 using FluentAssertions;
 using FluentAssertions.Mvc;
 using NUnit.Framework;
-using Zer.Services.Company;
-using Zer.Services.Company.Dto;
+using Zer.GytDto;
+using Zer.Services;
 
 namespace com.gyt.ms.Tests.Controllers.Company
 {

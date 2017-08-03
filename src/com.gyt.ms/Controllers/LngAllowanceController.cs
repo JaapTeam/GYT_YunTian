@@ -5,9 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Zer.Framework.Export;
-using Zer.Services.Company.Dto;
-using Zer.Services.LngAllowance;
-using Zer.Services.LngAllowance.Dto;
+using Zer.Services;
 
 namespace com.gyt.ms.Controllers
 {

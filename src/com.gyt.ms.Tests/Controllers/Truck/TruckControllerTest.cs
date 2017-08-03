@@ -2,8 +2,8 @@
 using com.gyt.ms.Controllers;
 using FluentAssertions;
 using NUnit.Framework;
-using Zer.Services.Truck;
-using Zer.Services.Truck.Dto;
+using Zer.GytDto;
+using Zer.Services;
 
 namespace com.gyt.ms.Tests.Controllers.Truck
 {

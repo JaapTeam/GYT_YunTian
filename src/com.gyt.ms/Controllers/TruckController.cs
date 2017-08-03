@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Zer.Services.Company;
-using Zer.Services.Truck;
-using Zer.Services.Truck.Dto;
+using Zer.GytDto;
+using Zer.Services;
 
 namespace com.gyt.ms.Controllers
 {

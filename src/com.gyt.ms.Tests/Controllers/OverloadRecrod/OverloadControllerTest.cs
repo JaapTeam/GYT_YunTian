@@ -8,8 +8,6 @@ using FluentAssertions.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using Zer.Services.OverloadRecrod;
-using Zer.Services.OverloadRecrod.Dto;
 
 namespace com.gyt.ms.Tests.Controllers.OverloadRecrod
 {

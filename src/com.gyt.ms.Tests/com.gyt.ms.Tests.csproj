@@ -136,6 +136,10 @@
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
+      <Project>{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}</Project>
+      <Name>Zer.GytDto</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zer.NUnit\Zer.NUnit.csproj">
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
       <Name>Zer.NUnit</Name>
