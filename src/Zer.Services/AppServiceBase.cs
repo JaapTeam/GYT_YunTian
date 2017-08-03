@@ -2,7 +2,7 @@
 
 namespace Zer.AppServices
 {
-    public abstract class DomainServiceBase<TEntityDto>:IDomainService<TEntityDto,int>
+    public abstract class AppServiceBase<TEntityDto>:IAppService<TEntityDto,int>
     {
         public abstract TEntityDto GetById(int id);
 

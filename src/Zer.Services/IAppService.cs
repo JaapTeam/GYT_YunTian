@@ -2,7 +2,7 @@
 
 namespace Zer.AppServices
 {
-    public interface IDomainService<TEntityDto,in TPrimaryKey>
+    public interface IAppService<TEntityDto,in TPrimaryKey>
     {
         TEntityDto GetById(TPrimaryKey id);
         List<TEntityDto> GetAll();

@@ -2,7 +2,7 @@
 
 namespace Zer.AppServices
 {
-    public interface IUserInfoService : AppServices.IDomainService<UserInfoDto, int>
+    public interface IUserInfoService : AppServices.IAppService<UserInfoDto,int>
     {
         UserInfoDto GetByUserName(string userName);
         LoginStatus VerifyUserNameAndPassword(string userName, string password);

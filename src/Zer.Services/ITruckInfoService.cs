@@ -3,7 +3,7 @@ using Zer.GytDto;
 
 namespace Zer.AppServices
 {
-    public interface ITruckInfoService : AppServices.IDomainService<TruckInfoDto, int>
+    public interface ITruckInfoService : AppServices.IAppService<TruckInfoDto, int>
     {
         
         TruckInfoDto GetByTruckNo(string truckNo);

@@ -6,7 +6,7 @@ using Zer.AppServices;
 namespace com.gyt.ms.Tests
 {
     public static class MockService<TService,TEntityDto>
-        where TService : class, IDomainService<TEntityDto,int>
+        where TService : class, IAppService<TEntityDto,int>
     {
         /// <summary>
         /// 创建Mock服务

@@ -5,7 +5,7 @@ using Zer.AppServices;
 namespace com.gyt.ms.Tests.MockService
 {
     public abstract class MockRepository<T,TEntityDto>
-        where T : class,IDomainService<TEntityDto,int>
+        where T : class,IAppService<TEntityDto,int>
     {
         protected Mock<T> Mock { get; private set; }
 

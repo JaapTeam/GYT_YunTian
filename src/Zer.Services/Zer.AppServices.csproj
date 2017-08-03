@@ -63,10 +63,10 @@
     <Compile Include="ICardsInfoService.cs" />
     <Compile Include="ICardsSuccessInfo.cs" />
     <Compile Include="ICompanyService.cs" />
-    <Compile Include="DomainServiceBase.cs" />
+    <Compile Include="AppServiceBase.cs" />
     <Compile Include="FilterMatchInputDto.cs" />
-    <Compile Include="IDomainService.cs" />
-    <Compile Include="IDomainServiceOfPrimaryKey.cs" />
+    <Compile Include="IAppServiceWithEntity.cs" />
+    <Compile Include="IAppService.cs" />
     <Compile Include="ILngAllowanceService.cs" />
     <Compile Include="ILogsService.cs" />
     <Compile Include="IOverloadRecrodService.cs" />

@@ -3,7 +3,7 @@ using Zer.GytDto;
 
 namespace Zer.AppServices
 {
-    public interface ICardsInfoService:IDomainService<CardsInfoDto,int>
+    public interface ICardsInfoService:IAppService<CardsInfoDto,int>
     {
         List<CardsInfoDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 

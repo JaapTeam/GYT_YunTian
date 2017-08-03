@@ -26,7 +26,6 @@ namespace Zer.Framework.Dependency
 
         public void Register(params IRegistration[] registrations)
         {
-
             IocContainer.Register(registrations);
         }
     }

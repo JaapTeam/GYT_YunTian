@@ -4,7 +4,7 @@ using Zer.GytDto;
 
 namespace Zer.AppServices
 {
-    public interface ICompanyService : IDomainService<CompanyInfoDto,int>
+    public interface ICompanyService : IAppService<CompanyInfoDto,int>
     {
         #region query
 
