@@ -1,4 +1,6 @@
-﻿namespace Zer.Entities
+﻿using Zer.Framework.Entities;
+
+namespace Zer.Entities
 {
     public class TruckInfo:EntityBase
     {

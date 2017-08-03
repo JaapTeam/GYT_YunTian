@@ -1,4 +1,5 @@
 ﻿using System;
+using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {

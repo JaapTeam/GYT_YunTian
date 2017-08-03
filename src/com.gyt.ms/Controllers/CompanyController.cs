@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Zer.Entities;
+using Zer.Framework.Entities;
 using Zer.Framework.Extensions;
 using Zer.GytDto;
 using Zer.Services;

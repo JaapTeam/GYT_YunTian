@@ -1,4 +1,4 @@
-namespace Zer.Entities
+namespace Zer.Framework.Entities
 {
     public enum State
     {
