@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Zer.GytDto.Users;
 
-namespace Zer.Services.Impl
+namespace Zer.AppServices.Impl
 {
     public class UserInfoService : AppServices.AppServiceBase<UserInfoDto>
     {

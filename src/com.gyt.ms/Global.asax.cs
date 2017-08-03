@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Zer.Framework.Dependency;
+using Zer.GytDto;
 
 namespace com.gyt.ms
 {
@@ -18,6 +16,15 @@ namespace com.gyt.ms
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            IocConfig.Config();
+
+            AutoMapperConfig.Initialze();
+        }
+
+        protected void Application_End()
+        {
+            IocManager.Instance.IocContainer.Dispose();
         }
     }
 }

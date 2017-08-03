@@ -19,6 +19,13 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
         }
 
+        public ActionResult Index()
+        {
+            ViewBag.ActiveId = 1;
+            var dto = _companyService.GetById(1);
+            return View(dto);
+        }
+
         public JsonResult AddCompany(CompanyInfoDto companyInfoDto)
         {
             ValidataInputString(companyInfoDto.CompanyName, companyInfoDto.TraderRange);

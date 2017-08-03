@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -55,11 +58,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Zer.Services">
-      <HintPath>..\com.gyt.ms\Bin\Zer.Services.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServiceModule.cs" />
+    <Compile Include="Impl\CompanyService.cs" />
     <Compile Include="ICardsInfoService.cs" />
     <Compile Include="ICardsSuccessInfo.cs" />
     <Compile Include="ICompanyService.cs" />
@@ -87,6 +89,10 @@
     <ProjectReference Include="..\Zer.Framework\Zer.Framework.csproj">
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zer.GytDataService\Zer.GytDataService.csproj">
+      <Project>{70746E05-CDB7-47B8-8323-F6058D0B8128}</Project>
+      <Name>Zer.GytDataService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
       <Project>{d7ac63eb-3ff6-41a2-8627-dc2ec403cc10}</Project>
