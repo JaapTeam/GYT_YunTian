@@ -49,7 +49,9 @@
     <Compile Include="DataServiceModule.cs" />
     <Compile Include="GytDbContext.cs" />
     <Compile Include="ICompanyInfoDataService.cs" />
+    <Compile Include="IlogDataService.cs" />
     <Compile Include="Impl\CompanyInfoDataService.cs" />
+    <Compile Include="Impl\LogDataService.cs" />
     <Compile Include="Migrations\201708031417529_Init_Databases.cs" />
     <Compile Include="Migrations\201708031417529_Init_Databases.Designer.cs">
       <DependentUpon>201708031417529_Init_Databases.cs</DependentUpon>

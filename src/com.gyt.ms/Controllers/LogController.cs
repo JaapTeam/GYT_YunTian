@@ -27,57 +27,61 @@ namespace com.gyt.ms.Controllers
         public ActionResult Index()
         {
             ViewBag.ActiveId = 11;
-            ViewBag.Result = new List<LogsDto>()
-            {
-                new LogsDto()
-                {
-                    Id = 1,
-                    ActionType = ActionType.Add,
-                    ActionModel = "用户管理",
-                    Content = "sss~jj~Jj~jj~Jj",
-                    CreateTime = DateTime.Now,
-                    IP = "192.168.1.1",
-                    MAC = "00-23-5A-15-99-42",
-                    UserId = 0001,
-                    DisplayName = "张三"
-                },
-                new LogsDto()
-                {
-                    Id = 2,
-                    ActionType = ActionType.Add,
-                    ActionModel = "用户管理",
-                    Content = "sss~jj~Jj~jj~Jj",
-                    CreateTime = DateTime.Now,
-                    IP = "192.168.1.1",
-                    MAC = "00-23-5A-15-99-42",
-                    UserId = 0001,
-                    DisplayName = "张三"
-                },
-                new LogsDto()
-                {
-                    Id = 3,
-                    ActionType = ActionType.Add,
-                    ActionModel = "用户管理",
-                    Content = "sss~jj~Jj~jj~Jj",
-                    CreateTime = DateTime.Now,
-                    IP = "192.168.1.1",
-                    MAC = "00-23-5A-15-99-42",
-                    UserId = 0001,
-                    DisplayName = "张三"
-                },
-                new LogsDto()
-                {
-                    Id = 4,
-                    ActionType = ActionType.Add,
-                    ActionModel = "用户管理",
-                    Content = "sss~jj~Jj~jj~Jj",
-                    CreateTime = DateTime.Now,
-                    IP = "192.168.1.1",
-                    MAC = "00-23-5A-15-99-42",
-                    UserId = 0001,
-                    DisplayName = "张三"
-                },
-            };
+            ViewBag.Result =
+                _logsService.GetAll()
+                    .Where(x => x.CreateTime >= DateTime.Now.AddDays(-7) && x.CreateTime <= DateTime.Now)
+                    .ToList();
+            //ViewBag.Result = new List<LogsDto>()
+            //{
+            //    new LogsDto()
+            //    {
+            //        Id = 1,
+            //        ActionType = ActionType.Add,
+            //        ActionModel = "用户管理",
+            //        Content = "sss~jj~Jj~jj~Jj",
+            //        CreateTime = DateTime.Now,
+            //        IP = "192.168.1.1",
+            //        MAC = "00-23-5A-15-99-42",
+            //        UserId = 0001,
+            //        DisplayName = "张三"
+            //    },
+            //    new LogsDto()
+            //    {
+            //        Id = 2,
+            //        ActionType = ActionType.Add,
+            //        ActionModel = "用户管理",
+            //        Content = "sss~jj~Jj~jj~Jj",
+            //        CreateTime = DateTime.Now,
+            //        IP = "192.168.1.1",
+            //        MAC = "00-23-5A-15-99-42",
+            //        UserId = 0001,
+            //        DisplayName = "张三"
+            //    },
+            //    new LogsDto()
+            //    {
+            //        Id = 3,
+            //        ActionType = ActionType.Add,
+            //        ActionModel = "用户管理",
+            //        Content = "sss~jj~Jj~jj~Jj",
+            //        CreateTime = DateTime.Now,
+            //        IP = "192.168.1.1",
+            //        MAC = "00-23-5A-15-99-42",
+            //        UserId = 0001,
+            //        DisplayName = "张三"
+            //    },
+            //    new LogsDto()
+            //    {
+            //        Id = 4,
+            //        ActionType = ActionType.Add,
+            //        ActionModel = "用户管理",
+            //        Content = "sss~jj~Jj~jj~Jj",
+            //        CreateTime = DateTime.Now,
+            //        IP = "192.168.1.1",
+            //        MAC = "00-23-5A-15-99-42",
+            //        UserId = 0001,
+            //        DisplayName = "张三"
+            //    },
+            //};
 
             return View();
         }
