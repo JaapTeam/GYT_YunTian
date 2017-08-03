@@ -76,6 +76,13 @@ namespace Zer.Framework.EntityFramework
             return Insert(entity).Id;
         }
 
+        public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
+        {
+            var result = Table.AddRange(list);
+            _dbContext.SaveChanges();
+            return result;
+        }
+
         public virtual TEntity Update(TEntity entity)
         {
             AttachIfNot(entity);
