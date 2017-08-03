@@ -1,27 +1,36 @@
+using Zer.Framework.Attributes;
+using Zer.Framework.Export.Attributes;
+
 namespace Zer.Services.LngAllowance.Dto
 {
     public class LngAllowanceInfoDto
     {
+        [Sort(1)]
+        [ExportDisplayName("编号")]
         public int Id { get; set; }
+
+        [Sort(2)]
+        [ExportDisplayName("公司名称")]
         public string CompanyName { get; set; }
-        /// <summary>
-        /// 批次
-        /// </summary>
+
+        [Sort(3)]
+        [ExportDisplayName("批次")]
         public int LotId { get; set; }
 
+        [Sort(4)]
+        [ExportDisplayName("车牌号")]
         public string TruckNo { get; set; }
-        /// <summary>
-        /// 发动机号
-        /// </summary>
+
+        [Sort(5)]
+        [ExportDisplayName("发动机号")]
         public string EngineId { get; set; }
 
-        /// <summary>
-        /// 气缸1 Id
-        /// </summary>
+        [Sort(6)]
+        [ExportDisplayName("汽缸1编号")]
         public string CylinderDefaultId { get; set; }
-        /// <summary>
-        /// 气缸2 Id
-        /// </summary>
+
+        [Sort(7)]
+        [ExportDisplayName("汽缸2编号")]
         public string CylinderSeconedId { get; set; }
     }
 }

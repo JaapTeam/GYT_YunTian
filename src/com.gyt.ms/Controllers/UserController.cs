@@ -2,6 +2,7 @@
 using System;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using Zer.Entities.User;
 using Zer.Services.Users;
 using Zer.Services.Users.Dto;
 using Zer.Framework.Extensions;
@@ -124,6 +125,14 @@ namespace com.gyt.ms.Controllers
         public ActionResult AccountManage()
         {
             ViewBag.ActiveId = 12;
+            return View();
+        }
+
+        public ActionResult AccountInfo(string viewType, int activeId = 0, int userId = 0)
+        {
+            ViewBag.ActiveId = activeId;
+            ViewBag.UserInfo=new UserInfoDto(){UserId = 0001,UserName = "zhangsan",DisplayName = "张三", State = UserState.Active};
+            ViewBag.ViewType = viewType;
             return View();
         }
     }
