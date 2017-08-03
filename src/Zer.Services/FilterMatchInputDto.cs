@@ -1,4 +1,4 @@
-namespace Zer.Services
+namespace Zer.AppServices
 {
     public class FilterMatchInputDto { }
 }

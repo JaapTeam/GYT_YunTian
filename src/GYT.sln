@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Entities", "Zer.Entitie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework", "Zer.Framework\Zer.Framework.csproj", "{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Services", "Zer.Services\Zer.Services.csproj", "{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.AppServices", "Zer.Services\Zer.AppServices.csproj", "{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6BD0DF95-68F1-47B5-B265-6D56930B3C4E}"
 EndProject

@@ -2,10 +2,11 @@
 using com.gyt.ms.Controllers;
 using FluentAssertions;
 using NUnit.Framework;
+using Zer.AppServices;
 using Zer.Entities;
 using Zer.GytDto.Users;
 using Zer.NUnit;
-using Zer.Services;
+
 
 namespace com.gyt.ms.Tests.Controllers
 {

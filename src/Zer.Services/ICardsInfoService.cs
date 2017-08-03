@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
     public interface ICardsInfoService:IDomainService<CardsInfoDto,int>
     {
-        List<CardsInfoDto> GetListByFilterMatch(FilterMatchInputDto filterMatch);
+        List<CardsInfoDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 
         List<CardsInfoDto> GetListByIds(int[] ids);
 

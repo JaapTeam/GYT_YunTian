@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Zer.Entities;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
     public interface IDomainService<TEntityDto,in TPrimaryKey>
     {

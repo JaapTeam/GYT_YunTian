@@ -144,9 +144,9 @@
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
       <Name>Zer.NUnit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zer.Services\Zer.Services.csproj">
+    <ProjectReference Include="..\Zer.Services\Zer.AppServices.csproj">
       <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>
-      <Name>Zer.Services</Name>
+      <Name>Zer.AppServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

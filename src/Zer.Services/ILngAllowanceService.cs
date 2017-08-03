@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
-    public interface ILngAllowanceService:IDomainService<LngAllowanceInfoDto,int>
+    public interface ILngAllowanceService: AppServices.IDomainService<LngAllowanceInfoDto,int>
     {
-        List<LngAllowanceInfoDto> GetList(FilterMatchInputDto filterMatchInput);
+        List<LngAllowanceInfoDto> GetList(AppServices.FilterMatchInputDto filterMatchInput);
 
         List<LngAllowanceInfoDto> GetList(int[] idList);
     }

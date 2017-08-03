@@ -4,7 +4,7 @@ using Zer.GytDto.Users;
 
 namespace Zer.Services.Impl
 {
-    public class UserInfoService : DomainServiceBase<UserInfoDto>
+    public class UserInfoService : AppServices.DomainServiceBase<UserInfoDto>
     {
         public override UserInfoDto GetById(int id)
         {

@@ -1,8 +1,8 @@
 ﻿using Zer.GytDto.Users;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
-    public interface IUserInfoService : IDomainService<UserInfoDto, int>
+    public interface IUserInfoService : AppServices.IDomainService<UserInfoDto, int>
     {
         UserInfoDto GetByUserName(string userName);
         LoginStatus VerifyUserNameAndPassword(string userName, string password);

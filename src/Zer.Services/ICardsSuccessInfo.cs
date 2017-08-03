@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
     public interface ICardsSuccessInfo:IDomainService<CardsSuccessInfoDto,int>
     {
-        List<CardsSuccessInfoDto> GetListByFilterMatch(FilterMatchInputDto filterMatch);
+        List<CardsSuccessInfoDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 
         List<CardsSuccessInfoDto> GetListByIds(int[] ids);
 

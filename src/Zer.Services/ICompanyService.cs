@@ -2,7 +2,7 @@
 using Zer.Entities;
 using Zer.GytDto;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
     public interface ICompanyService : IDomainService<CompanyInfoDto,int>
     {

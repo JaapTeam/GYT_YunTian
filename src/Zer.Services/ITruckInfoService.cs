@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
-    public interface ITruckInfoService : IDomainService<TruckInfoDto, int>
+    public interface ITruckInfoService : AppServices.IDomainService<TruckInfoDto, int>
     {
         
         TruckInfoDto GetByTruckNo(string truckNo);

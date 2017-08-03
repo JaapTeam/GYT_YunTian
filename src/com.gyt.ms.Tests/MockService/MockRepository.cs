@@ -1,5 +1,6 @@
 ﻿using Moq;
-using Zer.Services;
+using Zer.AppServices;
+
 
 namespace com.gyt.ms.Tests.MockService
 {

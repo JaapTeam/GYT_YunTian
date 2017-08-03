@@ -7,8 +7,8 @@
     <ProjectGuid>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Zer.Services</RootNamespace>
-    <AssemblyName>Zer.Services</AssemblyName>
+    <RootNamespace>Zer.AppServices</RootNamespace>
+    <AssemblyName>Zer.AppServices</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

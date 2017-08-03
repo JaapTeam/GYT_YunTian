@@ -1,7 +1,8 @@
 using Moq;
+using Zer.AppServices;
 using Zer.Entities;
 using Zer.GytDto.Users;
-using Zer.Services;
+
 
 namespace com.gyt.ms.Tests.MockService
 {

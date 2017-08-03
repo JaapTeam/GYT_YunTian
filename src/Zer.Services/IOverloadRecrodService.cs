@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
 
-namespace Zer.Services
+namespace Zer.AppServices
 {
-    public interface IOverloadRecrodService:IDomainService<OverloadRecrodDto, int>
+    public interface IOverloadRecrodService: AppServices.IDomainService<OverloadRecrodDto, int>
     {
-        List<OverloadRecrodDto> GetListByFilterMatch(FilterMatchInputDto filterMatch);
+        List<OverloadRecrodDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 
         bool ChangedById(int id);
 
