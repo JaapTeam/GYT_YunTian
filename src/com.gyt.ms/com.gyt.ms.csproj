@@ -321,6 +321,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Zer.AppServices\Zer.AppServices.csproj">
+      <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>
+      <Name>Zer.AppServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
@@ -336,10 +340,6 @@
     <ProjectReference Include="..\Zer.GytDto\Zer.GytDto.csproj">
       <Project>{D7AC63EB-3FF6-41A2-8627-DC2EC403CC10}</Project>
       <Name>Zer.GytDto</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zer.Services\Zer.AppServices.csproj">
-      <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>
-      <Name>Zer.AppServices</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
