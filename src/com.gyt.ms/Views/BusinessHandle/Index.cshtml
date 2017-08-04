@@ -4,5 +4,388 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
+<form class="form-horizontal" role="form">
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-select-type"> 业务类型: </label>
+
+        <div class="col-sm-4">
+            <select class="form-control" id="form-field-select-type">
+                <option value="">&nbsp;</option>
+                <option value="AL">天然气车辆</option>
+                <option value="AK">以旧换新</option>
+                <option value="AN">车辆过户</option>
+            </select>
+        </div>
+    </div>
+    <div id="gas">
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 申办企业名称: </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="form-field-1" placeholder="请输入企业名称" class="col-xs-10 col-sm-5">
+                <span class="help-inline col-xs-12 col-sm-7">
+                    <span class="middle">智能输入提示与违法记录查询</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 超载超限违规情况: </label>
+            <div class="col-sm-9">
+                <span class="label label-lg label-success" id="_sp_gas_Illegal">无违规</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 车辆年审情况: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_gas_verify">
+                        <label>
+                            <input name="form-field-radio" type="radio" class="ace" value="yes" checked="checked">
+                            <span class="lbl"> 已年审 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio" type="radio" class="ace" value="no">
+                            <span class="lbl"> 未年审 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="space-4"></div>
+
+    <div id="new">
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 申办企业名称: </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="form-field-2" placeholder="请输入企业名称" class="col-xs-10 col-sm-5">
+                <span class="help-inline col-xs-12 col-sm-7">
+                    <span class="middle">智能输入提示与违法记录查询</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 超载超限违规情况: </label>
+            <div class="col-sm-9">
+                <span class="label label-lg label-success" id="_sp_transfer_Illegal">无违规</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 港运通注销状态: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_transfer_cancel">
+                        <label>
+                            <input name="form-field-radio" type="radio" class="ace">
+                            <span class="lbl"> 已注销 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio" type="radio" class="ace">
+                            <span class="lbl"> 未注销 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 车辆年审情况: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_transfer_verify">
+                        <label>
+                            <input name="form-field-radio1" type="radio" class="ace">
+                            <span class="lbl"> 已年审 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio1" type="radio" class="ace">
+                            <span class="lbl"> 未年审 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="transfer">
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-3"> 申办企业名称: </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="form-field-3" placeholder="请输入企业名称" class="col-xs-10 col-sm-5">
+                <span class="help-inline col-xs-12 col-sm-7">
+                    <span class="middle">智能输入提示与违法记录查询</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-4"> 旧车牌号: </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="form-field-4" placeholder="请输入旧车牌号" class="col-xs-10 col-sm-5">
+                <span class="help-inline col-xs-12 col-sm-7">
+                </span>
+            </div>
+        </div>
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 超载超限违规情况: </label>
+            <div class="col-sm-9">
+                <span class="label label-lg label-success" id="_sp_new_Illegal">无违规</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 指标无重复使用: </label>
+            <div class="col-sm-9">
+                <span class="label label-lg label-success" id="_sp_new_quota">无重复使用</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 运营证注销状态: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_new_cancel">
+                        <label>
+                            <input name="form-field-radio2" type="radio" class="ace">
+                            <span class="lbl"> 已注销 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio2" type="radio" class="ace">
+                            <span class="lbl"> 未注销 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 运营证存在过户记录在: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_new_transfer">
+                        <label>
+                            <input name="form-field-radio3" type="radio" class="ace">
+                            <span class="lbl"> 存在 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio3" type="radio" class="ace">
+                            <span class="lbl"> 不存在 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 过户前任意一手港运通状态: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_new_state">
+                        <label>
+                            <input name="form-field-radio4" type="radio" class="ace">
+                            <span class="lbl"> 已注销 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio4" type="radio" class="ace">
+                            <span class="lbl"> 未注销 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> 报废车回收与系统信息一致: </label>
+            <div class="col-sm-9">
+                <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                    <div class="radio" id="_rd_new_info">
+                        <label>
+                            <input name="form-field-radio5" type="radio" class="ace">
+                            <span class="lbl"> 一致 </span>
+                        </label>
+                        <label style="margin-left: 20px">
+                            <input name="form-field-radio5" type="radio" class="ace">
+                            <span class="lbl"> 不一致 </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div class="clearfix form-actions">
+    <div class="col-md-offset-5 col-md-9">
+        <button class="btn btn-info" id="submit">
+            <i class="icon-indent-right bigger-110"></i>
+            提交审查
+        </button>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function _hide(box) {
+            box.hide();
+        }
+
+        function _show(box) {
+            box.show();
+        }
+
+        $(document)
+            .ready(function() {
+                _hide($("#new"));
+                _hide($("#transfer"));
+            });
+
+        $("#form-field-select-type")
+            .change(function() {
+                var val = $(this).val();
+                if (val === "AL") {
+                    _show($("#gas"));
+                    _hide($("#new"));
+                    _hide($("#transfer"));
+                } else if (val === "AK") {
+                    _hide($("#gas"));
+                    _hide($("#new"));
+                    _show($("#transfer"));
+                } else {
+                    _hide($("#gas"));
+                    _show($("#new"));
+                    _hide($("#transfer"));
+                }
+
+            });
+
+        $("#form-field-1").blur(function () {
+            var val = $("#form-field-1").val();
+            if (val === "深圳驹马物流公司") {
+                $("#_sp_gas_Illegal").html("有违规");
+                $("#_sp_gas_Illegal").removeClass();
+                $("#_sp_gas_Illegal").addClass("label label-lg label-warning");
+            } else {
+                $("#_sp_gas_Illegal").html("无违规");
+                $("#_sp_gas_Illegal").removeClass();
+                $("#_sp_gas_Illegal").addClass("label label-lg label-success");
+            }
+        });
+        $("#form-field-2").blur(function () {
+            var val = $("#form-field-2").val();
+            if (val === "深圳驹马物流公司") {
+                $("#_sp_transfer_Illegal").html("有违规");
+                $("#_sp_transfer_Illegal").removeClass();
+                $("#_sp_transfer_Illegal").addClass("label label-lg label-warning");
+            } else {
+                $("#_sp_transfer_Illegal").html("无违规");
+                $("#_sp_transfer_Illegal").removeClass();
+                $("#_sp_transfer_Illegal").addClass("label label-lg label-success");
+            }
+        });
+        $("#form-field-3").blur(function () {
+            var val = $("#form-field-3").val();
+            if (val === "深圳驹马物流公司") {
+                $("#_sp_new_Illegal").html("有违规");
+                $("#_sp_new_Illegal").removeClass();
+                $("#_sp_new_Illegal").addClass("label label-lg label-warning");
+            } else {
+                $("#_sp_new_Illegal").html("无违规");
+                $("#_sp_new_Illegal").removeClass();
+                $("#_sp_new_Illegal").addClass("label label-lg label-success");
+            }
+        });
+        $("#form-field-4").blur(function () {
+            var val = $("#form-field-4").val();
+            if (val === "粤A123456") {
+                $("#_sp_new_quota").html("有重复使用");
+                $("#_sp_new_quota").removeClass();
+                $("#_sp_new_quota").addClass("label label-lg label-warning");
+            } else {
+                $("#_sp_new_quota").html("无重复使用");
+                $("#_sp_new_quota").removeClass();
+                $("#_sp_new_quota").addClass("label label-lg label-success");
+            }
+        });
+
+        function _checkData() {
+            var box = $("#form-field-select-type").val();
+            return _checkBoxData(box);
+        }
+
+        function _checkBoxData(box) {
+            if (box === "AL") {
+                var gasIllegal = $("#_sp_gas_Illegal").html();
+                var gasVerify = $("#_rd_gas_verify input:radio:checked").val();
+                if (gasIllegal === "有违规") {
+                    return false;
+                }
+                if (gasVerify === "no") {
+                    return false;
+                }
+
+                return true;
+            } else if (box === "AK") {
+                var transferIllegal = $("#_sp_transfer_Illegal").html();
+                var transferCancel = $("#_rd_transfer_cancel input:radio:checked").val();
+                var transferVerify = $("#_rd_gas_verify input:radio:checked").val();
+                if (transferIllegal === "有违规") {
+                    return false;
+                }
+                if (transferCancel === "no") {
+                    return false;
+                }
+                if (transferVerify === "no") {
+                    return false;
+                }
+                return true;
+            } else {
+                var newIllegal = $("#_sp_new_Illegal").html();
+                var newIQuota = $("#_sp_new_quota").html();
+                var newCancel = $("#_rd_new_cancel input:radio:checked").val();
+                var newTransfer = $("#_rd_new_transfer input:radio:checked").val();
+                var newState = $("#_rd_new_state input:radio:checked").val();
+                var newInfo = $("#_rd_new_infor input:radio:checked").val();
+                if (newIllegal === "有违规") {
+                    return false;
+                }
+                if (newIQuota === "无重复使用") {
+                    return false;
+                }
+                if (newCancel === "no") {
+                    return false;
+                }
+                if (newTransfer === "no") {
+                    return false;
+                }
+                if (newState === "no") {
+                    return false;
+                }
+                if (newInfo === "no") {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        $("#submit").click(function() {
+
+            var result=_checkData();
+            window.location.href = "@Url.Action("SuccessInfo")"+"?result=" + result;
+        });
+
+
+
+
+</script>
+}
