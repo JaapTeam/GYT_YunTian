@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zer.Framework.Entities;
+﻿using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {

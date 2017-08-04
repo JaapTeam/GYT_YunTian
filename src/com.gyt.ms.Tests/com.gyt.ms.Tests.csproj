@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.0.0-beta-1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -101,6 +104,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppService\AutoMapperExtensionsWithDtoTests.cs" />
+    <Compile Include="TestBase.cs" />
     <Compile Include="Controllers\Company\CompanyControllerTest.cs" />
     <Compile Include="Controllers\JsonHelper.cs" />
     <Compile Include="Controllers\BaseControllerTest.cs" />
