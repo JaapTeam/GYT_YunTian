@@ -128,6 +128,10 @@
       <Project>{5B74A32D-DA18-45C1-91E6-D70CF3E14AF4}</Project>
       <Name>com.gyt.ms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.AppServices\Zer.AppServices.csproj">
+      <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>
+      <Name>Zer.AppServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
@@ -143,10 +147,6 @@
     <ProjectReference Include="..\Zer.NUnit\Zer.NUnit.csproj">
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
       <Name>Zer.NUnit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zer.Services\Zer.AppServices.csproj">
-      <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>
-      <Name>Zer.AppServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

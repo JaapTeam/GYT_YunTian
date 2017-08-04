@@ -44,7 +44,9 @@ namespace Zer.Framework.Repository
         /// <returns>Id of the entity</returns>
         TPrimaryKey InsertAndGetId(TEntity entity);
 
-        #endregion
+        IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list);
+
+            #endregion
 
         #region Update
 

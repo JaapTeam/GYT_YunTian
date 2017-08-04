@@ -66,10 +66,6 @@
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Zer.Services\Zer.AppServices.csproj">
-      <Project>{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}</Project>
-      <Name>Zer.AppServices</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

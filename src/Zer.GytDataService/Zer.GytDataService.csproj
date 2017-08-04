@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DataServiceModule.cs" />
     <Compile Include="GytDbContext.cs" />
+    <Compile Include="GytRepository.cs" />
     <Compile Include="ICompanyInfoDataService.cs" />
     <Compile Include="IlogDataService.cs" />
     <Compile Include="Impl\CompanyInfoDataService.cs" />
