@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EFRepositoryBase.cs" />
+    <Compile Include="EFRepositoryBaseWithEntityAndPrimarykey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
