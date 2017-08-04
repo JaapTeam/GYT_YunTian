@@ -6,17 +6,13 @@ using Zer.Framework.EntityFramework;
 
 namespace Zer.GytDataService.Impl
 {
-    public class LogDataService : EFRepositoryBase<Logs, int>, ILogDataService
+    public class LogInfoDataService : GytRepository<LogInfo>, ILogInfoDataService
     {
-        public LogDataService() : base(new GytDbContext())
+        public override IQueryable<LogInfo> GetAll()
         {
-        }
-
-        public override IQueryable<Logs> GetAll()
-        {
-            return new List<Logs>()
+            return new List<LogInfo>()
             {
-                new Logs()
+                new LogInfo()
                 {
                     Id = 1,
                     ActionType = ActionType.Add,
@@ -28,7 +24,7 @@ namespace Zer.GytDataService.Impl
                     UserId = 0001,
                     DisplayName = "张三"
                 },
-                new Logs()
+                new LogInfo()
                 {
                     Id = 2,
                     ActionType = ActionType.Add,
@@ -40,7 +36,7 @@ namespace Zer.GytDataService.Impl
                     UserId = 0001,
                     DisplayName = "张三"
                 },
-                new Logs()
+                new LogInfo()
                 {
                     Id = 3,
                     ActionType = ActionType.Add,
@@ -52,7 +48,7 @@ namespace Zer.GytDataService.Impl
                     UserId = 0001,
                     DisplayName = "张三"
                 },
-                new Logs()
+                new LogInfo()
                 {
                     Id = 4,
                     ActionType = ActionType.Add,

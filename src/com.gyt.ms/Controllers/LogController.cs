@@ -12,11 +12,11 @@ namespace com.gyt.ms.Controllers
 {
     public class LogController : BaseController
     {
-        private readonly ILogsService _logsService;
+        private readonly ILogInfoService _logInfoService;
 
-        public LogController(ILogsService logsService)
+        public LogController(ILogInfoService logInfoService)
         {
-            _logsService = logsService;
+            _logInfoService = logInfoService;
         }
 
         public LogController()
@@ -28,7 +28,7 @@ namespace com.gyt.ms.Controllers
         {
             ViewBag.ActiveId = 11;
             ViewBag.Result =
-                _logsService.GetAll()
+                _logInfoService.GetAll()
                     .Where(x => x.CreateTime >= DateTime.Now.AddDays(-7) && x.CreateTime <= DateTime.Now)
                     .ToList();
             //ViewBag.Result = new List<LogsDto>()
@@ -106,7 +106,7 @@ namespace com.gyt.ms.Controllers
 
         public FileResult Export(int[] ids)
         {
-            var list = _logsService.GetListByIds(ids);
+            var list = _logInfoService.GetListByIds(ids);
 
             return ExportCsv(list.GetBuffer(),"日志记录");
         }

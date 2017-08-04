@@ -3,7 +3,7 @@ using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
-    public class Logs : EntityBase,ICreateTime
+    public class LogInfo : EntityBase,ICreateTime
     {
         public ActionType ActionType { get; set; }
         public string ActionModel { get; set; }
