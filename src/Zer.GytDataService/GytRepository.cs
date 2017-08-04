@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Zer.Framework.Entities;
 using Zer.Framework.EntityFramework;
 

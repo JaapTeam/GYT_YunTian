@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompanyInfo.cs" />
+    <Compile Include="LngAllowanceInfo.cs" />
     <Compile Include="LogInfo.cs" />
     <Compile Include="OverloadInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
