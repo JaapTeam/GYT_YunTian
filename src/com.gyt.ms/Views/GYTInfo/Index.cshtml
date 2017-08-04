@@ -4,5 +4,337 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-xs-12">
+        <form class="form-inline" style="height: 50px; line-height: 45px">
+            公司名称：
+            <select class=" chosen-select" style="display: none; width: 200px">
+                <option value="">&nbsp;</option>
+                <option value="AL">深圳驹马物流公司</option>
+                <option value="AL">深圳驹马物流公司</option>
+                <option value="AL">深圳驹马物流公司</option>
+                <option value="AL">深圳驹马物流公司</option>
+            </select>
+            车牌号码：
+            <select class="chosen-select " style="display: none;">
+                <option value="">&nbsp;</option>
+                <option value="AL">粤A123456</option>
+                <option value="AL">粤A654321</option>
+                <option value="AL">粤A654321挂</option>
+                <option value="AL">粤A973829</option>
+            </select>
 
+            <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+        </form>
+
+        <div class="table-header">
+
+            <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+                <a class="white" href="handle_service.html">
+                    <i class="icon-plus-sign bigger-110">
+                        <span class="">新增</span>
+                    </i>
+                </a>
+
+                <a class="white" href="javascript:void(0)" id="btn_improt">
+                    <i class="icon-cloud-upload bigger-110">
+                        <span class="">批量导入</span>
+                    </i>
+                </a>
+
+                <a class="white" href="#">
+                    <i class="icon-cloud-download bigger-110">
+                        <span class="">导出</span>
+                    </i>
+                </a>
+                <a class="white" href="#">
+                    <i class="icon-ok bigger-110">
+                        <span class="">审批</span>
+                    </i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+            <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>办理编号</th>
+                        <th>业务类型</th>
+                        <th>原企业</th>
+                        <th>原车牌号</th>
+                        <th>申办企业</th>
+                        <th>申办车牌号</th>
+                        <th>办理日期</th>
+                        <th>经办人</th>
+                        <th>状态</th>
+                        <th>初审人</th>
+                        <th>审批人</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">102401</a>
+                        </td>
+                        <td>天然气车辆</td>
+                        <td class="hidden-480"></td>
+                        <td></td>
+
+                        <td>深圳市XXX货物运输有限公司</td>
+                        <td>
+                            粤BBY831
+                        </td>
+                        <td>
+                            2017/06/25
+                        </td>
+                        <td>张三</td>
+                        <td><span class="label label-sm label-warning">初审</span></td>
+                        <td>李四</td>
+                        <td></td>
+                        <td><a href="javascript:;">详情</a></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">102401</a>
+                        </td>
+                        <td>过户车辆</td>
+                        <td class="hidden-480"></td>
+                        <td></td>
+
+                        <td>深圳市XXX货物运输有限公司</td>
+                        <td>
+                            粤BBY831
+                        </td>
+                        <td>
+                            2017/06/25
+                        </td>
+                        <td>张三</td>
+                        <td><span class="label label-sm label-danger">单审</span></td>
+                        <td>李四</td>
+                        <td>王五</td>
+                        <td><a href="javascript:;">详情</a></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">102401</a>
+                        </td>
+                        <td>以旧换新车辆</td>
+                        <td class="hidden-480">
+                            深圳市XXX货物运输有限公司
+                        </td>
+                        <td>
+                            粤BBY831
+                        </td>
+
+                        <td>深圳市XXX货物运输有限公司</td>
+                        <td>
+                            粤BBY831
+                        </td>
+                        <td>
+                            2017/06/25
+                        </td>
+                        <td>张三</td>
+                        <td><span class="label label-sm label-info">已审</span></td>
+                        <td>李四</td>
+                        <td>王五、赵四</td>
+                        <td><a href="javascript:;">详情</a></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">102401</a>
+                        </td>
+                        <td>以旧换新车辆</td>
+                        <td class="hidden-480">
+                            深圳市XXX货物运输有限公司
+                        </td>
+                        <td>
+                            粤BBY831
+                        </td>
+
+                        <td>深圳市XXX货物运输有限公司</td>
+                        <td>
+                            粤BBY831
+                        </td>
+                        <td>
+                            2017/06/25
+                        </td>
+                        <td>张三</td>
+                        <td><span class="label label-sm label-info">已审</span></td>
+                        <td>李四</td>
+                        <td>王五、赵四</td>
+                        <td><a href="javascript:;">详情</a></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">102401</a>
+                        </td>
+                        <td>天然气车辆</td>
+                        <td class="hidden-480"></td>
+                        <td></td>
+
+                        <td>深圳市XXX货物运输有限公司</td>
+                        <td>
+                            粤BBY831
+                        </td>
+                        <td>
+                            2017/06/25
+                        </td>
+                        <td>张三</td>
+                        <td><span class="label label-sm label-warning">初审</span></td>
+                        <td>李四</td>
+                        <td></td>
+                        <td><a href="javascript:;">详情</a></td>
+                    </tr>
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">102401</a>
+                        </td>
+                        <td>天然气车辆</td>
+                        <td class="hidden-480"></td>
+                        <td></td>
+
+                        <td>深圳市XXX货物运输有限公司</td>
+                        <td>
+                            粤BBY831
+                        </td>
+                        <td>
+                            2017/06/25
+                        </td>
+                        <td>张三</td>
+                        <td><span class="label label-sm label-warning">初审</span></td>
+                        <td>李四</td>
+                        <td></td>
+                        <td><a href="javascript:;">详情</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dataTables_paginate padding-10">
+                        <ul class="pagination">
+                            <li class="prev disabled">
+                                <a href="#">
+                                    <i class="icon-double-angle-left"></i>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li class="next">
+                                <a href="#">
+                                    <i class="icon-double-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    
+<script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(function($) {
+
+
+            $(".chosen-select").chosen();
+
+
+            /////////
+            $('#modal-form input[type=file]')
+                .ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'icon-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'large'
+                });
+
+            //chosen plugin inside a modal will have a zero width because the select element is originally hidden
+            //and its width cannot be determined.
+            //so we set the width after modal is show
+            $('#modal-form')
+                .on('shown.bs.modal',
+                    function() {
+                        $(this)
+                            .find('.chosen-container')
+                            .each(function() {
+                                $(this).find('a:first-child').css('width', '210px');
+                                $(this).find('.chosen-drop').css('width', '210px');
+                                $(this).find('.chosen-search input').css('width', '200px');
+                            });
+                    });
+            /**
+             //or you can activate the chosen plugin after modal is shown
+             //this way select element becomes visible with dimensions and chosen works as expected
+             $('#modal-form').on('shown', function () {
+                        $(this).find('.modal-chosen').chosen();
+                    })
+             */
+
+        });
+
+        $("#btn_improt")
+            .click(function() {
+                $("#input_file").click();
+            });
+</script>
+
+}
