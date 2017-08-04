@@ -14,5 +14,11 @@ namespace com.gyt.ms.Controllers
             ViewBag.ActiveId = 1;
             return View();
         }
+
+        public ActionResult SuccessInfo()
+        {
+            ViewBag.ActiveId = 0;
+            return View();
+        }
     }
 }

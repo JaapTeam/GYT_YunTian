@@ -71,7 +71,8 @@
     <Compile Include="IAppServiceWithEntity.cs" />
     <Compile Include="IAppService.cs" />
     <Compile Include="ILngAllowanceService.cs" />
-    <Compile Include="ILogsService.cs" />
+    <Compile Include="ILogInfoService.cs" />
+    <Compile Include="Impl\LogInfoService.cs" />
     <Compile Include="IOverloadRecrodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ITruckInfoService.cs" />

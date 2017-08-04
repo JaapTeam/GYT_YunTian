@@ -19,6 +19,6 @@ namespace Zer.GytDataService
         public DbSet<TruckInfo> TruckInfos { get; set; }
         public DbSet<OverloadInfo> OverloadInfos { get; set; }
         public DbSet<CompanyInfo> CompanyInfos { get; set; }
-        public DbSet<Logs> Logs { get; set; }
+        public DbSet<LogInfo> Logs { get; set; }
     }
 }
