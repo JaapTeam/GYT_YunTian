@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic;
 using AutoMapper;
 using Zer.Entities;
+using Zer.Framework.Exception;
 using Zer.GytDataService;
 using Zer.GytDto;
 
@@ -17,13 +21,6 @@ namespace Zer.AppServices.Impl
 
         public CompanyInfoDto GetById(int id)
         {
-//            var result = _companyInfoDataService.GetById(id);
-//            return new CompanyInfoDto()
-//            {
-//                CompanyName =  result.CompanyName,
-//                Id = result.Id,
-//                TraderRange = result.TraderRange
-//            };
             return Mapper.Map<CompanyInfoDto>(_companyInfoDataService.GetById(id));
         }
 
@@ -34,7 +31,18 @@ namespace Zer.AppServices.Impl
 
         public bool Add(CompanyInfoDto model)
         {
-            throw new System.NotImplementedException();
+            if (_companyInfoDataService.GetAll().Any(x => x.CompanyName == model.CompanyName))
+            {
+                throw new CustomException(
+                    "公司信息已经存在",
+                    new Dictionary<string, string>()
+                    {
+                        {"CompanyName", model.CompanyName}
+                    });
+            }
+
+            var companyInfo = Mapper.Map<CompanyInfo>(model);
+            return _companyInfoDataService.Insert(companyInfo) != null;
         }
 
         public bool AddRange(List<CompanyInfoDto> list)

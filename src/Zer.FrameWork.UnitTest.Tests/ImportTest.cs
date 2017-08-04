@@ -10,7 +10,7 @@ using Zer.Framework.Extensions;
 
 namespace Zer.Framework.UnitTest.Tests
 {
-    [TestFixture()]
+    [TestFixture]
     public class ImportTest
     {
         [Test]

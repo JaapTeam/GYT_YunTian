@@ -50,8 +50,10 @@
     <Compile Include="GytDbContext.cs" />
     <Compile Include="GytRepository.cs" />
     <Compile Include="ICompanyInfoDataService.cs" />
+    <Compile Include="ILngAllowanceInfoDataService.cs" />
     <Compile Include="ILogInfoDataService.cs" />
     <Compile Include="Impl\CompanyInfoDataService.cs" />
+    <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
     <Compile Include="Migrations\201708031417529_Init_Databases.cs" />
     <Compile Include="Migrations\201708031417529_Init_Databases.Designer.cs">

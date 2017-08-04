@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Zer.Entities;
 
 namespace Zer.GytDto
 {
     public static class AutoMapperConfig
     {
-        private static bool HasInitialzed = false;
+        private static bool _hasInitialzed;
+
+        static AutoMapperConfig()
+        {
+            _hasInitialzed = false;
+        }
 
         public static void Initialze()
         {
-            if (HasInitialzed) return;
+            if (_hasInitialzed) return;
 
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
                 cfg.CreateMap<LogInfo, LogsDto>().ReverseMap();
-                
+                cfg.CreateMap<LngAllowanceInfo, LngAllowanceInfoDto>().ReverseMap();
             });
 
-            HasInitialzed = true;
+            _hasInitialzed = true;
         }
     }
 }
