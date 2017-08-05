@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Zer.Entities;
+using Zer.GytDto.Users;
 
 namespace Zer.GytDto
 {
@@ -20,8 +21,9 @@ namespace Zer.GytDto
             {
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
                 cfg.CreateMap<LogInfo, LogsDto>().ReverseMap();
-                cfg.CreateMap<LngAllowanceInfo, LngAllowanceInfoDto>().ReverseMap();
-            });
+                cfg.CreateMap<UserInfo, UserInfoDto>().ReverseMap();
+                
+                cfg.CreateMap<LngAllowanceInfo, LngAllowanceInfoDto>().ReverseMap();            });
 
             _hasInitialzed = true;
         }

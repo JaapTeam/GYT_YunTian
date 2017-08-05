@@ -29,7 +29,7 @@
                             @foreach (var child in menu.ChildItems)
                             {
                                 <li class="@(child.IsCurrentPage ? "active" : "")">
-                                    <a href="@Url.Action(child.ActionName, child.ControllerName, new { id = child.Id })">
+                                    <a href="@Url.Action(child.ActionName, child.ControllerName, new { activeId = child.Id })">
                                         <i class="@child.Icon"></i>
                                         @child.TextInfo
                                     </a>
