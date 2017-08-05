@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Entities", "Zer.Entities\Zer.Entities.csproj", "{CCBD3F93-64C6-40EB-A213-1F762F04796E}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework.EntityFramework", "Zer.Framework.EntityFramework\Zer.Framework.EntityFramework.csproj", "{6A93A96D-A883-40ED-AA3D-E18B57735C2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.AppServices", "Zer.AppServices\Zer.AppServices.csproj", "{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zer.Framework.Ef.IntegrationTest.Tests", "Zer.Framework.Ef.IntegrationTest.Tests\Zer.Framework.Ef.IntegrationTest.Tests.csproj", "{119925E7-750F-41FA-898C-05812E4E70F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119925E7-750F-41FA-898C-05812E4E70F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119925E7-750F-41FA-898C-05812E4E70F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119925E7-750F-41FA-898C-05812E4E70F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119925E7-750F-41FA-898C-05812E4E70F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,5 +110,6 @@ Global
 		{70746E05-CDB7-47B8-8323-F6058D0B8128} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
 		{6A93A96D-A883-40ED-AA3D-E18B57735C2F} = {12F80F9A-0ED1-4695-919E-34AF88CB9237}
 		{3C1757DB-0824-48C1-A35C-8A2CFAD9EB44} = {6BD0DF95-68F1-47B5-B265-6D56930B3C4E}
+		{119925E7-750F-41FA-898C-05812E4E70F8} = {F6348613-77A6-4D79-890F-E8654B1B6228}
 	EndGlobalSection
 EndGlobal
