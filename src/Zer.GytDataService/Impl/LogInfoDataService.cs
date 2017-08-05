@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Zer.Entities;
-using Zer.Framework.EntityFramework;
 
 namespace Zer.GytDataService.Impl
 {

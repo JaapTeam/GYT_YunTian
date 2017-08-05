@@ -8,5 +8,6 @@ namespace Zer.AppServices
         List<LogsDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 
         List<LogsDto> GetListByIds(int[] ids);
+
     }
 }

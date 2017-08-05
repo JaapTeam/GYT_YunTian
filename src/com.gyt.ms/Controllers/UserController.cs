@@ -1,12 +1,10 @@
 ﻿
 using System;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Extensions;
 using Zer.GytDto.Users;
-using Zer.Services;
 
 
 namespace com.gyt.ms.Controllers
@@ -126,14 +124,14 @@ namespace com.gyt.ms.Controllers
         public ActionResult AccountManage()
         {
             ViewBag.ActiveId = 12;
+            ViewBag.Result = _userInfoService.GetAll();
             return View();
         }
 
-        public ActionResult AccountInfo(string viewType, int activeId = 0, int userId = 0)
+        public ActionResult AccountInfo(int userId = 0)
         {
-            ViewBag.ActiveId = activeId;
-            ViewBag.UserInfo=new UserInfoDto(){UserId = 0001,UserName = "zhangsan",DisplayName = "张三", State = UserState.Active};
-            ViewBag.ViewType = viewType;
+            ViewBag.ActiveId = 12;
+            ViewBag.UserInfo = _userInfoService.GetById(userId);
             return View();
         }
     }

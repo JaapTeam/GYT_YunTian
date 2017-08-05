@@ -3,7 +3,7 @@ namespace Zer.GytDataService.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init_Databases : DbMigration
+    public partial class init_db : DbMigration
     {
         public override void Up()
         {
@@ -19,10 +19,18 @@ namespace Zer.GytDataService.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Logs",
+                "dbo.LogInfoes",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        ActionType = c.Int(nullable: false),
+                        ActionModel = c.String(),
+                        Content = c.String(),
+                        CreateTime = c.DateTime(nullable: false),
+                        IP = c.String(),
+                        MAC = c.String(),
+                        UserId = c.Int(nullable: false),
+                        DisplayName = c.String(),
                         State = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -78,7 +86,7 @@ namespace Zer.GytDataService.Migrations
             DropTable("dbo.UserInfoes");
             DropTable("dbo.TruckInfoes");
             DropTable("dbo.OverloadInfoes");
-            DropTable("dbo.Logs");
+            DropTable("dbo.LogInfoes");
             DropTable("dbo.CompanyInfoes");
         }
     }
