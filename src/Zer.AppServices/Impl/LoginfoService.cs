@@ -17,7 +17,7 @@ namespace Zer.AppServices.Impl
 
         public LogsDto GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return Mapper.Map<LogsDto>(_logInfoDataService.GetById(id));
         }
 
         public List<LogsDto> GetAll()

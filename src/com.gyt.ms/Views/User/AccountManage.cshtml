@@ -1,27 +1,30 @@
-﻿
+﻿@using Zer.GytDto.Users
+
 @{
     ViewBag.Title = "AccountManage";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var infoList = ViewBag.Result as List<UserInfoDto>;
 }
 
-    <h3 class="header smaller lighter blue">帐号管理</h3>
+<h3 class="header smaller lighter blue">帐号管理</h3>
 
     <div class="table-header">
 
         <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-            <a class="white" href="#">
+            <a class="white" id="btn_Add">
                 <i class="icon-plus-sign bigger-110">
                     <span class="">新增用户</span>
                 </i>
             </a>
 
-            <a class="white" href="#">
+            <a class="white" id="btn_Edit">
                 <i class="icon-edit bigger-110">
                     <span class="">编辑用户</span>
                 </i>
             </a>
 
-            <a class="white" href="#">
+            <a class="white" id="btn_Frozon">
                 <i class="icon-lock bigger-110">
                     <span class="">冻结用户</span>
                 </i>
@@ -254,3 +257,22 @@
             </div>
         </div>
     </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $("#btn_Add").click(function() {
+                window.location = "@Url.Action("AccountInfo",new {ViewType="Add",activeId = 12})";
+            });
+
+            $("#btn_Edit").click(function () {
+
+            });
+
+            $("#btn_Frozen").click(function () {
+
+            });
+        })
+    </script>>
+}

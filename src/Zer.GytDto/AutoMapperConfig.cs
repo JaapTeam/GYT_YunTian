@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Zer.Entities;
+using Zer.GytDto.Users;
 
 namespace Zer.GytDto
 {
@@ -20,6 +21,7 @@ namespace Zer.GytDto
             {
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
                 cfg.CreateMap<LogInfo, LogsDto>().ReverseMap();
+                cfg.CreateMap<UserInfo, UserInfoDto>().ReverseMap();
                 
             });
 

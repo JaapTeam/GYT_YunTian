@@ -2,6 +2,7 @@
 using AutoMapper;
 using Zer.Entities;
 using Zer.GytDataService;
+using Zer.GytDataService.Impl;
 using Zer.GytDto;
 
 namespace Zer.AppServices.Impl

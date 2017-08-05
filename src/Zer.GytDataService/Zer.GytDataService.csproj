@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserInfoDataService.cs" />
     <Compile Include="DataServiceModule.cs" />
     <Compile Include="GytDbContext.cs" />
     <Compile Include="GytRepository.cs" />
@@ -53,12 +54,13 @@
     <Compile Include="ILogInfoDataService.cs" />
     <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
-    <Compile Include="Migrations\201708031417529_Init_Databases.cs" />
-    <Compile Include="Migrations\201708031417529_Init_Databases.Designer.cs">
-      <DependentUpon>201708031417529_Init_Databases.cs</DependentUpon>
+    <Compile Include="Migrations\201708050420443_init_db.cs" />
+    <Compile Include="Migrations\201708050420443_init_db.Designer.cs">
+      <DependentUpon>201708050420443_init_db.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Impl\UserInfoDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,8 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708031417529_Init_Databases.resx">
-      <DependentUpon>201708031417529_Init_Databases.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708050420443_init_db.resx">
+      <DependentUpon>201708050420443_init_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
