@@ -10,7 +10,7 @@ namespace Zer.Framework.Repository
 {
     public interface IRepository : IDataService
     {
-        
+
     }
 
     public interface IRepository<TEntity, TPrimaryKey> : IRepository
@@ -46,7 +46,7 @@ namespace Zer.Framework.Repository
 
         IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list);
 
-            #endregion
+        #endregion
 
         #region Update
 

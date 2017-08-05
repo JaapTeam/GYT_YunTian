@@ -48,6 +48,7 @@
     <Compile Include="CardsInfoDto.cs" />
     <Compile Include="CardsSuccessInfoDto.cs" />
     <Compile Include="CompanyInfoDto.cs" />
+    <Compile Include="Extensions\AutoMapperExtensionsWithDto.cs" />
     <Compile Include="LngAllowanceInfoDto.cs" />
     <Compile Include="LogsDto.cs" />
     <Compile Include="OverloadRecrodDto.cs" />

@@ -9,8 +9,8 @@ using Zer.Framework.Repository;
 
 namespace Zer.Framework.EntityFramework
 {
-    public abstract class EfRepositoryBase<TEntity,TPrimaryKey>:IRepository<TEntity,TPrimaryKey>
-        where TEntity:class ,IEntity<TPrimaryKey>
+    public abstract class EfRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
+        where TEntity : class ,IEntity<TPrimaryKey>
     {
         private readonly DbContext _dbContext;
 
@@ -48,7 +48,7 @@ namespace Zer.Framework.EntityFramework
         {
             return GetAll().ToList();
         }
-
+        
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
             return GetAll().Single(predicate);
