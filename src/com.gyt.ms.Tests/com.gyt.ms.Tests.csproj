@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppService\AutoMapperExtensionsWithDtoTests.cs" />
+    <Compile Include="Controllers\LngAllowance\LngAllowanceControllerTest.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Controllers\Company\CompanyControllerTest.cs" />
     <Compile Include="Controllers\JsonHelper.cs" />
@@ -154,6 +155,7 @@
       <Name>Zer.NUnit</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

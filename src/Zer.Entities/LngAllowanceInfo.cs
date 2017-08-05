@@ -4,6 +4,7 @@ namespace Zer.Entities
 {
     public class LngAllowanceInfo : EntityBase
     {
+        public int CompanyId { get; set; }
         public string CompanyName { get; set; }
 
         public int LotId { get; set; }
