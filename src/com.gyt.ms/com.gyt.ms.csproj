@@ -47,6 +47,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -138,7 +146,7 @@
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
     <Compile Include="Controllers\LNGSubsidyInfoController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\OverLoadChangeInfoController.cs" />
     <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -247,6 +255,8 @@
     <Content Include="assets\js\jquery.validate.min.js" />
     <Content Include="assets\js\markdown\bootstrap-markdown.min.js" />
     <Content Include="assets\js\markdown\markdown.min.js" />
+    <Content Include="assets\js\md5.js" />
+    <Content Include="assets\js\md5.min.js" />
     <Content Include="assets\js\respond.min.js" />
     <Content Include="assets\js\select2.min.js" />
     <Content Include="assets\js\typeahead-bs2.min.js" />
@@ -305,9 +315,12 @@
     <Content Include="Views\User\AccountManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\Log\LogInfo.cshtml" />
+    <Content Include="Views\LogInfo\Index.cshtml" />
+    <Content Include="Views\LogInfo\LogInfo.cshtml" />
     <Content Include="Views\BusinessHandle\SuccessInfo.cshtml" />
+    <Content Include="Views\LogInfo\UserLogInfo.cshtml" />
+    <Content Include="Views\User\AddUserInfo.cshtml" />
+    <Content Include="Views\User\EditUserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

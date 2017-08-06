@@ -1,0 +1,66 @@
+﻿@using Zer.GytDto
+
+@{
+    ViewBag.Title = "LogInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var logInfo = ViewBag.LogInfo as LogInfoDto;
+}
+
+<h3 class="header smaller lighter blue">日志详情</h3>
+
+<div class="profile-user-info profile-user-info-striped">
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 日志编号 </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.Id</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 记录用户 </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.DisplayName</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 操作模块 </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.ActionModel</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 日志时间 </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.CreateTime</span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> IP </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.IP</span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> MAC </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.MAC</span>
+        </div>
+    </div>
+    <div class="profile-info-row">
+        <div class="profile-info-name"> 日志内容 </div>
+
+        <div class="profile-info-value">
+            <span>@logInfo.Content</span>
+        </div>
+    </div>
+</div>
+

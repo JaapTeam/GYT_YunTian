@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201708050420443_init_db.Designer.cs">
       <DependentUpon>201708050420443_init_db.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708050653425_modify_userinfo.cs" />
+    <Compile Include="Migrations\201708050653425_modify_userinfo.Designer.cs">
+      <DependentUpon>201708050653425_modify_userinfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
@@ -85,6 +89,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708050420443_init_db.resx">
       <DependentUpon>201708050420443_init_db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708050653425_modify_userinfo.resx">
+      <DependentUpon>201708050653425_modify_userinfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

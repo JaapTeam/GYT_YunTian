@@ -1,0 +1,146 @@
+﻿@using Zer.GytDto
+
+@{
+    ViewBag.Title = "用户日志";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var dataList = ViewBag.Result as List<LogInfoDto>;
+}
+
+<h3 class="header smaller lighter blue">用户日志</h3>
+<div class="table-header">
+
+    <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+        <a class="white" id="btn_export">
+            <i class="icon-cloud-download bigger-110">
+                <span class="">导出</span>
+            </i>
+        </a>
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table id="tb_Info" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="center">
+                    <label>
+                        <input type="checkbox" class="ace">
+                        <span class="lbl"></span>
+                    </label>
+                </th>
+                <th>序号</th>
+                <th>用户</th>
+                <th>操作类型</th>
+                <th>操作模块</th>
+                <th>发生时间</th>
+                <th>MAC</th>
+                <th>IP</th>
+                <th>日志内容</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                if (dataList == null || dataList.Count <= 0)
+                {
+                    <tr><td>未查询到任何记录！</td></tr>
+                }
+                else
+                {
+                    foreach (var log in dataList)
+                    {
+                        <tr>
+                            <td class="center">
+                                <label>
+                                    <input type="checkbox" class="ace">
+                                    <span class="lbl"></span>
+                                </label>
+                            </td>
+                            <td>@log.Id</td>
+                            <td>
+                                <a href="@Url.Action("AccountInfo", "User", new { userId = log.UserId,activeId=ViewBag.ActiveId })">@log.DisplayName</a>
+                            </td>
+                            <td>@log.ActionType</td>
+                            <td>@log.ActionType</td>
+                            <td>@log.CreateTime</td>
+                            <td>@log.MAC</td>
+                            <td>@log.IP</td>
+                            <td>
+                                <a href="@(Url.Action("LogInfo","LogInfo",new {logId=log.Id,activeId=ViewBag.ActiveId}))">详细</a>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            }
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="dataTables_paginate padding-10">
+                <ul class="pagination">
+                    <li class="prev disabled">
+                        <a href="#">
+                            <i class="icon-double-angle-left"></i>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li class="next">
+                        <a href="#">
+                            <i class="icon-double-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function() {
+
+            $("#btn_export")
+                .click(function() {
+
+                    var ids = [];
+                    var index = 0;
+
+                    var tbodyObj = document.getElementById('tb_Info');
+                    $("table :checkbox")
+                        .each(function(key, value) {
+                            if ($(value).prop('checked')) {
+                                ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
+                                index++;
+                            }
+                        });
+
+                    if (ids.length > 0) {
+                        exportRequst(ids);
+                    }
+                });
+
+            function exportRequst(ids) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Export")",
+                    data: { ids: ids},
+                    dataType: "json",
+                    success: function (data) {
+                       alert("数据导出成功！");
+                    }
+                });
+            }
+        })
+    </script>
+}
