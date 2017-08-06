@@ -28,7 +28,7 @@
             </i>
         </a>
 
-        <a class="white" href="javascript:void(0)" id="btn_improt">
+        <a class="white" href="@(Url.Action("Import","LngAllowance",new{activeId=9}))" id="btn_improt">
             <i class="icon-cloud-upload bigger-110">
                 <span class="">批量导入</span>
             </i>
@@ -87,10 +87,10 @@
                 </td>
                 <td>@item.EngineId</td>
                 <td>
-                    @item.CylinderDefaultId
+                    @item.CylinderDefaultId.Replace('_','-')
             </td>
             <td>
-                @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId)
+                @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
         </td>
     </tr>
                 }

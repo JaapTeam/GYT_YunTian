@@ -317,9 +317,11 @@
     <Content Include="Views\Log\LogInfo.cshtml" />
     <Content Include="Views\BusinessHandle\SuccessInfo.cshtml" />
     <Content Include="Views\LngAllowance\Add.cshtml" />
+    <Content Include="Views\LngAllowance\Import.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\uploadFiles\LngAllowance\" />
     <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>

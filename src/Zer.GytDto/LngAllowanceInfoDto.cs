@@ -1,15 +1,18 @@
 using Zer.Framework.Attributes;
 using Zer.Framework.Export.Attributes;
+using Zer.Framework.Extensions;
 
 namespace Zer.GytDto
 {
     public class LngAllowanceInfoDto
     {
         [Sort(1)]
+        [ImprotIgnore]
         [ExportDisplayName("±àºÅ")]
         public int Id { get; set; }
 
-        [Ignore]
+        [ExportIgnore]
+        [ImprotIgnore]
         public int CompanyId { get; set; }
 
         [Sort(2)]

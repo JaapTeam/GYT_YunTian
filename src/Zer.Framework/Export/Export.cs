@@ -66,7 +66,7 @@ namespace Zer.Framework.Export
             var displayNameList = new List<string>();
 
             var properties = type.GetProperties()
-                                 .Where(x => !x.GetCustomAttributes().Any(t => t is IgnoreAttribute))
+                                 .Where(x => !x.GetCustomAttributes().Any(t => t is ExportIgnoreAttribute))
                                  .OrderBy(x =>
                                      {
                                          var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
@@ -101,7 +101,7 @@ namespace Zer.Framework.Export
             where T : class
         {
             var values = typeof(T).GetProperties()
-                .Where(x => !x.GetCustomAttributes().Any(t=>t is IgnoreAttribute))
+                .Where(x => !x.GetCustomAttributes().Any(t=>t is ExportIgnoreAttribute))
 //                .Where(x=>x.GetCustomAttributes())
                 .OrderBy(x =>
                     {

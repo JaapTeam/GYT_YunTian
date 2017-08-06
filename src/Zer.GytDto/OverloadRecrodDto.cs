@@ -8,7 +8,7 @@ namespace Zer.GytDto
         [Sort(1)]
         [ExportDisplayName("超限超载编号")]
         public int Id { get; set; }
-        [Ignore]
+        [ExportIgnore]
         public int CompanyId { get; set; }
 
         [Sort(2)]
@@ -27,7 +27,7 @@ namespace Zer.GytDto
         [ExportDisplayName("所属行业")]
         public string TraderRange { get; set; }
         
-        [Ignore]
+        [ExportIgnore]
         public int DriverId { get; set; }
 
         [Sort(6)]
