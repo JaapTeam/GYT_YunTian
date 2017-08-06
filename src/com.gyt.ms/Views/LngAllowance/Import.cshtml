@@ -1,0 +1,12 @@
+﻿
+
+@{
+
+}
+
+
+@using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="file" />
+    <input type="submit" name="Submit" id="Submit" value="Upload" />
+}
