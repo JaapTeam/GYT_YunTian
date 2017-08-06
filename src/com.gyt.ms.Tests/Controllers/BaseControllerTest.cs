@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.GytDto;
 using Zer.GytDto.Users;
 using Zer.NUnit;
 
@@ -28,6 +29,25 @@ namespace com.gyt.ms.Tests.Controllers
                 };
 
                 ctrl.ValidataInputString(stringList);
+            }
+        }
+
+        [Test]
+        [Category("BaseController")]
+        [ExpectException(typeof(ArgumentException))]
+        [Description("输入任意非法字符串，都会抛出异常")]
+        public void TestForValidataInputString_inputDtoObject_ThrowException()
+        {
+            using (var ctrl = new BaseController())
+            {
+                var dto = new LngAllowanceInfoDto
+                {
+                    CompanyName = "sss\"sss",
+                    CylinderDefaultId = "0001010001",
+                    CylinderSeconedId = "sdfjl1009\'"
+                };
+
+                ctrl.ValidataInputString(dto);
             }
         }
 

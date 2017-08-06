@@ -79,6 +79,7 @@
     <Compile Include="ITruckInfoService.cs" />
     <Compile Include="Impl\UserInfoService.cs" />
     <Compile Include="IUserInfoService.cs" />
+    <Compile Include="Impl\TruckInfoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">

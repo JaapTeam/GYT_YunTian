@@ -1,0 +1,110 @@
+﻿@using Castle.Core.Internal
+@using Zer.GytDto
+
+@{
+    var CompanyList = ViewBag.CompanyList as List<CompanyInfoDto>;
+}
+
+
+<div class="form-horizontal">
+    <div id="gas">
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="company_select"> 企业名称: </label>
+            <div class="col-sm-9">
+                @if (!CompanyList.IsNullOrEmpty())
+                {
+                    <select id="company_select">
+                        @foreach (var companyInfo in CompanyList)
+                        {
+                            <option value="@companyInfo.Id">@companyInfo.CompanyName</option>
+                        }
+                    </select>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="LotId"> 批次: </label>
+            <div class="col-sm-9">
+                <input type="text" id="LotId" placeholder="请输入批次" class="col-xs-10 col-sm-5">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="TruckNo"> 车牌号: </label>
+            <div class="col-sm-9">
+                <input type="text" id="TruckNo" placeholder="请输入车牌号" class="col-xs-10 col-sm-5">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="EngineId"> 发动机号: </label>
+            <div class="col-sm-9">
+                <input type="text" id="EngineId" placeholder="请输入发动机号" class="col-xs-10 col-sm-5">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="CylinderDefaultId"> 气瓶1编号: </label>
+            <div class="col-sm-9">
+                <input type="text" id="CylinderDefaultId" placeholder="请输入气瓶1编号" class="col-xs-10 col-sm-5">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="CylinderSeconedId"> 气瓶2编号: </label>
+            <div class="col-sm-9">
+                <input type="text" id="CylinderSeconedId" placeholder="请输入气瓶2编号" class="col-xs-10 col-sm-5">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix form-actions">
+    <div class="col-md-offset-5 col-md-9">
+        <a class="btn btn-info" id="submit" href="javascript:;">
+            <i class="icon-indent-right bigger-110"></i>
+            保存
+        </a>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function() {
+            var postUrl = '@Url.Action("AddPost", "LngAllowance")';
+
+            $('body')
+                .on('click',
+                    '#submit',
+                    function() {
+                        var companyId = $('#company_select').val();
+                        var lotId = $('#LotId').val();
+                        var truckNo = $('#TruckNo').val();
+                        var engineId = $('#EngineId').val();
+                        var cylinderDefaultId = $('#CylinderDefaultId').val();
+                        var cylinderSeconedId = $('#CylinderSeconedId').val();
+
+                        var postModel = {
+                            CompanyId: companyId,
+                            LotId: lotId,
+                            TruckNo: truckNo,
+                            EngineId: engineId,
+                            CylinderDefaultId: cylinderDefaultId,
+                            CylinderSeconedId: cylinderSeconedId
+                        };
+
+                        console.log(postModel);
+
+                        $.ajax({
+                            url: postUrl,
+                            type: 'post',
+                            data: postModel,
+                            success: function (d) {
+                                if (d.C == '901') {
+                                    window.location = '@Url.Action("Index","LngAllowance",new{activeId=9})';
+                                } else {
+                                    alert(d.msg);
+                                }
+                            }
+                        })
+                    });
+        })
+    </script>
+}
+

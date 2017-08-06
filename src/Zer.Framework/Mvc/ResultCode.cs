@@ -2,7 +2,7 @@ namespace Zer.Framework.Mvc
 {
     public enum ResultCode
     {
-        Success,
-        Fail
+        Success=901,
+        Fail=801
     }
 }

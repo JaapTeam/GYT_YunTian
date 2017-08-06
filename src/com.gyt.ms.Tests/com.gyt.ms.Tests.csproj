@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppService\AutoMapperExtensionsWithDtoTests.cs" />
+    <Compile Include="Controllers\LngAllowance\LngAllowanceControllerTest.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Controllers\Company\CompanyControllerTest.cs" />
     <Compile Include="Controllers\JsonHelper.cs" />
