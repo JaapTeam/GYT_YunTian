@@ -1,4 +1,7 @@
-﻿- test for push 
+﻿
+# EF集成测试
+- 运行 ```Zer.Framework.Ef.IntegrationTest.Tests``` 之前，请先运行migration
+- > ```update-database```
 
 ### 增加SortAttribute 
 > 为了在导入和导出时对数据列进行排序，增加此属性
