@@ -1,9 +1,11 @@
 ﻿using Zer.Framework.Entities;
+using Zer.Framework.Extensions;
 
 namespace Zer.Entities
 {
     public class LngAllowanceInfo : EntityBase
     {
+        private string _cylinderDefaultId;
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
 
