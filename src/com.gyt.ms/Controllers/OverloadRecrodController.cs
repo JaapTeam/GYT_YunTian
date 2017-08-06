@@ -15,20 +15,22 @@ namespace com.gyt.ms.Controllers
     public class OverloadRecrodController : BaseController
     {
         private readonly IOverloadRecrodService _overloadRecrodService;
+        private readonly ITruckInfoService _truckInfoService;
+        private readonly ICompanyService _companyService;
 
-        public OverloadRecrodController()
-        {
-           
-        }
-
-        public OverloadRecrodController(IOverloadRecrodService overloadRecrodService)
+        public OverloadRecrodController(IOverloadRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
         {
             _overloadRecrodService = overloadRecrodService;
+            _truckInfoService = truckInfoService;
+            _companyService = companyService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int activeId=0)
         {
-            ViewBag.ActiveId = 6;
+            ViewBag.ActiveId = activeId;
+            ViewBag.TruckList = _truckInfoService.GetAll().ToList();
+            ViewBag.CompanyList = _companyService.GetAll().ToList();
+            ViewBag.Result = _overloadRecrodService.GetAll();
             return View();
         }
 

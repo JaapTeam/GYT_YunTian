@@ -1,4 +1,6 @@
 ﻿
+- have a test for pull request
+
 # 业务规则说明
 ## LNG补贴信息导入
 - 重复数据检查规则

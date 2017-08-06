@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Zer.Entities;
+using Zer.Framework.Entities;
+using Zer.Framework.Exception;
 using Zer.GytDataService;
+using Zer.GytDto.Extensions;
 using Zer.GytDto.Users;
 
 namespace Zer.AppServices.Impl
@@ -26,29 +30,70 @@ namespace Zer.AppServices.Impl
             throw new NotImplementedException();
         }
 
-        public RegistResult Regist(string userName, string password)
+        public RegistResult Regist(UserInfoDto userInfo)
         {
-            throw new NotImplementedException();
+            if (Exists(userInfo.UserName))
+            {
+                return RegistResult.UserNameExists;
+            }
+
+            var entity = Mapper.Map<UserInfo>(userInfo);
+
+            if (_userIbfoDataService.Insert(entity) == null)
+            {
+                throw new CustomException("注册失败",new Dictionary<string,string>{{"UserName",userInfo.UserName}});
+            }
+
+            return RegistResult.Success;
         }
 
         public FrozenResult LetUserFrozen(int userId)
         {
-            throw new NotImplementedException();
+            var entity = _userIbfoDataService.GetById(userId);
+
+            entity.State = State.SoftDeleted;
+
+            return _userIbfoDataService.Update(entity)!=null ? FrozenResult.Success : FrozenResult.UserIsFrzon;
         }
 
         public ThawResult LetUserThaw(int userId)
         {
-            throw new NotImplementedException();
+            var entity = _userIbfoDataService.GetById(userId);
+
+            entity.State = State.Active;
+
+            return _userIbfoDataService.Update(entity) != null ? ThawResult.Success : ThawResult.UserIsThaw;
         }
 
         public ChangePasswordResult ChangePassword(int userId, string newPassword)
         {
-            throw new NotImplementedException();
+            var entity = _userIbfoDataService.GetById(userId);
+
+            entity.Password = newPassword;
+
+            return _userIbfoDataService.Update(entity) != null ? ChangePasswordResult.Success : ChangePasswordResult.SameAsOldPassword;
+        }
+
+        public bool Exists(string  userName)
+        {
+            return _userIbfoDataService.GetAll().Any(x => x.UserName == userName);
+        }
+
+        public bool Edit(UserInfoDto userInfoDto)
+        {
+            var entity = _userIbfoDataService.GetById(userInfoDto.UserId);
+
+            entity.UserName = userInfoDto.UserName;
+            entity.DisplayName = userInfoDto.DisplayName;
+            entity.Email = userInfoDto.Email;
+            entity.MobilePhone = userInfoDto.MobilePhone;
+
+            return _userIbfoDataService.Update(entity) != null;
         }
 
         public UserInfoDto GetById(int id)
         {
-            throw new NotImplementedException();
+            return _userIbfoDataService.GetById(id).Map<UserInfoDto>();
         }
 
         public List<UserInfoDto> GetAll()
