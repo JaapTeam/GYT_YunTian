@@ -50,7 +50,7 @@
     <Compile Include="CompanyInfoDto.cs" />
     <Compile Include="Extensions\AutoMapperExtensionsWithDto.cs" />
     <Compile Include="LngAllowanceInfoDto.cs" />
-    <Compile Include="LogsDto.cs" />
+    <Compile Include="LogInfoDto.cs" />
     <Compile Include="OverloadRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TruckInfoDto.cs" />
