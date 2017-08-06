@@ -146,7 +146,7 @@
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
     <Compile Include="Controllers\LNGSubsidyInfoController.cs" />
-    <Compile Include="Controllers\LogController.cs" />
+    <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\OverLoadChangeInfoController.cs" />
     <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -255,6 +255,8 @@
     <Content Include="assets\js\jquery.validate.min.js" />
     <Content Include="assets\js\markdown\bootstrap-markdown.min.js" />
     <Content Include="assets\js\markdown\markdown.min.js" />
+    <Content Include="assets\js\md5.js" />
+    <Content Include="assets\js\md5.min.js" />
     <Content Include="assets\js\respond.min.js" />
     <Content Include="assets\js\select2.min.js" />
     <Content Include="assets\js\typeahead-bs2.min.js" />
@@ -313,9 +315,12 @@
     <Content Include="Views\User\AccountManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\Log\Index.cshtml" />
-    <Content Include="Views\Log\LogInfo.cshtml" />
+    <Content Include="Views\LogInfo\Index.cshtml" />
+    <Content Include="Views\LogInfo\LogInfo.cshtml" />
     <Content Include="Views\BusinessHandle\SuccessInfo.cshtml" />
+    <Content Include="Views\LogInfo\UserLogInfo.cshtml" />
+    <Content Include="Views\User\AddUserInfo.cshtml" />
+    <Content Include="Views\User\EditUserInfo.cshtml" />
     <Content Include="Views\LngAllowance\Add.cshtml" />
     <Content Include="Views\LngAllowance\Import.cshtml" />
   </ItemGroup>

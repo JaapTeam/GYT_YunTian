@@ -59,6 +59,14 @@
     <Compile Include="Migrations\201708050722440_Init_TestDatas.Designer.cs">
       <DependentUpon>201708050722440_Init_TestDatas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708060741406_intiDataBase.cs" />
+    <Compile Include="Migrations\201708060741406_intiDataBase.Designer.cs">
+      <DependentUpon>201708060741406_intiDataBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708060743058_intiDataBase1.cs" />
+    <Compile Include="Migrations\201708060743058_intiDataBase1.Designer.cs">
+      <DependentUpon>201708060743058_intiDataBase1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TestDbContext.cs" />
     <Compile Include="TestEntity.cs" />
@@ -84,6 +92,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708050722440_Init_TestDatas.resx">
       <DependentUpon>201708050722440_Init_TestDatas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708060741406_intiDataBase.resx">
+      <DependentUpon>201708060741406_intiDataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708060743058_intiDataBase1.resx">
+      <DependentUpon>201708060743058_intiDataBase1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
