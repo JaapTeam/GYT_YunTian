@@ -44,7 +44,8 @@ namespace com.gyt.ms.Controllers
             return ExportCsv(list.GetBuffer(), "LNG补贴信息");
         }
 
-        public ActionResult AddPost(LngAllowanceInfoDto dto)
+        [HttpPost]
+        public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
             ValidataInputString(dto);
 
@@ -67,8 +68,7 @@ namespace com.gyt.ms.Controllers
 
             _lngAllowanceService.Add(dto);
 
-
-            return RedirectToAction("Index", "LngAllowance");
+            return Success();
         }
     }
 }

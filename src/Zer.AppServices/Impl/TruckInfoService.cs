@@ -28,7 +28,8 @@ namespace Zer.AppServices.Impl
 
         public TruckInfoDto Add(TruckInfoDto model)
         {
-            return _truckInfoDataService.Insert(model.Map<TruckInfo>()).Map<TruckInfoDto>();
+            var entity = model.Map<TruckInfo>();
+            return _truckInfoDataService.Insert(entity).Map<TruckInfoDto>();
         }
 
         /// <summary>

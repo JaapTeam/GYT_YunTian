@@ -6,15 +6,15 @@
 }
 
 
-<form class="form-horizontal" role="form">
+<div class="form-horizontal">
     <div id="gas">
 
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 企业名称: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="company_select"> 企业名称: </label>
             <div class="col-sm-9">
                 @if (!CompanyList.IsNullOrEmpty())
                 {
-                    <select>
+                    <select id="company_select">
                         @foreach (var companyInfo in CompanyList)
                         {
                             <option value="@companyInfo.Id">@companyInfo.CompanyName</option>
@@ -24,40 +24,40 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> 批次: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="LotId"> 批次: </label>
             <div class="col-sm-9">
-                <input type="text" id="form-field-2" placeholder="请输入批次" class="col-xs-10 col-sm-5">
+                <input type="text" id="LotId" placeholder="请输入批次" class="col-xs-10 col-sm-5">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-3"> 车牌号: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="TruckNo"> 车牌号: </label>
             <div class="col-sm-9">
-                <input type="text" id="form-field-3" placeholder="请输入车牌号" class="col-xs-10 col-sm-5">
+                <input type="text" id="TruckNo" placeholder="请输入车牌号" class="col-xs-10 col-sm-5">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-4"> 发动机号: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="EngineId"> 发动机号: </label>
             <div class="col-sm-9">
-                <input type="text" id="form-field-4" placeholder="请输入发动机号" class="col-xs-10 col-sm-5">
+                <input type="text" id="EngineId" placeholder="请输入发动机号" class="col-xs-10 col-sm-5">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-5"> 气瓶1编号: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="CylinderDefaultId"> 气瓶1编号: </label>
             <div class="col-sm-9">
-                <input type="text" id="form-field-5" placeholder="请输入气瓶1编号" class="col-xs-10 col-sm-5">
+                <input type="text" id="CylinderDefaultId" placeholder="请输入气瓶1编号" class="col-xs-10 col-sm-5">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="form-field-6"> 气瓶2编号: </label>
+            <label class="col-sm-3 control-label no-padding-right" for="CylinderSeconedId"> 气瓶2编号: </label>
             <div class="col-sm-9">
-                <input type="text" id="form-field-6" placeholder="请输入气瓶2编号" class="col-xs-10 col-sm-5">
+                <input type="text" id="CylinderSeconedId" placeholder="请输入气瓶2编号" class="col-xs-10 col-sm-5">
             </div>
         </div>
     </div>
-</form>
+</div>
 <div class="clearfix form-actions">
     <div class="col-md-offset-5 col-md-9">
-        <a class="btn btn-info" id="submit" href="LNGSubsidyInfoList.html">
+        <a class="btn btn-info" id="submit" href="javascript:;">
             <i class="icon-indent-right bigger-110"></i>
             保存
         </a>
@@ -67,7 +67,43 @@
 @section scripts{
     <script>
         $(function() {
-            alert("ok");
+            var postUrl = '@Url.Action("AddPost", "LngAllowance")';
+
+            $('body')
+                .on('click',
+                    '#submit',
+                    function() {
+                        var companyId = $('#company_select').val();
+                        var lotId = $('#LotId').val();
+                        var truckNo = $('#TruckNo').val();
+                        var engineId = $('#EngineId').val();
+                        var cylinderDefaultId = $('#CylinderDefaultId').val();
+                        var cylinderSeconedId = $('#CylinderSeconedId').val();
+
+                        var postModel = {
+                            CompanyId: companyId,
+                            LotId: lotId,
+                            TruckNo: truckNo,
+                            EngineId: engineId,
+                            CylinderDefaultId: cylinderDefaultId,
+                            CylinderSeconedId: cylinderSeconedId
+                        };
+
+                        console.log(postModel);
+
+                        $.ajax({
+                            url: postUrl,
+                            type: 'post',
+                            data: postModel,
+                            success: function (d) {
+                                if (d.C == '901') {
+                                    window.location = '@Url.Action("Index","LngAllowance",new{activeId=9})';
+                                } else {
+                                    alert(d.msg);
+                                }
+                            }
+                        })
+                    });
         })
     </script>
 }
