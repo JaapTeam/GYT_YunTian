@@ -2,5 +2,5 @@ using System;
 
 namespace Zer.Framework.Attributes
 {
-    public class IgnoreAttribute : Attribute { }
+    public class ExportIgnoreAttribute : Attribute { }
 }

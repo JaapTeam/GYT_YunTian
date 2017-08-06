@@ -34,7 +34,7 @@ namespace Zer.AppServices.Impl
 
         public List<LngAllowanceInfoDto> AddRange(List<LngAllowanceInfoDto> list)
         {
-            throw new System.NotImplementedException();
+            return _lngAllowanceInfoDataService.AddRange(list.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>().ToList();
         }
 
         public List<LngAllowanceInfoDto> GetList(FilterMatchInputDto filterMatchInput)
@@ -45,6 +45,13 @@ namespace Zer.AppServices.Impl
         public List<LngAllowanceInfoDto> GetList(int[] idList)
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
+        {
+            return _lngAllowanceInfoDataService.GetAll()
+                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
+                          x.CylinderDefaultId == lngAllowanceInfoDto.CylinderDefaultId);
         }
     }
 }

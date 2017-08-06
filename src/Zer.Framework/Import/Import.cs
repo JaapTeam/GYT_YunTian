@@ -35,7 +35,12 @@ namespace Zer.Framework.Import
             where T : class ,new()
         {
             var list = formatString.Split(',');
-            var properties = typeof(T).GetProperties();
+            var properties = typeof(T).GetProperties()
+                .Where(x =>
+                {
+                    var ignore = x.GetCustomAttribute<ImprotIgnoreAttribute>();
+                    return ignore == null;
+                }).ToArray();
 
             properties = properties.Select(x =>
             {

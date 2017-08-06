@@ -1,4 +1,16 @@
 ﻿
+# 业务规则说明
+## LNG补贴信息导入
+- 重复数据检查规则
+    ```
+    public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
+    {
+    	return _lngAllowanceInfoDataService.GetAll()
+    		.Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
+    				  x.CylinderDefaultId == lngAllowanceInfoDto.CylinderDefaultId);
+    }
+    ```
+
 # EF集成测试
 - 运行 ```Zer.Framework.Ef.IntegrationTest.Tests``` 之前，请先运行migration
 - > ```update-database```
