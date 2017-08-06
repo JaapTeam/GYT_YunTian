@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Exception;
 using Zer.GytDto;
 using Zer.GytDto.Users;
 using Zer.NUnit;
@@ -16,7 +17,6 @@ namespace com.gyt.ms.Tests.Controllers
     {
         [Test]
         [Category("BaseController")]
-        [ExpectException(typeof(ArgumentException))]
         [Description("输入任意非法字符串，都会抛出异常")]
         public void TestForValidataInputString_inputAnyUnsaveString_ThrowException()
         {
@@ -28,13 +28,20 @@ namespace com.gyt.ms.Tests.Controllers
                     "sss\"sss"
                 };
 
-                ctrl.ValidataInputString(stringList);
+                try
+                {
+                    ctrl.ValidataInputString(stringList);
+                }
+                catch (Exception actual)
+                {
+                    actual.Should().BeOfType<CustomException>();
+                    actual.Message.Should().Be("参数含有非法字符！");
+                }
             }
         }
 
         [Test]
         [Category("BaseController")]
-        [ExpectException(typeof(ArgumentException))]
         [Description("输入任意非法字符串，都会抛出异常")]
         public void TestForValidataInputString_inputDtoObject_ThrowException()
         {
@@ -47,7 +54,15 @@ namespace com.gyt.ms.Tests.Controllers
                     CylinderSeconedId = "sdfjl1009\'"
                 };
 
-                ctrl.ValidataInputString(dto);
+                try
+                {
+                    ctrl.ValidataInputString(dto);
+                }
+                catch (Exception actual)
+                {
+                    actual.Should().BeOfType<CustomException>();
+                    actual.Message.Contains("参数含有非法字符！").Should().BeTrue();
+                }
             }
         }
 
