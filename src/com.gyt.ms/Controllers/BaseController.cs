@@ -7,6 +7,7 @@ using com.gyt.ms.Models;
 using Castle.MicroKernel.Registration;
 using Microsoft.Ajax.Utilities;
 using WebGrease.Css.Extensions;
+using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
 using Zer.GytDto.Users;
@@ -34,7 +35,7 @@ namespace com.gyt.ms.Controllers
         {
             if (inputStrings.Any(x => x.CheckBadStr()))
             {
-                throw new ArgumentException("参数含有非法字符！");
+                throw new CustomException("参数含有非法字符！","inputString",string.Join(",",inputStrings));
             }
         }
 
@@ -44,7 +45,6 @@ namespace com.gyt.ms.Controllers
         /// <param name="inputStrings"></param>
         public void ValidataInputString(params string[][] inputStrings)
         {
-            // TODO:Unit Test
             inputStrings.ForEach(ValidataInputString);
         }
 
@@ -73,6 +73,29 @@ namespace com.gyt.ms.Controllers
             ValidataInputString(list.ToArray());
         }
 
+        public T ReplaceUnsafeChar<T>(T obj)
+            where T : class ,new()
+        {
+            var t = new T();
+            foreach (var property in typeof(T).GetProperties())
+            {
+                var currentValue = property.GetValue(obj);
+                if (currentValue == null) continue;
+
+                var replacedValue = currentValue;
+
+                var s = currentValue as string;
+                if (s != null)
+                {
+                    replacedValue = s.Replace('-', '_');
+                }
+
+                property.SetValue(t,replacedValue);
+            }
+            return t;
+        }
+
+
         protected JsonResult Success()
         {
             return Success("");
@@ -96,7 +119,7 @@ namespace com.gyt.ms.Controllers
         protected FileResult ExportCsv(byte[] data, string fileName)
         {
             // TODO:Unit Test
-            return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv",fileName, DateTime.Now));
+            return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv", fileName, DateTime.Now));
         }
 
         public ActionResult LeftMenu(int id)
@@ -153,7 +176,7 @@ namespace com.gyt.ms.Controllers
 
             #region 超载超限数据管理
 
-            MenuItem overLoadDataManage= new MenuItem();
+            MenuItem overLoadDataManage = new MenuItem();
             overLoadDataManage.Id = 5;
             overLoadDataManage.TextInfo = "超载超限数据管理";
             overLoadDataManage

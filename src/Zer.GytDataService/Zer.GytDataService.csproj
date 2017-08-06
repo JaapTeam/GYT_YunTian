@@ -58,14 +58,6 @@
     <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
-    <Compile Include="Migrations\201708060752151_intiDataBase.cs" />
-    <Compile Include="Migrations\201708060752151_intiDataBase.Designer.cs">
-      <DependentUpon>201708060752151_intiDataBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.cs" />
-    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.Designer.cs">
-      <DependentUpon>201708060907090_modifyOverLoadInfo.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Impl\OverloadRecrodDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,14 +81,6 @@
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708060752151_intiDataBase.resx">
-      <DependentUpon>201708060752151_intiDataBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708060907090_modifyOverLoadInfo.resx">
-      <DependentUpon>201708060907090_modifyOverLoadInfo.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,5 +8,7 @@ namespace Zer.AppServices
         List<LngAllowanceInfoDto> GetList(AppServices.FilterMatchInputDto filterMatchInput);
 
         List<LngAllowanceInfoDto> GetList(int[] idList);
+
+        bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto);
     }
 }

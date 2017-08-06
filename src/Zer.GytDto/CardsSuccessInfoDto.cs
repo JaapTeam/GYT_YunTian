@@ -13,7 +13,7 @@ namespace Zer.GytDto
         /// <summary>
         /// 原企业编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
         public int OriginalCompanyId { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Zer.GytDto
         /// <summary>
         /// 申办企业编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
         public int RequestCompanyId { get; set; }
 
         /// <summary>

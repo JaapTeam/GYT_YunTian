@@ -10,7 +10,7 @@ namespace Zer.GytDto
         [ExportDisplayName("日志编号")]
         public int Id { get; set; }
 
-        [Ignore]
+        [ExportIgnore]
         public int UserId { get; set; }
 
         [Sort(2)]
