@@ -112,7 +112,6 @@
     <Compile Include="Controllers\ControllerTestBase.cs" />
     <Compile Include="Controllers\OverloadRecrod\OverloadControllerTest.cs" />
     <Compile Include="Controllers\Truck\TruckControllerTest.cs" />
-    <Compile Include="Controllers\User\UserControllerTest.cs" />
     <Compile Include="MockService.cs" />
     <Compile Include="MockService\MockOverloadRecrodService.cs" />
     <Compile Include="MockService\MockTruckInfoService.cs" />
@@ -153,6 +152,9 @@
       <Project>{8FBC4074-6297-40CA-B96C-AD025C488B08}</Project>
       <Name>Zer.NUnit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
