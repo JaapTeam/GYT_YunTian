@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "AddUserInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="header smaller lighter blue">新增账号</h3>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="input_userName" style="color: red"> 用户名 </label>
+
+        <div class="col-sm-9">
+            <input type="text" id="input_userName" placeholder="用户名" class="col-xs-10 col-sm-5">
+            <span class="help-inline col-xs-12 col-sm-7">
+                <span class="middle" id="lbl_userName" style="display: none; color:red">输入错误提示</span>
+            </span>
+        </div>
+    </div>
+
+
+    <div class="space-4"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="input_password" style="color: red"> 密码 </label>
+
+        <div class="col-sm-9">
+            <input type="password" id="input_password" placeholder="密码" class="col-xs-10 col-sm-5">
+            <span class="help-inline col-xs-12 col-sm-7">
+                <span class="middle" id="lbl_password" style="display: none; color:red">输入错误提示</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="space-4"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="input_password_again" style="color: red"> 再次输入密码 </label>
+
+        <div class="col-sm-9">
+            <input type="password" id="input_password_again" placeholder="再次输入密码" class="col-xs-10 col-sm-5">
+            <span class="help-inline col-xs-12 col-sm-7">
+                <span class="middle" id="lbl_password_again" style="display: none; color:red">输入错误提示</span>
+            </span>
+        </div>
+    </div>
+    <div class="space-4"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="input_displayName"> 用户姓名 </label>
+
+        <div class="col-sm-9">
+            <input type="text" id="input_displayName" placeholder="用户姓名" class="col-xs-10 col-sm-5">
+        </div>
+    </div>
+
+
+    <div class="space-4"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="input_email"> 联系邮箱 </label>
+
+        <div class="col-sm-9">
+            <input type="text" id="input_email" placeholder="联系邮箱" class="col-xs-10 col-sm-5">
+        </div>
+    </div>
+
+
+    <div class="space-4"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="input_mobilePhone"> 联系号码 </label>
+
+        <div class="col-sm-9">
+            <input type="text" id="input_mobilePhone" placeholder="联系号码" class="col-xs-10 col-sm-5">
+        </div>
+    </div>
+
+    <div class="space-10"></div>
+
+
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+            <button class="btn btn-info" type="button" id="btn_Save">
+                <i class="icon-ok bigger-110"></i>
+                保存
+            </button>
+
+            &nbsp; &nbsp; &nbsp;
+            <button class="btn" type="reset" >
+                <i class="icon-undo bigger-110"></i>
+                清空
+            </button>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    
+    <script src="@Url.Content("~")assets/js/md5.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $("#btn_Save")
+                .click(function() {
+                    var userName = $("#input_userName").val();
+                    var password = $("#input_password").val();
+                    var passwordAgian = $("#input_password_again").val();
+                    var email = $("#input_email").val();
+                    var displayName = $("#input_displayName").val();
+                    var mobilePhone = $("#input_mobilePhone").val();
+
+                    if (userName === "") {
+                        showLable($("#lbl_userName"), "用户名不能为空");
+                        return;
+                    }
+
+                    hideLable($("#lbl_userName"));
+
+                    if (password === "") {
+                        showLable($("#lbl_password"), "密码不能为空");
+                        return;
+                    }
+
+                    hideLable($("#lbl_password"));
+
+                    if (passwordAgian === "") {
+                        showLable($("#lbl_password_again"), "请再次输入密码");
+                        return;
+                    }
+
+                    hideLable($("#lbl_password_again"));
+
+                    if (password !== passwordAgian) {
+                        showLable($("#lbl_password_again"), "两次密码输入不一致请检查");
+                        return;
+                    }
+
+                    var dto = 
+                        {
+                            UserName: userName,
+                            Password: hex_md5(password),
+                            DisplayName: displayName,
+                            Email: email,
+                            MobilePhone: mobilePhone
+                        }
+                    ;
+
+                    save(dto);
+                });
+
+            function showLable(lable, msg) {
+                lable.css("display", "");
+                lable.html(msg);
+            }
+
+            function hideLable(lable) {
+                lable.css("display", "none");
+            }
+
+            function save(dto) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Regist")",
+                    data: { userInfoDto: dto },
+                    dataType: "json",
+                    success: function(data) {
+                        window.location.href = "@Url.Action("AccountManage",new {activeId=ViewBag.ActiveId})";
+                    }
+                });
+
+            }
+        });
+
+
+    </script>
+}
