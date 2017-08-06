@@ -43,10 +43,9 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public FileResult Export(int activeId = 9, int[] idList = null)
+        public FileResult Export()
         {
-            ViewBag.ActiveId = activeId;
-            var list = _lngAllowanceService.GetList(idList);
+            var list = _lngAllowanceService.GetAll().ToList();
 
             return ExportCsv(list.GetBuffer(), "LNG补贴信息");
         }

@@ -35,7 +35,7 @@ namespace com.gyt.ms.Tests.Controllers
                 catch (Exception actual)
                 {
                     actual.Should().BeOfType<CustomException>();
-                    actual.Message.Should().Be("参数含有非法字符！");
+                    actual.Message.Contains("参数含有非法字符！").Should().BeTrue();
                 }
             }
         }
