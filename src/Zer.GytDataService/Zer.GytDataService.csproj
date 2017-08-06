@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOverloadRecrodDataService.cs" />
     <Compile Include="ITruckInfoDataService.cs" />
     <Compile Include="IUserInfoDataService.cs" />
     <Compile Include="DataServiceModule.cs" />
@@ -57,23 +58,16 @@
     <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
-    <Compile Include="Migrations\201708050420443_init_db.cs" />
-    <Compile Include="Migrations\201708050420443_init_db.Designer.cs">
-      <DependentUpon>201708050420443_init_db.cs</DependentUpon>
+    <Compile Include="Migrations\201708060752151_intiDataBase.cs" />
+    <Compile Include="Migrations\201708060752151_intiDataBase.Designer.cs">
+      <DependentUpon>201708060752151_intiDataBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708050657484_modify_userinfo.cs" />
-    <Compile Include="Migrations\201708050657484_modify_userinfo.Designer.cs">
-      <DependentUpon>201708050657484_modify_userinfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708051601490_modify_LngEntity.cs" />
-    <Compile Include="Migrations\201708051601490_modify_LngEntity.Designer.cs">
-      <DependentUpon>201708051601490_modify_LngEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708051728474_modify_TruckInfo_DriverId.cs" />
-    <Compile Include="Migrations\201708051728474_modify_TruckInfo_DriverId.Designer.cs">
-      <DependentUpon>201708051728474_modify_TruckInfo_DriverId.cs</DependentUpon>
+    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.cs" />
+    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.Designer.cs">
+      <DependentUpon>201708060907090_modifyOverLoadInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Impl\OverloadRecrodDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
     <Compile Include="Impl\TruckInfoDataService.cs" />
@@ -97,17 +91,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708050420443_init_db.resx">
-      <DependentUpon>201708050420443_init_db.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708060752151_intiDataBase.resx">
+      <DependentUpon>201708060752151_intiDataBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708050657484_modify_userinfo.resx">
-      <DependentUpon>201708050657484_modify_userinfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708051601490_modify_LngEntity.resx">
-      <DependentUpon>201708051601490_modify_LngEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708051728474_modify_TruckInfo_DriverId.resx">
-      <DependentUpon>201708051728474_modify_TruckInfo_DriverId.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708060907090_modifyOverLoadInfo.resx">
+      <DependentUpon>201708060907090_modifyOverLoadInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

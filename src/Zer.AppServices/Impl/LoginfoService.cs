@@ -15,34 +15,39 @@ namespace Zer.AppServices.Impl
             _logInfoDataService = logInfoDataService;
         }
 
-        public LogsDto GetById(int id)
+        public LogInfoDto GetById(int id)
         {
-            return Mapper.Map<LogsDto>(_logInfoDataService.GetById(id));
+            return Mapper.Map<LogInfoDto>(_logInfoDataService.GetById(id));
         }
 
-        public List<LogsDto> GetAll()
+        public List<LogInfoDto> GetAll()
         {
-            return Mapper.Map<List<LogsDto>>(_logInfoDataService.GetAll());
+            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll());
         }
 
-        public LogsDto Add(LogsDto model)
+        public LogInfoDto Add(LogInfoDto model)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<LogsDto> AddRange(List<LogsDto> list)
+        public List<LogInfoDto> AddRange(List<LogInfoDto> list)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<LogsDto> GetListByFilterMatch(FilterMatchInputDto filterMatch)
+        public List<LogInfoDto> GetListByFilterMatch(FilterMatchInputDto filterMatch)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<LogsDto> GetListByIds(int[] ids)
+        public List<LogInfoDto> GetListByIds(int[] ids)
         {
-            return Mapper.Map<List<LogsDto>>(_logInfoDataService.GetAll().Where(x => ids.Contains(x.Id)).ToList());
+            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll().Where(x => ids.Contains(x.Id)).ToList());
+        }
+
+        public List<LogInfoDto> GetListByUserId(int userId)
+        {
+            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll().Where(x=>x.UserId==userId).ToList());
         }
     }
 }
