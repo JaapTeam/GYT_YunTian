@@ -35,13 +35,13 @@ namespace Zer.FrameWork.UnitTest.Tests
         {
             // Arrange
             var companyInfoDto = new CompanyInfoDto { CompanyName = "深圳市致远高新科技有限公司", Id = 1, TraderRange = "软件开发与运营", CreateDate = DateTime.Now.AddYears(-1) };
-            var expected = "1" + "," + "软件开发与运营" + "," + "深圳市致远高新科技有限公司" + "," + DateTime.Now.AddYears(-1);
+            var expected = "\"	1\" ,\"软件开发与运营\" ,\"深圳市致远高新科技有限公司\" ,";
 
             // Act
             var actual = Export.GenerateLineString(companyInfoDto);
 
             // Assert
-            actual.Should().Be(expected);
+            actual.Contains(expected).Should().BeTrue();
         }
 
         [Test]

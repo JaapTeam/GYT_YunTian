@@ -12,7 +12,7 @@ namespace Zer.Framework.Export
 {
     public class Export
     {
-        public static byte[] GetBuffer<T>(IEnumerable<T> data) 
+        public static byte[] GetBuffer<T>(IEnumerable<T> data)
             where T : class
         {
             // TODO:Unit Test
@@ -25,12 +25,12 @@ namespace Zer.Framework.Export
         {
             // TODO:Unit Test
             var stringBuilder = ConvertToMultipleLineString(data);
-            
+
             //将字符串写入流
             streamWriter.WriteAsync(stringBuilder.ToString());
             streamWriter.Flush();
         }
-        
+
         public static StringBuilder ConvertToMultipleLineString<T>(IEnumerable<T> data) where T : class
         {
             // 从数据转为字符串
@@ -101,8 +101,8 @@ namespace Zer.Framework.Export
             where T : class
         {
             var values = typeof(T).GetProperties()
-                .Where(x => !x.GetCustomAttributes().Any(t=>t is ExportIgnoreAttribute))
-//                .Where(x=>x.GetCustomAttributes())
+                .Where(x => !x.GetCustomAttributes().Any(t => t is ExportIgnoreAttribute))
+                //                .Where(x=>x.GetCustomAttributes())
                 .OrderBy(x =>
                     {
                         var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
@@ -116,7 +116,24 @@ namespace Zer.Framework.Export
                         }
                         return sortAttribute.Index;
                     })
-                .Select(x => x.GetValue(obj).ToString()).ToArray();
+                .Select(x =>
+                {
+                    var specilTypeList = new List<Type>
+                    {
+                        typeof(int),typeof(long),typeof(short)
+                    };
+                    var value = x.GetValue(obj);
+                    if (value == null) return " ";
+                    if (value is DateTime) return string.Format("{0:yyyy-MM-dd hh:mm:ss}", value);
+
+                    if (specilTypeList.Contains(value.GetType()))
+                    {
+                        return string.Format("\"{0}{1}\" ", ((char)(9)).ToString(), value);
+                    }
+
+                    return string.Format("\"{0}\" ", value.ToString());
+
+                }).ToArray();
             return GenerateLineString(values);
         }
     }
