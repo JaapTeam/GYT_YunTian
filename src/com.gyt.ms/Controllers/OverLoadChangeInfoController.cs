@@ -9,9 +9,9 @@ namespace com.gyt.ms.Controllers
     public class OverLoadChangeInfoController : BaseController
     {
         // GET: OverLoadChangeInfo
-        public ActionResult Index()
+        public ActionResult Index(int activeId=0)
         {
-            ViewBag.ActiveId = 7;
+            ViewBag.ActiveId = activeId;
             return View();
         }
     }

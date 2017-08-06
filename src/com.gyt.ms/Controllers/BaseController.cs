@@ -234,7 +234,7 @@ namespace com.gyt.ms.Controllers
             MenuItem logInfo = new MenuItem();
             logInfo.Id = 11;
             logInfo.ActionName = "Index";
-            logInfo.ControllerName = "Log";
+            logInfo.ControllerName = "LogInfo";
             logInfo.TextInfo = "日志管理";
             logInfo.IsCurrentPage = false;
             logInfo.Icon = "icon-file-alt";

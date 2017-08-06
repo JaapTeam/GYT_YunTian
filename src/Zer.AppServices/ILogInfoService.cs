@@ -3,11 +3,12 @@ using Zer.GytDto;
 
 namespace Zer.AppServices
 {
-    public interface ILogInfoService: AppServices.IAppService<LogsDto,int>
+    public interface ILogInfoService: AppServices.IAppService<LogInfoDto,int>
     {
-        List<LogsDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
+        List<LogInfoDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 
-        List<LogsDto> GetListByIds(int[] ids);
+        List<LogInfoDto> GetListByIds(int[] ids);
 
+        List<LogInfoDto> GetListByUserId(int userId);
     }
 }
