@@ -13,7 +13,8 @@ namespace Zer.GytDto
         /// <summary>
         /// 原企业编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
+        [ImprotIgnore]
         public int OriginalCompanyId { get; set; }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Zer.GytDto
         /// <summary>
         /// 申办企业编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
         public int RequestCompanyId { get; set; }
 
         /// <summary>
@@ -78,19 +79,19 @@ namespace Zer.GytDto
         /// <summary>
         /// 初审人编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
         public int FristAuditorId { get; set; }
 
         /// <summary>
         /// 再审人编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
         public int AgainAuditorId { get; set; }
 
         /// <summary>
         /// 终审人编号
         /// </summary>
-        [Ignore]
+        [ExportIgnore]
         public int LastAuditorId { get; set; }
     }
 
