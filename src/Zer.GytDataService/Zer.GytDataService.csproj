@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITruckInfoDataService.cs" />
     <Compile Include="IUserInfoDataService.cs" />
     <Compile Include="DataServiceModule.cs" />
     <Compile Include="GytDbContext.cs" />
@@ -64,9 +65,18 @@
     <Compile Include="Migrations\201708050657484_modify_userinfo.Designer.cs">
       <DependentUpon>201708050657484_modify_userinfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708051601490_modify_LngEntity.cs" />
+    <Compile Include="Migrations\201708051601490_modify_LngEntity.Designer.cs">
+      <DependentUpon>201708051601490_modify_LngEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708051728474_modify_TruckInfo_DriverId.cs" />
+    <Compile Include="Migrations\201708051728474_modify_TruckInfo_DriverId.Designer.cs">
+      <DependentUpon>201708051728474_modify_TruckInfo_DriverId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
+    <Compile Include="Impl\TruckInfoDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -92,6 +102,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708050657484_modify_userinfo.resx">
       <DependentUpon>201708050657484_modify_userinfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708051601490_modify_LngEntity.resx">
+      <DependentUpon>201708051601490_modify_LngEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708051728474_modify_TruckInfo_DriverId.resx">
+      <DependentUpon>201708051728474_modify_TruckInfo_DriverId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

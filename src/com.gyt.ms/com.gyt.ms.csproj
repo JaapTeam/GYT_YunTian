@@ -316,6 +316,7 @@
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\Log\LogInfo.cshtml" />
     <Content Include="Views\BusinessHandle\SuccessInfo.cshtml" />
+    <Content Include="Views\LngAllowance\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

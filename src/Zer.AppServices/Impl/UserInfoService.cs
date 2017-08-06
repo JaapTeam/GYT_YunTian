@@ -56,12 +56,12 @@ namespace Zer.AppServices.Impl
             return Mapper.Map<List<UserInfoDto>>(_userIbfoDataService.GetAll());
         }
 
-        public bool Add(UserInfoDto model)
+        public UserInfoDto Add(UserInfoDto model)
         {
             throw new NotImplementedException();
         }
 
-        public bool AddRange(List<UserInfoDto> list)
+        public List<UserInfoDto> AddRange(List<UserInfoDto> list)
         {
             throw new NotImplementedException();
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Zer.Entities;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
@@ -26,12 +27,12 @@ namespace Zer.AppServices.Impl
             return _lngAllowanceInfoDataService.GetAll().Map<LngAllowanceInfoDto>().ToList();
         }
 
-        public bool Add(LngAllowanceInfoDto model)
+        public LngAllowanceInfoDto Add(LngAllowanceInfoDto model)
         {
-            throw new System.NotImplementedException();
+            return _lngAllowanceInfoDataService.Insert(model.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
         }
 
-        public bool AddRange(List<LngAllowanceInfoDto> list)
+        public List<LngAllowanceInfoDto> AddRange(List<LngAllowanceInfoDto> list)
         {
             throw new System.NotImplementedException();
         }

@@ -9,7 +9,8 @@ namespace Zer.GytDto
         public string RearTruckNo { get; set; }
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
-        public int DriverId { get; set; }
+       
+        public int? DriverId { get; set; }
         public string DriverName { get; set; }
         public TruckState State { get; set; }
     }

@@ -1,3 +1,128 @@
-﻿
-<h2>title</h2>
-<a href="@Url.Action("Export","LngAllowance")">下载</a>
+﻿@using Castle.Core.Internal
+@using Zer.GytDto
+@{
+    var lngList = Model as List<LngAllowanceInfoDto>;
+}
+
+<form class="form-inline" style="height: 50px; line-height: 45px">
+    车牌号码：
+    <select class="chosen-select " style="display: none;">
+        <option value="">&nbsp;</option>
+        <option value="AL">粤A123456</option>
+        <option value="AL">粤A654321</option>
+        <option value="AL">粤A654321挂</option>
+        <option value="AL">粤A973829</option>
+    </select>
+
+    <label for="input_engineNumber" style="margin-left: 10px">发动机号：</label>
+    <input type="text" class="input-mini" style="width: 150px" id="input_engineNumber" />
+    <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+</form>
+
+<div class="table-header">
+
+    <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+        <a class="white" href="@(Url.Action("add","LngAllowance",new {activeid=9}))">
+            <i class="icon-plus-sign bigger-110">
+                <span class="">新增</span>
+            </i>
+        </a>
+
+        <a class="white" href="javascript:void(0)" id="btn_improt">
+            <i class="icon-cloud-upload bigger-110">
+                <span class="">批量导入</span>
+            </i>
+        </a>
+
+        <a class="white" href="#">
+            <i class="icon-cloud-download bigger-110">
+                <span class="">导出</span>
+            </i>
+        </a>
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </th>
+                <th>编号</th>
+                <th>企业名称</th>
+                <th>批次</th>
+                <th>车牌号</th>
+                <th>发动机号</th>
+                <th>气瓶1编号</th>
+                <th>气瓶2编号</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!lngList.IsNullOrEmpty())
+            {
+                foreach (var item in lngList)
+                {
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">@item.Id</a>
+                        </td>
+                        <td>
+                            @item.CompanyName
+                        </td>
+                        <td>
+                            @item.LotId
+                    </td>
+                    <td>
+                        @item.TruckNo
+                </td>
+                <td>@item.EngineId</td>
+                <td>
+                    @item.CylinderDefaultId
+            </td>
+            <td>
+                @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId)
+        </td>
+    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="dataTables_paginate padding-10">
+                <ul class="pagination">
+                    <li class="prev disabled">
+                        <a href="#">
+                            <i class="icon-double-angle-left"></i>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li class="next">
+                        <a href="#">
+                            <i class="icon-double-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Exception;
 using Zer.GytDataService;
-using Zer.GytDataService.Impl;
 using Zer.GytDto;
+using Zer.GytDto.Extensions;
 
 namespace Zer.AppServices.Impl
 {
@@ -26,12 +25,12 @@ namespace Zer.AppServices.Impl
 
         public List<CompanyInfoDto> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _companyInfoDataService.GetAllList().Map<CompanyInfoDto>().ToList();
         }
 
-        public bool Add(CompanyInfoDto model)
+        public CompanyInfoDto Add(CompanyInfoDto model)
         {
-            if (_companyInfoDataService.GetAll().Any(x => x.CompanyName == model.CompanyName))
+            if (Exists(model.CompanyName))
             {
                 throw new CustomException(
                     "公司信息已经存在",
@@ -42,32 +41,34 @@ namespace Zer.AppServices.Impl
             }
 
             var companyInfo = Mapper.Map<CompanyInfo>(model);
-            return _companyInfoDataService.Insert(companyInfo) != null;
+            return _companyInfoDataService.Insert(companyInfo).Map<CompanyInfoDto>();
         }
 
-        public bool AddRange(List<CompanyInfoDto> list)
+        /// <summary>
+        /// 进行批量新增时，请检查是否在数据库中已经存在数据
+        /// </summary>
+        public List<CompanyInfoDto> AddRange(List<CompanyInfoDto> list)
         {
-            throw new System.NotImplementedException();
+            var entities = list.Map<CompanyInfo>();
+            return _companyInfoDataService.AddRange(entities).Map<CompanyInfoDto>().ToList();
         }
 
         public List<CompanyInfoDto> GetByLikeName(string likeName)
         {
-            throw new System.NotImplementedException();
+            return _companyInfoDataService
+                   .GetAll()
+                   .Where(x => x.CompanyName.Contains(likeName))
+                   .Map<CompanyInfoDto>().ToList();
         }
 
         public bool Exists(string companyFullName)
         {
-            throw new System.NotImplementedException();
+            return _companyInfoDataService.GetAll().Any(x => x.CompanyName == companyFullName.Trim());
         }
 
         public void Add(CompanyInfo model)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public bool AddRange(List<CompanyInfo> list)
-        {
-            throw new System.NotImplementedException();
+            _companyInfoDataService.Insert(model);
         }
     }
 }
