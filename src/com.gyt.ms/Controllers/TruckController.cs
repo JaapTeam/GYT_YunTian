@@ -89,7 +89,7 @@ namespace com.gyt.ms.Controllers
         {
             ValidataInputString(truckNo);
 
-            var result = _truckInfoService.TruckNoExists(truckNo);
+            var result = _truckInfoService.Exists(truckNo);
 
             return Success(result);
         }

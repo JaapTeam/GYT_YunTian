@@ -10,6 +10,6 @@ namespace Zer.AppServices
 
         List<TruckInfoDto> GetListByCompanyId(int id);
 
-        bool TruckNoExists(string truckNo);
+        bool Exists(string truckNo);
     }
 }

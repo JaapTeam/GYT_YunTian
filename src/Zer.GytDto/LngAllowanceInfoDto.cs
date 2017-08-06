@@ -9,6 +9,9 @@ namespace Zer.GytDto
         [ExportDisplayName("±àºÅ")]
         public int Id { get; set; }
 
+        [Ignore]
+        public int CompanyId { get; set; }
+
         [Sort(2)]
         [ExportDisplayName("¹«Ë¾Ãû³Æ")]
         public string CompanyName { get; set; }

@@ -10,20 +10,15 @@ namespace Zer.GytDto.Extensions
 {
     public static class AutoMapperExtensionsWithDto
     {
-        public static TDto Map<TDto>(this IEntity entity)
-            where TDto : class ,new()
+        public static T Map<T>(this object entity)
+            where T : class ,new()
         {
-            return Mapper.Map<TDto>(entity);
+            return Mapper.Map<T>(entity);
         }
 
-        public static IEnumerable<TDto> Map<TDto>(this IEnumerable<IEntity> entities)
+        public static IEnumerable<T> Map<T>(this IEnumerable<object> entities)
         {
-            return Mapper.Map<IEnumerable<TDto>>(entities.ToList());
-        }
-
-        public static List<TDto> Map<TDto>(this List<IEntity> entities)
-        {
-            return Mapper.Map<List<TDto>>(entities.ToList());
+            return Mapper.Map<IEnumerable<T>>(entities.ToList());
         }
     }
 }
