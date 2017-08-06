@@ -25,12 +25,12 @@ namespace Zer.AppServices.Impl
             return Mapper.Map<List<LogsDto>>(_logInfoDataService.GetAll());
         }
 
-        public bool Add(LogsDto model)
+        public LogsDto Add(LogsDto model)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool AddRange(List<LogsDto> list)
+        public List<LogsDto> AddRange(List<LogsDto> list)
         {
             throw new System.NotImplementedException();
         }

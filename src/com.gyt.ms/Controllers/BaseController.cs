@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using com.gyt.ms.Models;
+using Castle.MicroKernel.Registration;
+using Microsoft.Ajax.Utilities;
 using WebGrease.Css.Extensions;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
@@ -52,8 +54,23 @@ namespace com.gyt.ms.Controllers
         /// <param name="inputStrings"></param>
         public void ValidataInputString(params IEnumerable<string>[] inputStrings)
         {
-            // TODO:Unit Test
             inputStrings.Select(x => x.ToArray()).ForEach(ValidataInputString);
+        }
+
+        public void ValidataInputString<T>(T obj)
+        {
+            var list = new List<string>();
+
+            foreach (var property in typeof(T).GetProperties().Where(x => x.PropertyType == typeof(string)))
+            {
+                var str = property.GetValue(obj);
+                if (str != null && !str.ToString().IsNullOrEmpty())
+                {
+                    list.Add(str.ToString());
+                }
+            }
+
+            ValidataInputString(list.ToArray());
         }
 
         protected JsonResult Success()

@@ -8,9 +8,9 @@ namespace Zer.AppServices
 
         public abstract List<TEntityDto> GetAll();
         
-        public abstract bool Add(TEntityDto model);
+        public abstract TEntityDto Add(TEntityDto model);
 
-        public abstract bool AddRange(List<TEntityDto> list);
+        public abstract List<TEntityDto> AddRange(List<TEntityDto> list);
 
     }
 }

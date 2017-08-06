@@ -28,8 +28,6 @@ namespace Zer.AppServices
 
         void Add(CompanyInfo model);
 
-        bool AddRange(List<CompanyInfo> list);
-
         #endregion
 
     }

@@ -7,9 +7,12 @@ namespace Zer.AppServices
         TEntityDto GetById(TPrimaryKey id);
         List<TEntityDto> GetAll();
 
-        bool Add(TEntityDto model);
+        TEntityDto Add(TEntityDto model);
 
-        bool AddRange(List<TEntityDto> list);
+        /// <summary>
+        /// 进行批量新增时，请检查是否在数据库中已经存在数据
+        /// </summary>
+        List<TEntityDto> AddRange(List<TEntityDto> list);
 
     }
 
