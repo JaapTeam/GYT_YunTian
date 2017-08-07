@@ -323,7 +323,6 @@
     <Content Include="Views\User\AddUserInfo.cshtml" />
     <Content Include="Views\User\EditUserInfo.cshtml" />
     <Content Include="Views\LngAllowance\Add.cshtml" />
-    <Content Include="Views\LngAllowance\Import.cshtml" />
     <Content Include="Views\LngAllowance\ImportResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
