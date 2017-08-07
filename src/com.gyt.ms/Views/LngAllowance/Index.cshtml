@@ -28,7 +28,7 @@
             </i>
         </a>
 
-        <a class="white" href="@(Url.Action("Import", "LngAllowance", new {activeId = 9}))" id="btn_improt">
+        <a class="white" id="btn_improt">
             <i class="icon-cloud-upload bigger-110">
                 <span class="">批量导入</span>
             </i>
@@ -98,6 +98,12 @@
         </tbody>
     </table>
 
+    @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" class="hide" id="input_file" />
+        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+    }
+
     <div class="row">
         <div class="col-sm-12">
             <div class="dataTables_paginate padding-10">
@@ -126,3 +132,19 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function() {
+            $("#btn_improt")
+                .click(function() {
+                    $("#input_file").click();
+                });
+
+            $("#input_file").change(function() {
+                $("#Submit").click();
+                $("#input_file").text("");
+            });
+        })
+    </script>
+}
