@@ -270,6 +270,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
+    <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -323,6 +324,7 @@
     <Content Include="Views\User\EditUserInfo.cshtml" />
     <Content Include="Views\LngAllowance\Add.cshtml" />
     <Content Include="Views\LngAllowance\Import.cshtml" />
+    <Content Include="Views\LngAllowance\ImportResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

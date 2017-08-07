@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using Castle.Components.DictionaryAdapter;
+using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
@@ -43,27 +46,40 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public FileResult Export(int activeId = 9, int[] idList = null)
+        public FileResult Export(string exportCode = "")
         {
-            ViewBag.ActiveId = activeId;
-            var list = _lngAllowanceService.GetList(idList);
+            List<LngAllowanceInfoDto> exportList = new List<LngAllowanceInfoDto>();
 
-            return ExportCsv(list.GetBuffer(), "LNG补贴信息");
+            if (exportCode.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            if (exportCode.ToLower() == "all")
+            {
+                exportList = _lngAllowanceService.GetAll();
+            }
+            else
+            {
+                exportList = GetValueFromSession<List<LngAllowanceInfoDto>>(exportCode);
+            }
+
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}",DateTime.Now));
         }
 
-        public ViewResult Import(int activeId=9)
+        public ViewResult Import(int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
             return View();
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file != null)
             {
                 List<LngAllowanceInfoDto> lngAllowanceInfoDtoList;
-                using (StreamReader reader = new StreamReader(file.InputStream,Encoding.Default))
+                using (StreamReader reader = new StreamReader(file.InputStream, Encoding.Default))
                 {
                     lngAllowanceInfoDtoList = Zer.Framework.Import.Import.Read<LngAllowanceInfoDto>(reader, 1);
                 }
@@ -76,56 +92,47 @@ namespace com.gyt.ms.Controllers
                     // 然后检查导入数据是否包含非法字符
                     lngAllowanceInfoDtoList.ForEach(ValidataInputString);
 
-                    // TODO: 未导入数据需要反馈显示给客户端
+                    // 检测数据库中已经存在的重复数据
+                    var existsLngAllowanceInfoDtoList = lngAllowanceInfoDtoList
+                                                            .Where(x => _lngAllowanceService.Exists(x))
+                                                            .ToList();
 
-                    // 重复数据不导入
-                    lngAllowanceInfoDtoList = lngAllowanceInfoDtoList
-                                                .Where(x => !_lngAllowanceService.Exists(x))
-                                                .ToList();
+                    // 筛选出需要导入的数据
+                    var mustImportLngAllowanceInfoDtoList =
+                        lngAllowanceInfoDtoList.Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Contains(x.TruckNo)).ToList();
 
-                    var companyNameList = lngAllowanceInfoDtoList.Select(x => x.CompanyName).ToList();
+                    // 初始化检测并注册其中的新公司信息
+                    var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
 
-                    // 注册新增公司信息
-                    var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(companyNameList);
+                    var dic = mustImportLngAllowanceInfoDtoList.ToDictionary(x => x.TruckNo, v => v.CompanyId);
 
-                    foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
-                    {
-                        var currentComapnyInfoDto =
-                            companyInfoDtoList.Single(x => x.CompanyName == lngAllowanceInfoDto.CompanyName);
+                    // 初始化检测并注册其中的新车辆信息
+                    InitTruckInfoDtoList(dic, companyInfoDtoList);
 
-                        lngAllowanceInfoDto.CompanyId = currentComapnyInfoDto.Id;
-                    }
+                    // 保存LNG补贴信息，并得到保存成功的结果
+                    var importSuccessList = _lngAllowanceService.AddRange(mustImportLngAllowanceInfoDtoList);
 
-                    var dic = lngAllowanceInfoDtoList.ToDictionary(x => x.TruckNo, v => v.CompanyId);
+                    var importFailedList = mustImportLngAllowanceInfoDtoList.Where(x => importSuccessList.Contains(x))
+                        .ToList();
 
-                    var waitForRegistTruckList = new List<TruckInfoDto>();
+                    // 展示导入结果
+                    ViewBag.ActiveId = 9;
 
-                    foreach (var truckNo in dic.Keys)
-                    {
-                        var companyInfo = companyInfoDtoList.Single(x => x.Id == dic[truckNo]);
-                        var truckDto = new TruckInfoDto()
-                        {
-                            CompanyName = companyInfo.CompanyName,
-                            CompanyId = companyInfo.Id,
-                            FrontTruckNo = truckNo
-                        };
-                    }
+                    ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+                    ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+                    ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
 
-                    // 注册新增车辆信息
-                    _truckInfoService.AddRange(waitForRegistTruckList.ToList());
-
-                    // 保存LNG补贴信息
-                    _lngAllowanceService.AddRange(lngAllowanceInfoDtoList);
-
-                    return RedirectToAction("Index", "LngAllowance", new { activeId = 9 });
+                    ViewBag.SuccessList = importSuccessList;
+                    ViewBag.FailedList = importFailedList;
+                    ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
+                    return View("ImportResult");
                 }
-                   
             }
 
             return RedirectToAction("Index", "Error", "导入失败");
         }
 
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
             dto = ReplaceUnsafeChar(dto);
@@ -142,7 +149,7 @@ namespace com.gyt.ms.Controllers
             {
                 _truckInfoService.Add(new TruckInfoDto()
                 {
-                    CompanyId =  companyInfoDto.Id,
+                    CompanyId = companyInfoDto.Id,
                     CompanyName = companyInfoDto.CompanyName,
                     FrontTruckNo = dto.TruckNo
                 });
@@ -152,5 +159,44 @@ namespace com.gyt.ms.Controllers
 
             return Success();
         }
+
+        private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
+        {
+            var companyNameList = lngAllowanceInfoDtoList.Select(x => x.CompanyName).ToList();
+
+            // 注册新增公司信息
+            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(companyNameList);
+
+            foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
+            {
+                var currentComapnyInfoDto =
+                    companyInfoDtoList.Single(x => x.CompanyName == lngAllowanceInfoDto.CompanyName);
+
+                lngAllowanceInfoDto.CompanyId = currentComapnyInfoDto.Id;
+            }
+            return companyInfoDtoList;
+        }
+
+        private void InitTruckInfoDtoList(Dictionary<string, int> dic, List<CompanyInfoDto> companyInfoDtoList)
+        {
+            var waitForValidateTruckList = new List<TruckInfoDto>();
+
+            foreach (var truckNo in dic.Keys)
+            {
+                var companyInfo = companyInfoDtoList.Single(x => x.Id == dic[truckNo]);
+                var truckDto = new TruckInfoDto()
+                {
+                    CompanyName = companyInfo.CompanyName,
+                    CompanyId = companyInfo.Id,
+                    FrontTruckNo = truckNo
+                };
+
+                waitForValidateTruckList.Add(truckDto);
+            }
+
+            // 注册新增车辆信息
+            _truckInfoService.QueryAfterValidateAndRegist(waitForValidateTruckList);
+        }
+
     }
 }

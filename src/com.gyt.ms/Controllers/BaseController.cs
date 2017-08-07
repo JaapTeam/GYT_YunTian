@@ -95,6 +95,23 @@ namespace com.gyt.ms.Controllers
             return t;
         }
 
+        protected string AppendObjectToSession(object obj)
+        {
+            var sessionCode = Guid.NewGuid().ToString();
+            Session[sessionCode] = obj;
+            return sessionCode;
+        }
+
+        /// <summary>
+        /// 从Session中获取指定值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sessionCode"></param>
+        /// <returns></returns>
+        protected T GetValueFromSession<T>(string sessionCode)
+        {
+            return (T)Session[sessionCode];
+        }
 
         protected JsonResult Success()
         {
@@ -214,7 +231,7 @@ namespace com.gyt.ms.Controllers
             MenuItem lgnInfoChild = new MenuItem();
             lgnInfoChild.Id = 9;
             lgnInfoChild.ActionName = "Index";
-            lgnInfoChild.ControllerName = "LNGSubsidyInfo";
+            lgnInfoChild.ControllerName = "LngAllowance";
             lgnInfoChild.TextInfo = "LNG补贴信息数据库";
             lgnInfoChild.IsCurrentPage = false;
             lgnInfoChild.Icon = "icon-file-alt";
