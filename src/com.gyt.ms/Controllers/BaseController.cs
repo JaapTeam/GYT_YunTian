@@ -95,6 +95,17 @@ namespace com.gyt.ms.Controllers
             return t;
         }
 
+        protected string AppendObjectToSession(object obj)
+        {
+            var sessionCode = Guid.NewGuid().ToString();
+            Session[sessionCode] = obj;
+            return sessionCode;
+        }
+
+        protected T GetValueFromSession<T>(string sessionCode)
+        {
+            return (T)Session[sessionCode];
+        }
 
         protected JsonResult Success()
         {
