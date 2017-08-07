@@ -55,13 +55,13 @@ namespace com.gyt.ms.Controllers
                 return null;
             }
 
-            if (exportCode == "all")
+            if (exportCode.ToLower() == "all")
             {
                 exportList = _lngAllowanceService.GetAll();
             }
             else
             {
-                exportList = Session[exportCode] as List<LngAllowanceInfoDto>;
+                exportList = GetValueFromSession<List<LngAllowanceInfoDto>>(exportCode);
             }
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}",DateTime.Now));
