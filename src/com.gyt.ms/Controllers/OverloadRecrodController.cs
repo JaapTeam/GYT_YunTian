@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Framework.Export;
+using Zer.GytDto;
 using Zer.Services;
 
 namespace com.gyt.ms.Controllers
@@ -68,6 +69,15 @@ namespace com.gyt.ms.Controllers
             }
 
             return ExportCsv(result.GetBuffer(), "违法记录");
+        }
+
+        public JsonResult ImportFile(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                List<OverloadRecrodDto> overloadRecrodDtos;
+            }
+            return Success();
         }
     }
 }

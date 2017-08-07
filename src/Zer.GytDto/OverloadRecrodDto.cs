@@ -1,4 +1,6 @@
-﻿using Zer.Framework.Attributes;
+﻿using AutoMapper;
+using Zer.Entities;
+using Zer.Framework.Attributes;
 using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
@@ -51,5 +53,7 @@ namespace Zer.GytDto
         [Sort(10)]
         [ExportDisplayName("文件来源")]
         public string Source { get; set; }
+        [ExportIgnore]
+        public Status Status { get; set; }
     }
 }

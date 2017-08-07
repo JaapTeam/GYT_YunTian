@@ -1,6 +1,12 @@
-﻿@{
+﻿@using System.Diagnostics
+@using Zer.GytDto
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var truckList = ViewBag.TruckList as List<TruckInfoDto>;
+    var companyList = ViewBag.CompanyList as List<CompanyInfoDto>;
+    var infoList = ViewBag.Result as List<OverloadRecrodDto>;
+}
 }
 
 
@@ -22,20 +28,26 @@
 <div class="div-inline">
     <div class="div-inline" style="height: 50px; line-height: 45px">
         <span style="margin-left: 10px">公司名称：</span>
-        <select class=" chosen-select" style="display: none; width: 200px">
+        <select class=" chosen-select" style="display: none; width: 200px" id="select_company">
             <option value="">&nbsp;</option>
-            <option value="AL">深圳驹马物流公司</option>
-            <option value="AL">深圳驹马物流公司</option>
-            <option value="AL">深圳驹马物流公司</option>
-            <option value="AL">深圳驹马物流公司</option>
+            @{
+                Debug.Assert(companyList != null, "companyList != null");
+            }
+            @foreach (var companyInfoDto in companyList)
+            {
+                <option value="@companyInfoDto.Id">@companyInfoDto.CompanyName</option>
+            }
         </select>
         车牌号码：
-        <select class="chosen-select " style="display: none;">
+        <select class="chosen-select " style="display: none; width: 105px" id="select_truck">
             <option value="">&nbsp;</option>
-            <option value="AL">粤A123456</option>
-            <option value="AL">粤A654321</option>
-            <option value="AL">粤A654321挂</option>
-            <option value="AL">粤A973829</option>
+            @{
+                Debug.Assert(truckList != null, "truckList != null");
+            }
+            @foreach (var truckInfoDto in truckList)
+            {
+                <option value="@truckInfoDto.Id">@truckInfoDto.FrontTruckNo</option>
+            }
         </select>
 
 
@@ -46,19 +58,14 @@
 <div class="table-header" style="margin-top: 20px">
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-        <a class="white" href="handle_service.html">
-            <i class="icon-plus-sign bigger-110">
-                <span class="">新增</span>
-            </i>
-        </a>
 
-        <a class="white" href="#">
+        <a class="white" href="#" id="btn_improt">
             <i class="icon-cloud-upload bigger-110">
                 <span class="">批量导入</span>
             </i>
         </a>
 
-        <a class="white" href="#">
+        <a class="white" href="#" id="btn_export">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
             </i>
@@ -79,7 +86,8 @@
                 </th>
                 <th>超限超载编号</th>
                 <th>公司名称</th>
-                <th>车牌号码</th>
+                <th>前车牌号</th>
+                <th>后车牌号</th>
                 <th>所属行业</th>
                 <th>驾驶员姓名</th>
                 <th>违法日期</th>
@@ -87,10 +95,15 @@
                 <th>总重（吨）</th>
                 <th>轴数</th>
                 <th>文件来源</th>
-                <th>整改状态</th>
             </tr>
         </thead>
         <tbody>
+
+        @{
+            Debug.Assert(infoList != null, "infoList != null");
+        }
+        @foreach (var overloadRecrodDto in infoList)
+        {
             <tr>
                 <td class="center">
                     <label>
@@ -99,161 +112,26 @@
                     </label>
                 </td>
                 <td>
-                    <a href="javascript:;">102401</a>
+                    <a href="javascript:;">@overloadRecrodDto</a>
                 </td>
-                <td>深圳市XXX货物运输有限公司</td>
+                <td>@overloadRecrodDto.CompanName</td>
                 <td>
-                    <span class="label label-sm label-warning">粤BBY833</span>
+                    <span class="label label-sm label-warning">@overloadRecrodDto.FrontTruckNo</span>
                 </td>
-                <td>物流</td>
-                <td>张三</td>
                 <td>
-                    2017/06/25
+                    <span class="label label-sm label-warning">@overloadRecrodDto.BehindTruckNo</span>
                 </td>
-                <td>深圳超限</td>
-                <td>25</td>
-                <td>8</td>
-                <td>深圳7月超限信息</td>
+                <td>@overloadRecrodDto.TraderRange</td>
+                <td>@overloadRecrodDto.DriverName</td>
                 <td>
-                    <span class="label label-sm label-success">已整改</span>
+                    @overloadRecrodDto.OverloadDate
                 </td>
+                <td>@overloadRecrodDto.OverloadMatter</td>
+                <td>@overloadRecrodDto.GrossWeight</td>
+                <td>@overloadRecrodDto.AxisNumber</td>
+                <td>@overloadRecrodDto.Source</td>
             </tr>
-            <tr>
-                <td class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </td>
-                <td>
-                    <a href="javascript:;">102401</a>
-                </td>
-                <td>深圳市XXX货物运输有限公司</td>
-                <td>
-                    <span class="label label-sm label-warning">粤BBY833</span>
-                </td>
-                <td>物流</td>
-                <td>张三</td>
-                <td>
-                    2017/06/25
-                </td>
-                <td>深圳超限</td>
-                <td>25</td>
-                <td>8</td>
-                <td>深圳7月超限信息</td>
-                <td>
-                    <span class="label label-sm label-success">已整改</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </td>
-                <td>
-                    <a href="javascript:;">102402</a>
-                </td>
-                <td>深圳市XXX货物运输有限公司</td>
-                <td>
-                    <span class="label label-sm label-warning">粤BBY831</span>
-                    <span class="label label-sm label-warning">粤BBY831挂</span>
-                </td>
-                <td>物流</td>
-                <td>张三</td>
-                <td>
-                    2017/06/25
-                </td>
-                <td>深圳超限</td>
-                <td>25</td>
-                <td>8</td>
-                <td>深圳7月超限信息</td>
-                <td>
-                    <span class="label label-sm label-success">已整改</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </td>
-                <td>
-                    <a href="javascript:;">102401</a>
-                </td>
-                <td>深圳市XXX货物运输有限公司</td>
-                <td>
-                    <span class="label label-sm label-warning">粤BBY833</span>
-                </td>
-                <td>物流</td>
-                <td>张三</td>
-                <td>
-                    2017/06/25
-                </td>
-                <td>深圳超限</td>
-                <td>25</td>
-                <td>8</td>
-                <td>深圳7月超限信息</td>
-                <td>
-                    <span class="label label-sm label-success">已整改</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </td>
-                <td>
-                    <a href="javascript:;">102403</a>
-                </td>
-                <td>深圳市XXX货物运输有限公司</td>
-                <td>
-                    <span class="label label-sm label-warning">粤ABY831</span>
-                </td>
-                <td>物流</td>
-                <td>张三</td>
-                <td>
-                    2017/06/25
-                </td>
-                <td>深圳超限</td>
-                <td>25</td>
-                <td>8</td>
-                <td>深圳7月超限信息</td>
-                <td>
-                    <span class="label label-sm label-success">已整改</span>
-                </td>
-            </tr>
-            <tr>
-                <td class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </td>
-                <td>
-                    <a href="javascript:;">102401</a>
-                </td>
-                <td>深圳市XXX货物运输有限公司</td>
-                <td>
-                    <span class="label label-sm label-warning">粤BBY833</span>
-                </td>
-                <td>物流</td>
-                <td>张三</td>
-                <td>
-                    2017/06/25
-                </td>
-                <td>深圳超限</td>
-                <td>25</td>
-                <td>8</td>
-                <td>深圳7月超限信息</td>
-                <td>
-                    <span class="label label-sm label-success">已整改</span>
-                </td>
-            </tr>
+        }
         </tbody>
     </table>
 
@@ -328,6 +206,41 @@
                                 $(this).find('.chosen-search input').css('width', '200px');
                             });
                     });
+
+        });
+
+        $(function() {
+            $("#btn_export")
+              .click(function () {
+
+                  var ids = [];
+                  var index = 0;
+
+                  var tbodyObj = document.getElementById('tb_Info');
+                  $("table :checkbox")
+                      .each(function (key, value) {
+                          if ($(value).prop('checked')) {
+                              ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
+                              index++;
+                          }
+                      });
+
+                  if (ids.length > 0) {
+                      exportRequst(ids);
+                  }
+              });
+
+            function exportRequst(ids) {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("Export")",
+                    data: { ids: ids},
+                dataType: "json",
+                success: function (data) {
+                    alert("数据导出成功！");
+                }
+            });
+        }
 
         });
     </script>

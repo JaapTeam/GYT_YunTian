@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AutoMapper.QueryableExtensions;
-using Zer.Entities;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
 
-namespace Zer.AppServices
+namespace Zer.AppServices.Impl
 {
     public class OverloadRecrodService : IOverloadRecrodService
     {
-        private IOverloadRecrodDataService _overloadRecrodDataService;
+        private readonly IOverloadRecrodDataService _overloadRecrodDataService;
 
         public OverloadRecrodService(IOverloadRecrodDataService overloadRecrodDataService)
         {
