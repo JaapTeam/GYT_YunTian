@@ -67,11 +67,6 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}",DateTime.Now));
         }
 
-        public ViewResult Import(int activeId = 9)
-        {
-            ViewBag.ActiveId = activeId;
-            return View();
-        }
 
         [System.Web.Mvc.HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
