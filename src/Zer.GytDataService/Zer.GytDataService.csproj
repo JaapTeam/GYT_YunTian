@@ -58,7 +58,6 @@
     <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Impl\OverloadRecrodDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />

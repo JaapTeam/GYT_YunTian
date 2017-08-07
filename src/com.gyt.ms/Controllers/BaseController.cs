@@ -214,7 +214,7 @@ namespace com.gyt.ms.Controllers
             MenuItem lgnInfoChild = new MenuItem();
             lgnInfoChild.Id = 9;
             lgnInfoChild.ActionName = "Index";
-            lgnInfoChild.ControllerName = "LNGSubsidyInfo";
+            lgnInfoChild.ControllerName = "LngAllowance";
             lgnInfoChild.TextInfo = "LNG补贴信息数据库";
             lgnInfoChild.IsCurrentPage = false;
             lgnInfoChild.Icon = "icon-file-alt";
