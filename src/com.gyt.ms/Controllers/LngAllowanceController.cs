@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using Castle.Components.DictionaryAdapter;
+using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
@@ -44,15 +46,25 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public FileResult Export([FromBody]List<LngAllowanceInfoDto> exportList = null)
+        public FileResult Export(string exportCode = "")
         {
-            // TODO: 导入参数传入问题有待解决
-            if (exportList == null)
+            List<LngAllowanceInfoDto> exportList = new List<LngAllowanceInfoDto>();
+
+            if (exportCode.IsNullOrEmpty())
             {
-                exportList = _lngAllowanceService.GetAll().ToList();
+                return null;
             }
 
-            return ExportCsv(exportList.GetBuffer(), "LNG补贴信息");
+            if (exportCode == "all")
+            {
+                exportList = _lngAllowanceService.GetAll();
+            }
+            else
+            {
+                exportList = Session[exportCode] as List<LngAllowanceInfoDto>;
+            }
+
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}",DateTime.Now));
         }
 
         public ViewResult Import(int activeId = 9)
@@ -105,6 +117,11 @@ namespace com.gyt.ms.Controllers
 
                     // 展示导入结果
                     ViewBag.ActiveId = 9;
+
+                    ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+                    ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+                    ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
+
                     ViewBag.SuccessList = importSuccessList;
                     ViewBag.FailedList = importFailedList;
                     ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
@@ -114,7 +131,7 @@ namespace com.gyt.ms.Controllers
 
             return RedirectToAction("Index", "Error", "导入失败");
         }
-       
+
         [System.Web.Mvc.HttpPost]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
