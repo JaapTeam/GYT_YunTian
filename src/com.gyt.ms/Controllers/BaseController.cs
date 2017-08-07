@@ -102,6 +102,12 @@ namespace com.gyt.ms.Controllers
             return sessionCode;
         }
 
+        /// <summary>
+        /// 从Session中获取指定值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sessionCode"></param>
+        /// <returns></returns>
         protected T GetValueFromSession<T>(string sessionCode)
         {
             return (T)Session[sessionCode];
