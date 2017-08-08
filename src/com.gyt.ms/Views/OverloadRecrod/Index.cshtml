@@ -78,27 +78,27 @@
 <div class="table-responsive">
     <table id="sample-table-2" class="table table-striped table-bordered table-hover">
         <thead>
-            <tr>
-                <th class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </th>
-                <th>编号</th>
-                <th>公司名称</th>
-                <th>前车牌号</th>
-                <th>后车牌号</th>
-                <th>所属行业</th>
-                <th>驾驶员姓名</th>
-                <th>违法日期</th>
-                <th>违法事项</th>
-                <th>总重（吨）</th>
-                <th>轴数</th>
-                <th>文件来源</th>
-                <th></th>
-                <th></th>
-            </tr>
+        <tr>
+            <th class="center">
+                <label>
+                    <input type="checkbox" class="ace" />
+                    <span class="lbl"></span>
+                </label>
+            </th>
+            <th>编号</th>
+            <th>公司名称</th>
+            <th>前车牌号</th>
+            <th>后车牌号</th>
+            <th>所属行业</th>
+            <th>驾驶员姓名</th>
+            <th>违法日期</th>
+            <th>违法事项</th>
+            <th>总重（吨）</th>
+            <th>轴数</th>
+            <th>文件来源</th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
 
@@ -117,7 +117,7 @@
                 <td>
                     <a href="javascript:;">@overloadRecrodDto.Id</a>
                 </td>
-                <td>@overloadRecrodDto.CompanName</td>
+                <td>@overloadRecrodDto.CompanyName</td>
                 <td>
                     <span class="label label-sm label-warning">@overloadRecrodDto.FrontTruckNo</span>
                 </td>
@@ -141,6 +141,12 @@
         }
         </tbody>
     </table>
+    
+    @using (Html.BeginForm("ImportFile", "OverloadRecrod", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" class="hide" id="input_file" />
+        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+    }
 
     <div class="row">
         <div class="col-sm-12">
@@ -250,8 +256,18 @@
                     alert("数据导出成功！");
                 }
             });
-        }
 
+        }
+            $("#btn_improt")
+                      .click(function () {
+                          $("#input_file").click();
+                      });
+
+            $("#input_file")
+                .change(function () {
+                    $("#Submit").click();
+                    $("#input_file").text("");
+                });
         });
     </script>
 }

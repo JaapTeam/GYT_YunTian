@@ -10,5 +10,7 @@ namespace Zer.AppServices
         bool ChangedById(int id);
 
         List<OverloadRecrodDto> GetListByIds(int[] ids);
+
+        bool Exists(OverloadRecrodDto overloadRecrodDto);
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Framework.Export;
 using Zer.GytDto;
@@ -71,13 +72,122 @@ namespace com.gyt.ms.Controllers
             return ExportCsv(result.GetBuffer(), "违法记录");
         }
 
-        public JsonResult ImportFile(HttpPostedFileBase file)
+        public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file != null)
             {
-                List<OverloadRecrodDto> overloadRecrodDtos;
+                List<OverloadRecrodDto> overloadRecrodDtoList;
+
+                using (StreamReader reader = new StreamReader(file.InputStream, Encoding.Default))
+                {
+                    overloadRecrodDtoList = Zer.Framework.Import.Import.Read<OverloadRecrodDto>(reader, 1);
+
+                    if (overloadRecrodDtoList != null)
+                    {
+                        //overloadRecrodDtoList.ForEach(ValidataInputString);
+
+                        // 检测数据库中已经存在的重复数据
+                        var existsoverloadRecrodDtoList = overloadRecrodDtoList
+                                                       .Where(x => _overloadRecrodService.Exists(x))
+                                                       .ToList();
+
+                        // 筛选出需要导入的数据
+                        var mustImportoverloadRecrodDtoList =
+                            overloadRecrodDtoList
+                                .Where(x => !existsoverloadRecrodDtoList
+                                    .Select(overLoad => overLoad.PeccancyId)
+                                    .Contains(x.PeccancyId)).ToList();
+
+                        // 初始化检测并注册其中的新公司信息
+                        var companyInfoDtoList = InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
+
+                        var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
+
+                        // 初始化检测并注册其中的新车辆信息
+                        InitTruckInfoDtoList(dic, companyInfoDtoList);
+
+                        // 保存信息，并得到保存成功的结果
+                        var importSuccessList = _overloadRecrodService.AddRange(mustImportoverloadRecrodDtoList);
+
+                        var importFailedList = mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x))
+                            .ToList();
+
+                        // 展示导入结果
+                        ViewBag.ActiveId = 9;
+
+                        ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+                        ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+                        ViewBag.ExistedCode = AppendObjectToSession(existsoverloadRecrodDtoList);
+
+                        ViewBag.SuccessList = importSuccessList;
+                        ViewBag.FailedList = importFailedList;
+                        ViewBag.ExistedList = existsoverloadRecrodDtoList;
+                        return View("ImportResult");
+
+                    }
+                }
+
             }
-            return Success();
+            return RedirectToAction("Index", "Error", "导入失败");
+        }
+
+        public FileResult ExportResult(string exportCode = "")
+        {
+            List<OverloadRecrodDto> exportList = new List<OverloadRecrodDto>();
+
+            if (exportCode.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            if (exportCode.ToLower() == "all")
+            {
+                exportList = _overloadRecrodService.GetAll();
+            }
+            else
+            {
+                exportList = GetValueFromSession<List<OverloadRecrodDto>>(exportCode);
+            }
+
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+        }
+
+        private List<CompanyInfoDto> InitCompanyInfoDtoList(List<OverloadRecrodDto> overloadRecrodDtos)
+        {
+            var companyNameList = overloadRecrodDtos.Select(x => x.CompanyName).ToList();
+
+            // 注册新增公司信息
+            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(companyNameList);
+
+            foreach (var overloadRecrodDto in overloadRecrodDtos)
+            {
+                var currentComapnyInfoDto =
+                    companyInfoDtoList.Single(x => x.CompanyName == overloadRecrodDto.CompanyName);
+
+                overloadRecrodDto.CompanyId = currentComapnyInfoDto.Id;
+            }
+            return companyInfoDtoList;
+        }
+
+        private void InitTruckInfoDtoList(Dictionary<string, int> dic, List<CompanyInfoDto> companyInfoDtoList)
+        {
+            var waitForValidateTruckList = new List<TruckInfoDto>();
+
+            foreach (var truckNo in dic.Keys)
+            {
+                var companyInfo = companyInfoDtoList.Single(x => x.Id == dic[truckNo]);
+                var truckDto = new TruckInfoDto()
+                {
+                    CompanyName = companyInfo.CompanyName,
+                    CompanyId = companyInfo.Id,
+                    FrontTruckNo = truckNo
+                };
+
+                waitForValidateTruckList.Add(truckDto);
+            }
+
+            // 注册新增车辆信息
+            _truckInfoService.QueryAfterValidateAndRegist(waitForValidateTruckList);
         }
     }
 }
