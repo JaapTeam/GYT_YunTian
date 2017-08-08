@@ -1,5 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using Zer.Framework.Mvc.Logs;
+using Zer.Framework.Mvc.Logs.Attributes;
 
 namespace com.gyt.ms
 {
@@ -7,6 +9,7 @@ namespace com.gyt.ms
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
+            filters.Add(new UserActionLogAttribute());
             filters.Add(new HandleErrorAttribute());
         }
     }

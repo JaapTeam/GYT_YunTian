@@ -20,7 +20,7 @@ namespace Zer.GytDto
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
-                cfg.CreateMap<LogInfo, LogInfoDto>().ReverseMap();
+                cfg.CreateMap<UserLogInfo, LogInfoDto>().ReverseMap();
 //                cfg.CreateMap<UserInfo, UserInfoDto>()
 //                    .ForMember(dest => dest.UserId, opt => opt.MapFrom(u => u.Id))
 //                    .ReverseMap();
