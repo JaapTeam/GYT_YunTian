@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOverloadRecrodDataService.cs" />
+    <Compile Include="ISystemLogInfoDataService.cs" />
     <Compile Include="ITruckInfoDataService.cs" />
     <Compile Include="IUserInfoDataService.cs" />
     <Compile Include="DataServiceModule.cs" />
@@ -59,42 +60,12 @@
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
     <Compile Include="Impl\OverloadRecrodDataService.cs" />
-    <Compile Include="Migrations\201708060752151_intiDataBase.cs" />
-    <Compile Include="Migrations\201708060752151_intiDataBase.Designer.cs">
-      <DependentUpon>201708060752151_intiDataBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.cs" />
-    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.Designer.cs">
-      <DependentUpon>201708060907090_modifyOverLoadInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081323017_modifyOverLoadInfo1.cs" />
-    <Compile Include="Migrations\201708081323017_modifyOverLoadInfo1.Designer.cs">
-      <DependentUpon>201708081323017_modifyOverLoadInfo1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081604147_modifyOverLoadInfo2.cs" />
-    <Compile Include="Migrations\201708081604147_modifyOverLoadInfo2.Designer.cs">
-      <DependentUpon>201708081604147_modifyOverLoadInfo2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081630401_modifyOverLoadInfo3.cs" />
-    <Compile Include="Migrations\201708081630401_modifyOverLoadInfo3.Designer.cs">
-      <DependentUpon>201708081630401_modifyOverLoadInfo3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081635377_modifyOverLoadInfo4.cs" />
-    <Compile Include="Migrations\201708081635377_modifyOverLoadInfo4.Designer.cs">
-      <DependentUpon>201708081635377_modifyOverLoadInfo4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081636391_modifyOverLoadInfo5.cs" />
-    <Compile Include="Migrations\201708081636391_modifyOverLoadInfo5.Designer.cs">
-      <DependentUpon>201708081636391_modifyOverLoadInfo5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091354514_modifyTruckInfo.cs" />
-    <Compile Include="Migrations\201708091354514_modifyTruckInfo.Designer.cs">
-      <DependentUpon>201708091354514_modifyTruckInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="LogsDbContext.cs" />
+    <Compile Include="LogsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
     <Compile Include="Impl\TruckInfoDataService.cs" />
+    <Compile Include="Impl\SystemLogInfoDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

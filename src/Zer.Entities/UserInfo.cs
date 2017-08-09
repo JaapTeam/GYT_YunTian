@@ -16,6 +16,15 @@ namespace Zer.Entities
         public string Email { get; set; }
         [MaxLength(40)]
         public string MobilePhone { get; set; }
+
+        public RoleLevel Role { get; set; }
+    }
+
+    public enum RoleLevel
+    {
+        Administrator,
+        DataAdmin,
+        User
     }
 
     public enum UserState

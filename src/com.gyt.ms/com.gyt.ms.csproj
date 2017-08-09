@@ -348,6 +348,10 @@
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zer.Fraemwork.Mvc.Logs\Zer.Framework.Mvc.Logs.csproj">
+      <Project>{F07E7BD8-8829-4A90-A7DC-3950C6E61849}</Project>
+      <Name>Zer.Framework.Mvc.Logs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zer.Framework\Zer.Framework.csproj">
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
