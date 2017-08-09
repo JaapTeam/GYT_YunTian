@@ -11,15 +11,14 @@ namespace com.gyt.ms
     {
         protected void Application_Start()
         {
+            IocConfig.Config();
+            AutoMapperConfig.Initialze();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            IocConfig.Config();
-
-            AutoMapperConfig.Initialze();
         }
 
         protected void Application_End()

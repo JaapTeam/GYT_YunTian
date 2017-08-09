@@ -8,6 +8,4 @@ namespace Zer.GytDataService
     public interface IUserInfoDataService:IRepository<UserInfo>
     {
     }
-
-
 }

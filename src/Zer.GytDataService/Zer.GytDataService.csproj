@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IOverloadRecrodDataService.cs" />
+    <Compile Include="ISystemLogInfoDataService.cs" />
     <Compile Include="ITruckInfoDataService.cs" />
     <Compile Include="IUserInfoDataService.cs" />
     <Compile Include="DataServiceModule.cs" />
@@ -61,26 +62,10 @@
     <Compile Include="Impl\OverloadRecrodDataService.cs" />
     <Compile Include="LogsDbContext.cs" />
     <Compile Include="LogsRepository.cs" />
-    <Compile Include="Migrations\201708061528083_InitialCreate.cs" />
-    <Compile Include="Migrations\201708061528083_InitialCreate.Designer.cs">
-      <DependentUpon>201708061528083_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081450345_Init_DataBases.cs" />
-    <Compile Include="Migrations\201708081450345_Init_DataBases.Designer.cs">
-      <DependentUpon>201708081450345_Init_DataBases.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081704430_change_logsDb_and_entity.cs" />
-    <Compile Include="Migrations\201708081704430_change_logsDb_and_entity.Designer.cs">
-      <DependentUpon>201708081704430_change_logsDb_and_entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081711584_roolback_logsInfo.cs" />
-    <Compile Include="Migrations\201708081711584_roolback_logsInfo.Designer.cs">
-      <DependentUpon>201708081711584_roolback_logsInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
     <Compile Include="Impl\TruckInfoDataService.cs" />
+    <Compile Include="Impl\SystemLogInfoDataService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -99,20 +84,6 @@
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>
       <Name>Zer.Framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708061528083_InitialCreate.resx">
-      <DependentUpon>201708061528083_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708081450345_Init_DataBases.resx">
-      <DependentUpon>201708081450345_Init_DataBases.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708081704430_change_logsDb_and_entity.resx">
-      <DependentUpon>201708081704430_change_logsDb_and_entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708081711584_roolback_logsInfo.resx">
-      <DependentUpon>201708081711584_roolback_logsInfo.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

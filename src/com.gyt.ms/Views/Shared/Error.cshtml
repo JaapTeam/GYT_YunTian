@@ -1,18 +1,22 @@
-﻿@{
-    Layout = null;
+﻿@using Zer.Framework.Extensions
+@{
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
-    <title>错误</title>
-</head>
-<body>
-    <hgroup>
-        <h1>错误。</h1>
-        <h2>处理你的请求时出错。</h2>
-    </hgroup>
-</body>
-</html>
+<div class="row">
+    @{
+        var msg = (string)ViewBag.ErrorMessage;
+        
+        <h3>
+            @if (msg.IsNullOrEmpty())
+            {
+                <i>未知异常</i>
+            }
+            else
+            {
+                <i>@msg</i>
+            }
+        </h3>
+
+       
+    }
+</div>

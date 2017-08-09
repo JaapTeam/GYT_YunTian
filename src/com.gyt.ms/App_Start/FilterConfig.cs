@@ -10,6 +10,7 @@ namespace com.gyt.ms
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new UserActionLogAttribute());
+            filters.Add(new CustomExceptionAttribute());
             filters.Add(new HandleErrorAttribute());
         }
     }
