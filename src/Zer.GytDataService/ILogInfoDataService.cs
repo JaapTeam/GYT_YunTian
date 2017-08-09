@@ -9,7 +9,7 @@ using Zer.Framework.Repository;
 
 namespace Zer.GytDataService
 {
-    public interface ILogInfoDataService:IRepository<LogInfo>
+    public interface ILogInfoDataService:IRepository<UserLogInfo>
     {
     }
 }

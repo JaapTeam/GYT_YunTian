@@ -10,6 +10,8 @@ using WebGrease.Css.Extensions;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
+using Zer.Framework.Mvc.Logs;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto.Users;
 
 namespace com.gyt.ms.Controllers
@@ -35,7 +37,7 @@ namespace com.gyt.ms.Controllers
         {
             if (inputStrings.Any(x => x.CheckBadStr()))
             {
-                throw new CustomException("参数含有非法字符！","inputString",string.Join(",",inputStrings));
+                throw new CustomException("参数含有非法字符！", "inputString", string.Join(",", inputStrings));
             }
         }
 
@@ -90,7 +92,7 @@ namespace com.gyt.ms.Controllers
                     replacedValue = s.Replace('-', '_');
                 }
 
-                property.SetValue(t,replacedValue);
+                property.SetValue(t, replacedValue);
             }
             return t;
         }
@@ -138,7 +140,8 @@ namespace com.gyt.ms.Controllers
             // TODO:Unit Test
             return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv", fileName, DateTime.Now));
         }
-
+        
+        [UnLog]
         public ActionResult LeftMenu(int id)
         {
             #region 港运通业务办理
