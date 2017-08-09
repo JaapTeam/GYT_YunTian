@@ -20,7 +20,7 @@ namespace Zer.GytDto
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
-                cfg.CreateMap<LogInfo, LogInfoDto>().ReverseMap();
+                cfg.CreateMap<UserLogInfo, LogInfoDto>().ReverseMap();
 //                cfg.CreateMap<UserInfo, UserInfoDto>()
 //                    .ForMember(dest => dest.UserId, opt => opt.MapFrom(u => u.Id))
 //                    .ReverseMap();
@@ -31,6 +31,7 @@ namespace Zer.GytDto
                 cfg.CreateMap<LngAllowanceInfo, LngAllowanceInfoDto>().ReverseMap();
                 cfg.CreateMap<TruckInfo, TruckInfoDto>().ReverseMap();
                 cfg.CreateMap<OverloadInfo, OverloadRecrodDto>().ReverseMap();
+                cfg.CreateMap<SystemLogInfo, SystemLogInfoDto>().ReverseMap();
             });
 
             _hasInitialzed = true;
