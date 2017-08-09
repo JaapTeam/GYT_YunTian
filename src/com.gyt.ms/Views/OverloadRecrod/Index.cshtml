@@ -97,7 +97,7 @@
             <th>轴数</th>
             <th>文件来源</th>
             <th></th>
-            <th></th>
+            @*<th></th>*@
         </tr>
         </thead>
         <tbody>
@@ -132,11 +132,11 @@
                 <td>@overloadRecrodDto.AxisNumber</td>
                 <td>@overloadRecrodDto.Source</td>
                 <td>
-                    <a class="btn btn-info btn-sm btn-small" href="javascript:;">
+                    <a class="btn btn-info btn-sm btn-small" onclick="change(@overloadRecrodDto.Id)">
                         <i class=" icon-check">整改</i>
                     </a>
                 </td>
-                <td><a href="javascript:;">详情</a></td>
+                @*<td><a href="javascript:;">详情</a></td>*@
             </tr>
         }
         </tbody>
@@ -227,48 +227,60 @@
 
         $(function() {
             $("#btn_export")
-              .click(function () {
+                .click(function() {
 
-                  var ids = [];
-                  var index = 0;
+                    var ids = [];
+                    var index = 0;
 
-                  var tbodyObj = document.getElementById('tb_Info');
-                  $("table :checkbox")
-                      .each(function (key, value) {
-                          if ($(value).prop('checked')) {
-                              ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
-                              index++;
-                          }
-                      });
+                    var tbodyObj = document.getElementById('tb_Info');
+                    $("table :checkbox")
+                        .each(function(key, value) {
+                            if ($(value).prop('checked')) {
+                                ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
+                                index++;
+                            }
+                        });
 
-                  if (ids.length > 0) {
-                      exportRequst(ids);
-                  }
-              });
+                    if (ids.length > 0) {
+                        exportRequst(ids);
+                    }
+                });
 
             function exportRequst(ids) {
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Export")",
-                    data: { ids: ids},
-                dataType: "json",
-                success: function (data) {
-                    alert("数据导出成功！");
-                }
-            });
+                    data: { ids: ids },
+                    dataType: "json",
+                    success: function(data) {
+                        alert("数据导出成功！");
+                    }
+                });
+            }
 
-        }
+           
             $("#btn_improt")
-                      .click(function () {
-                          $("#input_file").click();
-                      });
+                .click(function() {
+                    $("#input_file").click();
+                });
 
             $("#input_file")
-                .change(function () {
+                .change(function() {
                     $("#Submit").click();
                     $("#input_file").text("");
                 });
         });
+        function change(changeId) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Change")",
+                data: { id: changeId },
+            dataType: "json",
+            success: function (data) {
+                window.location = "@Url.Action("Index",new {activeId=6})";
+            }
+        });
+        }
     </script>
 }
 

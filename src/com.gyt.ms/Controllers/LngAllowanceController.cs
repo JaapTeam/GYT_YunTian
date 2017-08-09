@@ -157,10 +157,20 @@ namespace com.gyt.ms.Controllers
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
         {
-            var companyNameList = lngAllowanceInfoDtoList.Select(x => x.CompanyName).ToList();
+            //var companyNameList = lngAllowanceInfoDtoList.Select(x => x.CompanyName).ToList();
+            var improtCompanyInfoDtoList = new List<CompanyInfoDto>();
+            foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
+            {
+                improtCompanyInfoDtoList.Add(
+                    new CompanyInfoDto
+                    {
+                        CompanyName = lngAllowanceInfoDto.CompanyName
+                    }
+                );
+            }
 
             // 注册新增公司信息
-            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(companyNameList);
+            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(improtCompanyInfoDtoList);
 
             foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
             {

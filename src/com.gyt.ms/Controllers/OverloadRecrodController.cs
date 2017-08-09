@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Castle.Core.Internal;
 using Zer.AppServices;
+using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.GytDto;
 using Zer.Services;
@@ -32,12 +33,12 @@ namespace com.gyt.ms.Controllers
             ViewBag.ActiveId = activeId;
             ViewBag.TruckList = _truckInfoService.GetAll().ToList();
             ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _overloadRecrodService.GetAll();
+            ViewBag.Result = _overloadRecrodService.GetAll().Where(x => x.Status == Status.未整改).ToList();
             return View();
         }
 
         //ToDo:单元测试
-        public JsonResult Chang(int id=0)
+        public JsonResult Change(int id=0)
         {
             if (id == 0)
             {
@@ -99,12 +100,22 @@ namespace com.gyt.ms.Controllers
                                     .Contains(x.PeccancyId)).ToList();
 
                         // 初始化检测并注册其中的新公司信息
-                        var companyInfoDtoList = InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
+                        InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
 
-                        var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
+                        //var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
+                        var truckInfoDtoList = new List<TruckInfoDto>();
+                        foreach (var overLoadDto in mustImportoverloadRecrodDtoList)
+                        {
+                            truckInfoDtoList.Add(new TruckInfoDto
+                            {
+                                FrontTruckNo = overLoadDto.FrontTruckNo,
+                                BehindTruckNo = overLoadDto.BehindTruckNo,
+                                CompanyId = overLoadDto.CompanyId
+                            });
+                        }
 
                         // 初始化检测并注册其中的新车辆信息
-                        InitTruckInfoDtoList(dic, companyInfoDtoList);
+                        InitTruckInfoDtoList(truckInfoDtoList);
 
                         // 保存信息，并得到保存成功的结果
                         var importSuccessList = _overloadRecrodService.AddRange(mustImportoverloadRecrodDtoList);
@@ -113,7 +124,7 @@ namespace com.gyt.ms.Controllers
                             .ToList();
 
                         // 展示导入结果
-                        ViewBag.ActiveId = 9;
+                        ViewBag.ActiveId = 6;
 
                         ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
                         ViewBag.FailedCode = AppendObjectToSession(importFailedList);
@@ -154,10 +165,20 @@ namespace com.gyt.ms.Controllers
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<OverloadRecrodDto> overloadRecrodDtos)
         {
-            var companyNameList = overloadRecrodDtos.Select(x => x.CompanyName).ToList();
+            var improtCompanyInfoDtoList = new List<CompanyInfoDto>();
+            foreach (var overloadRecrodDto in overloadRecrodDtos)
+            {
+                improtCompanyInfoDtoList.Add(
+                    new CompanyInfoDto
+                    {
+                        CompanyName = overloadRecrodDto.CompanyName,
+                        TraderRange = overloadRecrodDto.TraderRange
+                    }
+                );
+            }
 
             // 注册新增公司信息
-            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(companyNameList);
+            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(improtCompanyInfoDtoList);
 
             foreach (var overloadRecrodDto in overloadRecrodDtos)
             {
@@ -169,25 +190,10 @@ namespace com.gyt.ms.Controllers
             return companyInfoDtoList;
         }
 
-        private void InitTruckInfoDtoList(Dictionary<string, int> dic, List<CompanyInfoDto> companyInfoDtoList)
+        private void InitTruckInfoDtoList(List<TruckInfoDto> truckInfoDtos)
         {
-            var waitForValidateTruckList = new List<TruckInfoDto>();
-
-            foreach (var truckNo in dic.Keys)
-            {
-                var companyInfo = companyInfoDtoList.Single(x => x.Id == dic[truckNo]);
-                var truckDto = new TruckInfoDto()
-                {
-                    CompanyName = companyInfo.CompanyName,
-                    CompanyId = companyInfo.Id,
-                    FrontTruckNo = truckNo
-                };
-
-                waitForValidateTruckList.Add(truckDto);
-            }
-
             // 注册新增车辆信息
-            _truckInfoService.QueryAfterValidateAndRegist(waitForValidateTruckList);
+            _truckInfoService.QueryAfterValidateAndRegist(truckInfoDtos);
         }
     }
 }

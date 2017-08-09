@@ -43,7 +43,9 @@ namespace Zer.AppServices.Impl
 
         public bool ChangedById(int id)
         {
-            throw new System.NotImplementedException();
+            var overLoadInfoDto = _overloadRecrodDataService.GetById(id);
+            overLoadInfoDto.Status = Status.已整改;
+            return _overloadRecrodDataService.Update(overLoadInfoDto.Map<OverloadInfo>()).Map<OverloadRecrodDto>() != null;
         }
 
         public List<OverloadRecrodDto> GetListByIds(int[] ids)

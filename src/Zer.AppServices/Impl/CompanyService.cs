@@ -73,20 +73,26 @@ namespace Zer.AppServices.Impl
 
 
         /// <summary>
-        /// 检查公司名称是否存在，如果不存在新增，在完成所有新增操作后，查询并返回参数指定公司信息
+        /// 检查公司是否存在，如果不存在新增，在完成所有新增操作后，查询并返回参数指定公司信息
         /// </summary>
-        /// <param name="companyNameList"></param>
+        /// <param name="companyInfoDtos"></param>
         /// <returns><see cref="List{CompanyInfoDto}"/></returns>
-        public List<CompanyInfoDto> QueryAfterValidateAndRegist(List<string> companyNameList)
+        public List<CompanyInfoDto> QueryAfterValidateAndRegist(List<CompanyInfoDto> companyInfoDtos)
         {
-            companyNameList = companyNameList.Distinct().ToList();
+            var companyNameList = companyInfoDtos.Select(x=>x.CompanyName).Distinct().ToList();
 
             var notExistsCompanyName = companyNameList.Where(x => !Exists(x));
             var newRegistCompanyInfoDtoList = notExistsCompanyName.Select(name =>
                 new CompanyInfoDto
                 {
                     CompanyName = name
-                });
+                }).ToList();
+
+            // 根据公司名获取其他公司信息
+            foreach (var companyInfoDto in newRegistCompanyInfoDtoList)
+            {
+                companyInfoDto.TraderRange = companyInfoDtos.Select(x => x.TraderRange).FirstOrDefault();
+            }
             // 新增所有不存在的公司
             AddRange(newRegistCompanyInfoDtoList.ToList());
 

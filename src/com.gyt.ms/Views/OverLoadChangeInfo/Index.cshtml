@@ -7,8 +7,6 @@
     var companyList = ViewBag.CompanyList as List<CompanyInfoDto>;
     var infoList = ViewBag.Result as List<OverloadRecrodDto>;
 }
-}
-
 
 <div class="div-inline">
     <div class="input-group col-xs-5">
@@ -59,12 +57,6 @@
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
 
-        <a class="white" href="#" id="btn_improt">
-            <i class="icon-cloud-upload bigger-110">
-                <span class="">批量导入</span>
-            </i>
-        </a>
-
         <a class="white" href="#" id="btn_export">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
@@ -112,7 +104,7 @@
                     </label>
                 </td>
                 <td>
-                    <a href="javascript:;">@overloadRecrodDto</a>
+                    <a href="javascript:;">@overloadRecrodDto.Id</a>
                 </td>
                 <td>@overloadRecrodDto.CompanyName</td>
                 <td>
@@ -134,12 +126,6 @@
         }
         </tbody>
     </table>
-
-    @using (Html.BeginForm("ImportFile", "OverloadRecrod", FormMethod.Post, new {enctype = "multipart/form-data"}))
-    {
-        <input type="file" name="file" class="hide" id="input_file"/>
-        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
-    }
 
     <div class="row">
         <div class="col-sm-12">
@@ -251,17 +237,6 @@
                     }
                 });
             }
-
-            $("#btn_improt")
-                .click(function() {
-                    $("#input_file").click();
-                });
-
-            $("#input_file")
-                .change(function() {
-                    $("#Submit").click();
-                    $("#input_file").text("");
-                });
         });
     </script>
 
