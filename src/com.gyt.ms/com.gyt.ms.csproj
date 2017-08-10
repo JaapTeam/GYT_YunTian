@@ -145,12 +145,11 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
-    <Compile Include="Controllers\LNGSubsidyInfoController.cs" />
     <Compile Include="Controllers\LogInfoController.cs" />
-    <Compile Include="Controllers\OverLoadChangeInfoController.cs" />
-    <Compile Include="Controllers\OverloadRecrodController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LngAllowanceController.cs" />
+    <Compile Include="Controllers\PeccancyChangeInfoController.cs" />
+    <Compile Include="Controllers\PeccancyRecrodController.cs" />
     <Compile Include="Controllers\TruckController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -309,7 +308,6 @@
     <Content Include="Views\GYTInfo\Index.cshtml" />
     <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
     <Content Include="Views\OverLoadChangeInfo\Index.cshtml" />
-    <Content Include="Views\LNGSubsidyInfo\Index.cshtml" />
     <Content Include="Views\OverloadRecrod\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />

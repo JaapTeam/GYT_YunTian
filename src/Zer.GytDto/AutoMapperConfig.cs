@@ -30,7 +30,7 @@ namespace Zer.GytDto
  
                 cfg.CreateMap<LngAllowanceInfo, LngAllowanceInfoDto>().ReverseMap();
                 cfg.CreateMap<TruckInfo, TruckInfoDto>().ReverseMap();
-                cfg.CreateMap<OverloadInfo, OverloadRecrodDto>().ReverseMap();
+                cfg.CreateMap<PeccancyInfo, PeccancyRecrodDto>().ReverseMap();
                 cfg.CreateMap<SystemLogInfo, SystemLogInfoDto>().ReverseMap();
             });
 

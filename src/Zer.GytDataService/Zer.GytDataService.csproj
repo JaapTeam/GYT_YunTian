@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IOverloadRecrodDataService.cs" />
+    <Compile Include="IPeccancyRecrodDataService.cs" />
     <Compile Include="ISystemLogInfoDataService.cs" />
     <Compile Include="ITruckInfoDataService.cs" />
     <Compile Include="IUserInfoDataService.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Impl\CompanyInfoDataService.cs" />
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
-    <Compile Include="Impl\OverloadRecrodDataService.cs" />
+    <Compile Include="Impl\PeccancyRecrodDataService.cs" />
     <Compile Include="LogsDbContext.cs" />
     <Compile Include="LogsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

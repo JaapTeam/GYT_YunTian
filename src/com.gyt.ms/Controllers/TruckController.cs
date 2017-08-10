@@ -75,8 +75,7 @@ namespace com.gyt.ms.Controllers
         //}
 
         public JsonResult Add(TruckInfoDto infoDto)
-        {
-            var result = _truckInfoService.Add(infoDto);
+        {            var result = _truckInfoService.Add(infoDto);
 
             return Success(result);
         }

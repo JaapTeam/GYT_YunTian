@@ -66,7 +66,7 @@ namespace Zer.Framework.Import
 
             for (int i = 0; i < list.Length; i++)
             {
-                properties[i].SetValue(obj, Convert.ChangeType(list[i], properties[i].PropertyType));
+                properties[i].SetValue(obj, ConvertHelper.ChangeType(list[i], properties[i].PropertyType));
             }
 
             return obj;

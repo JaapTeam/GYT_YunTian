@@ -58,6 +58,7 @@
     <Compile Include="Attributes\IValidateInputParameter.cs" />
     <Compile Include="Attributes\ReplaceSpecialCharAttribute.cs" />
     <Compile Include="Attributes\SortAttribute.cs" />
+    <Compile Include="ConvertHelper.cs" />
     <Compile Include="Dependency\IocManager.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\ICreateTime.cs" />

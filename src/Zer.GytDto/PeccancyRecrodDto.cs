@@ -1,19 +1,27 @@
-﻿using Zer.Framework.Attributes;
+﻿using AutoMapper;
+using Zer.Entities;
+using Zer.Framework.Attributes;
 using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class OverloadRecrodDto : IValidateInputParameter
+    public class PeccancyRecrodDto : IValidateInputParameter
     {
-        [Sort(1)]
-        [ExportDisplayName("超限超载编号")]
-        public int Id { get; set; }
         [ExportIgnore]
+        [ImprotIgnore]
+        public int Id { get; set; }
+
+        [Sort(1)]
+        [ExportDisplayName("处罚决定书编号")]
+        public string PeccancyId { get; set; }
+
+        [ExportIgnore]
+        [ImprotIgnore]
         public int CompanyId { get; set; }
 
         [Sort(2)]
         [ExportDisplayName("公司名称")]
-        public string CompanName { get; set; }
+        public string CompanyName { get; set; }
 
         [Sort(3)]
         [ExportDisplayName("前车牌号")]
@@ -28,28 +36,34 @@ namespace Zer.GytDto
         public string TraderRange { get; set; }
         
         [ExportIgnore]
-        public int DriverId { get; set; }
+        [ImprotIgnore]
+        public string DriverId { get; set; }
 
         [Sort(6)]
-        [ExportDisplayName("驾驶员名称")]
+        [ExportDisplayName("驾驶员姓名")]
         public string DriverName { get; set; }
 
         [Sort(7)]
         [ExportDisplayName("违法日期")]
-        public string OverloadDate { get; set; }
+        public string PeccancyDate { get; set; }
 
         [Sort(8)]
         [ExportDisplayName("违法事项")]
-        public string OverloadMatter { get; set; }
+        public string PeccancyMatter { get; set; }
 
-        [Sort(8)]
+        [Sort(9)]
         [ExportDisplayName("总重")]
         public string GrossWeight { get; set; }
-        [Sort(9)]
+        [Sort(10)]
         [ExportDisplayName("轴数")]
         public int AxisNumber { get; set; }
-        [Sort(10)]
+        [Sort(11)]
         [ExportDisplayName("文件来源")]
         public string Source { get; set; }
+
+        [Sort(12)]
+        [ExportDisplayName("状态")]
+        [ExportIgnore]
+        public Status Status { get; set; }
     }
 }
