@@ -68,6 +68,7 @@ namespace com.gyt.ms.Controllers
         }
 
 
+        //Todo: 建议优化检查检查重复业务逻辑
         [System.Web.Mvc.HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
@@ -157,10 +158,20 @@ namespace com.gyt.ms.Controllers
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
         {
-            var companyNameList = lngAllowanceInfoDtoList.Select(x => x.CompanyName).ToList();
+            //var companyNameList = lngAllowanceInfoDtoList.Select(x => x.CompanyName).ToList();
+            var improtCompanyInfoDtoList = new List<CompanyInfoDto>();
+            foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
+            {
+                improtCompanyInfoDtoList.Add(
+                    new CompanyInfoDto
+                    {
+                        CompanyName = lngAllowanceInfoDto.CompanyName
+                    }
+                );
+            }
 
             // 注册新增公司信息
-            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(companyNameList);
+            var companyInfoDtoList = _companyService.QueryAfterValidateAndRegist(improtCompanyInfoDtoList);
 
             foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
             {

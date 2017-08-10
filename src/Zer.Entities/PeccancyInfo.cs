@@ -4,19 +4,23 @@ using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
-    public class OverloadInfo : EntityBase
+    public class PeccancyInfo : EntityBase
     {
+        [MaxLength(50)]
+        public string PeccancyId { get; set; }
         public int CompanyId { get; set; }
         [MaxLength(20)]
         public string FrontTruckNo { get; set; }
          [MaxLength(20)]
         public string BehindTruckNo { get; set; }
+        [MaxLength(50)]
+        public string DriverId { get; set; }
+        [MaxLength(30)]
+        public string DriverName { get; set; }
 
-        public int DriverId { get; set; }
+        public DateTime? PeccancyDate { get; set; }
 
-        public DateTime OverloadDateTime { get; set; }
-
-        public OverloadMatter OverloadMatter { get; set; }
+        public string PeccancyMatter { get; set; }
         public decimal GrossWeight { get; set; }
         public int AxisNumber { get; set; }
          [MaxLength(50)]
@@ -28,10 +32,5 @@ namespace Zer.Entities
     {
         未整改,
         已整改
-    }
-
-    public enum OverloadMatter
-    {
-        深圳超限
     }
 }

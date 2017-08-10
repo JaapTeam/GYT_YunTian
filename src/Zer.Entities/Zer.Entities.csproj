@@ -49,7 +49,7 @@
     <Compile Include="LngAllowanceInfo.cs" />
     <Compile Include="SystemLogInfo.cs" />
     <Compile Include="UserLogInfo.cs" />
-    <Compile Include="OverloadInfo.cs" />
+    <Compile Include="PeccancyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TruckInfo.cs" />
     <Compile Include="UserInfo.cs" />

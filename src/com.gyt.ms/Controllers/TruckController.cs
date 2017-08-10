@@ -78,7 +78,7 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult Add(TruckInfoDto infoDto)
         {
-            ValidataInputString(infoDto.CompanyName, infoDto.DriverName, infoDto.FrontTruckNo, infoDto.RearTruckNo);
+            ValidataInputString(infoDto.CompanyName, infoDto.DriverName, infoDto.FrontTruckNo, infoDto.BehindTruckNo);
 
             var result = _truckInfoService.Add(infoDto);
 

@@ -11,7 +11,7 @@ namespace Zer.Entities
         /// <summary>
         /// 后车牌
         /// </summary>
-        public string RearTruckNo { get; set; }
+        public string BehindTruckNo { get; set; }
         public int CompanyId { get; set; }
         public int? DriverId { get; set; }
     }

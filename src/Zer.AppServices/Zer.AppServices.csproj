@@ -73,9 +73,9 @@
     <Compile Include="ILngAllowanceService.cs" />
     <Compile Include="ILogInfoService.cs" />
     <Compile Include="Impl\LogInfoService.cs" />
-    <Compile Include="IOverloadRecrodService.cs" />
+    <Compile Include="IPeccancyRecrodService.cs" />
     <Compile Include="Impl\LngAllowanceService.cs" />
-    <Compile Include="OverloadRecrodService.cs" />
+    <Compile Include="Impl\PeccancyRecrodService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ITruckInfoService.cs" />
     <Compile Include="Impl\UserInfoService.cs" />
