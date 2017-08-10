@@ -27,10 +27,10 @@ namespace Zer.AppServices
         void Add(CompanyInfo model);
 
         /// <summary>
-        /// 检查公司名称是否存在，如果不存在新增，在完成所有新增操作后，查询并返回参数指定公司信息
+        /// 检查公司是否存在，如果不存在新增，在完成所有新增操作后，查询并返回参数指定公司信息
         /// </summary>
-        /// <param name="companyNameList"></param>
+        /// <param name="companyInfoDtos"></param>
         /// <returns><see cref="List{CompanyInfoDto}"/></returns>
-        List<CompanyInfoDto> QueryAfterValidateAndRegist(List<string> companyNameList);
+        List<CompanyInfoDto> QueryAfterValidateAndRegist(List<CompanyInfoDto> companyInfoDtos);
     }
 }
