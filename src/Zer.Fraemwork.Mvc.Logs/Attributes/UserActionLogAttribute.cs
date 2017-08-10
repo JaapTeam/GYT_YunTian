@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Zer.Framework.Helpers;
 using Zer.GytDto;
 
 namespace Zer.Framework.Mvc.Logs.Attributes

@@ -15,81 +15,81 @@ namespace com.gyt.ms.Tests.Controllers
     [TestFixture]
     public class BaseControllerTest : ControllerTestBase
     {
-        [Test]
-        [Category("BaseController")]
-        [Description("输入任意非法字符串，都会抛出异常")]
-        public void TestForValidataInputString_inputAnyUnsaveString_ThrowException()
-        {
-            using (var ctrl = new BaseController())
-            {
-                var stringList = new[]
-                {
-                    "admin",
-                    "sss\"sss"
-                };
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("输入任意非法字符串，都会抛出异常")]
+        //public void TestForValidataInputString_inputAnyUnsaveString_ThrowException()
+        //{
+        //    using (var ctrl = new BaseController())
+        //    {
+        //        var stringList = new[]
+        //        {
+        //            "admin",
+        //            "sss\"sss"
+        //        };
 
-                try
-                {
-                    ctrl.ValidataInputString(stringList);
-                }
-                catch (Exception actual)
-                {
-                    actual.Should().BeOfType<CustomException>();
-                    actual.Message.Contains("参数含有非法字符！").Should().BeTrue();
-                }
-            }
-        }
+        //        try
+        //        {
+        //            ctrl.ValidataInputString(stringList);
+        //        }
+        //        catch (Exception actual)
+        //        {
+        //            actual.Should().BeOfType<CustomException>();
+        //            actual.Message.Contains("参数含有非法字符！").Should().BeTrue();
+        //        }
+        //    }
+        //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("输入任意非法字符串，都会抛出异常")]
-        public void TestForValidataInputString_inputDtoObject_ThrowException()
-        {
-            using (var ctrl = new BaseController())
-            {
-                var dto = new LngAllowanceInfoDto
-                {
-                    CompanyName = "sss\"sss",
-                    CylinderDefaultId = "0001010001",
-                    CylinderSeconedId = "sdfjl1009\'"
-                };
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("输入任意非法字符串，都会抛出异常")]
+        //public void TestForValidataInputString_inputDtoObject_ThrowException()
+        //{
+        //    using (var ctrl = new BaseController())
+        //    {
+        //        var dto = new LngAllowanceInfoDto
+        //        {
+        //            CompanyName = "sss\"sss",
+        //            CylinderDefaultId = "0001010001",
+        //            CylinderSeconedId = "sdfjl1009\'"
+        //        };
 
-                try
-                {
-                    ctrl.ValidataInputString(dto);
-                }
-                catch (Exception actual)
-                {
-                    actual.Should().BeOfType<CustomException>();
-                    actual.Message.Contains("参数含有非法字符！").Should().BeTrue();
-                }
-            }
-        }
+        //        try
+        //        {
+        //            ctrl.ValidataInputString(dto);
+        //        }
+        //        catch (Exception actual)
+        //        {
+        //            actual.Should().BeOfType<CustomException>();
+        //            actual.Message.Contains("参数含有非法字符！").Should().BeTrue();
+        //        }
+        //    }
+        //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("输入字符串全部合法，不抛出异常")]
-        public void TestForValidataInputString_inputAllAreSave_NoExceptionThrow()
-        {
-            using (var ctrl = new BaseController())
-            {
-                var stringList = new[]
-                {
-                    "admin",
-                    "123434534",
-                    "sdfsddfsdf"
-                };
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("输入字符串全部合法，不抛出异常")]
+        //public void TestForValidataInputString_inputAllAreSave_NoExceptionThrow()
+        //{
+        //    using (var ctrl = new BaseController())
+        //    {
+        //        var stringList = new[]
+        //        {
+        //            "admin",
+        //            "123434534",
+        //            "sdfsddfsdf"
+        //        };
 
-                try
-                {
-                    ctrl.ValidataInputString(stringList);
-                }
-                catch
-                {
-                    Assert.Fail();
-                }
-            }
-        }
+        //        try
+        //        {
+        //            ctrl.ValidataInputString(stringList);
+        //        }
+        //        catch
+        //        {
+        //            Assert.Fail();
+        //        }
+        //    }
+        //}
 
         [Test]
         [Category("BaseController")]

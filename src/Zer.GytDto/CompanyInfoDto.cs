@@ -3,7 +3,7 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class CompanyInfoDto
+    public class CompanyInfoDto : IValidateInputParameter
     {
         [Sort(1)]
         [ExportDisplayName("编号")]
