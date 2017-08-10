@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var truckList = ViewBag.TruckList as List<TruckInfoDto>;
     var companyList = ViewBag.CompanyList as List<CompanyInfoDto>;
-    var infoList = ViewBag.Result as List<OverloadRecrodDto>;
+    var infoList = ViewBag.Result as List<PeccancyRecrodDto>;
 }
 
 <div class="div-inline">
@@ -116,9 +116,9 @@
                 <td>@overloadRecrodDto.TraderRange</td>
                 <td>@overloadRecrodDto.DriverName</td>
                 <td>
-                    @overloadRecrodDto.OverloadDate
+                    @overloadRecrodDto.PeccancyDate
                 </td>
-                <td>@overloadRecrodDto.OverloadMatter</td>
+                <td>@overloadRecrodDto.PeccancyMatter</td>
                 <td>@overloadRecrodDto.GrossWeight</td>
                 <td>@overloadRecrodDto.AxisNumber</td>
                 <td>@overloadRecrodDto.Source</td>

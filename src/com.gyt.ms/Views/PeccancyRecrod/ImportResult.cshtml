@@ -2,9 +2,9 @@
 @using Castle.Core.Internal
 @using Zer.GytDto
 @{
-    var successList = ViewBag.SuccessList as List<OverloadRecrodDto>;
-    var failedList = ViewBag.FailedList as List<OverloadRecrodDto>;
-    var existedList = ViewBag.ExistedList as List<OverloadRecrodDto>;
+    var successList = ViewBag.SuccessList as List<PeccancyRecrodDto>;
+    var failedList = ViewBag.FailedList as List<PeccancyRecrodDto>;
+    var existedList = ViewBag.ExistedList as List<PeccancyRecrodDto>;
 }
 
 <!--导入失败的列表-->
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-info bigger" target="_blank" href="@(Url.Action("ExportResult", "OverloadRecrod", new {exportCode = ViewBag.FailedCode.ToString()}))">
+                        <a class="btn btn-xs btn-info bigger" target="_blank" href="@(Url.Action("ExportResult", "PeccancyRecrod", new {exportCode = ViewBag.FailedCode.ToString()}))">
                             >
                             <i class="icon-share"></i>
                             导出
@@ -85,9 +85,9 @@
                                             <td>@overloadRecrodDto.TraderRange</td>
                                             <td>@overloadRecrodDto.DriverName</td>
                                             <td>
-                                                @overloadRecrodDto.OverloadDate
+                                                @overloadRecrodDto.PeccancyDate
                                             </td>
-                                            <td>@overloadRecrodDto.OverloadMatter</td>
+                                            <td>@overloadRecrodDto.PeccancyMatter</td>
                                             <td>@overloadRecrodDto.GrossWeight</td>
                                             <td>@overloadRecrodDto.AxisNumber</td>
                                             <td>@overloadRecrodDto.Source</td>
@@ -122,7 +122,7 @@
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-inverse bigger" target="_blank" href="@(Url.Action("ExportResult", "OverloadRecrod", new { exportCode = ViewBag.ExistedCode.ToString() }))">
+                        <a class="btn btn-xs btn-inverse bigger" target="_blank" href="@(Url.Action("ExportResult", "PeccancyRecrod", new { exportCode = ViewBag.ExistedCode.ToString() }))">
                             <i class="icon-share"></i>
                             导出
                         </a>
@@ -183,9 +183,9 @@
                                             <td>@overloadRecrodDto.TraderRange</td>
                                             <td>@overloadRecrodDto.DriverName</td>
                                             <td>
-                                                @overloadRecrodDto.OverloadDate
+                                                @overloadRecrodDto.PeccancyDate
                                             </td>
-                                            <td>@overloadRecrodDto.OverloadMatter</td>
+                                            <td>@overloadRecrodDto.PeccancyMatter</td>
                                             <td>@overloadRecrodDto.GrossWeight</td>
                                             <td>@overloadRecrodDto.AxisNumber</td>
                                             <td>@overloadRecrodDto.Source</td>
@@ -234,7 +234,7 @@ else
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-success bigger" target="_blank" href="@(Url.Action("ExportResult", "OverloadRecrod", new { exportCode = ViewBag.SuccessCode.ToString() }))">
+                        <a class="btn btn-xs btn-success bigger" target="_blank" href="@(Url.Action("ExportResult", "PeccancyRecrod", new { exportCode = ViewBag.SuccessCode.ToString() }))">
                             <i class="icon-share"></i>
                             导出
                         </a>
@@ -295,9 +295,9 @@ else
                                             <td>@overloadRecrodDto.TraderRange</td>
                                             <td>@overloadRecrodDto.DriverName</td>
                                             <td>
-                                                @overloadRecrodDto.OverloadDate
+                                                @overloadRecrodDto.PeccancyDate
                                             </td>
-                                            <td>@overloadRecrodDto.OverloadMatter</td>
+                                            <td>@overloadRecrodDto.PeccancyMatter</td>
                                             <td>@overloadRecrodDto.GrossWeight</td>
                                             <td>@overloadRecrodDto.AxisNumber</td>
                                             <td>@overloadRecrodDto.Source</td>

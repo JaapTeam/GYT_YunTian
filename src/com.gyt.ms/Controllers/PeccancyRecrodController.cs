@@ -15,13 +15,13 @@ using Zer.Services;
 namespace com.gyt.ms.Controllers
 {
     //ToDo:还有Add功能没做
-    public class OverloadRecrodController : BaseController
+    public class PeccancyRecrodController : BaseController
     {
-        private readonly IOverloadRecrodService _overloadRecrodService;
+        private readonly IPeccancyRecrodService _overloadRecrodService;
         private readonly ITruckInfoService _truckInfoService;
         private readonly ICompanyService _companyService;
 
-        public OverloadRecrodController(IOverloadRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
+        public PeccancyRecrodController(IPeccancyRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
         {
             _overloadRecrodService = overloadRecrodService;
             _truckInfoService = truckInfoService;
@@ -45,7 +45,7 @@ namespace com.gyt.ms.Controllers
                 return Fail("请选择需要整改的记录！");
             }
 
-            var result = _overloadRecrodService.ChangedById(id);
+            var result = _overloadRecrodService.ChangeStatusById(id);
 
             if (!result)
             {
@@ -73,15 +73,17 @@ namespace com.gyt.ms.Controllers
             return ExportCsv(result.GetBuffer(), "违法记录");
         }
 
+        //Todo: 建议优化检查检查重复业务逻辑
+        [System.Web.Mvc.HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file != null)
             {
-                List<OverloadRecrodDto> overloadRecrodDtoList;
+                List<PeccancyRecrodDto> overloadRecrodDtoList;
 
                 using (StreamReader reader = new StreamReader(file.InputStream, Encoding.Default))
                 {
-                    overloadRecrodDtoList = Zer.Framework.Import.Import.Read<OverloadRecrodDto>(reader, 1);
+                    overloadRecrodDtoList = Zer.Framework.Import.Import.Read<PeccancyRecrodDto>(reader, 1);
 
                     if (overloadRecrodDtoList != null)
                     {
@@ -144,7 +146,7 @@ namespace com.gyt.ms.Controllers
 
         public FileResult ExportResult(string exportCode = "")
         {
-            List<OverloadRecrodDto> exportList = new List<OverloadRecrodDto>();
+            List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();
 
             if (exportCode.IsNullOrEmpty())
             {
@@ -157,13 +159,13 @@ namespace com.gyt.ms.Controllers
             }
             else
             {
-                exportList = GetValueFromSession<List<OverloadRecrodDto>>(exportCode);
+                exportList = GetValueFromSession<List<PeccancyRecrodDto>>(exportCode);
             }
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
-        private List<CompanyInfoDto> InitCompanyInfoDtoList(List<OverloadRecrodDto> overloadRecrodDtos)
+        private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)
         {
             var improtCompanyInfoDtoList = new List<CompanyInfoDto>();
             foreach (var overloadRecrodDto in overloadRecrodDtos)

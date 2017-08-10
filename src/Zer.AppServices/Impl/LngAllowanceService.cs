@@ -34,7 +34,12 @@ namespace Zer.AppServices.Impl
 
         public List<LngAllowanceInfoDto> AddRange(List<LngAllowanceInfoDto> list)
         {
-            return _lngAllowanceInfoDataService.AddRange(list.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>().ToList();
+            var existsList = list.Where(Exists).ToList();
+            var noexistsList = list.Where(x => !Exists(x)).ToList();
+            var insertList = _lngAllowanceInfoDataService.AddRange(noexistsList.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>().ToList();
+
+            insertList.AddRange(existsList);
+            return insertList;
         }
 
         public List<LngAllowanceInfoDto> GetList(FilterMatchInputDto filterMatchInput)

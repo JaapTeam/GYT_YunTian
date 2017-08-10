@@ -4,7 +4,7 @@ using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
-    public class OverloadInfo : EntityBase
+    public class PeccancyInfo : EntityBase
     {
         [MaxLength(50)]
         public string PeccancyId { get; set; }
@@ -18,9 +18,9 @@ namespace Zer.Entities
         [MaxLength(30)]
         public string DriverName { get; set; }
 
-        public DateTime? OverloadDate { get; set; }
+        public DateTime? PeccancyDate { get; set; }
 
-        public string OverloadMatter { get; set; }
+        public string PeccancyMatter { get; set; }
         public decimal GrossWeight { get; set; }
         public int AxisNumber { get; set; }
          [MaxLength(50)]

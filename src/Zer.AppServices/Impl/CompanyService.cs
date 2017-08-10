@@ -85,14 +85,10 @@ namespace Zer.AppServices.Impl
             var newRegistCompanyInfoDtoList = notExistsCompanyName.Select(name =>
                 new CompanyInfoDto
                 {
-                    CompanyName = name
+                    CompanyName = name,
+                    TraderRange=companyInfoDtos.Where(x=>x.CompanyName==name).Select(x=>x.TraderRange).FirstOrDefault()
                 }).ToList();
 
-            // 根据公司名获取其他公司信息
-            foreach (var companyInfoDto in newRegistCompanyInfoDtoList)
-            {
-                companyInfoDto.TraderRange = companyInfoDtos.Select(x => x.TraderRange).FirstOrDefault();
-            }
             // 新增所有不存在的公司
             AddRange(newRegistCompanyInfoDtoList.ToList());
 

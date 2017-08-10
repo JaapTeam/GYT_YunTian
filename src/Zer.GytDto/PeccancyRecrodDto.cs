@@ -5,14 +5,14 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class OverloadRecrodDto
+    public class PeccancyRecrodDto
     {
         [ExportIgnore]
         [ImprotIgnore]
         public int Id { get; set; }
 
         [Sort(1)]
-        [ExportDisplayName("处罚觉定书编号")]
+        [ExportDisplayName("处罚决定书编号")]
         public string PeccancyId { get; set; }
 
         [ExportIgnore]
@@ -45,11 +45,11 @@ namespace Zer.GytDto
 
         [Sort(7)]
         [ExportDisplayName("违法日期")]
-        public string OverloadDate { get; set; }
+        public string PeccancyDate { get; set; }
 
         [Sort(8)]
         [ExportDisplayName("违法事项")]
-        public string OverloadMatter { get; set; }
+        public string PeccancyMatter { get; set; }
 
         [Sort(9)]
         [ExportDisplayName("总重")]

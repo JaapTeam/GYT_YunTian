@@ -9,13 +9,13 @@ using Zer.Framework.Export;
 
 namespace com.gyt.ms.Controllers
 {
-    public class OverLoadChangeInfoController : BaseController
+    public class PeccancyChangeInfoController : BaseController
     {
-        private readonly IOverloadRecrodService _overloadRecrodService;
+        private readonly IPeccancyRecrodService _overloadRecrodService;
         private readonly ITruckInfoService _truckInfoService;
         private readonly ICompanyService _companyService;
 
-        public OverLoadChangeInfoController(IOverloadRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
+        public PeccancyChangeInfoController(IPeccancyRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
         {
             _overloadRecrodService = overloadRecrodService;
             _truckInfoService = truckInfoService;
