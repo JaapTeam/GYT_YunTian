@@ -5,7 +5,7 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class PeccancyRecrodDto
+    public class PeccancyRecrodDto : IValidateInputParameter
     {
         [ExportIgnore]
         [ImprotIgnore]

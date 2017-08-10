@@ -27,8 +27,6 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult AddCompany(CompanyInfoDto companyInfoDto)
         {
-            ValidataInputString(companyInfoDto.CompanyName, companyInfoDto.TraderRange);
-
             var companyInfo = new CompanyInfo()
             {
                 CompanyName = companyInfoDto.CompanyName,
@@ -48,8 +46,6 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult GetCopanyByLikeName(string likeName = "")
         {
-            ValidataInputString(likeName);
-
             if (likeName.IsNullOrEmpty())
             {
                 return Success();
@@ -68,7 +64,6 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult CompanyIsExists(string companyFullName)
         {
-            ValidataInputString(companyFullName);
             return Success(_companyService.Exists(companyFullName));
         }
     }

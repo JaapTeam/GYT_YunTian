@@ -4,7 +4,7 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class CardsInfoDto
+    public class CardsInfoDto:IValidateInputParameter
     {
         [Sort(1)]
         [ExportDisplayName("办理编号")]

@@ -10,7 +10,11 @@ using Castle.Components.DictionaryAdapter;
 using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Attributes;
 using Zer.Framework.Export;
+using Zer.Framework.Export.Attributes;
+using Zer.Framework.Helpers;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 
 namespace com.gyt.ms.Controllers
@@ -48,12 +52,13 @@ namespace com.gyt.ms.Controllers
 
         public FileResult Export(string exportCode = "")
         {
-            List<LngAllowanceInfoDto> exportList = new List<LngAllowanceInfoDto>();
-
+            
             if (exportCode.IsNullOrEmpty())
             {
                 return null;
             }
+
+            List<LngAllowanceInfoDto> exportList = new List<LngAllowanceInfoDto>();
 
             if (exportCode.ToLower() == "all")
             {
@@ -82,57 +87,71 @@ namespace com.gyt.ms.Controllers
 
                 if (lngAllowanceInfoDtoList != null)
                 {
-                    // 替换气罐号中的 '-',
-                    lngAllowanceInfoDtoList = lngAllowanceInfoDtoList.Select(ReplaceUnsafeChar).ToList();
-
-                    // 然后检查导入数据是否包含非法字符
-                    lngAllowanceInfoDtoList.ForEach(ValidataInputString);
-
-                    // 检测数据库中已经存在的重复数据
-                    var existsLngAllowanceInfoDtoList = lngAllowanceInfoDtoList
-                                                            .Where(x => _lngAllowanceService.Exists(x))
-                                                            .ToList();
-
-                    // 筛选出需要导入的数据
-                    var mustImportLngAllowanceInfoDtoList =
-                        lngAllowanceInfoDtoList.Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Contains(x.TruckNo)).ToList();
-
-                    // 初始化检测并注册其中的新公司信息
-                    var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
-
-                    var dic = mustImportLngAllowanceInfoDtoList.ToDictionary(x => x.TruckNo, v => v.CompanyId);
-
-                    // 初始化检测并注册其中的新车辆信息
-                    InitTruckInfoDtoList(dic, companyInfoDtoList);
-
-                    // 保存LNG补贴信息，并得到保存成功的结果
-                    var importSuccessList = _lngAllowanceService.AddRange(mustImportLngAllowanceInfoDtoList);
-
-                    var importFailedList = mustImportLngAllowanceInfoDtoList.Where(x => importSuccessList.Contains(x))
-                        .ToList();
-
-                    // 展示导入结果
-                    ViewBag.ActiveId = 9;
-
-                    ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
-                    ViewBag.FailedCode = AppendObjectToSession(importFailedList);
-                    ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
-
-                    ViewBag.SuccessList = importSuccessList;
-                    ViewBag.FailedList = importFailedList;
-                    ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
-                    return View("ImportResult");
+                    var sessionCode = AppendObjectToSession(lngAllowanceInfoDtoList);
+                    ////return SaveLngAllowanceData(lngAllowanceInfoDtoList);
+                    return RedirectToAction("SaveLngAllowanceData", "LngAllowance",
+                        new {id = sessionCode});
                 }
             }
 
             return RedirectToAction("Index", "Error", "导入失败");
         }
+        
+        [ReplaceSpecialCharInParameter("-", "_")]
+        [GetParameteFromSession("id")]
+        [UnLog]
+        public ActionResult SaveLngAllowanceData(string id)
+        {
+            //// 替换气罐号中的 '-',
+            //lngAllowanceInfoDtoList = lngAllowanceInfoDtoList.Select(ReplaceUnsafeChar).ToList();
+
+            //// 然后检查导入数据是否包含非法字符
+            //lngAllowanceInfoDtoList.ForEach(ValidateHelper.ValidateObjectIsSafe);
+
+            var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
+
+            // 检测数据库中已经存在的重复数据
+            var existsLngAllowanceInfoDtoList = lngAllowanceInfoDtoList
+                .Where(x => _lngAllowanceService.Exists(x))
+                .ToList();
+
+            // 筛选出需要导入的数据
+            var mustImportLngAllowanceInfoDtoList =
+                lngAllowanceInfoDtoList
+                    .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Contains(x.TruckNo)).ToList();
+
+            // 初始化检测并注册其中的新公司信息
+            var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
+
+            var dic = mustImportLngAllowanceInfoDtoList.ToDictionary(x => x.TruckNo, v => v.CompanyId);
+
+            // 初始化检测并注册其中的新车辆信息
+            InitTruckInfoDtoList(dic, companyInfoDtoList);
+
+            // 保存LNG补贴信息，并得到保存成功的结果
+            var importSuccessList = _lngAllowanceService.AddRange(mustImportLngAllowanceInfoDtoList);
+
+            var importFailedList = mustImportLngAllowanceInfoDtoList.Where(x => importSuccessList.Contains(x))
+                .ToList();
+
+            // 展示导入结果
+            ViewBag.ActiveId = 9;
+
+            ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+            ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+            ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
+
+            ViewBag.SuccessList = importSuccessList;
+            ViewBag.FailedList = importFailedList;
+            ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
+            return View("ImportResult");
+        }
 
         [System.Web.Mvc.HttpPost]
+        [ReplaceSpecialCharInParameter("-","_")]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
-            dto = ReplaceUnsafeChar(dto);
-            ValidataInputString(dto);
+            //TODO:加特殊字符替换
 
             CompanyInfoDto companyInfoDto = _companyService.GetById(dto.CompanyId);
             dto.CompanyName = companyInfoDto.CompanyName;
