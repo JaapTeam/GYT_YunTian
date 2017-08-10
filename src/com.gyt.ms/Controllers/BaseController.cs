@@ -29,52 +29,6 @@ namespace com.gyt.ms.Controllers
             }
         }
 
-        /// <summary>
-        /// 验证输入字符串是否有非法字符
-        /// </summary>
-        /// <param name="inputStrings"></param>
-        public void ValidataInputString(params string[] inputStrings)
-        {
-            if (inputStrings.Any(x => x.CheckBadStr()))
-            {
-                throw new CustomException("参数含有非法字符！", "inputString", string.Join(",", inputStrings));
-            }
-        }
-
-        /// <summary>
-        /// 验证输入字符串是否有非法字符
-        /// </summary>
-        /// <param name="inputStrings"></param>
-        public void ValidataInputString(params string[][] inputStrings)
-        {
-            inputStrings.ForEach(ValidataInputString);
-        }
-
-        /// <summary>
-        /// 验证输入字符串是否有非法字符
-        /// </summary>
-        /// <param name="inputStrings"></param>
-        public void ValidataInputString(params IEnumerable<string>[] inputStrings)
-        {
-            inputStrings.Select(x => x.ToArray()).ForEach(ValidataInputString);
-        }
-
-        public void ValidataInputString<T>(T obj)
-        {
-            var list = new List<string>();
-
-            foreach (var property in typeof(T).GetProperties().Where(x => x.PropertyType == typeof(string)))
-            {
-                var str = property.GetValue(obj);
-                if (str != null && !str.ToString().IsNullOrEmpty())
-                {
-                    list.Add(str.ToString());
-                }
-            }
-
-            ValidataInputString(list.ToArray());
-        }
-
         public T ReplaceUnsafeChar<T>(T obj)
             where T : class ,new()
         {
@@ -99,7 +53,7 @@ namespace com.gyt.ms.Controllers
 
         protected string AppendObjectToSession(object obj)
         {
-            var sessionCode = Guid.NewGuid().ToString();
+            var sessionCode = Guid.NewGuid().ToString().Replace('-','_');
             Session[sessionCode] = obj;
             return sessionCode;
         }
@@ -142,6 +96,7 @@ namespace com.gyt.ms.Controllers
         }
         
         [UnLog]
+        [UnValidateInputsAttribute]
         public ActionResult LeftMenu(int id)
         {
             #region 港运通业务办理

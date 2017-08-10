@@ -1,8 +1,9 @@
 ﻿using Zer.Entities;
+using Zer.Framework.Attributes;
 
 namespace Zer.GytDto.Users
 {
-    public class UserInfoDto
+    public class UserInfoDto : IValidateInputParameter
     {
         public int UserId { get ; set; }
         public string UserName { get; set; }

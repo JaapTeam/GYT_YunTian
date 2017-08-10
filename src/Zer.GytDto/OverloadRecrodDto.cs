@@ -3,7 +3,7 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class OverloadRecrodDto
+    public class OverloadRecrodDto : IValidateInputParameter
     {
         [Sort(1)]
         [ExportDisplayName("超限超载编号")]

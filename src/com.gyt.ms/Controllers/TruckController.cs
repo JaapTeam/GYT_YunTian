@@ -51,8 +51,6 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult GetTruckInforByTruckNo(string truckNo)
         {
-            ValidataInputString(truckNo);
-            
             var dto = _truckInfoService.GetByTruckNo(truckNo);
 
             if (dto.Id==0)
@@ -78,8 +76,6 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult Add(TruckInfoDto infoDto)
         {
-            ValidataInputString(infoDto.CompanyName, infoDto.DriverName, infoDto.FrontTruckNo, infoDto.RearTruckNo);
-
             var result = _truckInfoService.Add(infoDto);
 
             return Success(result);
@@ -87,8 +83,6 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult ExistsByTruckNo(string truckNo)
         {
-            ValidataInputString(truckNo);
-
             var result = _truckInfoService.Exists(truckNo);
 
             return Success(result);

@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Zer.Framework
+namespace Zer.Framework.Helpers
 {
     public class IpHelper
     {
