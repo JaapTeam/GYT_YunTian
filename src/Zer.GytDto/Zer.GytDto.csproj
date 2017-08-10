@@ -51,7 +51,7 @@
     <Compile Include="Extensions\AutoMapperExtensionsWithDto.cs" />
     <Compile Include="LngAllowanceInfoDto.cs" />
     <Compile Include="LogInfoDto.cs" />
-    <Compile Include="OverloadRecrodDto.cs" />
+    <Compile Include="PeccancyRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemLogInfoDto.cs" />
     <Compile Include="TruckInfoDto.cs" />

@@ -45,7 +45,7 @@ namespace Zer.AppServices.Impl
         public TruckInfoDto GetByTruckNo(string truckNo)
         {
             return _truckInfoDataService.GetAll()
-                .Single(x => x.FrontTruckNo == truckNo || x.RearTruckNo == truckNo)
+                .Single(x => x.FrontTruckNo == truckNo || x.BehindTruckNo == truckNo)
                 .Map<TruckInfoDto>();
         }
 
@@ -56,14 +56,15 @@ namespace Zer.AppServices.Impl
 
         public bool Exists(string truckNo)
         {
-            return _truckInfoDataService.GetAll().Any(x => x.FrontTruckNo == truckNo || x.RearTruckNo == truckNo);
+            return _truckInfoDataService.GetAll().Any(x => x.FrontTruckNo == truckNo || x.BehindTruckNo == truckNo);
         }
 
         public List<TruckInfoDto> QueryAfterValidateAndRegist(List<TruckInfoDto> list)
         {
-            var waitForRegistList = list.Where(x => !(Exists(x.FrontTruckNo) || Exists(x.RearTruckNo))).ToList();
+            var waitForRegistList = list.Where(x => !(Exists(x.FrontTruckNo) || Exists(x.BehindTruckNo))).ToList();
 
             return AddRange(waitForRegistList);
         }
+
     }
 }

@@ -6,7 +6,7 @@ namespace Zer.GytDto
     {
         public int Id { get; set; }
         public string FrontTruckNo { get; set; }
-        public string RearTruckNo { get; set; }
+        public string BehindTruckNo { get; set; }
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
        
