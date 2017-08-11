@@ -1,21 +1,51 @@
 ﻿@using Castle.Core.Internal
 @using Zer.GytDto
+@using Zer.GytDto.SearchFilters
 @{
     var lngList = Model as List<LngAllowanceInfoDto>;
+    var truckList = ViewBag.TruckList as List<TruckInfoDto>;
+    var searchFilter = ViewBag.SearchDto as LngAllowanceSearchDto;
+
+    if (searchFilter == null)
+    {
+        searchFilter = new LngAllowanceSearchDto();
+    }
 }
 
-<form class="form-inline" style="height: 50px; line-height: 45px">
+<form class="form-inline" action="@(Url.Action("Search","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
     车牌号码：
-    <select class="chosen-select " style="display: none;">
-        <option value="">&nbsp;</option>
-        <option value="AL">粤A123456</option>
-        <option value="AL">粤A654321</option>
-        <option value="AL">粤A654321挂</option>
-        <option value="AL">粤A973829</option>
+
+    <select name="TruckNo">
+        @if (!truckList.IsNullOrEmpty())
+        {
+            <option value="">全部</option>
+            foreach (var truckInfoDto in truckList)
+            {
+                <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
+            }
+        }
     </select>
 
     <label for="input_engineNumber" style="margin-left: 10px">发动机号：</label>
-    <input type="text" class="input-mini" style="width: 150px" id="input_engineNumber"/>
+    <input type="text" class="input-mini" value="@(searchFilter.EngineId)" style="width: 150px" name="EngineId" id="input_engineNumber" />
+    
+    <label for="IsAllowanced" style="margin-left: 10px">补贴状态：</label>
+    <select name="IsAllowanced" id="IsAllowanced">
+        <option value=""> 全部</option>
+        <option value="true"> 已补贴</option>
+        <option value="false"> 未补贴</option>
+    </select>
+
+    @*<label class="inline">
+        <input name="IsAllowanced" type="radio" class="ace">
+        <span class="lbl"> 已补贴</span>
+    </label>
+    
+    <label class="inline">
+        <input name="IsAllowanced" type="radio" class="ace">
+        <span class="lbl"> 未补贴</span>
+    </label>*@
+    
     <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
 </form>
 
@@ -45,56 +75,56 @@
 <div class="table-responsive">
     <table id="sample-table-2" class="table table-striped table-bordered table-hover">
         <thead>
-        <tr>
-            <th class="center">
-                <label>
-                    <input type="checkbox" class="ace"/>
-                    <span class="lbl"></span>
-                </label>
-            </th>
-            <th>编号</th>
-            <th>企业名称</th>
-            <th>批次</th>
-            <th>车牌号</th>
-            <th>发动机号</th>
-            <th>气瓶1编号</th>
-            <th>气瓶2编号</th>
-        </tr>
+            <tr>
+                <th class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </th>
+                <th>编号</th>
+                <th>企业名称</th>
+                <th>批次</th>
+                <th>车牌号</th>
+                <th>发动机号</th>
+                <th>气瓶1编号</th>
+                <th>气瓶2编号</th>
+            </tr>
         </thead>
         <tbody>
-        @if (!lngList.IsNullOrEmpty())
-        {
-            foreach (var item in lngList)
+            @if (!lngList.IsNullOrEmpty())
             {
-                <tr>
-                    <td class="center">
-                        <label>
-                            <input type="checkbox" class="ace"/>
-                            <span class="lbl"></span>
-                        </label>
-                    </td>
-                    <td>
-                        <a href="javascript:;">@item.Id</a>
-                    </td>
-                    <td>
-                        @item.CompanyName
-                    </td>
-                    <td>
-                        @item.LotId
-                    </td>
-                    <td>
-                        @item.TruckNo
-                    </td>
-                    <td>@item.EngineId</td>
-                    <td>
-                        @item.CylinderDefaultId.Replace('_', '-')
-                    </td>
-                    <td>
-                        @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
-                    </td>
-                </tr>
+                foreach (var item in lngList)
+                {
+                    <tr>
+                        <td class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;">@item.Id</a>
+                        </td>
+                        <td>
+                            @item.CompanyName
+                        </td>
+                        <td>
+                            @item.LotId
+                        </td>
+                        <td>
+                            @item.TruckNo
+                        </td>
+                        <td>@item.EngineId</td>
+                        <td>
+                            @item.CylinderDefaultId.Replace('_', '-')
+                        </td>
+                        <td>
+                            @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
+                        </td>
+                    </tr>
+                }
             }
-        }
         </tbody>
     </table>
 
@@ -135,13 +165,13 @@
 
 @section scripts{
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $("#btn_improt")
-                .click(function() {
+                .click(function () {
                     $("#input_file").click();
                 });
 
-            $("#input_file").change(function() {
+            $("#input_file").change(function () {
                 $("#Submit").click();
                 $("#input_file").text("");
             });
