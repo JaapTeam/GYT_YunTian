@@ -16,6 +16,7 @@ using Zer.Framework.Export.Attributes;
 using Zer.Framework.Helpers;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 
 namespace com.gyt.ms.Controllers
 {
@@ -39,8 +40,25 @@ namespace com.gyt.ms.Controllers
         public ActionResult Index(int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
+
+            var truckList = _truckInfoService.GetAll();
+            ViewBag.TruckList = truckList;
+
             var dto = _lngAllowanceService.GetAll();
             return View(dto);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult Search(LngAllowanceSearchDto searchDto, int activeId = 9)
+        {
+            ViewBag.ActiveId = activeId;
+            var truckList = _truckInfoService.GetAll();
+
+            ViewBag.TruckList = truckList;
+            ViewBag.SearchDto = searchDto;
+
+            var result = _lngAllowanceService.GetList(searchDto);
+            return View("Index", result);
         }
 
         public ActionResult Add(int activeId = 9)

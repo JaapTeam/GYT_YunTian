@@ -1,5 +1,3 @@
-﻿
-- have a test for pull request
 
 # 业务规则说明
 ## LNG补贴信息导入
@@ -16,6 +14,10 @@
 # EF集成测试
 - 运行 ```Zer.Framework.Ef.IntegrationTest.Tests``` 之前，请先运行migration
 - > ```update-database```
+- 在运行 Update-Database 的时候指定 ```-Specify``` 标记，我们就能够使得这些更改被写入一个脚本中而不是被应用，我们同时也会为此脚本指定源迁移和目标迁移，例如我们希望产生的脚本是从一个空数据库（```$InitialDatabase```）到最新的版本（```AddPostAbstract``` 迁移）;
+__（注意：如果你没有指定目标迁移，那么迁移将始终更新至最新版本；如果你没有指定源迁移，那么迁移将以数据库目前状态为初始）__
+在 Package Manager Console 中运行命令
+>> __```Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract```__
 
 ### 增加SortAttribute 
 > 为了在导入和导出时对数据列进行排序，增加此属性
