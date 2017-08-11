@@ -1,11 +1,12 @@
 ﻿using System;
 using Zer.Entities;
 using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class CardsInfoDto
+    public class CardsInfoDto:DtoBase
     {
         [Sort(1)]
         [ExportDisplayName("办理编号")]

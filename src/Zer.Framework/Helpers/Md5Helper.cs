@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Zer.Framework
+namespace Zer.Framework.Helpers
 {
     /// <summary>
     /// md5文件加密字符串加密

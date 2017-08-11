@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices
 {
@@ -10,5 +11,7 @@ namespace Zer.AppServices
         List<LngAllowanceInfoDto> GetList(int[] idList);
 
         bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto);
+
+        List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto);
     }
 }

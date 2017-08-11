@@ -1,10 +1,11 @@
 ﻿using System;
 using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class LogInfoDto
+    public class LogInfoDto : DtoBase
     {
         [Sort(1)]
         [ExportDisplayName("日志编号")]

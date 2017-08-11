@@ -55,9 +55,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Dto\DtoBase.cs" />
+    <Compile Include="Dto\IDto.cs" />
+    <Compile Include="Dto\IPaging.cs" />
+    <Compile Include="Dto\ISearchFilter.cs" />
+    <Compile Include="Dto\ISort.cs" />
+    <Compile Include="Dto\IValidateInputParameter.cs" />
+    <Compile Include="Attributes\ReplaceSpecialCharAttribute.cs" />
     <Compile Include="Attributes\SortAttribute.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="Dependency\IocManager.cs" />
+    <Compile Include="Dto\SearchModelBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\ICreateTime.cs" />
     <Compile Include="Entities\IEntity.cs" />
@@ -68,6 +76,7 @@
     <Compile Include="Exception\BaseException.cs" />
     <Compile Include="Exception\CustomException.cs" />
     <Compile Include="Export\Attributes\ExportDisplayNameAttribute.cs" />
+    <Compile Include="Export\Attributes\GetParameteFromSessionAttribute.cs" />
     <Compile Include="Export\Export.cs" />
     <Compile Include="Export\ExportExtension.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
@@ -76,13 +85,14 @@
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Extensions\StringFilterExtension.cs" />
+    <Compile Include="Helpers\ValidateHelper.cs" />
     <Compile Include="IAppService.cs" />
     <Compile Include="IDataService.cs" />
     <Compile Include="Import\Import.cs" />
     <Compile Include="Attributes\ImprotIgnoreAttribute.cs" />
-    <Compile Include="IpHelper.cs" />
+    <Compile Include="Helpers\IpHelper.cs" />
     <Compile Include="JsonData.cs" />
-    <Compile Include="Md5Helper.cs" />
+    <Compile Include="Helpers\Md5Helper.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Module\ModuleBase.cs" />
     <Compile Include="Mvc\ResultCode.cs" />

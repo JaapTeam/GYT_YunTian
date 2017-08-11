@@ -35,9 +35,6 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("用户名或密码不能为空！");
             }
 
-            ValidataInputString(userInfoDto.UserName, userInfoDto.Password, userInfoDto.DisplayName
-                , userInfoDto.Email,userInfoDto.MobilePhone);
-
             if (
                 userInfoDto.UserName.Length <= 6 ||
                 userInfoDto.Password.Length < 6)
@@ -57,8 +54,6 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Login(string userName, string password)
         {
-            ValidataInputString(userName, password);
-
             var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password);
 
             if (loginResult != LoginStatus.Success)
@@ -117,8 +112,6 @@ namespace com.gyt.ms.Controllers
             {
                 return Fail("当前密码错误！");
             }
-
-            ValidataInputString(newPassword);
 
             if (newPassword.IsNullOrEmpty() || newPassword.Length < 6)
             {
@@ -182,11 +175,7 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("用户名不能为空！");
             }
 
-            ValidataInputString(userInfoDto.UserName, userInfoDto.DisplayName
-                , userInfoDto.Email, userInfoDto.MobilePhone);
-
-            if (
-                userInfoDto.UserName.Length <= 6)
+            if (userInfoDto.UserName.Length <= 6)
             {
                 throw new ArgumentException("用户名的长度不能小于6！");
             }

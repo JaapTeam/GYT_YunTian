@@ -1,9 +1,10 @@
 ﻿using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class CompanyInfoDto
+    public class CompanyInfoDto : DtoBase
     {
         [Sort(1)]
         [ExportDisplayName("编号")]

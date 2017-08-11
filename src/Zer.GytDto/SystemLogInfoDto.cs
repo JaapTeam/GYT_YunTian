@@ -1,6 +1,9 @@
+using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
+
 namespace Zer.GytDto
 {
-    public class SystemLogInfoDto
+    public class SystemLogInfoDto : DtoBase
     {
         public int UserId { get; set; }
         public string Content { get; set; }

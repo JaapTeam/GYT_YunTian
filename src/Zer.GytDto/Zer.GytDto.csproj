@@ -54,6 +54,7 @@
     <Compile Include="LogInfoDto.cs" />
     <Compile Include="PeccancyRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchFilters\LngAllowanceSearchDto.cs" />
     <Compile Include="SystemLogInfoDto.cs" />
     <Compile Include="TruckInfoDto.cs" />
     <Compile Include="Users\ChangePasswordResult.cs" />

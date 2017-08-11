@@ -1,10 +1,13 @@
+using System;
 using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
 using Zer.Framework.Extensions;
 
 namespace Zer.GytDto
 {
-    public class LngAllowanceInfoDto
+    [Serializable]
+    public class LngAllowanceInfoDto : DtoBase
     {
         [Sort(1)]
         [ImprotIgnore]
