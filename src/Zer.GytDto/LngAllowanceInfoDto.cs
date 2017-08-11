@@ -1,10 +1,12 @@
+using System;
 using Zer.Framework.Attributes;
 using Zer.Framework.Export.Attributes;
 using Zer.Framework.Extensions;
 
 namespace Zer.GytDto
 {
-    public class LngAllowanceInfoDto
+    [Serializable]
+    public class LngAllowanceInfoDto : IValidateInputParameter
     {
         [Sort(1)]
         [ImprotIgnore]

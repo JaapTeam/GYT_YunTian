@@ -4,7 +4,7 @@ using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class LogInfoDto
+    public class LogInfoDto : IValidateInputParameter
     {
         [Sort(1)]
         [ExportDisplayName("日志编号")]

@@ -70,6 +70,8 @@
   <ItemGroup>
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="Attributes\CustomExceptionAttribute.cs" />
+    <Compile Include="Attributes\UnValidateInputsAttribute.cs" />
+    <Compile Include="Attributes\ValidateInputAttribute.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="MvcLoggerModule.cs" />
     <Compile Include="Attributes\NoAuthorizeAttribute.cs" />
