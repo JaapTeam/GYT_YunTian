@@ -1,9 +1,10 @@
 ﻿using Zer.Entities;
 using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
 
 namespace Zer.GytDto
 {
-    public class TruckInfoDto : IValidateInputParameter
+    public class TruckInfoDto : DtoBase
     {
         public int Id { get; set; }
         public string FrontTruckNo { get; set; }

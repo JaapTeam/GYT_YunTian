@@ -1,4 +1,4 @@
-﻿namespace Zer.Framework.Attributes
+﻿namespace Zer.Framework.Dto
 {
     public interface IValidateInputParameter
     {

@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Attributes;
+using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
 
 namespace Zer.GytDto
 {
-    public class PeccancyRecrodDto : IValidateInputParameter
+    public class PeccancyRecrodDto : DtoBase
     {
         [ExportIgnore]
         [ImprotIgnore]

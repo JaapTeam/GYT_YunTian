@@ -2,9 +2,11 @@
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices.Impl
 {
@@ -57,6 +59,28 @@ namespace Zer.AppServices.Impl
             return _lngAllowanceInfoDataService.GetAll()
                 .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
                           x.CylinderDefaultId == lngAllowanceInfoDto.CylinderDefaultId);
+        }
+
+        public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)
+        {
+            var query = _lngAllowanceInfoDataService.GetAll();
+
+            if (!searchDto.TruckNo.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo));
+            }
+
+            if (!searchDto.EngineId.IsNullOrEmpty())
+            {
+                query = query.Where(x=>x.EngineId == searchDto.EngineId);
+            }
+
+            if (searchDto.IsAllowanced.HasValue)
+            {
+                //query = query.Where(x=>x.)
+            }
+
+            return query.Map<LngAllowanceInfoDto>().ToList();
         }
     }
 }
