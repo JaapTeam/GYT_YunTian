@@ -60,13 +60,13 @@
 <div class="table-header" style="margin-top: 20px">
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-        <a class="white" href="#" id="btn_improt">
+        <a class="white"  id="btn_improt">
             <i class="icon-cloud-upload bigger-110">
                 <span class="">批量导入</span>
             </i>
         </a>
 
-        <a class="white" href="#" id="btn_export">
+        <a class="white" id="btn_export" href="@(Url.Action("ExportResult","PeccancyRecrod",new {exportcode="All"}))">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
             </i>
@@ -226,27 +226,27 @@
         });
 
         $(function() {
-            $("#btn_export")
-                .click(function() {
+            //$("#btn_export")
+            //    .click(function() {
 
-                    var ids = [];
-                    var index = 0;
+            //        var ids = [];
+            //        var index = 0;
 
-                    var tbodyObj = document.getElementById('tb_Info');
-                    $("table :checkbox")
-                        .each(function(key, value) {
-                            if ($(value).prop('checked')) {
-                                ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
-                                index++;
-                            }
-                        });
+            //        var tbodyObj = document.getElementById('tb_Info');
+            //        $("table :checkbox")
+            //            .each(function(key, value) {
+            //                if ($(value).prop('checked')) {
+            //                    ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
+            //                    index++;
+            //                }
+            //            });
 
-                    if (ids.length > 0) {
-                        exportRequst(ids);
-                    }
-                });
+            //        if (ids.length > 0) {
+            //            exportRequst(ids);
+            //        }
+            //    });
 
-            function exportRequst(ids) {
+            @*function exportRequst(ids) {
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Export")",
@@ -256,7 +256,7 @@
                         alert("数据导出成功！");
                     }
                 });
-            }
+            }*@
 
            
             $("#btn_improt")

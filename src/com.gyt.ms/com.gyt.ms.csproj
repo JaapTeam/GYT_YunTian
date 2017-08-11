@@ -325,6 +325,7 @@
     <Content Include="Views\LngAllowance\Add.cshtml" />
     <Content Include="Views\LngAllowance\ImportResult.cshtml" />
     <Content Include="Views\PeccancyRecrod\ImportResult.cshtml" />
+    <Content Include="Views\GYTInfo\ImportResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

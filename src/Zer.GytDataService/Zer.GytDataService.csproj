@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impl\GYTInfoDataService.cs" />
+    <Compile Include="IGYTInfoDataService.cs" />
     <Compile Include="IPeccancyRecrodDataService.cs" />
     <Compile Include="ISystemLogInfoDataService.cs" />
     <Compile Include="ITruckInfoDataService.cs" />
@@ -62,45 +64,9 @@
     <Compile Include="Impl\PeccancyRecrodDataService.cs" />
     <Compile Include="LogsDbContext.cs" />
     <Compile Include="LogsRepository.cs" />
-    <Compile Include="Migrations\201708060752151_intiDataBase.cs" />
-    <Compile Include="Migrations\201708060752151_intiDataBase.Designer.cs">
-      <DependentUpon>201708060752151_intiDataBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.cs" />
-    <Compile Include="Migrations\201708060907090_modifyOverLoadInfo.Designer.cs">
-      <DependentUpon>201708060907090_modifyOverLoadInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081323017_modifyOverLoadInfo1.cs" />
-    <Compile Include="Migrations\201708081323017_modifyOverLoadInfo1.Designer.cs">
-      <DependentUpon>201708081323017_modifyOverLoadInfo1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081604147_modifyOverLoadInfo2.cs" />
-    <Compile Include="Migrations\201708081604147_modifyOverLoadInfo2.Designer.cs">
-      <DependentUpon>201708081604147_modifyOverLoadInfo2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081630401_modifyOverLoadInfo3.cs" />
-    <Compile Include="Migrations\201708081630401_modifyOverLoadInfo3.Designer.cs">
-      <DependentUpon>201708081630401_modifyOverLoadInfo3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081635377_modifyOverLoadInfo4.cs" />
-    <Compile Include="Migrations\201708081635377_modifyOverLoadInfo4.Designer.cs">
-      <DependentUpon>201708081635377_modifyOverLoadInfo4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708081636391_modifyOverLoadInfo5.cs" />
-    <Compile Include="Migrations\201708081636391_modifyOverLoadInfo5.Designer.cs">
-      <DependentUpon>201708081636391_modifyOverLoadInfo5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091354514_modifyTruckInfo.cs" />
-    <Compile Include="Migrations\201708091354514_modifyTruckInfo.Designer.cs">
-      <DependentUpon>201708091354514_modifyTruckInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708091525537_addInfo.cs" />
-    <Compile Include="Migrations\201708091525537_addInfo.Designer.cs">
-      <DependentUpon>201708091525537_addInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101307175_modyfi.cs" />
-    <Compile Include="Migrations\201708101307175_modyfi.Designer.cs">
-      <DependentUpon>201708101307175_modyfi.cs</DependentUpon>
+    <Compile Include="Migrations\201708111425119_modifyGYTInfo.cs" />
+    <Compile Include="Migrations\201708111425119_modifyGYTInfo.Designer.cs">
+      <DependentUpon>201708111425119_modifyGYTInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,19 +93,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708060752151_intiDataBase.resx" />
-    <EmbeddedResource Include="Migrations\201708060907090_modifyOverLoadInfo.resx" />
-    <EmbeddedResource Include="Migrations\201708081323017_modifyOverLoadInfo1.resx" />
-    <EmbeddedResource Include="Migrations\201708081604147_modifyOverLoadInfo2.resx" />
-    <EmbeddedResource Include="Migrations\201708081630401_modifyOverLoadInfo3.resx" />
-    <EmbeddedResource Include="Migrations\201708081635377_modifyOverLoadInfo4.resx" />
-    <EmbeddedResource Include="Migrations\201708081636391_modifyOverLoadInfo5.resx" />
-    <EmbeddedResource Include="Migrations\201708091354514_modifyTruckInfo.resx" />
-    <EmbeddedResource Include="Migrations\201708091525537_addInfo.resx">
-      <DependentUpon>201708091525537_addInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101307175_modyfi.resx">
-      <DependentUpon>201708101307175_modyfi.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708111425119_modifyGYTInfo.resx">
+      <DependentUpon>201708111425119_modifyGYTInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

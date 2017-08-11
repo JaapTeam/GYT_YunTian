@@ -49,6 +49,7 @@
     <Compile Include="CardsSuccessInfoDto.cs" />
     <Compile Include="CompanyInfoDto.cs" />
     <Compile Include="Extensions\AutoMapperExtensionsWithDto.cs" />
+    <Compile Include="GYTInfoDto.cs" />
     <Compile Include="LngAllowanceInfoDto.cs" />
     <Compile Include="LogInfoDto.cs" />
     <Compile Include="PeccancyRecrodDto.cs" />

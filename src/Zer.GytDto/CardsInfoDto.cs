@@ -1,4 +1,5 @@
 ﻿using System;
+using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Export.Attributes;
 
@@ -96,24 +97,5 @@ namespace Zer.GytDto
     }
 
 
-    /// <summary>
-    /// 业务类型
-    /// </summary>
-    public enum BusinessType
-    {
-        Gas = 0,
-        Transfer = 1,
-        New = 2
-    }
-
-    /// <summary>
-    /// 信息状态
-    /// </summary>
-    public enum BusinessState
-    {
-        Initial = 0,
-        FirstAuditor = 1,
-        SingleAuditor = 2,
-        HasBeenAuditor = 2
-    }
+    
 }
