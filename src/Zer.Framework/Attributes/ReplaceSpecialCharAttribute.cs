@@ -49,17 +49,6 @@ namespace Zer.Framework.Attributes
                 return (T)ReplaceUnsafeChar(list);
             }
 
-            ////var collection = obj as IList;
-            ////if (collection != null)
-            ////{
-            ////    var list = collection.GetEnumerator();
-            ////    while (list.MoveNext())
-            ////    {
-            ////        ReplaceUnsafeChar(list.Current);
-            ////    }
-            ////    return (T)list;
-            ////}
-
             foreach (var propertyInfo in obj.GetType().GetProperties())
             {
                 var value = propertyInfo.GetValue(obj);
