@@ -1,0 +1,310 @@
+﻿@using Castle.Core.Internal
+@using Zer.GytDto
+@{
+    var successList = ViewBag.SuccessList as List<GYTInfoDto>;
+    var failedList = ViewBag.FailedList as List<GYTInfoDto>;
+    var existedList = ViewBag.ExistedList as List<GYTInfoDto>;
+}
+
+<!--导入失败的列表-->
+@if (!failedList.IsNullOrEmpty())
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header header-color-pink header-color-red">
+                    <h5>Bottom Toolbox (Footer)</h5>
+
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="collapse">
+                            <i class="1 bigger-125 icon-chevron-up"></i>
+                        </a>
+                    </div>
+
+                    <div class="widget-toolbar no-border">
+                        <a class="btn btn-xs btn-info bigger" target="_blank" href="@(Url.Action("ExportResult", "GYTInfo", new {exportCode = ViewBag.FailedCode.ToString()}))">
+                            >
+                            <i class="icon-share"></i>
+                            导出
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-body-inner" style="display: block;">
+                        <div class="widget-main">
+                            <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                        <th>办理编号</th>
+                                        <th>业务类型</th>
+                                        <th>原企业</th>
+                                        <th>原车牌号</th>
+                                        <th>申办企业</th>
+                                        <th>申办车牌号</th>
+                                        <th>办理日期</th>
+                                        <th>经办人</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+    if (failedList != null && failedList.Count > 0)
+    {
+        foreach (var gytInfoDto in failedList)
+        {
+            <tr>
+                <td class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;">@gytInfoDto.Id</a>
+                </td>
+                <td>@gytInfoDto.BusinessType</td>
+                <td class="hidden-480">@gytInfoDto.OriginalCompanyName</td>
+                <td>@gytInfoDto.OriginalTruckNo</td>
+
+                <td>@gytInfoDto.BidCompanyName</td>
+                <td>
+                    @gytInfoDto.BidTruckNo
+                </td>
+                <td>
+                    @gytInfoDto.BidDate
+                </td>
+                <td>@gytInfoDto.BidName</td>
+                <td>
+                    <a href="javascript:;">详情</a>
+                </td>
+            </tr>
+        }
+    }
+                                    }
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!--重复数据的列表-->
+@if (!existedList.IsNullOrEmpty())
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header header-color-dark">
+                    <h5>未导入的重复数据</h5>
+
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="collapse">
+                            <i class="1 bigger-125 icon-chevron-up"></i>
+                        </a>
+                    </div>
+
+                    <div class="widget-toolbar no-border">
+                        <a class="btn btn-xs btn-inverse bigger" target="_blank" href="@(Url.Action("ExportResult", "GYTInfo", new {exportCode = ViewBag.ExistedCode.ToString()}))">
+                            <i class="icon-share"></i>
+                            导出
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-body-inner" style="display: block;">
+                        <div class="widget-main">
+
+                            <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace" />
+                                                <span class="lbl"></span>
+                                            </label>
+                                        </th>
+                                        <th>办理编号</th>
+                                        <th>业务类型</th>
+                                        <th>原企业</th>
+                                        <th>原车牌号</th>
+                                        <th>申办企业</th>
+                                        <th>申办车牌号</th>
+                                        <th>办理日期</th>
+                                        <th>经办人</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+    if (existedList != null && existedList.Count > 0)
+    {
+        foreach (var gytInfoDto in existedList)
+        {
+            <tr>
+                <td class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;">@gytInfoDto.Id</a>
+                </td>
+                <td>@gytInfoDto.BusinessType</td>
+                <td class="hidden-480">@gytInfoDto.OriginalCompanyName</td>
+                <td>@gytInfoDto.OriginalTruckNo</td>
+
+                <td>@gytInfoDto.BidCompanyName</td>
+                <td>
+                    @gytInfoDto.BidTruckNo
+                </td>
+                <td>
+                    @gytInfoDto.BidDate
+                </td>
+                <td>@gytInfoDto.BidName</td>
+                <td>
+                    <a href="javascript:;">详情</a>
+                </td>
+            </tr>
+        }
+    }
+                                    }
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!--导入成功的列表-->
+@if (successList.IsNullOrEmpty())
+{
+    <div class="alert alert-block alert-danger">
+        <button type="button" class="close" data-dismiss="alert">
+            <i class="icon-remove"></i>
+        </button>
+
+        <i class="icon-exclamation-sign white"></i>
+
+        <strong class="green">
+            所有数据导入失败
+        </strong>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header header-color-green">
+                    <h5>导入成功的数据</h5>
+
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="collapse">
+                            <i class="1 bigger-125 icon-chevron-up"></i>
+                        </a>
+                    </div>
+
+                    <div class="widget-toolbar no-border">
+                        <a class="btn btn-xs btn-success bigger" target="_blank" href="@(Url.Action("ExportResult", "GYTInfo", new {exportCode = ViewBag.SuccessCode.ToString()}))">
+                            <i class="icon-share"></i>
+                            导出
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-body-inner" style="display: block;">
+                        <div class="widget-main">
+
+                            <div class="table-responsive">
+                                <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="center">
+                                                <label>
+                                                    <input type="checkbox" class="ace" />
+                                                    <span class="lbl"></span>
+                                                </label>
+                                            </th>
+                                            <th>办理编号</th>
+                                            <th>业务类型</th>
+                                            <th>原企业</th>
+                                            <th>原车牌号</th>
+                                            <th>申办企业</th>
+                                            <th>申办车牌号</th>
+                                            <th>办理日期</th>
+                                            <th>经办人</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+    if (successList != null && successList.Count > 0)
+    {
+        foreach (var gytInfoDto in successList)
+        {
+            <tr>
+                <td class="center">
+                    <label>
+                        <input type="checkbox" class="ace" />
+                        <span class="lbl"></span>
+                    </label>
+                </td>
+                <td>
+                    <a href="javascript:;">@gytInfoDto.Id</a>
+                </td>
+                <td>@gytInfoDto.BusinessType</td>
+                <td class="hidden-480">@gytInfoDto.OriginalCompanyName</td>
+                <td>@gytInfoDto.OriginalTruckNo</td>
+
+                <td>@gytInfoDto.BidCompanyName</td>
+                <td>
+                    @gytInfoDto.BidTruckNo
+                </td>
+                <td>
+                    @gytInfoDto.BidDate
+                </td>
+                <td>@gytInfoDto.BidName</td>
+                <td>
+                    <a href="javascript:;">详情</a>
+                </td>
+            </tr>
+        }
+    }
+                                        }
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

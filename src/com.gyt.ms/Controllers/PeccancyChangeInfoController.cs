@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
+using Zer.Framework.Extensions;
+using Zer.GytDto;
 
 namespace com.gyt.ms.Controllers
 {
@@ -32,21 +34,25 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public FileResult Export(int[] ids)
+        public FileResult Export(string exportCode="")
         {
-            if (ids.Length <= 0)
+            List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();
+
+            if (exportCode.IsNullOrEmpty())
             {
-                RedirectToAction("index", "Error", "请选择需要导出的记录！");
+                return null;
             }
 
-            var result = _overloadRecrodService.GetListByIds(ids);
-
-            if (result.Count <= 0)
+            if (exportCode.ToLower() == "all")
             {
-                RedirectToAction("index", "Error", "未查询到相关数据！");
+                exportList = _overloadRecrodService.GetAll().Where(x => x.Status == Status.已整改).ToList();
+            }
+            else
+            {
+                exportList = GetValueFromSession<List<PeccancyRecrodDto>>(exportCode);
             }
 
-            return ExportCsv(result.GetBuffer(), "违法记录");
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限整改记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
     }
 }

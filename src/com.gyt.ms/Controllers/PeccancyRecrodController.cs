@@ -55,24 +55,6 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
-        //ToDo:单元测试
-        public FileResult Export(int[] ids)
-        {
-            if (ids.Length<=0)
-            {
-                RedirectToAction("index", "Error", "请选择需要导出的记录！");
-            }
-
-            var result = _overloadRecrodService.GetListByIds(ids);
-
-            if (result.Count<=0)
-            {
-                RedirectToAction("index", "Error", "未查询到相关数据！");
-            }
-
-            return ExportCsv(result.GetBuffer(), "违法记录");
-        }
-
         //Todo: 建议优化检查检查重复业务逻辑
         [System.Web.Mvc.HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
@@ -155,14 +137,14 @@ namespace com.gyt.ms.Controllers
 
             if (exportCode.ToLower() == "all")
             {
-                exportList = _overloadRecrodService.GetAll();
+                exportList = _overloadRecrodService.GetAll().Where(x=>x.Status==Status.未整改).ToList();
             }
             else
             {
                 exportList = GetValueFromSession<List<PeccancyRecrodDto>>(exportCode);
             }
 
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限未整改记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)

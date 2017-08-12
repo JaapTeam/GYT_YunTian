@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Impl\GYTInfoDataService.cs" />
+    <Compile Include="IGYTInfoDataService.cs" />
     <Compile Include="IPeccancyRecrodDataService.cs" />
     <Compile Include="ISystemLogInfoDataService.cs" />
     <Compile Include="ITruckInfoDataService.cs" />
