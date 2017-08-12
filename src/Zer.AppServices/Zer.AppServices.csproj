@@ -62,6 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServiceModule.cs" />
+    <Compile Include="Impl\GYTInfoService.cs" />
+    <Compile Include="IGYTInfoService.cs" />
     <Compile Include="Impl\CompanyService.cs" />
     <Compile Include="ICardsInfoService.cs" />
     <Compile Include="ICardsSuccessInfo.cs" />

@@ -18,5 +18,6 @@ namespace Zer.GytDataService
         public DbSet<UserLogInfo> Logs { get; set; }
         public DbSet<LngAllowanceInfo> LngAllowanceInfos { get; set; }
         public DbSet<SystemLogInfo> SystemLogInfos { get; set; }
+        public DbSet<GYTInfo> GytInfos { get; set; }
     }
 }

@@ -145,6 +145,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
+    <Compile Include="Controllers\GYTSuccessController.cs" />
     <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LngAllowanceController.cs" />
@@ -307,8 +308,6 @@
     <Content Include="Views\BusinessHandle\Index.cshtml" />
     <Content Include="Views\GYTInfo\Index.cshtml" />
     <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
-    <Content Include="Views\OverLoadChangeInfo\Index.cshtml" />
-    <Content Include="Views\OverloadRecrod\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\AccountManage.cshtml" />
@@ -322,6 +321,11 @@
     <Content Include="Views\User\EditUserInfo.cshtml" />
     <Content Include="Views\LngAllowance\Add.cshtml" />
     <Content Include="Views\LngAllowance\ImportResult.cshtml" />
+    <Content Include="Views\GYTInfo\ImportResult.cshtml" />
+    <Content Include="Views\PeccancyChangeInfo\Index.cshtml" />
+    <Content Include="Views\PeccancyRecrod\ImportResult.cshtml" />
+    <Content Include="Views\PeccancyRecrod\Index.cshtml" />
+    <Content Include="Views\GYTSuccess\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

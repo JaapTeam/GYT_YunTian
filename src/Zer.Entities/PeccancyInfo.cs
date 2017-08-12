@@ -9,6 +9,11 @@ namespace Zer.Entities
         [MaxLength(50)]
         public string PeccancyId { get; set; }
         public int CompanyId { get; set; }
+        [MaxLength(100)]
+        public string CompanyName { get; set; }
+
+        public int TruckId { get; set; }
+
         [MaxLength(20)]
         public string FrontTruckNo { get; set; }
          [MaxLength(20)]
@@ -30,7 +35,7 @@ namespace Zer.Entities
 
     public enum Status
     {
-        未整改,
-        已整改
+        未整改=1,
+        已整改=4
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Zer.Entities;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices.Impl
 {
@@ -62,6 +64,28 @@ namespace Zer.AppServices.Impl
         {
             return _peccancyRecrodDataService.GetAll()
                 .Any(x => x.PeccancyId == overloadRecrodDto.PeccancyId);
+        }
+
+        public List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto)
+        {
+            var query = _peccancyRecrodDataService.GetAll();
+
+            if (!searchDto.TruckNo.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.FrontTruckNo == searchDto.TruckNo);
+            }
+
+            if (searchDto.CompanyId != 0)
+            {
+                query = query.Where(x => x.CompanyId == searchDto.CompanyId);
+            }
+
+            if (searchDto.Status != 0)
+            {
+                query = query.Where(x => x.Status == searchDto.Status);
+            }
+
+            return query.Map<PeccancyRecrodDto>().ToList();
         }
     }
 }

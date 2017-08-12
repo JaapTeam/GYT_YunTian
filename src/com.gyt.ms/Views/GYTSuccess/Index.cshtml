@@ -13,42 +13,60 @@
     var searchFilter = ViewBag.SearchDto as GYTInfoSearchDto ?? (GYTInfoSearchDto)new GYTInfoSearchDto();
 }
 
+
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-inline" style="height: 50px; line-height: 45px" action="@(Url.Action("Search", "GYTInfo", new { activeId = ViewBag.ActiveId }))" method="post">
-            公司名称：
-            <select class=" chosen-select" style="display: none; width: 200px" name="CompanyId">
-                <option value="">&nbsp;</option>
-                @{
-                    Debug.Assert(companyList != null, "companyList != null");
-                }
-                @foreach (var companyInfoDto in companyList)
-                {
+        <form action="@(Url.Action("Search", "GYTSuccess", new { activeId = ViewBag.ActiveId }))" method="post" style="height: 50px; line-height: 45px">
 
-                    <option value="@companyInfoDto.Id">@companyInfoDto.CompanyName</option>
-                }
-            </select>
-            车牌号码：
-            <select class="chosen-select " style="display: none; width: 115px" name="TruckNo">
-                <option value="">&nbsp;</option>
-                @{
-                    Debug.Assert(truckList != null, "truckList != null");
-                }
-                @foreach (var truckInfoDto in truckList)
-                {
-                    <option value="@truckInfoDto.FrontTruckNo">@truckInfoDto.FrontTruckNo</option>
-                }
-            </select>
+            <div class="div-inline">
 
-            <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+                <div class="div-inline">
+                    @*<div class="input-group col-xs-5">
+                        <span>查询时间：</span>
+                        <span class="input-group-addon">
+                            <i class="icon-calendar"></i>
+                        </span>
+
+                        <input class="form-control" type="text" name="date-range-picker" id="drp_QueryDate">
+                    </div>*@
+                </div>
+                <span style="margin-left: 10px">公司名称：</span>
+                <select class=" chosen-select" style="display: none; width: 200px" id="select_Company" name="CompanyId">
+                    <option value="">&nbsp;</option>
+
+                    @{
+                        Debug.Assert(companyList != null, "companyList != null");
+                    }
+                    @foreach (var companyInfoDto in companyList)
+                    {
+                        <option value="@(companyInfoDto.Id)" @((companyInfoDto.Id == searchFilter.CompanyId) ? "selected" : "")>@(companyInfoDto.CompanyName)</option>
+                    }
+                </select>
+                车牌号码：
+                <select class="chosen-select " style="display: none; width: 105px" id="select_Truck" name="TruckNo">
+                    <option value="">&nbsp;</option>
+
+                    @{
+                        Debug.Assert(truckList != null, "truckList != null");
+                    }
+                    @foreach (var truckInfoDto in truckList)
+                    {
+                        <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
+                    }
+                </select>
+
+                <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+
+            </div>
+
         </form>
 
         <div class="table-header">
 
             <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-                
+
                 <a class="white" href="javascript:void(0)" id="btn_improt">
-                    <i class="icon-cloud-upload bigger-110" >
+                    <i class="icon-cloud-upload bigger-110">
                         <span class="">批量导入</span>
                     </i>
                 </a>
@@ -65,59 +83,61 @@
         <div class="table-responsive">
             <table id="sample-table-2" class="table table-striped table-bordered table-hover">
                 <thead>
-                <tr>
-                    <th class="center">
-                        <label>
-                            <input type="checkbox" class="ace" />
-                            <span class="lbl"></span>
-                        </label>
-                    </th>
-                    <th>办理编号</th>
-                    <th>业务类型</th>
-                    <th>原企业</th>
-                    <th>原车牌号</th>
-                    <th>申办企业</th>
-                    <th>申办车牌号</th>
-                    <th>办理日期</th>
-                    <th>经办人</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th class="center">
+                            <label>
+                                <input type="checkbox" class="ace" />
+                                <span class="lbl"></span>
+                            </label>
+                        </th>
+                        <th>办理编号</th>
+                        <th>业务类型</th>
+                        <th>原企业</th>
+                        <th>原车牌号</th>
+                        <th>申办企业</th>
+                        <th>申办车牌号</th>
+                        <th>办理日期</th>
+                        <th>经办人</th>
+                        <th>业务状态</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                @{
-                    if (infoList != null && infoList.Count > 0)
-                    {
-                        foreach (var gytInfoDto in infoList)
+                    @{
+                        if (infoList != null && infoList.Count > 0)
                         {
-                            <tr>
-                                <td class="center">
-                                    <label>
-                                        <input type="checkbox" class="ace" />
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <a href="javascript:;">@gytInfoDto.Id</a>
-                                </td>
-                                <td>@gytInfoDto.BusinessType</td>
-                                <td class="hidden-480">@gytInfoDto.OriginalCompanyName</td>
-                                <td>@gytInfoDto.OriginalTruckNo</td>
+                            foreach (var gytInfoDto in infoList)
+                            {
+                                <tr>
+                                    <td class="center">
+                                        <label>
+                                            <input type="checkbox" class="ace" />
+                                            <span class="lbl"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:;">@gytInfoDto.Id</a>
+                                    </td>
+                                    <td>@gytInfoDto.BusinessType</td>
+                                    <td class="hidden-480">@gytInfoDto.OriginalCompanyName</td>
+                                    <td>@gytInfoDto.OriginalTruckNo</td>
 
-                                <td>@gytInfoDto.BidCompanyName</td>
-                                <td>
-                                    @gytInfoDto.BidTruckNo
-                                </td>
-                                <td>
-                                    @gytInfoDto.BidDate
-                                </td>
-                                <td>@gytInfoDto.BidName</td>
-                                <td><a href="javascript:;">详情</a></td>
-                            </tr>
+                                    <td>@gytInfoDto.BidCompanyName</td>
+                                    <td>
+                                        @gytInfoDto.BidTruckNo
+                                    </td>
+                                    <td>
+                                        @gytInfoDto.BidDate
+                                    </td>
+                                    <td>@gytInfoDto.BidName</td>
+                                    <td>@gytInfoDto.Status</td>
+                                    <td><a href="javascript:;">详情</a></td>
+                                </tr>
+                            }
                         }
+
                     }
 
-                }
-                
                 </tbody>
             </table>
 
@@ -215,7 +235,11 @@
                     $("#Submit").click();
                     $("#input_file").text("");
                 });
-        }); 
+        });
     </script>
 
 }
+
+
+
+

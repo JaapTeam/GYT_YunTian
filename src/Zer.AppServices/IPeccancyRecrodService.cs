@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices
 {
@@ -12,5 +13,7 @@ namespace Zer.AppServices
         List<PeccancyRecrodDto> GetListByIds(int[] ids);
 
         bool Exists(PeccancyRecrodDto overloadRecrodDto);
+
+        List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto);
     }
 }

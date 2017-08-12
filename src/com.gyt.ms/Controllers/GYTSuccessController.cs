@@ -12,31 +12,31 @@ using Zer.GytDto.SearchFilters;
 
 namespace com.gyt.ms.Controllers
 {
-    public class PeccancyChangeInfoController : BaseController
+    public class GYTSuccessController : BaseController
     {
-        private readonly IPeccancyRecrodService _peccancyRecrodService;
+        private readonly IGYTInfoService _gytInfoService;
         private readonly ITruckInfoService _truckInfoService;
         private readonly ICompanyService _companyService;
 
-        public PeccancyChangeInfoController(IPeccancyRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
+        public GYTSuccessController(IGYTInfoService gytInfoService, ITruckInfoService truckInfoService, ICompanyService companyService)
         {
-            _peccancyRecrodService = overloadRecrodService;
+            _gytInfoService = gytInfoService;
             _truckInfoService = truckInfoService;
             _companyService = companyService;
         }
 
-        // GET: OverLoadChangeInfo
+        // GET: GYTSuccess
         public ActionResult Index(int activeId=0)
         {
             ViewBag.ActiveId = activeId;
             ViewBag.TruckList = _truckInfoService.GetAll().ToList();
             ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _peccancyRecrodService.GetAll().Where(x=>x.Status==Status.已整改).ToList();
+            ViewBag.Result = _gytInfoService.GetAll().ToList();
             return View();
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Search(PeccancySearchDto searchDto, int activeId = 7)
+        public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 7)
         {
             ViewBag.ActiveId = activeId;
             var truckList = _truckInfoService.GetAll();
@@ -46,15 +46,14 @@ namespace com.gyt.ms.Controllers
             ViewBag.CompanyList = companyList;
             ViewBag.SearchDto = searchDto;
 
-            searchDto.Status = Status.已整改;
-            ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
+            ViewBag.Result = _gytInfoService.GetList(searchDto);
 
             return View("Index");
         }
 
-        public FileResult Export(string exportCode="")
+        public FileResult Export(string exportCode = "")
         {
-            List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();
+            List<GYTInfoDto> exportList = new List<GYTInfoDto>();
 
             if (exportCode.IsNullOrEmpty())
             {
@@ -63,14 +62,14 @@ namespace com.gyt.ms.Controllers
 
             if (exportCode.ToLower() == "all")
             {
-                exportList = _peccancyRecrodService.GetAll().Where(x => x.Status == Status.已整改).ToList();
+                exportList = _gytInfoService.GetAll().ToList();
             }
             else
             {
-                exportList = GetValueFromSession<List<PeccancyRecrodDto>>(exportCode);
+                exportList = GetValueFromSession<List<GYTInfoDto>>(exportCode);
             }
 
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限整改记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通办理记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
     }
 }
