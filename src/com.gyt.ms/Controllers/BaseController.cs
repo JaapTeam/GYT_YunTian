@@ -133,7 +133,7 @@ namespace com.gyt.ms.Controllers
             MenuItem gtyHandleRecrod = new MenuItem();
             gtyHandleRecrod.Id = 4;
             gtyHandleRecrod.ActionName = "Index";
-            gtyHandleRecrod.ControllerName = "GYTHandleRecrod";
+            gtyHandleRecrod.ControllerName = "GYTSuccess";
             gtyHandleRecrod.TextInfo = "港运通办理信息数据库";
             gtyHandleRecrod.IsCurrentPage = false;
             gtyHandleRecrod.Icon = "icon-file-alt";

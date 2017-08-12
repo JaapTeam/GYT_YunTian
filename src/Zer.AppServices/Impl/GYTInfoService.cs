@@ -4,9 +4,11 @@ using System.Linq;
 using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices.Impl
 {
@@ -54,6 +56,27 @@ namespace Zer.AppServices.Impl
         public bool Exists(string bidTruckNo)
         {
             return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim());
+        }
+
+        public List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto)
+        {
+            var query = _gytInfoDataService.GetAll();
+
+            if (searchDto.CompanyId!=0)
+            {
+                query = query.Where(x => x.BidCompanyId == searchDto.CompanyId || x.OriginalCompanyId == searchDto.CompanyId);
+            }
+
+            if (!searchDto.TruckNo.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.BidTruckNo == searchDto.TruckNo||x.OriginalTruckNo==searchDto.TruckNo);
+            }
+
+            if (searchDto.Status != 0)
+            {
+                query = query.Where(x => x.Status == searchDto.Status);
+            }
+            return query.Map<GYTInfoDto>().ToList();
         }
     }
 }
