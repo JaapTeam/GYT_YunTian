@@ -124,7 +124,7 @@ namespace com.gyt.ms.Controllers
                 }
 
             }
-            return RedirectToAction("Index", "Error", "导入失败");
+            throw new Exception("文件上传失败，导入失败");
         }
 
         public FileResult ExportResult(string exportCode = "")
@@ -161,7 +161,7 @@ namespace com.gyt.ms.Controllers
 
             searchDto.Status = Status.未整改;
             ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
-
+            
             return View("Index");
         }
 
