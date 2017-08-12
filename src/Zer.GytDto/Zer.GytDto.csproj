@@ -54,6 +54,8 @@
     <Compile Include="LogInfoDto.cs" />
     <Compile Include="PeccancyRecrodDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchFilters\GYTInfoSearchDto.cs" />
+    <Compile Include="SearchFilters\PeccancySearchDto.cs" />
     <Compile Include="SearchFilters\LngAllowanceSearchDto.cs" />
     <Compile Include="SystemLogInfoDto.cs" />
     <Compile Include="TruckInfoDto.cs" />

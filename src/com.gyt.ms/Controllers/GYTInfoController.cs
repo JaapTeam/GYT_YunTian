@@ -11,6 +11,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 
 namespace com.gyt.ms.Controllers
 {
@@ -135,6 +136,23 @@ namespace com.gyt.ms.Controllers
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
+
+        public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 3)
+        {
+            ViewBag.ActiveId = activeId;
+            var truckList = _truckInfoService.GetAll();
+            var companyList = _companyService.GetAll();
+
+            ViewBag.TruckList = truckList;
+            ViewBag.CompanyList = companyList;
+            ViewBag.SearchDto = searchDto;
+
+            searchDto.Status = BusinessState.已通过;
+            ViewBag.Result = _gytInfoService.GetList(searchDto);
+
+            return View("Index");
+        }
+
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {

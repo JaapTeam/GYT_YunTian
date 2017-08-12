@@ -1,5 +1,6 @@
 ﻿@using System.Diagnostics
 @using Zer.GytDto
+@using Zer.GytDto.SearchFilters
 
 @{
     ViewBag.Title = "Index";
@@ -7,55 +8,63 @@
     var truckList = ViewBag.TruckList as List<TruckInfoDto>;
     var companyList =ViewBag.CompanyList as List<CompanyInfoDto>;
     var infoList = ViewBag.Result as List<PeccancyRecrodDto>;
+    var searchFilter = ViewBag.SearchDto as PeccancySearchDto;
+
+    if (searchFilter == null)
+    {
+        searchFilter = new PeccancySearchDto();
+    }
+    
 }
 
-<div class="div-inline">
-    <div class="input-group col-xs-5">
-        <span>查询时间：</span>
-        <span class="input-group-addon">
-            <i class="icon-calendar bigger-110"></i>
-        </span>
-
-        <input class="form-control" type="text" name="date-range-picker" id="drp_QueryDate">
-    </div>
-    <div>
-        <button type="submit" class="btn btn-small btn-info icon-search" style="margin-left: 20px; height: 34px;border: none" id="btn_Qurey">查询</button>
-    </div>
-</div>
 
 
-<div class="div-inline">
-    <div class="div-inline" style="height: 50px; line-height: 45px">
-        <span style="margin-left: 10px">公司名称：</span>
-        <select class=" chosen-select" style="display: none; width: 200px" id="select_Company">
-            <option value="">&nbsp;</option>
+<form  action="@(Url.Action("Search", "PeccancyRecrod", new { activeId = ViewBag.ActiveId }))" method="post" style="height: 50px; line-height: 45px">
+    
+    <div class="div-inline">
+      
+        <div class="div-inline">
+            @*<div class="input-group col-xs-5">
+                <span>查询时间：</span>
+                <span class="input-group-addon">
+                    <i class="icon-calendar"></i>
+                </span>
 
-            @{
-                Debug.Assert(companyList != null, "companyList != null");
-            }
-            @foreach (var companyInfoDto in companyList)
-            {
-                <option value="@companyInfoDto.Id">@companyInfoDto.CompanyName</option>
-            }
-        </select>
-        车牌号码：
-        <select class="chosen-select " style="display: none; width: 105px" id="select_Truck">
-            <option value="">&nbsp;</option>
+                <input class="form-control" type="text" name="date-range-picker" id="drp_QueryDate">
+            </div>*@
+            </div>
+            <span style="margin-left: 10px">公司名称：</span>
+            <select class=" chosen-select" style="display: none; width: 200px" id="select_Company" name="CompanyId">
+                <option value="">&nbsp;</option>
 
-            @{
-                Debug.Assert(truckList != null, "truckList != null");
-            }
-            @foreach (var truckInfoDto in truckList)
-            {
-                <option value="@truckInfoDto.Id">@truckInfoDto.FrontTruckNo</option>
-            }
-        </select>
+                @{
+                    Debug.Assert(companyList != null, "companyList != null");
+                }
+                @foreach (var companyInfoDto in companyList)
+                {
+                    <option value="@(companyInfoDto.Id)" @((companyInfoDto.Id == searchFilter.CompanyId) ? "selected" : "")>@(companyInfoDto.CompanyName)</option>
+                }
+            </select>
+            车牌号码：
+            <select class="chosen-select " style="display: none; width: 105px" id="select_Truck" name="TruckNo">
+                <option value="">&nbsp;</option>
+
+                @{
+                    Debug.Assert(truckList != null, "truckList != null");
+                }
+                @foreach (var truckInfoDto in truckList)
+                {
+                    <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
+                }
+            </select>
+
+        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+
+        </div>
 
 
-    </div>
-
-</div>
-
+   
+</form>
 
 <div class="table-header" style="margin-top: 20px">
 
@@ -119,9 +128,9 @@
                 </td>
                 <td>@overloadRecrodDto.CompanyName</td>
                 <td>
-                    <span class="label label-sm label-warning">@overloadRecrodDto.FrontTruckNo</span>
+                   @overloadRecrodDto.FrontTruckNo
                 </td>
-                <td><span class="label label-sm label-warning">@overloadRecrodDto.BehindTruckNo</span></td>
+                <td>@overloadRecrodDto.BehindTruckNo</td>
                 <td>@overloadRecrodDto.TraderRange</td>
                 <td>@overloadRecrodDto.DriverName</td>
                 <td>

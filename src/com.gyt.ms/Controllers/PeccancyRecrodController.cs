@@ -10,6 +10,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 using Zer.Services;
 
 namespace com.gyt.ms.Controllers
@@ -17,13 +18,13 @@ namespace com.gyt.ms.Controllers
     //ToDo:还有Add功能没做
     public class PeccancyRecrodController : BaseController
     {
-        private readonly IPeccancyRecrodService _overloadRecrodService;
+        private readonly IPeccancyRecrodService _peccancyRecrodService;
         private readonly ITruckInfoService _truckInfoService;
         private readonly ICompanyService _companyService;
 
         public PeccancyRecrodController(IPeccancyRecrodService overloadRecrodService, ITruckInfoService truckInfoService, ICompanyService companyService)
         {
-            _overloadRecrodService = overloadRecrodService;
+            _peccancyRecrodService = overloadRecrodService;
             _truckInfoService = truckInfoService;
             _companyService = companyService;
         }
@@ -33,7 +34,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.ActiveId = activeId;
             ViewBag.TruckList = _truckInfoService.GetAll().ToList();
             ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _overloadRecrodService.GetAll().Where(x => x.Status == Status.未整改).ToList();
+            ViewBag.Result = _peccancyRecrodService.GetAll().Where(x => x.Status == Status.未整改).ToList();
             return View();
         }
 
@@ -45,7 +46,7 @@ namespace com.gyt.ms.Controllers
                 return Fail("请选择需要整改的记录！");
             }
 
-            var result = _overloadRecrodService.ChangeStatusById(id);
+            var result = _peccancyRecrodService.ChangeStatusById(id);
 
             if (!result)
             {
@@ -73,7 +74,7 @@ namespace com.gyt.ms.Controllers
 
                         // 检测数据库中已经存在的重复数据
                         var existsoverloadRecrodDtoList = overloadRecrodDtoList
-                                                       .Where(x => _overloadRecrodService.Exists(x))
+                                                       .Where(x => _peccancyRecrodService.Exists(x))
                                                        .ToList();
 
                         // 筛选出需要导入的数据
@@ -102,7 +103,7 @@ namespace com.gyt.ms.Controllers
                         InitTruckInfoDtoList(truckInfoDtoList);
 
                         // 保存信息，并得到保存成功的结果
-                        var importSuccessList = _overloadRecrodService.AddRange(mustImportoverloadRecrodDtoList);
+                        var importSuccessList = _peccancyRecrodService.AddRange(mustImportoverloadRecrodDtoList);
 
                         var importFailedList = mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x))
                             .ToList();
@@ -137,7 +138,7 @@ namespace com.gyt.ms.Controllers
 
             if (exportCode.ToLower() == "all")
             {
-                exportList = _overloadRecrodService.GetAll().Where(x=>x.Status==Status.未整改).ToList();
+                exportList = _peccancyRecrodService.GetAll().Where(x=>x.Status==Status.未整改).ToList();
             }
             else
             {
@@ -146,6 +147,24 @@ namespace com.gyt.ms.Controllers
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限未整改记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult Search(PeccancySearchDto searchDto, int activeId = 9)
+        {
+            ViewBag.ActiveId = activeId;
+            var truckList = _truckInfoService.GetAll();
+            var companyList = _companyService.GetAll();
+
+            ViewBag.TruckList = truckList;
+            ViewBag.CompanyList = companyList;
+            ViewBag.SearchDto = searchDto;
+
+            searchDto.Status = Status.未整改;
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
+
+            return View("Index");
+        }
+
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)
         {
