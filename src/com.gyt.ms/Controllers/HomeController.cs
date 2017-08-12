@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Zer.Framework.Exception;
+using Zer.Framework.Mvc.Logs.Attributes;
 
 namespace com.gyt.ms.Controllers
 {
@@ -15,21 +16,20 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [UnValidateLogin]
+        public ActionResult Login()
         {
-            throw new CustomException("define a new exception!",
-                new Dictionary<string, string>()
-                {
-                    {"username","paul"}
-                });
-            
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
+
+        ////public ActionResult About()
+        ////{
+        ////    throw new CustomException("define a new exception!",
+        ////        new Dictionary<string, string>()
+        ////        {
+        ////            {"username","paul"}
+        ////        });
+            
+        ////}
     }
 }
