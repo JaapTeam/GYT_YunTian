@@ -8,7 +8,11 @@ namespace Zer.GytDto.Users
     {
         public int UserId { get ; set; }
         public string UserName { get; set; }
+
+        // TODO: 密码不能输出到运行时内存呢
+
         public string Password { get; set; }
+
         public string DisplayName { get; set; }
         public UserState State { get; set; }
         public string Email { get; set; }
