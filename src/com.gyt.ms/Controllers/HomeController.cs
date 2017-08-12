@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Zer.Framework.Exception;
 
 namespace com.gyt.ms.Controllers
 {
@@ -14,19 +15,14 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public ActionResult Error(string msg)
-        {
-            ViewBag.ActiveId = 0;
-            ViewBag.ErrorMessage = msg;
-            return View("Error");
-        }
-
         public ActionResult About()
         {
-            throw new Exception("define a new exception!");
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            throw new CustomException("define a new exception!",
+                new Dictionary<string, string>()
+                {
+                    {"username","paul"}
+                });
+            
         }
 
         public ActionResult Contact()

@@ -12,7 +12,7 @@ namespace com.gyt.ms
         {
             filters.Add(new ValidateInputsAttribute());
             filters.Add(new UserActionLogAttribute());
-            filters.Add(new CustomExceptionAttribute());
+            filters.Add(new CustomExceptionAttribute("Error"));
             filters.Add(new HandleErrorAttribute());
         }
     }
