@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using com.gyt.ms.Models;
-using Castle.MicroKernel.Registration;
-using Microsoft.Ajax.Utilities;
 using WebGrease.Css.Extensions;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
-using Zer.Framework.Mvc.Logs;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto.Users;
 
@@ -86,7 +82,7 @@ namespace com.gyt.ms.Controllers
 
         protected JsonResult Fail(string msg = "")
         {
-            return Json(new { C = ResultCode.Fail.ToInt(), msg = msg, data = "" }, JsonRequestBehavior.AllowGet);
+            return Json(new { C = ResultCode.Fail.ToInt(), msg, data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         protected FileResult ExportCsv(byte[] data, string fileName)
@@ -137,7 +133,7 @@ namespace com.gyt.ms.Controllers
             MenuItem gtyHandleRecrod = new MenuItem();
             gtyHandleRecrod.Id = 4;
             gtyHandleRecrod.ActionName = "Index";
-            gtyHandleRecrod.ControllerName = "GYTHandleRecrod";
+            gtyHandleRecrod.ControllerName = "GYTSuccess";
             gtyHandleRecrod.TextInfo = "港运通办理信息数据库";
             gtyHandleRecrod.IsCurrentPage = false;
             gtyHandleRecrod.Icon = "icon-file-alt";
@@ -160,7 +156,7 @@ namespace com.gyt.ms.Controllers
             MenuItem overLoadRecrod = new MenuItem();
             overLoadRecrod.Id = 6;
             overLoadRecrod.ActionName = "Index";
-            overLoadRecrod.ControllerName = "OverLoadRecrod";
+            overLoadRecrod.ControllerName = "PeccancyRecrod";
             overLoadRecrod.TextInfo = "超载超限信息数据库";
             overLoadRecrod.IsCurrentPage = false;
             overLoadRecrod.Icon = "icon-file-alt";
@@ -168,7 +164,7 @@ namespace com.gyt.ms.Controllers
             MenuItem overLoadChange = new MenuItem();
             overLoadChange.Id = 7;
             overLoadChange.ActionName = "Index";
-            overLoadChange.ControllerName = "OverLoadChangeInfo";
+            overLoadChange.ControllerName = "PeccancyChangeInfo";
             overLoadChange.TextInfo = "超载超限整改信息数据库";
             overLoadChange.IsCurrentPage = false;
             overLoadChange.Icon = "icon-file-alt";

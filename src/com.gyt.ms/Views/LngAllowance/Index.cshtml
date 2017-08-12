@@ -15,7 +15,7 @@
 <form class="form-inline" action="@(Url.Action("Search","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
     车牌号码：
 
-    <select name="TruckNo">
+    <select name="TruckNo" class=" chosen-select" style="display: none; width: 200px">
         @if (!truckList.IsNullOrEmpty())
         {
             <option value="">全部</option>
@@ -30,7 +30,7 @@
     <input type="text" class="input-mini" value="@(searchFilter.EngineId)" style="width: 150px" name="EngineId" id="input_engineNumber" />
     
     <label for="IsAllowanced" style="margin-left: 10px">补贴状态：</label>
-    <select name="IsAllowanced" id="IsAllowanced">
+    <select name="IsAllowanced" id="IsAllowanced" class="chosen-select " style="display: none;">
         <option value=""> 全部</option>
         <option value="true"> 已补贴</option>
         <option value="false"> 未补贴</option>
@@ -164,7 +164,39 @@
 </div>
 
 @section scripts{
+    <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
+
     <script type="text/javascript">
+        
+        jQuery(function ($) {
+
+
+            $(".chosen-select").chosen();
+
+            $('#modal-form input[type=file]')
+                .ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'icon-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'large'
+                });
+
+            $('#modal-form')
+                .on('shown.bs.modal',
+                    function () {
+                        $(this)
+                            .find('.chosen-container')
+                            .each(function () {
+                                $(this).find('a:first-child').css('width', '210px');
+                                $(this).find('.chosen-drop').css('width', '210px');
+                                $(this).find('.chosen-search input').css('width', '200px');
+                            });
+                    });
+
+        });
+
         $(function () {
             $("#btn_improt")
                 .click(function () {

@@ -123,35 +123,7 @@
                     try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
                 </script>
 
-                <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-                    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                        <a class="btn btn-success" href="accountManage.html">
-                            <i class="icon-user"></i>
-                        </a>
-
-                        <a class="btn btn-info" href="cards_info_list.html">
-                            <i class="icon-credit-card"></i>
-                        </a>
-
-                        <a class="btn btn-warning" href="overload.html">
-                            <i class="icon-truck"></i>
-                        </a>
-
-                        <a class="btn btn-danger" href="securityManage.html">
-                            <i class="icon-key"></i>
-                        </a>
-                    </div>
-
-                    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-                        <span class="btn btn-success"></span>
-
-                        <span class="btn btn-info"></span>
-
-                        <span class="btn btn-warning"></span>
-
-                        <span class="btn btn-danger"></span>
-                    </div>
-                </div><!-- #sidebar-shortcuts -->
+            
                 <!--Left Menu-->
                 @{Html.RenderAction("leftmenu", "Base",new {id=activeId});}
                 <!-- /.nav-list -->
