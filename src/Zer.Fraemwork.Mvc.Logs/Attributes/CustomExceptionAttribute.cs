@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Zer.Entities;
 using Zer.Framework.Dependency;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
@@ -10,10 +11,16 @@ namespace Zer.Framework.Mvc.Logs.Attributes
     public class CustomExceptionAttribute : FilterAttribute, IExceptionFilter
     {
         private static readonly ISystemLogInfoDataService Logger;
+        private readonly string _viewName;
 
         static CustomExceptionAttribute()
         {
             Logger = IocManager.Instance.Resolve<ISystemLogInfoDataService>();
+        }
+
+        public CustomExceptionAttribute(string viewName)
+        {
+            _viewName = viewName;
         }
 
         public void OnException(ExceptionContext filterContext)
@@ -29,7 +36,11 @@ namespace Zer.Framework.Mvc.Logs.Attributes
 
             Logger.Insert(systemLog);
 
-            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { Controller = "home", Action = "Error", msg = exceptionMessage }));
+            var view = new ViewResult();
+            view.ViewBag.Exception = filterContext.Exception;
+            view.ViewName = _viewName;
+
+            filterContext.Result = view;
             filterContext.ExceptionHandled = true;
         }
     }

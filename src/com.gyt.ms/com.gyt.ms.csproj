@@ -303,7 +303,6 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\LngAllowance\Index.cshtml" />
-    <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\LeftMenu.cshtml" />
     <Content Include="Views\BusinessHandle\Index.cshtml" />
     <Content Include="Views\GYTInfo\Index.cshtml" />

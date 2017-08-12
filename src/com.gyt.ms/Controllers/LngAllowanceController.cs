@@ -112,7 +112,7 @@ namespace com.gyt.ms.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Error", "导入失败");
+            throw new Exception("文件上传失败，导入失败");
         }
         
         [ReplaceSpecialCharInParameter("-", "_")]

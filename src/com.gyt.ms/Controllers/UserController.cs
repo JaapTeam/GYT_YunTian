@@ -3,6 +3,7 @@ using System;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.GytDto.Users;
 
@@ -58,7 +59,7 @@ namespace com.gyt.ms.Controllers
 
             if (loginResult != LoginStatus.Success)
             {
-                return View("Error");
+                throw new Exception("登录失败，请重试");
             }
             var userinfoDto = _userInfoService.GetByUserName(userName);
 
