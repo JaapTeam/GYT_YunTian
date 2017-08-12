@@ -1,0 +1,62 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+
+<div class="row">
+    
+    <label for="username">用户名:</label><input type="text" name="username" id="username"/>
+    <label for="password">密码:</label><input type="password" name="password" id="password"/>
+    <input type="button" id="btn_login" value="登录"/>
+</div>
+
+
+<!-- basic scripts -->
+<!--[if !IE]> -->
+
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
+    </script>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+        <script type="text/javascript">
+            window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
+        </script>
+    <![endif]-->
+    
+
+    <script type="text/javascript">
+        if ("ontouchend" in document) document.write("<script src='@Url.Content("~")assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+    </script>
+    <script src="@Url.Content("~")assets/js/bootstrap.min.js"></script>
+    <script src="@Url.Content("~")assets/js/typeahead-bs2.min.js"></script>
+
+    <!--[if lte IE 8]>
+        <script src="@Url.Content("~")assets/js/excanvas.min.js"></script>
+    <![endif]-->
+<script src="@Url.Content("~")assets/js/md5.min.js"></script>
+
+    <script>
+        $(function() {
+            $('body')
+                .on('click','#btn_login',function() {
+                        var username = $('#username').val();
+                        var password = $('#password').val();
+                        $.ajax({
+                            url: '@Url.Action("Login","User")',
+                            data: { userName: username, password: hex_md5(password) },
+                            type: "post",
+                            success: function(d) {
+                                if (d.C == '901') {
+                                    window.location = '@Url.Action("Index","Home")';
+                                } else {
+                                    location.reload();
+                                }
+                            }
+                        })
+                    });
+        })
+    </script>

@@ -93,6 +93,7 @@ namespace com.gyt.ms.Controllers
         
         [UnLog]
         [UnValidateInputsAttribute]
+        [UnValidateLogin]
         public ActionResult LeftMenu(int id)
         {
             #region 港运通业务办理
