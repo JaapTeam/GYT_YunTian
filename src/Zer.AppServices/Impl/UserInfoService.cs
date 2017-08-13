@@ -22,12 +22,15 @@ namespace Zer.AppServices.Impl
 
         public UserInfoDto GetByUserName(string userName)
         {
-            throw new NotImplementedException();
+            return _userIbfoDataService.Single(x => x.UserName == userName).Map<UserInfoDto>();
         }
 
         public LoginStatus VerifyUserNameAndPassword(string userName, string password)
         {
-            throw new NotImplementedException();
+            var userInfo = _userIbfoDataService.Single(x => x.UserName == userName);
+            if(userInfo == null) return LoginStatus.UserNameNotExists;
+            if(userInfo.UserState == UserState.Frozen) return LoginStatus.UserFrozen;
+            return userInfo.Password == password ? LoginStatus.Success : LoginStatus.IncorrectPassword;
         }
 
         public RegistResult Regist(UserInfoDto userInfo)

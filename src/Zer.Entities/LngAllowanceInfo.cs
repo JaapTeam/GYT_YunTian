@@ -1,8 +1,9 @@
-﻿using Zer.Framework.Entities;
-using Zer.Framework.Extensions;
+﻿using System;
+using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class LngAllowanceInfo : EntityBase
     {
         public int CompanyId { get; set; }

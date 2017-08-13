@@ -1,7 +1,9 @@
-﻿using Zer.Framework.Entities;
+﻿using System;
+using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class CompanyInfo : EntityBase
     {
         public string CompanyName { get; set; }

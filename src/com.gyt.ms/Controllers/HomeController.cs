@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Zer.Framework.Exception;
+using Zer.Framework.Mvc.Logs.Attributes;
 
 namespace com.gyt.ms.Controllers
 {
@@ -14,26 +16,20 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public ActionResult Error(string msg)
+        [UnValidateLogin]
+        public ActionResult Login()
         {
-            ViewBag.ActiveId = 0;
-            ViewBag.ErrorMessage = msg;
-            return View("Error");
-        }
-
-        public ActionResult About()
-        {
-            throw new Exception("define a new exception!");
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        ////public ActionResult About()
+        ////{
+        ////    throw new CustomException("define a new exception!",
+        ////        new Dictionary<string, string>()
+        ////        {
+        ////            {"username","paul"}
+        ////        });
+            
+        ////}
     }
 }
