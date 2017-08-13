@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using Zer.Entities;
 
 namespace Zer.GytDataService
@@ -8,7 +9,14 @@ namespace Zer.GytDataService
         public GytDbContext()
             :base("GytDbContext")
         {
-            
+            Database.SetInitializer<GytDbContext>(null);
+            Configuration.AutoDetectChangesEnabled = false;
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
         }
         
         public DbSet<UserInfo> UserInfos { get; set; }
