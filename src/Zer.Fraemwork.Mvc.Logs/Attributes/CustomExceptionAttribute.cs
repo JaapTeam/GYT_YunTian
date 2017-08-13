@@ -40,12 +40,11 @@ namespace Zer.Framework.Mvc.Logs.Attributes
 
             //Logger.Insert(systemLog);
 
-            MailHelper mail = new MailHelper();
+            //MailHelper mail = new MailHelper();
 
             var exception = filterContext.Exception;
-           
             
-            mail.SendAsync(exception.Message, exception.StackTrace, ConfigurationManager.AppSettings["ExceptionCollectMail"], null);
+            //mail.SendAsync(exception.Message, exception.StackTrace, ConfigurationManager.AppSettings["ExceptionCollectMail"], null);
             
             var view = new ViewResult();
             view.ViewBag.Exception = exception;
