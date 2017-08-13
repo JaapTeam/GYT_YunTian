@@ -78,5 +78,12 @@ namespace Zer.AppServices.Impl
             }
             return query.Map<GYTInfoDto>().ToList();
         }
+
+        public bool TargetIsUse(string truckNo)
+        {
+            return
+                _gytInfoDataService.GetAll()
+                    .Any(x => x.OriginalTruckNo == truckNo && x.BusinessType == BusinessType.以旧换新车辆);
+        }
     }
 }
