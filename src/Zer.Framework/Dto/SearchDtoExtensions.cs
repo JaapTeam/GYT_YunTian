@@ -5,6 +5,20 @@ namespace Zer.Framework.Dto
 {
     public static class SearchDtoExtensions
     {
+        public static IQueryable<T> ToPageQuery<T>(this IQueryable<T> query, IPaging searchDto)
+            where T:IEntity
+        {
+            int count = query.Count();
+            searchDto.Total = count;
+            searchDto.PageCount = count % searchDto.PageSize == 0
+                ? count / searchDto.PageSize
+                : 1 + count / searchDto.PageSize;
+
+            query = query.Skip(searchDto.PageSize * (searchDto.PageIndex - 1))
+                .Take(searchDto.PageSize);
+            return query;
+        }
+
         //public static IQueryable<T> ToPagedQueryable<T>(this IQueryable<T> query, IPaging pagedDto)
         //    where T : EntityBase
         //{

@@ -1,11 +1,36 @@
-﻿namespace Zer.Framework.Dto
+﻿
+using System;
+using System.Configuration;
+using Zer.Framework.Cache;
+
+namespace Zer.Framework.Dto
 {
     public abstract class SearchDtoBase : IPaging, ISearchFilter
     {
-        private int _pageIndex = 1;
-        private int _pageSize = 20;
+        private int _pageIndex;
+        private int _pageSize;
         private int _total = 0;
         private int _pageCount = 0;
+
+        protected SearchDtoBase()
+        {
+            _pageIndex = 1;
+
+            var pageSize = CacheHelper.GetCache("PageSize");
+
+            if (pageSize == null)
+            {
+                if (!int.TryParse(ConfigurationManager.AppSettings["PageSize"], out _pageSize))
+                {
+                    _pageSize = 20;
+                }
+
+                CacheHelper.SetCache("PageSize",_pageSize);
+                return;
+            }
+
+            _pageSize = Convert.ToInt32(pageSize);
+        }
 
         public int PageCount
         {
@@ -32,11 +57,6 @@
         {
             get
             {
-                if (_pageSize <= 0)
-                {
-                    _pageSize = 20;
-                }
-
                 return _pageSize;
             }
             set { _pageSize = value; }

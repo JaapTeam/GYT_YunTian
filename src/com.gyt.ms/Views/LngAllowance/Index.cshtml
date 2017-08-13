@@ -4,47 +4,30 @@
 @{
     var lngList = Model as List<LngAllowanceInfoDto>;
     var truckList = ViewBag.TruckList as List<TruckInfoDto>;
-    var searchFilter = ViewBag.Filter as LngAllowanceSearchDto;
+    var filter = ViewBag.Filter as LngAllowanceSearchDto;
 
-    if (searchFilter == null)
+    if (filter == null)
     {
-        searchFilter = new LngAllowanceSearchDto();
+        filter = new LngAllowanceSearchDto();
     }
 }
 
 <form class="form-inline" action="@(Url.Action("Index","LngAllowance",new {activeid=9}))" method="post" style="height: 50px; line-height: 45px">
-    车牌号码：
+   
 
-    <select name="TruckNo" class=" chosen-select" style="display: none; width: 200px">
+    @*<select name="TruckNo" class=" chosen-select" style="display: none; width: 200px">
         @if (!truckList.IsNullOrEmpty())
         {
             <option value="">全部</option>
             foreach (var truckInfoDto in truckList)
             {
-                <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
+                <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == filter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
             }
         }
-    </select>
-
-    <label for="input_engineNumber" style="margin-left: 10px">发动机号：</label>
-    <input type="text" class="input-mini" value="@(searchFilter.EngineId)" style="width: 150px" name="EngineId" id="input_engineNumber" />
+    </select>*@
     
-    <label for="IsAllowanced" style="margin-left: 10px">补贴状态：</label>
-    <select name="IsAllowanced" id="IsAllowanced" class="chosen-select " style="display: none;">
-        <option value=""> 全部</option>
-        <option value="true"> 已补贴</option>
-        <option value="false"> 未补贴</option>
-    </select>
-
-    @*<label class="inline">
-        <input name="IsAllowanced" type="radio" class="ace">
-        <span class="lbl"> 已补贴</span>
-    </label>
-    
-    <label class="inline">
-        <input name="IsAllowanced" type="radio" class="ace">
-        <span class="lbl"> 未补贴</span>
-    </label>*@
+    <label for="input_engineNumber" style="margin-left: 10px"> 车牌号码：</label>
+    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
     
     <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
 </form>
@@ -127,40 +110,54 @@
             }
         </tbody>
     </table>
+    
+    @if (filter.PageCount > 1)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="dataTables_paginate padding-10">
+                    <ul class="pagination">
 
+                        <li class="prev @(filter.PageIndex == 1?"disabled":"")">
+                            <a href="@Url.Action("index", "LngAllowance", new
+                                     {
+                                         filter.TruckNo, filter.EngineId, PageIndex = 1,filter.PageSize
+                                     })">
+                                <i class="icon-double-angle-left"></i>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= filter.PageCount; i++)
+                        {
+                        <li class="@(filter.PageIndex == i?"active":"")">
+                            <a href="@Url.Action("index", "LngAllowance", new
+                                     {
+                                         filter.TruckNo,
+                                         filter.EngineId,
+                                         PageIndex = i,
+                                         filter.PageSize
+                                     })">@i</a>
+                        </li>
+                        }
+                        <li class="next  @(filter.PageIndex == filter.PageCount?"disabled":"")">
+                            <a href="@Url.Action("index", "LngAllowance", new
+                                     {
+                                         filter.TruckNo, filter.EngineId, PageIndex = filter.PageCount,filter.PageSize
+                                     })">
+                                <i class="icon-double-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+    
     @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <input type="file" name="file" class="hide" id="input_file" />
         <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
     }
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="dataTables_paginate padding-10">
-                <ul class="pagination">
-                    <li class="prev disabled">
-                        <a href="#">
-                            <i class="icon-double-angle-left"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">
-                            <i class="icon-double-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 @section scripts{

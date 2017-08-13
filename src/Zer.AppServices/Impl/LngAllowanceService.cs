@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Dto;
@@ -70,33 +71,9 @@ namespace Zer.AppServices.Impl
 
             query = Filter(searchDto, query);
 
-            //var count = query.Count();
+            query = query.ToPageQuery(searchDto); 
 
-            //searchDto.Total = query.Count();
-
-            //if (searchDto.PageSize == 0)
-            //{
-            //    searchDto.PageSize = 20;
-            //}
-
-            //if (searchDto.PageIndex == 0)
-            //{
-            //    searchDto.PageIndex = 1;
-            //}
-
-            //if (searchDto.PageIndex > searchDto.PageCount)
-            //{
-            //    searchDto.PageIndex = searchDto.PageCount;
-            //}
-
-            //searchDto.PageCount = searchDto.Total % searchDto.PageSize == 0
-            //    ? searchDto.Total / searchDto.PageSize
-            //    : 1 + (searchDto.Total / searchDto.PageSize);
-
-            var result = query.Skip(searchDto.PageSize * (searchDto.PageIndex - 1))
-                .Take(searchDto.PageSize * searchDto.PageIndex).ToList();
-
-            return result.Map<LngAllowanceInfoDto>().ToList();
+            return query.Map<LngAllowanceInfoDto>().ToList();
         }
 
         private IQueryable<LngAllowanceInfo> Filter(LngAllowanceSearchDto searchDto, IQueryable<LngAllowanceInfo> query)
@@ -108,7 +85,7 @@ namespace Zer.AppServices.Impl
 
             if (!searchDto.EngineId.IsNullOrEmpty())
             {
-                query = query.Where(x => x.EngineId == searchDto.EngineId);
+                query = query.Where(x => x.EngineId.Contains(searchDto.EngineId));
             }
 
             if (searchDto.IsAllowanced.HasValue)
