@@ -15,5 +15,12 @@ namespace Zer.AppServices
         bool Exists(PeccancyRecrodDto overloadRecrodDto);
 
         List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto);
+
+        /// <summary>
+        /// 检查公司是否有未整改记录
+        /// </summary>
+        /// <param name="companyName"></param>
+        /// <returns></returns>
+        bool ExistsCompanyName(string companyName);
     }
 }

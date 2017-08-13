@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Zer.Entities;
 using Zer.Framework.Dependency;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
@@ -29,7 +30,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
 
             Logger.Insert(systemLog);
 
-            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { Controller = "home", Action = "Error", msg = exceptionMessage }));
+            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { Controller = "home", Action = "Error", msg = exceptionMessage.UrlEncode() }));
             filterContext.ExceptionHandled = true;
         }
     }
