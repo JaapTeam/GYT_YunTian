@@ -45,6 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -66,6 +67,7 @@
     <Compile Include="Attributes\SortAttribute.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="Dependency\IocManager.cs" />
+    <Compile Include="Dto\SearchDtoExtensions.cs" />
     <Compile Include="Dto\SearchModelBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\ICreateTime.cs" />

@@ -41,7 +41,7 @@ namespace Zer.Framework.EntityFramework
 
         public virtual IQueryable<TEntity> GetAll()
         {
-            return Table;
+            return Table.OrderByDescending(x=>x.Id);
         }
 
         public virtual List<TEntity> GetAllList()
