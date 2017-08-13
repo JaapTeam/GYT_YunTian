@@ -1,7 +1,9 @@
+using System;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class SystemLogInfo : EntityBase
     {
         public int UserId { get; set; }

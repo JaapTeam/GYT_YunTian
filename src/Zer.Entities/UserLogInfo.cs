@@ -4,6 +4,7 @@ using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class UserLogInfo : EntityBase,ICreateTime
     {
         public ActionType ActionType { get; set; }
