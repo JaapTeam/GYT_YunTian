@@ -4,16 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
-using Castle.Components.DictionaryAdapter;
 using Castle.Core.Internal;
 using Zer.AppServices;
-using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Export;
 using Zer.Framework.Export.Attributes;
-using Zer.Framework.Helpers;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
@@ -48,7 +44,7 @@ namespace com.gyt.ms.Controllers
             return View(dto);
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult Search(LngAllowanceSearchDto searchDto, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
@@ -92,7 +88,7 @@ namespace com.gyt.ms.Controllers
 
 
         //Todo: 建议优化检查检查重复业务逻辑
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file != null)
@@ -120,12 +116,6 @@ namespace com.gyt.ms.Controllers
         [UnLog]
         public ActionResult SaveLngAllowanceData(string id)
         {
-            //// 替换气罐号中的 '-',
-            //lngAllowanceInfoDtoList = lngAllowanceInfoDtoList.Select(ReplaceUnsafeChar).ToList();
-
-            //// 然后检查导入数据是否包含非法字符
-            //lngAllowanceInfoDtoList.ForEach(ValidateHelper.ValidateObjectIsSafe);
-
             var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
 
             // 检测数据库中已经存在的重复数据

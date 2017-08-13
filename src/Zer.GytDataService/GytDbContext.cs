@@ -9,14 +9,14 @@ namespace Zer.GytDataService
         public GytDbContext()
             :base("GytDbContext")
         {
-            Database.SetInitializer<GytDbContext>(null);
-            Configuration.AutoDetectChangesEnabled = false;
+            //Database.SetInitializer<GytDbContext>(null);
+            //Configuration.AutoDetectChangesEnabled = false;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //base.OnModelCreating(modelBuilder);
         }
         
         public DbSet<UserInfo> UserInfos { get; set; }

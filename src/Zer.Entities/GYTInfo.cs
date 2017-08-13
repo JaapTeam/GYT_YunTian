@@ -8,6 +8,7 @@ using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class GYTInfo:EntityBase
     {
         public BusinessType BusinessType { get; set; }
