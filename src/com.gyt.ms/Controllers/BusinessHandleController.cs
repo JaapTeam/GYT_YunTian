@@ -142,7 +142,7 @@ namespace com.gyt.ms.Controllers
                 sb.Append("<input type='radio' class='ace' checked='checked' name='lblAnnual' value='true'>");
                 sb.Append("<span class=' lbl'> 已年审 </span></label>");
                 sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' name='lblAnnual' value='true'>");
+                sb.Append("<input type='radio' class='ace' name='lblAnnual' value='false'>");
                 sb.Append("<span class='lbl'> 未年审 </span> </label> </div> </div> </div></div></div>");
 
                 #endregion
@@ -215,17 +215,17 @@ namespace com.gyt.ms.Controllers
                 sb.Append("</div>");
                 sb.Append("</div>");
                 sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 运营证存在过户记录在: </label>");
+                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 运营证存在过户记录: </label>");
                 sb.Append("<div class='col-sm-9'>");
                 sb.Append("<div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
                 sb.Append("<div class='radio' id='radioTransfer'>");
                 sb.Append("<label>");
                 sb.Append("<input type='radio' class='ace' checked='checked' name='lblTransfer' value='true'>");
-                sb.Append("<span class='lbl'> 存在 </span>");
+                sb.Append("<span class='lbl'> 不存在 </span>");
                 sb.Append("</label>");
                 sb.Append("<label style='margin-left: 20px'>");
                 sb.Append("<input type='radio' class='ace' name='lblTransfer' value='false'>");
-                sb.Append("<span class='lbl'> 不存在 </span>");
+                sb.Append("<span class='lbl'> 存在 </span>");
                 sb.Append("</label>");
                 sb.Append("</div>");
                 sb.Append("</div>");
@@ -273,25 +273,41 @@ namespace com.gyt.ms.Controllers
             return Success(null,sb.ToString());
         }
 
-        public ActionResult SuccessInfo(string bidCompanyName, string bidTruckNo, string oldTruckno,
+        public JsonResult SuccessInfo(string bidCompanyName="", string bidTruckNo="", string oldTruckno="",
            bool isAnnual = true, bool isOperationCancel = true, bool isTransferRecrod=true,bool isGytStatus=true,
-           bool isGytCancel = true, bool isConsistentInfor = true, BusinessType businessType = BusinessType.天然气车辆, int activeId = 1)
+           bool isGytCancel = true, bool isConsistentInfo = true, BusinessType businessType = BusinessType.天然气车辆, int activeId = 1)
         {
             ViewBag.ActiveId = activeId;
+
+            if (bidCompanyName == "")
+            {
+                return Fail("申报企业名不能为空！");
+            }
+
+            if (bidTruckNo == "")
+            {
+                return Fail("申报车牌号不能为空！");
+            }
+
+            if (oldTruckno == "" && businessType == BusinessType.以旧换新车辆)
+            {
+                return Fail("旧车牌号不能为空！");
+            }
 
             //是否重复申办
             var isExists = _gytInfoService.Exists(bidTruckNo);
             if (isExists)
             {
-                return View();
+                return Fail();
             }
 
             //有无违规记录
             var isPeccancy = _peccancyRecrodService.ExistsCompanyName(bidCompanyName);
+            var targetIsUse = _gytInfoService.TargetIsUse(oldTruckno);
 
             var gtyInfoDto = new GYTInfoDto();
             gtyInfoDto.BidDate = DateTime.Now;
-            gtyInfoDto.BidName = "测试";
+            gtyInfoDto.BidName = CurrentUser.DisplayName;
             gtyInfoDto.BusinessType = businessType;
 
 
@@ -337,7 +353,7 @@ namespace com.gyt.ms.Controllers
             HandleDataDto handleDataDto = new HandleDataDto();
 
             #region 判断审查条件
-            if (isAnnual && isOperationCancel && !isTransferRecrod && isGytStatus && isGytCancel && isConsistentInfor&&!isPeccancy)
+            if (isAnnual && isOperationCancel && isTransferRecrod && isGytStatus && isGytCancel && isConsistentInfo && !isPeccancy && !targetIsUse)
             {
                 gtyInfoDto.Status = BusinessState.已通过;
                 handleDataDto.Result = true;
@@ -357,14 +373,15 @@ namespace com.gyt.ms.Controllers
             handleDataDto.BidTruckNo = bidTruckNo;
             handleDataDto.BusinessType = businessType;
             handleDataDto.IsAnnual = isAnnual;
-            handleDataDto.IsConsistentInfor = isConsistentInfor;
+            handleDataDto.IsConsistentInfo = isConsistentInfo;
             handleDataDto.IsGytCancel = isGytCancel;
             handleDataDto.IsGytStatus = isGytStatus;
             handleDataDto.IsPeccancy = isPeccancy;
             handleDataDto.OldTruckNo = oldTruckno;
             handleDataDto.IsTransferRecrod = isTransferRecrod;
+            handleDataDto.TargetIsUse = targetIsUse;
 
-            return View(handleDataDto);
+            return Success(handleDataDto,"success");
         }
 
         [UnLog]

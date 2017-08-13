@@ -4,78 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3 class="header smaller lighter green">
-    <i class="icon-bullhorn"></i>
-    @{
-        if (Model==null)
-        {
-            <span>办理失败，该企业下已有港运通业务办理记录</span>
-        }
-        else if (Model.Result)
-        {
-            <span>通过审查</span>
-        }
-        else
-        {
-            <span>审查未通过，办理记录以保存</span>
-        }
-
-}
-</h3>
-
-    @{
-        <div id="fail" class="@Model.IsPeccancy?hide:">
-            <div class="alert alert-danger">
-                <strong>
-                    <i class="icon-remove"></i>
-                    申办企业名下车辆有超限超载违法记录！
-                </strong>
-            </div>
-        </div>
-
-        <div id="fail" class="@!Model.Annual?hide:">
-            <div class="alert alert-danger">
-                <strong>
-                    <i class="icon-remove"></i>
-                    申办车辆未年审通过！
-                </strong>
-            </div>
-        </div>
-
-        <div id="fail" class="@!Model.OperationCertificateCancel?hide:">
-            <div class="alert alert-danger">
-                <strong>
-                    <i class="icon-remove"></i>
-                    运营证未注销！
-                </strong>
-            </div>
-        </div>
-        <div id="fail" class="@Model.TransferRecrod?hide:">
-            <div class="alert alert-danger">
-                <strong>
-                    <i class="icon-remove"></i>
-                    运营证存在过户记录！
-                </strong>
-            </div>
-        </div>
-        <div id="fail" class="@Model.GYTCancel?hide:">
-            <div class="alert alert-danger">
-                <strong>
-                    <i class="icon-remove"></i>
-                    过户前任意一手港运通未注销！
-                </strong>
-            </div>
-        </div>
-    <div id="fail" class="@!Model.ConsistentInformation?hide:">
-        <div class="alert alert-danger">
-            <strong>
-                <i class="icon-remove"></i>
-                报废车回收与系统信息不一致！
-            </strong>
-        </div>
-    </div>
-}
-
+<h3>sssssss</h3>
 
 
         
