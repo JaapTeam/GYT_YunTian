@@ -62,15 +62,9 @@
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
     <Compile Include="Impl\PeccancyRecrodDataService.cs" />
-    <Compile Include="LogsDbContext.cs" />
-    <Compile Include="LogsRepository.cs" />
-    <Compile Include="Migrations\201708111425119_modifyGYTInfo.cs" />
-    <Compile Include="Migrations\201708111425119_modifyGYTInfo.Designer.cs">
-      <DependentUpon>201708111425119_modifyGYTInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708120333547_modifyPeccanyInfo.cs" />
-    <Compile Include="Migrations\201708120333547_modifyPeccanyInfo.Designer.cs">
-      <DependentUpon>201708120333547_modifyPeccanyInfo.cs</DependentUpon>
+    <Compile Include="Migrations\201708130507035_Init_db.cs" />
+    <Compile Include="Migrations\201708130507035_Init_db.Designer.cs">
+      <DependentUpon>201708130507035_Init_db.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,11 +91,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708111425119_modifyGYTInfo.resx">
-      <DependentUpon>201708111425119_modifyGYTInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708120333547_modifyPeccanyInfo.resx">
-      <DependentUpon>201708120333547_modifyPeccanyInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708130507035_Init_db.resx">
+      <DependentUpon>201708130507035_Init_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

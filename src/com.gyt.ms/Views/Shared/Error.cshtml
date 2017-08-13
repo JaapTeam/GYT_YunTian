@@ -1,22 +1,12 @@
-﻿@using Zer.Framework.Extensions
+﻿@using Zer.Framework.Exception
 @{
+    var exception = ViewBag.Exception as Exception;
+    Layout = null;
 }
 
 <div class="row">
-    @{
-        var msg = (string)ViewBag.ErrorMessage;
-        
-        <h3>
-            @if (msg.IsNullOrEmpty())
-            {
-                <i>未知异常</i>
-            }
-            else
-            {
-                <i>@msg.UrlDecode()</i>
-            }
-        </h3>
-
-       
-    }
+        @if (exception != null)
+        {
+            @Html.Raw(exception.Message)
+        }
 </div>

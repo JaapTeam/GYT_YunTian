@@ -3,7 +3,9 @@ using System;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto.Users;
 
 
@@ -13,7 +15,7 @@ namespace com.gyt.ms.Controllers
     {
         public UserController()
         {
-          
+
         }
 
         private readonly IUserInfoService _userInfoService;
@@ -22,10 +24,6 @@ namespace com.gyt.ms.Controllers
             _userInfoService = userInfoService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
@@ -42,6 +40,8 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("用户名或密码的长度不能小于6！");
             }
 
+            userInfoDto.Password = userInfoDto.Password.Md5Encoding();
+
             var registResult = _userInfoService.Regist(userInfoDto);
 
             if (registResult == RegistResult.UserNameExists)
@@ -52,18 +52,33 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
+        [UnValidateLogin]
         public ActionResult Login(string userName, string password)
         {
-            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password);
+            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
 
-            if (loginResult != LoginStatus.Success)
+            switch (loginResult)
             {
-                return View("Error");
-            }
-            var userinfoDto = _userInfoService.GetByUserName(userName);
+                case LoginStatus.IncorrectPassword: return Fail("密码错误.");
+                case LoginStatus.UserFrozen: return Fail("用户被冻结.");
+                case LoginStatus.UserNameNotExists: return Fail("用户名不存在.");
+                default:
+                {
+                    var userinfoDto = _userInfoService.GetByUserName(userName);
 
-            Session["UserInfo"] = userinfoDto;
-            return View("Success");
+                    Session["UserInfo"] = userinfoDto;
+                    return Success();
+                }
+            }
+
+            ////if (loginResult != LoginStatus.Success)
+            ////{
+            ////    return Success(loginResult);
+            ////}
+            //var userinfoDto = _userInfoService.GetByUserName(userName);
+
+            //Session["UserInfo"] = userinfoDto;
+            //return Success();
         }
 
         public JsonResult Logout()
@@ -77,7 +92,7 @@ namespace com.gyt.ms.Controllers
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
-            if (userInfoDto.State!=UserState.Active)
+            if (userInfoDto.State != UserState.Active)
             {
                 return Fail("用户已经是冻结状态！");
             }
@@ -108,7 +123,10 @@ namespace com.gyt.ms.Controllers
 
         public JsonResult ChangePasswrod(string newPassword, string currentPassword)
         {
-            if (currentPassword!=CurrentUser.Password)
+            newPassword = newPassword.Md5Encoding();
+            currentPassword = currentPassword.Md5Encoding();
+
+            if (currentPassword != CurrentUser.Password)
             {
                 return Fail("当前密码错误！");
             }
@@ -120,7 +138,7 @@ namespace com.gyt.ms.Controllers
 
             var userInfoDto = _userInfoService.GetById(CurrentUser.UserId);
 
-            if (userInfoDto.Password==newPassword)
+            if (userInfoDto.Password == newPassword)
             {
                 return Fail("修改失败，与旧密码相同！");
             }
@@ -141,7 +159,7 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public ActionResult AccountManage(int activeId=0)
+        public ActionResult AccountManage(int activeId = 0)
         {
             ViewBag.ActiveId = activeId;
             ViewBag.Result = _userInfoService.GetAll();
@@ -161,7 +179,7 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        public ActionResult EditUserInfo(int activeId = 0,int userId=0)
+        public ActionResult EditUserInfo(int activeId = 0, int userId = 0)
         {
             ViewBag.ActiveId = activeId;
             ViewBag.Result = _userInfoService.GetById(userId);
@@ -181,8 +199,8 @@ namespace com.gyt.ms.Controllers
             }
 
             var dto = _userInfoService.GetById(userInfoDto.UserId);
-            
-            if (dto==null)
+
+            if (dto == null)
             {
                 throw new ArgumentException("未找到对应的用户！");
             }

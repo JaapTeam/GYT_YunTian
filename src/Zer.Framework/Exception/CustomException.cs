@@ -15,9 +15,10 @@ namespace Zer.Framework.Exception
 
         private static string GetFormatDetail(string msg, Dictionary<string, string> detail)
         {
+            msg = string.Format("<h2>{0}</h2>", msg);
             foreach (var key in detail.Keys)
             {
-                msg += string.Format("\n{0}={1}",key,detail[key]);
+                msg += string.Format("<p>{0}:{1}</p>",key,detail[key]);
             }
 
             return msg;
