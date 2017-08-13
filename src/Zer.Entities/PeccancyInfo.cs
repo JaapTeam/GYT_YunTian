@@ -4,6 +4,7 @@ using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class PeccancyInfo : EntityBase
     {
         [MaxLength(50)]

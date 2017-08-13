@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Cache\CacheHelper.cs" />
     <Compile Include="Dto\DtoBase.cs" />
     <Compile Include="Dto\IDto.cs" />
     <Compile Include="Dto\IPaging.cs" />
@@ -94,6 +95,8 @@
     <Compile Include="JsonData.cs" />
     <Compile Include="Helpers\Md5Helper.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Mail\MailHelper.cs" />
+    <Compile Include="Mail\MailManager.cs" />
     <Compile Include="Module\ModuleBase.cs" />
     <Compile Include="Mvc\ResultCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

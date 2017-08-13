@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
+    [Serializable]
     public class UserInfo : EntityBase
     {
         [MaxLength(20)]
