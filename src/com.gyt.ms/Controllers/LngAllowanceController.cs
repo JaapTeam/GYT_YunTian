@@ -33,28 +33,16 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: LngAllowance
-        public ActionResult Index(int activeId = 9)
-        {
-            ViewBag.ActiveId = activeId;
-
-            var truckList = _truckInfoService.GetAll();
-            ViewBag.TruckList = truckList;
-
-            var dto = _lngAllowanceService.GetAll();
-            return View(dto);
-        }
-
-        [HttpPost]
-        public ActionResult Search(LngAllowanceSearchDto searchDto, int activeId = 9)
+        public ActionResult Index(LngAllowanceSearchDto filter = null,int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
             var truckList = _truckInfoService.GetAll();
 
             ViewBag.TruckList = truckList;
-            ViewBag.SearchDto = searchDto;
+            ViewBag.Filter = filter;
 
-            var result = _lngAllowanceService.GetList(searchDto);
-            return View("Index", result);
+            var result = _lngAllowanceService.GetList(filter);
+            return View(result);
         }
 
         public ActionResult Add(int activeId = 9)

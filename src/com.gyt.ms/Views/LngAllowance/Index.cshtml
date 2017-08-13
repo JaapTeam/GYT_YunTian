@@ -4,7 +4,7 @@
 @{
     var lngList = Model as List<LngAllowanceInfoDto>;
     var truckList = ViewBag.TruckList as List<TruckInfoDto>;
-    var searchFilter = ViewBag.SearchDto as LngAllowanceSearchDto;
+    var searchFilter = ViewBag.Filter as LngAllowanceSearchDto;
 
     if (searchFilter == null)
     {
@@ -12,7 +12,7 @@
     }
 }
 
-<form class="form-inline" action="@(Url.Action("Search","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
+<form class="form-inline" action="@(Url.Action("Index","LngAllowance",new {activeid=9}))" method="post" style="height: 50px; line-height: 45px">
     车牌号码：
 
     <select name="TruckNo" class=" chosen-select" style="display: none; width: 200px">
