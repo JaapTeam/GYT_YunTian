@@ -5,10 +5,6 @@ namespace Zer.Framework.Dto
         int PageIndex { get; set; }
         int PageSize { get; set; }
         int Total { get; set; }
-    }
-
-    public interface IPaging<T> : IPaging
-    {
-        
+        int PageCount { get; set; }
     }
 }

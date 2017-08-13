@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using AutoMapper;
 using Zer.Entities;
+using Zer.Framework.Dto;
 using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
@@ -65,6 +67,17 @@ namespace Zer.AppServices.Impl
         {
             var query = _lngAllowanceInfoDataService.GetAll();
 
+            if (searchDto == null) return query.Map<LngAllowanceInfoDto>().ToList();
+
+            query = Filter(searchDto, query);
+
+            query = query.ToPageQuery(searchDto); 
+
+            return query.Map<LngAllowanceInfoDto>().ToList();
+        }
+
+        private IQueryable<LngAllowanceInfo> Filter(LngAllowanceSearchDto searchDto, IQueryable<LngAllowanceInfo> query)
+        {
             if (!searchDto.TruckNo.IsNullOrEmpty())
             {
                 query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo));
@@ -72,15 +85,14 @@ namespace Zer.AppServices.Impl
 
             if (!searchDto.EngineId.IsNullOrEmpty())
             {
-                query = query.Where(x=>x.EngineId == searchDto.EngineId);
+                query = query.Where(x => x.EngineId.Contains(searchDto.EngineId));
             }
 
             if (searchDto.IsAllowanced.HasValue)
             {
                 //query = query.Where(x=>x.)
             }
-
-            return query.Map<LngAllowanceInfoDto>().ToList();
+            return query;
         }
     }
 }

@@ -43,15 +43,14 @@
                     }
                 </select>
                 车牌号码：
-                <select class="chosen-select " style="display: none; width: 105px" id="select_Truck" name="TruckNo">
+                <select class="chosen-select " style="display: none; width: 115px" name="TruckNo">
                     <option value="">&nbsp;</option>
-
                     @{
                         Debug.Assert(truckList != null, "truckList != null");
                     }
                     @foreach (var truckInfoDto in truckList)
                     {
-                        <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
+                        <option value="@truckInfoDto.FrontTruckNo">@truckInfoDto.FrontTruckNo</option>
                     }
                 </select>
 

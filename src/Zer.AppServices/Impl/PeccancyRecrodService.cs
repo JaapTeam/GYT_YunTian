@@ -87,5 +87,11 @@ namespace Zer.AppServices.Impl
 
             return query.Map<PeccancyRecrodDto>().ToList();
         }
+
+        public bool ExistsCompanyName(string companyName)
+        {
+            return _peccancyRecrodDataService.GetAll()
+                .Any(x => x.CompanyName == companyName && x.Status == Status.未整改);
+        }
     }
 }
