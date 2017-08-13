@@ -161,7 +161,7 @@ namespace Zer.Framework.EntityFramework
                 Expression.PropertyOrField(lambdaParam, "Id"),
                 Expression.Constant(id, typeof(TPrimaryKey))
             );
-
+            
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
     }
