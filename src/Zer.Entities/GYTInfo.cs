@@ -53,7 +53,7 @@ namespace Zer.Entities
     public enum BusinessState
     {
         初始 = 0,
-        未通过 = 4,
-        已通过 = 8
+        已通过 = 4,
+        已审核 = 8
     }
 }

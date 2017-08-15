@@ -145,6 +145,12 @@
                         该车牌号以旧换新指标已被使用，请核实！
                         <br>
                     </div>
+
+                    <div class="alert alert-danger" id="success" style="display:none">
+                        <i class="icon-remove"></i>
+                        所有条件满足，办理成功通过！
+                        <br>
+                    </div>
                 </div>
                 <!-- PAGE CONTENT ENDS -->
             </div><!-- /.col -->
@@ -285,6 +291,7 @@
                     $("#isTransferRecrod").css("display", "none");
                     $("#result").css("display", "none");
                     $("#targetIsUse").css("display", "none");
+                    $("#success").css("display", "none");
 
                     $.ajax({
                         type: "Get",
@@ -299,6 +306,7 @@
                             } else {
                                 if (d.data.Result === true) {
                                     title = "审查通过！";
+                                    $("#success").removeAttr("style");
                                 } else {
                                     title = "审查未通过！";
 
@@ -329,8 +337,6 @@
                                 }
                             }
 
-                            console.log(d);
-                            console.log(d.data.Result);
                             e.preventDefault();
 
                             var dialog = $("#dialog-message")

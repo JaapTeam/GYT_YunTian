@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic;
 using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Dto;

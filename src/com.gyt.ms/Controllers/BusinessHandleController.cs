@@ -357,18 +357,15 @@ namespace com.gyt.ms.Controllers
             {
                 gtyInfoDto.Status = BusinessState.已通过;
                 handleDataDto.Result = true;
+                _gytInfoService.Add(gtyInfoDto);
             }
             else
             {
-                gtyInfoDto.Status = BusinessState.未通过;
                 handleDataDto.Result = false;
             }
             
             #endregion
 
-            _gytInfoService.Add(gtyInfoDto);
-
-            
             handleDataDto.BidCompanyName = bidCompanyName;
             handleDataDto.BidTruckNo = bidTruckNo;
             handleDataDto.BusinessType = businessType;
