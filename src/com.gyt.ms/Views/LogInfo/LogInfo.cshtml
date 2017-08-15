@@ -41,25 +41,12 @@
             <span>@logInfo.CreateTime</span>
         </div>
     </div>
-    <div class="profile-info-row">
-        <div class="profile-info-name"> IP </div>
-
-        <div class="profile-info-value">
-            <span>@logInfo.IP</span>
-        </div>
-    </div>
-    <div class="profile-info-row">
-        <div class="profile-info-name"> MAC </div>
-
-        <div class="profile-info-value">
-            <span>@logInfo.MAC</span>
-        </div>
-    </div>
+    
     <div class="profile-info-row">
         <div class="profile-info-name"> 日志内容 </div>
 
         <div class="profile-info-value">
-            <span>@logInfo.Content</span>
+            <span>@Html.Raw(logInfo.Content)</span>
         </div>
     </div>
 </div>
