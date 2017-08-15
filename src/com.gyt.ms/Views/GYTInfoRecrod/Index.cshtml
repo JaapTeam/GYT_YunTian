@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics
+@using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
 
@@ -109,11 +110,41 @@
                                     @gytInfoDto.BidDate
                                 </td>
                                 <td>@gytInfoDto.BidName</td>
-                                <td>@gytInfoDto.Status</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm btn-small _verify" id="@gytInfoDto.Id">
-                                        <i class=" icon-check">审核</i>
-                                    </a>
+                                    @if (gytInfoDto.Status == BusinessState.已审核)
+                                    {
+                                        <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
+                                    }
+
+                                    @if (gytInfoDto.Status == BusinessState.已通过)
+                                    {
+                                        <span class="label label-sm label-info"><i class="icon-spinner"> 已受理</i></span>
+                                    }
+
+                                    @if (gytInfoDto.Status == BusinessState.初始)
+                                    {
+                                        <span class="label label-sm label-danger"><i class="icon-ban-circle"> 条件不符</i></span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (gytInfoDto.Status == BusinessState.已审核)
+                                    {
+                                        <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
+                                    }
+                                    
+                                    @if (gytInfoDto.Status == BusinessState.已通过)
+                                    {
+                                        <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
+                                            <i class=" icon-check">审核</i>
+                                        </a>
+                                    }
+                                    
+                                    @if (gytInfoDto.Status == BusinessState.初始)
+                                    {
+                                        <i class="icon-ban-circle"> 不符合办理条件</i>
+                                    }
+
+                                  
                                 </td>
                                 <td><a href="javascript:;">详情</a></td>
                             </tr>
@@ -183,7 +214,7 @@
     </div>
 </div>
 <div id="dialog-message" class="hide">
-    <p>确认审核这条记录?</p>
+    <p>确认审核,数据记录状态将变更为“已办理”!</p>
 
 </div><!-- #dialog-message -->
 @section scripts{

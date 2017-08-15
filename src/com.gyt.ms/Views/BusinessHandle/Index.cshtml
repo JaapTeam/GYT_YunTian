@@ -146,9 +146,9 @@
                         <br>
                     </div>
 
-                    <div class="alert alert-danger" id="success" style="display:none">
-                        <i class="icon-remove"></i>
-                        所有条件满足，办理成功通过！
+                    <div class="alert alert-success" id="success" style="display:none">
+                        <i class="icon-ok"></i>
+                        所有条件满足，办理申请已受理，请等待审核结果！
                         <br>
                     </div>
                 </div>
@@ -166,136 +166,136 @@
     <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet"/>
     <script type="text/javascript">
 
-        $("#form-field-select-type")
-            .change(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("Html")",
-                    data: { businessType: $(this).val(), activeId: 1 },
-                    dataType: "json",
-                    success: function(data) {
-                        $("#container").html(data.msg);
-                    }
-
-                });
-            });
-
-        $(document)
-            .on('input',
-                '#input_CompanyName',
-                function(event) {
-
-                    var val = $("#input_CompanyName").val();
-                    companyPeccancyCheck(val, "#_sp_Illegal");
-
-                });
-
-        $(document)
-            .on('input',
-                '#input_oldTruckno',
-                function(event) {
-
-                    var val = $("#input_oldTruckno").val();
-                    $.ajax({
-                        type: "Get",
-                        url: "@Url.Action("TruckRepetitionCheck")",
-                        data: { truckNo: val },
-                        dataType: "json",
-                        success: function(data) {
-
-                            if (data.C == '901') {
-                                $("#_sp_quota").html("无重复使用");
-                                $("#_sp_quota").removeClass();
-                                $("#_sp_quota").addClass("label label-lg label-success");
-                            }
-                            if (data.C == '801') {
-                                $("#_sp_quota").html("有重复使用");
-                                $("#_sp_quota").removeClass();
-                                $("#_sp_quota").addClass("label label-lg label-warning");
-                            }
-                        }
-                    });
-
-                });
-
-        function companyPeccancyCheck(companyName, span) {
+    $("#form-field-select-type")
+        .change(function () {
             $.ajax({
-                type: "Get",
-                url: "@Url.Action("CompanyPeccancyCheck")",
-                data: { companyName: companyName },
+                type: "POST",
+                url: "@Url.Action("Html")",
+                data: { businessType: $(this).val(), activeId: 1 },
                 dataType: "json",
-                success: function(data) {
-
-                    if (data.C == '901') {
-                        $(span).html("无违规");
-                        $(span).removeClass();
-                        $(span).addClass("label label-lg label-success");
-
-                    }
-                    if (data.C == '801') {
-                        $(span).html("有违规");
-                        $(span).removeClass();
-                        $(span).addClass("label label-lg label-warning");
-                    }
+                success: function (data) {
+                    $("#container").html(data.msg);
                 }
+
             });
-        };
+        });
 
+    $(document)
+        .on('input',
+            '#input_CompanyName',
+            function (event) {
 
-        $("#submit")
-            .on('click',
-                function(e) {
-                    var title = "";
-                    var bidCompanyName = $("#input_CompanyName").val();
-                    var bidTruckNo = $("#input_bidTruckNo").val();
-                    var oldTruckno = $("#input_oldTruckno").val();
-                    var isAnnual = $('#radio_Verify input:radio:checked').val();
-                    var isOperationCancel = $('#radio_Cancel input:radio:checked').val();
-                    var isTransferRecrod = $('#radioTransfer input:radio:checked').val();
-                    var isGytStatus = $('#radioState input:radio:checked').val();
-                    var isConsistentInfo = $('#radioInfo input:radio:checked').val();
-                    var isGytCancel = $('#radio_GCancel input:radio:checked').val();
+                var val = $("#input_CompanyName").val();
+                companyPeccancyCheck(val, "#_sp_Illegal");
 
-                    if (bidCompanyName === "") {
-                        alert("申报企业名不能为空！");
-                        return;
+            });
+
+    $(document)
+        .on('input',
+            '#input_oldTruckno',
+            function (event) {
+
+                var val = $("#input_oldTruckno").val();
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("TruckRepetitionCheck")",
+                    data: { truckNo: val },
+                    dataType: "json",
+                    success: function (data) {
+
+                        if (data.C == '901') {
+                            $("#_sp_quota").html("无重复使用");
+                            $("#_sp_quota").removeClass();
+                            $("#_sp_quota").addClass("label label-lg label-success");
+                        }
+                        if (data.C == '801') {
+                            $("#_sp_quota").html("有重复使用");
+                            $("#_sp_quota").removeClass();
+                            $("#_sp_quota").addClass("label label-lg label-warning");
+                        }
                     }
-                    if (bidTruckNo === "") {
-                        alert("申报车牌号不能为空！");
-                        return;
-                    }
-                    if (bidCompanyName === "" && $("#form-field-select-type").val() === 2) {
-                        alert("旧车牌号不能为空！");
-                        return;
-                    }
+                });
 
-                    var data = {
-                        businessType: $("#form-field-select-type").val(),
-                        bidCompanyName: bidCompanyName,
-                        bidTruckNo: bidTruckNo,
-                        oldTruckno: oldTruckno,
-                        isAnnual: isAnnual,
-                        isOperationCancel: isOperationCancel,
-                        isTransferRecrod: isTransferRecrod,
-                        isGytStatus: isGytStatus,
-                        isGytCancel: isGytCancel,
-                        isConsistentInfo: isConsistentInfo
-                    };
+            });
 
-                    $("#result").css("display", "none");
-                    $("#isAnnual").css("display", "none");
-                    $("#isConsistentInfo").css("display", "none");
-                    $("#isGytCancel").css("display", "none");
-                    $("#isGytStatus").css("display", "none");
-                    $("#isPeccancy").css("display", "none");
-                    $("#isTransferRecrod").css("display", "none");
-                    $("#result").css("display", "none");
-                    $("#targetIsUse").css("display", "none");
-                    $("#success").css("display", "none");
+    function companyPeccancyCheck(companyName, span) {
+        $.ajax({
+            type: "Get",
+            url: "@Url.Action("CompanyPeccancyCheck")",
+            data: { companyName: companyName },
+            dataType: "json",
+            success: function (data) {
 
-                    $.ajax({
-                        type: "Get",
-                        url: "@Url.Action("SuccessInfo")",
+                if (data.C == '901') {
+                    $(span).html("无违规");
+                    $(span).removeClass();
+                    $(span).addClass("label label-lg label-success");
+
+                }
+                if (data.C == '801') {
+                    $(span).html("有违规");
+                    $(span).removeClass();
+                    $(span).addClass("label label-lg label-warning");
+                }
+            }
+        });
+    };
+
+
+    $("#submit")
+        .on('click',
+            function (e) {
+                var title = "";
+                var bidCompanyName = $("#input_CompanyName").val();
+                var bidTruckNo = $("#input_bidTruckNo").val();
+                var oldTruckno = $("#input_oldTruckno").val();
+                var isAnnual = $('#radio_Verify input:radio:checked').val();
+                var isOperationCancel = $('#radio_Cancel input:radio:checked').val();
+                var isTransferRecrod = $('#radioTransfer input:radio:checked').val();
+                var isGytStatus = $('#radioState input:radio:checked').val();
+                var isConsistentInfo = $('#radioInfo input:radio:checked').val();
+                var isGytCancel = $('#radio_GCancel input:radio:checked').val();
+
+                if (bidCompanyName === "") {
+                    alert("申报企业名不能为空！");
+                    return;
+                }
+                if (bidTruckNo === "") {
+                    alert("申报车牌号不能为空！");
+                    return;
+                }
+                if (bidCompanyName === "" && $("#form-field-select-type").val() === 2) {
+                    alert("旧车牌号不能为空！");
+                    return;
+                }
+
+                var data = {
+                    businessType: $("#form-field-select-type").val(),
+                    bidCompanyName: bidCompanyName,
+                    bidTruckNo: bidTruckNo,
+                    oldTruckno: oldTruckno,
+                    isAnnual: isAnnual,
+                    isOperationCancel: isOperationCancel,
+                    isTransferRecrod: isTransferRecrod,
+                    isGytStatus: isGytStatus,
+                    isGytCancel: isGytCancel,
+                    isConsistentInfo: isConsistentInfo
+                };
+
+                $("#result").css("display", "none");
+                $("#isAnnual").css("display", "none");
+                $("#isConsistentInfo").css("display", "none");
+                $("#isGytCancel").css("display", "none");
+                $("#isGytStatus").css("display", "none");
+                $("#isPeccancy").css("display", "none");
+                $("#isTransferRecrod").css("display", "none");
+                $("#result").css("display", "none");
+                $("#targetIsUse").css("display", "none");
+                $("#success").css("display", "none");
+
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("SuccessInfo")",
                         data: data,
                         dataType: "json",
                         success: function(d) {
@@ -351,7 +351,8 @@
                                             text: "确认",
                                             "class": "btn btn-xs",
                                             click: function() {
-                                                $(this).dialog("close");
+                                                //$(this).dialog("close");
+                                                window.location = '@Url.Action("Index","GYTInfoRecrod")';
                                             }
                                         }
                                     ]
