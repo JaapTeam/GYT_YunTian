@@ -29,11 +29,7 @@ namespace Zer.GytDto
         [Sort(5)]
         [ExportDisplayName("发生时间")]
         public DateTime CreateTime { get; set; }
-
-        [Sort(6)]
-        [ExportDisplayName("MAC")]
-        public string MAC { get; set; }
-
+        
         [Sort(7)]
         [ExportDisplayName("IP")]
         public string IP { get; set; }

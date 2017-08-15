@@ -39,7 +39,7 @@ namespace com.gyt.ms.Tests.Controllers.Truck
                     Id = 1,
                     CompanyId = 109,
                     CompanyName = "深圳市海线物流有限公司",
-                    DriverId = 1,
+                    DriverId = "1",
                     DriverName = "张三",
                     FrontTruckNo = "粤B54321" 
                     
@@ -90,7 +90,7 @@ namespace com.gyt.ms.Tests.Controllers.Truck
                         Id = 2,
                         CompanyId = 109,
                         CompanyName = "深圳市海线物流有限公司",
-                        DriverId = 2,
+                        DriverId = "2",
                         DriverName = "李四",
                         FrontTruckNo = "粤B12345"
                     },
