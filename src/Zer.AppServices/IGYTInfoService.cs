@@ -9,5 +9,12 @@ namespace Zer.AppServices
         bool Exists(string bidTruckNo);
 
         List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto);
+
+        /// <summary>
+        /// 检查车牌以旧换新指标是否已使用
+        /// </summary>
+        /// <param name="truckNo"></param>
+        /// <returns></returns>
+        bool TargetIsUse(string truckNo);
     }
 }
