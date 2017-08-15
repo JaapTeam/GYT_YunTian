@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -29,14 +28,16 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: GYTInfo
-        public ActionResult Index(int activeId=3)
+        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 3)
         {
             ViewBag.ActiveId = activeId;
 
             ViewBag.CompanyList = _companyService.GetAll();
             ViewBag.TruckList = _truckInfoService.GetAll();
-            ViewBag.Result =  _gytInfoService.GetAll().Where(x => x.Status == BusinessState.已通过).ToList();
+            ViewBag.SearchDto = searchDto;
+            ViewBag.Result = _gytInfoService.GetVerifyList(searchDto);
             return View();
+
         }
 
         [System.Web.Mvc.HttpPost]
@@ -137,22 +138,23 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
-        public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 3)
-        {
-            ViewBag.ActiveId = activeId;
-            var truckList = _truckInfoService.GetAll();
-            var companyList = _companyService.GetAll();
+        //public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 3)
+        //{
+        //    ViewBag.ActiveId = activeId;
+        //    var truckList = _truckInfoService.GetAll();
+        //    var companyList = _companyService.GetAll();
 
-            ViewBag.TruckList = truckList;
-            ViewBag.CompanyList = companyList;
-            ViewBag.SearchDto = searchDto;
+        //    ViewBag.TruckList = truckList;
+        //    ViewBag.CompanyList = companyList;
+        //    ViewBag.SearchDto = searchDto;
 
-            searchDto.Status = BusinessState.已通过;
-            ViewBag.Result = _gytInfoService.GetList(searchDto);
+        //    searchDto.Status = BusinessState.已通过;
+        //    ViewBag.Result = _gytInfoService.GetList(searchDto);
 
-            return View("Index");
-        }
+        //    return View("Index");
+        //}
 
+       
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {
