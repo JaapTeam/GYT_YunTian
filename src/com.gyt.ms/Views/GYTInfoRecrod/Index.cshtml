@@ -1,0 +1,301 @@
+﻿@using System.Diagnostics
+@using Zer.GytDto
+@using Zer.GytDto.SearchFilters
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var infoList = ViewBag.Result as List<GYTInfoDto>;
+
+    var searchFilter = ViewBag.SearchDto as GYTInfoSearchDto ?? (GYTInfoSearchDto)new GYTInfoSearchDto();
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <form action="@(Url.Action("Index", "GYTInfoRecrod", new { activeId = ViewBag.ActiveId }))" method="post" style="height: 50px; line-height: 45px">
+
+            <div class="div-inline">
+
+                <div class="div-inline">
+                    @*<div class="input-group col-xs-5">
+                            <span>查询时间：</span>
+                            <span class="input-group-addon">
+                                <i class="icon-calendar"></i>
+                            </span>
+
+                            <input class="form-control" type="text" name="date-range-picker" id="drp_QueryDate">
+                        </div>*@
+                </div>
+                <span style="margin-left: 10px">公司名称：</span>
+                    <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
+                车牌号码：
+                <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
+
+                <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
+
+            </div>
+
+        </form>
+
+        <div class="table-header">
+
+            <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+
+                <a class="white" href="javascript:void(0)" id="btn_improt">
+                    <i class="icon-cloud-upload bigger-110">
+                        <span class="">批量导入</span>
+                    </i>
+                </a>
+
+                <a class="white" id="btn_export" href="@(Url.Action("ExportResult","GYTInfo",new {exportcode="All"}))">
+                    <i class="icon-cloud-download bigger-110">
+                        <span class="">导出</span>
+                    </i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+            <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="center">
+                        <label>
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </th>
+                    <th>办理编号</th>
+                    <th>业务类型</th>
+                    <th>原企业</th>
+                    <th>原车牌号</th>
+                    <th>申办企业</th>
+                    <th>申办车牌号</th>
+                    <th>办理日期</th>
+                    <th>经办人</th>
+                    <th>业务状态</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @{
+                    if (infoList != null && infoList.Count > 0)
+                    {
+                        foreach (var gytInfoDto in infoList)
+                        {
+                            <tr>
+                                <td class="center">
+                                    <label>
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="javascript:;">@gytInfoDto.Id</a>
+                                </td>
+                                <td>@gytInfoDto.BusinessType</td>
+                                <td class="hidden-480">@gytInfoDto.OriginalCompanyName</td>
+                                <td>@gytInfoDto.OriginalTruckNo</td>
+
+                                <td>@gytInfoDto.BidCompanyName</td>
+                                <td>
+                                    @gytInfoDto.BidTruckNo
+                                </td>
+                                <td>
+                                    @gytInfoDto.BidDate
+                                </td>
+                                <td>@gytInfoDto.BidName</td>
+                                <td>@gytInfoDto.Status</td>
+                                <td>
+                                    <a class="btn btn-info btn-sm btn-small _verify" id="@gytInfoDto.Id">
+                                        <i class=" icon-check">审核</i>
+                                    </a>
+                                </td>
+                                <td><a href="javascript:;">详情</a></td>
+                            </tr>
+                        }
+                    }
+
+                }
+
+                </tbody>
+            </table>
+                
+            
+
+            @using (Html.BeginForm("Improt", "GYTInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" name="file" class="hide" id="input_file" />
+                <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+            }
+
+            @if (searchFilter.PageCount > 1)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="dataTables_paginate padding-10">
+                            <ul class="pagination">
+
+                                <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
+                                    <a href="@Url.Action("index", new
+                                             {
+                                                 searchFilter.TruckNo,
+                                                 searchFilter.CompanyName,
+                                                 PageIndex = 1,
+                                                 searchFilter.PageSize
+                                             })">
+                                        <i class="icon-double-angle-left"></i>
+                                    </a>
+                                </li>
+                                @for (int i = 1; i <= searchFilter.PageCount; i++)
+                                {
+                                    <li class="@(searchFilter.PageIndex == i?"active":"")">
+                                        <a href="@Url.Action("index", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyName,
+                                         PageIndex = i,
+                                         searchFilter.PageSize
+                                     })">@i</a>
+                                </li>
+                                }
+                                <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount?"disabled":"")">
+                                    <a href="@Url.Action("index", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyName,
+                                         PageIndex = searchFilter.PageCount,
+                                         searchFilter.PageSize
+                                     })">
+                                        <i class="icon-double-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div id="dialog-message" class="hide">
+    <p>确认审核这条记录?</p>
+
+</div><!-- #dialog-message -->
+@section scripts{
+
+    <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
+    
+    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
+
+<link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        jQuery(function($) {
+
+
+            $(".chosen-select").chosen();
+
+
+            /////////
+            $('#modal-form input[type=file]')
+                .ace_file_input({
+                    style: 'well',
+                    btn_choose: 'Drop files here or click to choose',
+                    btn_change: null,
+                    no_icon: 'icon-cloud-upload',
+                    droppable: true,
+                    thumbnail: 'large'
+                });
+
+            //chosen plugin inside a modal will have a zero width because the select element is originally hidden
+            //and its width cannot be determined.
+            //so we set the width after modal is show
+            $('#modal-form')
+                .on('shown.bs.modal',
+                    function() {
+                        $(this)
+                            .find('.chosen-container')
+                            .each(function() {
+                                $(this).find('a:first-child').css('width', '210px');
+                                $(this).find('.chosen-drop').css('width', '210px');
+                                $(this).find('.chosen-search input').css('width', '200px');
+                            });
+                    });
+            /**
+             //or you can activate the chosen plugin after modal is shown
+             //this way select element becomes visible with dimensions and chosen works as expected
+             $('#modal-form').on('shown', function () {
+                        $(this).find('.modal-chosen').chosen();
+                    })
+             */
+
+        });
+
+        $(function() {
+            $("#btn_improt")
+                .click(function() {
+                    $("#input_file").click();
+                });
+
+            $("#input_file")
+                .change(function() {
+                    $("#Submit").click();
+                    $("#input_file").text("");
+                });
+        });
+
+        $("._verify")
+            .on('click',
+                function(e) { e.preventDefault();
+                var infoId = $(this).attr("id");
+
+                    var dialog = $("#dialog-message")
+                        .removeClass('hide')
+                        .dialog({
+                            modal: true,
+                            width: '400',
+                            title: '提示！',
+                            title_html: true,
+                            buttons: [
+                                {
+                                    text: "确认",
+                                    "class": "btn btn-xs",
+                                    click: function () {
+                                        $.ajax({
+                                            type: "Post",
+                                            url: "@Url.Action("Verify")",
+                                            data: { infoId: infoId },
+                                        dataType: "json",
+                                        success: function(data) {
+                                            if (data.C === 901) {
+                                                $("#dialog-message").dialog("close");
+                                                $("#btn_submit").click();
+                                            } else if (data.C === 801) {
+                                                $("#dialog-message").dialog("close");
+                                                alert(data.msg);
+                                            }
+                                        }
+                                    });
+                }
+            }, {
+            text: "取消",
+            "class": "btn btn-xs",
+            click: function() {
+                $(this).dialog("close");
+            }
+            }
+            ]
+            });});
+
+    </script>
+
+}
+
+
+
+
