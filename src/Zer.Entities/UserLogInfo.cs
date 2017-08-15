@@ -9,21 +9,19 @@ namespace Zer.Entities
     {
         public ActionType ActionType { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(50)]
         public string ActionModel { get; set; }
-
+        [MaxLength]
         public string Content { get; set; }
 
         public DateTime CreateTime { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(20)]
         public string IP { get; set; }
 
-        [MaxLength(50)]
-        public string MAC { get; set; }
         public int UserId { get; set; }
 
-        [MaxLength(50)]
+        [StringLength(20)]
         public string DisplayName { get; set; }
     }
 
