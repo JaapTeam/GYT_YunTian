@@ -33,22 +33,6 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        //[System.Web.Mvc.HttpPost]
-        //public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 7)
-        //{
-        //    ViewBag.ActiveId = activeId;
-        //    var truckList = _truckInfoService.GetAll();
-        //    var companyList = _companyService.GetAll();
-
-        //    ViewBag.TruckList = truckList;
-        //    ViewBag.CompanyList = companyList;
-        //    ViewBag.SearchDto = searchDto;
-
-        //    ViewBag.Result = _gytInfoService.GetList(searchDto);
-
-        //    return View("Index");
-        //}
-
         public FileResult Export(string exportCode = "")
         {
             List<GYTInfoDto> exportList = new List<GYTInfoDto>();
