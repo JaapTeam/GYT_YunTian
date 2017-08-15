@@ -145,7 +145,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
-    <Compile Include="Controllers\GYTSuccessController.cs" />
+    <Compile Include="Controllers\GYTInfoRecrodController.cs" />
     <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LngAllowanceController.cs" />
@@ -322,8 +322,8 @@
     <Content Include="Views\PeccancyChangeInfo\Index.cshtml" />
     <Content Include="Views\PeccancyRecrod\ImportResult.cshtml" />
     <Content Include="Views\PeccancyRecrod\Index.cshtml" />
-    <Content Include="Views\GYTSuccess\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\GYTInfoRecrod\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

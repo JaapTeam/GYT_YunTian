@@ -157,34 +157,52 @@
         <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
     }
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="dataTables_paginate padding-10">
-                <ul class="pagination">
-                    <li class="prev disabled">
-                        <a href="#">
-                            <i class="icon-double-angle-left"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">
-                            <i class="icon-double-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
+    @if (filter.PageCount > 1)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="dataTables_paginate padding-10">
+                    <ul class="pagination">
+
+                        <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
+                            <a href="@Url.Action("index", "LngAllowance", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyId,
+                                         PageIndex = 1,
+                                         searchFilter.PageSize
+                                     })">
+                                <i class="icon-double-angle-left"></i>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= searchFilter.PageCount; i++)
+                        {
+                            <li class="@(searchFilter.PageIndex == i ? "active" : "")">
+                                <a href="@Url.Action("index", "LngAllowance", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyId,
+                                         PageIndex = i,
+                                         searchFilter.PageSize
+                                     })">@i</a>
+                                </li>
+                        }
+                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
+                            <a href="@Url.Action("index", "LngAllowance", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyId,
+                                         PageIndex = searchFilter.PageCount,
+                                         searchFilter.PageSize
+                                     })">
+                                <i class="icon-double-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    }
 
 @section scripts{
     <script src="@Url.Content("~")assets/js/jquery.dataTables.min.js"></script>
