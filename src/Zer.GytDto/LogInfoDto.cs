@@ -45,6 +45,6 @@ namespace Zer.GytDto
         Edit=1,
         Delete=2,
         Change=3,
-        Auditor=4
+        Query=4
     }
 }

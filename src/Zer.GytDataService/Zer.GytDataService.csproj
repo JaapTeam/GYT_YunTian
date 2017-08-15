@@ -62,11 +62,15 @@
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
     <Compile Include="Impl\PeccancyRecrodDataService.cs" />
-    <Compile Include="Migrations\201708151436217_Init_DataBase.cs" />
+    <Compile Include="Migrations\201708151436217_Init_DataBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Migrations\201708151436217_Init_DataBase.Designer.cs">
       <DependentUpon>201708151436217_Init_DataBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
     <Compile Include="Impl\TruckInfoDataService.cs" />
