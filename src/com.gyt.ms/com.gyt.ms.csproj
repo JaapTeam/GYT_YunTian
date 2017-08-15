@@ -272,6 +272,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
     <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
+    <None Include="Properties\PublishProfiles\ssssss.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

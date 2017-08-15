@@ -19,7 +19,7 @@ namespace Zer.GytDataService.Migrations
             context.UserInfos.AddOrUpdate(
                 u=>u.UserName,
                 // 密码:123456
-                new UserInfo() { DisplayName = "管理员", UserName = "admin888", Password = "14e1b600b1fd579f47433b88e8d85291" }
+                new UserInfo() { DisplayName = "管理员", UserName = "admin888", Role = RoleLevel.Administrator, Password = "14e1b600b1fd579f47433b88e8d85291" }
                 );
         }
     }
