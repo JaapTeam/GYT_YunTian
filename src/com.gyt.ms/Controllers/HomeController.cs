@@ -17,6 +17,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UnValidateLogin]
+        [UnLog]
         public ActionResult Login()
         {
             return View();

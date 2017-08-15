@@ -13,7 +13,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
             {
                 var userInfo = filterContext.Controller.ControllerContext.HttpContext.Session["UserInfo"];
 
-                if (userInfo == null )
+                if (userInfo == null)
                 {
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                     {

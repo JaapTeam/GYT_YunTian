@@ -26,6 +26,8 @@ namespace Zer.Framework.Mvc.Logs.Attributes
 
             if (filterContext.HttpContext.Session != null)
             {
+                
+
                 var userInfoDto = filterContext.HttpContext.Session["UserInfo"] as UserInfoDto;
                 if (userInfoDto == null)
                 {
