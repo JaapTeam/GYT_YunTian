@@ -1,12 +1,14 @@
-﻿@using Zer.Framework.Exception
-@{
+﻿@{
     var exception = ViewBag.Exception as Exception;
-    Layout = null;
+    ViewBag.ActiveId = 0;
 }
 
 <div class="row">
         @if (exception != null)
         {
-            <h2> @Html.Raw(exception.Message)</h2>
+            <div class="alert alert-block alert-danger">
+                <i class="icon-info-sign icon-2x danger"></i>
+                @Html.Raw(exception.Message)
+            </div>
         }
 </div>
