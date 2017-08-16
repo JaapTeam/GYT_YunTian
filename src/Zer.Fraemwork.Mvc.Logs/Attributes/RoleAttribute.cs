@@ -3,14 +3,14 @@ using Zer.Entities;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
 {
-    public class RoleAttribute : Attribute
+    public class AdminRoleAttribute : Attribute
     {
-        public RoleAttribute()
+        public AdminRoleAttribute()
         {
             RoleLevel = RoleLevel.Administrator;
         }
 
-        public RoleAttribute(RoleLevel roleLevel)
+        public AdminRoleAttribute(RoleLevel roleLevel)
         {
             RoleLevel = roleLevel;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using Zer.Entities;
@@ -12,34 +13,30 @@ namespace Zer.Framework.Mvc.Logs.Attributes
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var  userInfo = filterContext.GetSession<UserInfoDto>("UserInfo");
-
-            if (userInfo.Role == RoleLevel.User)
+            if (filterContext.GetActionAttribute<UnValidateLoginAttribute>().Any())
             {
                 base.OnActionExecuting(filterContext);
                 return;
             }
 
-            var roleAttributes = filterContext.GetActionAttribute<RoleAttribute>();
+            var adminRoleAttributes = filterContext.GetActionAttribute<AdminRoleAttribute>();
+            var userInfo = filterContext.GetSession<UserInfoDto>("UserInfo");
 
-            if (roleAttributes.All(x => x.RoleLevel != userInfo.Role))
+            if (adminRoleAttributes.Any() && userInfo.Role != RoleLevel.Administrator)
             {
                 UserActionLogger.Instance.Info(new LogInfoDto
                 {
                     ActionModel = string.Format("{0}/{1}",
                         filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                         filterContext.ActionDescriptor.ActionName),
-                        ActionType = ActionType.Change,
-                        Content = "越权执行危险操作",
-                        DisplayName = userInfo.DisplayName,
-                        UserId = userInfo.UserId
+                    ActionType = ActionType.Change,
+                    Content = "越权执行危险操作",
+                    DisplayName = userInfo.DisplayName,
+                    UserId = userInfo.UserId,
+                    //CreateTime = DateTime.Now
                 });
 
-                throw new CustomException(
-                    "您没有权限执行此操作", "操作内容",
-                    string.Format("{0}/{1}",
-                    filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
-                    filterContext.ActionDescriptor.ActionName));
+                throw new CustomException("您没有权限执行此操作");
             }
 
             base.OnActionExecuting(filterContext);

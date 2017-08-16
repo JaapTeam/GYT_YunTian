@@ -2,6 +2,7 @@
 @using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
+@using Zer.GytDto.Users
 
 @{
     ViewBag.Title = "Index";
@@ -78,7 +79,14 @@
                     <th>办理日期</th>
                     <th>经办人</th>
                     <th>业务状态</th>
-                    <th></th>
+                    @if (ViewBag.UserInfo != null)
+                    {
+                        var userInfo = ViewBag.UserInfo as UserInfoDto;
+                        if (userInfo.Role == RoleLevel.Administrator)
+                        {
+                            <th></th>
+                        }
+                    }
                     <th></th>
                 </tr>
                 </thead>
@@ -126,26 +134,36 @@
                                         <span class="label label-sm label-danger"><i class="icon-ban-circle"> 条件不符</i></span>
                                     }
                                 </td>
-                                <td>
-                                    @if (gytInfoDto.Status == BusinessState.已审核)
+                                
+                                @if (ViewBag.UserInfo != null)
+                                {
+                                    var userInfo = ViewBag.UserInfo as UserInfoDto;
+                                    if (userInfo.Role == RoleLevel.Administrator)
                                     {
-                                        <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
-                                    }
+                                        <td>
+                                            @if (gytInfoDto.Status == BusinessState.已审核)
+                                            {
+                                                <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
+                                            }
                                     
-                                    @if (gytInfoDto.Status == BusinessState.已通过)
-                                    {
-                                        <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
-                                            <i class=" icon-check">审核</i>
-                                        </a>
-                                    }
+                                            @if (gytInfoDto.Status == BusinessState.已通过)
+                                            {
+                                                <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
+                                                    <i class=" icon-check">审核</i>
+                                                </a>
+                                            }
                                     
-                                    @if (gytInfoDto.Status == BusinessState.初始)
-                                    {
-                                        <i class="icon-ban-circle"> 不符合办理条件</i>
-                                    }
+                                            @if (gytInfoDto.Status == BusinessState.初始)
+                                            {
+                                                <i class="icon-ban-circle"> 不符合办理条件</i>
+                                            }
 
                                   
-                                </td>
+                                        </td>
+                                    }
+                                }
+
+                              
                                 <td><a href="javascript:;">详情</a></td>
                             </tr>
                         }
@@ -296,21 +314,24 @@
                                 {
                                     text: "确认",
                                     "class": "btn btn-xs",
-                                    click: function () {
+                                    click: function() {
                                         $.ajax({
                                             type: "Post",
                                             url: "@Url.Action("Verify")",
                                             data: { infoId: infoId },
-                                        dataType: "json",
-                                        success: function(data) {
-                                            if (data.C === 901) {
-                                                $("#dialog-message").dialog("close");
-                                                $("#btn_submit").click();
-                                            } else if (data.C === 801) {
-                                                $("#dialog-message").dialog("close");
-                                                alert(data.msg);
+                                            dataType: "json",
+                                            success: function (data) {
+                                                console.log(data);
+
+                                                if (data.c === 901) {
+                                                    $("#dialog-message").dialog("close");
+                                                    $("#btn_submit").click();
+                                                }
+                                                if (data.c === 801) {
+                                                    $(dialog).dialog("close");
+                                                    alert(data.msg);
+                                                }
                                             }
-                                        }
                                     });
                 }
             }, {

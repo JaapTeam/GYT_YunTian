@@ -7,6 +7,11 @@ namespace Zer.GytDto
 {
     public class LogInfoDto : DtoBase
     {
+        public LogInfoDto()
+        {
+            CreateTime = DateTime.Now;
+        }
+
         [Sort(1)]
         [ExportDisplayName("日志编号")]
         public int Id { get; set; }
