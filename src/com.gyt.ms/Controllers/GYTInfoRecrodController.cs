@@ -6,6 +6,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Extensions;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
@@ -54,6 +55,7 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通办理记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
+        [AdminRole]
         public JsonResult Verify(int infoId)
         {
             var gtyInfo = _gytInfoService.GetById(infoId);
