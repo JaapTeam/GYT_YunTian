@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
@@ -9,13 +10,18 @@ namespace Zer.Entities
         /// <summary>
         /// 前车牌
         /// </summary>
+        [StringLength(10)]
         public string FrontTruckNo { get; set; }
         /// <summary>
         /// 后车牌
         /// </summary>
+        [StringLength(10)]
         public string BehindTruckNo { get; set; }
+
         public int CompanyId { get; set; }
-        public int? DriverId { get; set; }
+
+        [StringLength(20)]
+        public string DriverId { get; set; }
     }
 
     public enum TruckState

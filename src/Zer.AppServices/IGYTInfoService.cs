@@ -8,6 +8,8 @@ namespace Zer.AppServices
     {
         bool Exists(string bidTruckNo);
 
+        List<GYTInfoDto> GetVerifyList(GYTInfoSearchDto searchDto);
+
         List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto);
 
         /// <summary>
@@ -16,5 +18,7 @@ namespace Zer.AppServices
         /// <param name="truckNo"></param>
         /// <returns></returns>
         bool TargetIsUse(string truckNo);
+
+        GYTInfoDto Verify(int infoId);
     }
 }

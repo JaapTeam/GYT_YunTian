@@ -15,23 +15,23 @@ namespace Zer.Entities
 
         public int OriginalCompanyId { get; set; }
 
-        [MaxLength(100)]
+        [StringLength(50)]
         public string OriginalCompanyName { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(10)]
         public string OriginalTruckNo { get; set; }
 
         public int BidCompanyId { get; set; }
 
-        [MaxLength(100)]
+        [StringLength(50)]
         public string BidCompanyName { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(10)]
         public string BidTruckNo { get; set; }
 
         public DateTime? BidDate { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(20)]
         public string BidName { get; set; }
 
         public BusinessState Status { get; set; }
@@ -53,7 +53,7 @@ namespace Zer.Entities
     public enum BusinessState
     {
         初始 = 0,
-        未通过 = 4,
-        已通过 = 8
+        已通过 = 4,
+        已审核 = 8
     }
 }

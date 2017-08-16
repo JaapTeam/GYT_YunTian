@@ -5,8 +5,11 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
+using Zer.Framework.Mvc.Logs;
 using Zer.Framework.Mvc.Logs.Attributes;
+using Zer.GytDto;
 using Zer.GytDto.Users;
+using ActionType = Zer.GytDto.ActionType;
 
 
 namespace com.gyt.ms.Controllers
@@ -23,7 +26,6 @@ namespace com.gyt.ms.Controllers
         {
             _userInfoService = userInfoService;
         }
-
 
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
@@ -53,9 +55,18 @@ namespace com.gyt.ms.Controllers
         }
 
         [UnValidateLogin]
+        [UnLog]
         public ActionResult Login(string userName, string password)
         {
             var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
+
+            UserActionLogger.Instance.Info(new LogInfoDto()
+            {
+                ActionModel = "登录",
+                ActionType =  ActionType.Query,
+                Content = string.Format("UserName:{0}, Result:{1}",userName,loginResult),
+                CreateTime = DateTime.Now
+            });
 
             switch (loginResult)
             {
@@ -70,15 +81,6 @@ namespace com.gyt.ms.Controllers
                     return Success();
                 }
             }
-
-            ////if (loginResult != LoginStatus.Success)
-            ////{
-            ////    return Success(loginResult);
-            ////}
-            //var userinfoDto = _userInfoService.GetByUserName(userName);
-
-            //Session["UserInfo"] = userinfoDto;
-            //return Success();
         }
 
         public JsonResult Logout()

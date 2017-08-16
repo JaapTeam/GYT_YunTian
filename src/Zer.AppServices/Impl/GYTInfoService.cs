@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
+using Zer.Framework.Dto;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.GytDataService;
@@ -58,25 +59,60 @@ namespace Zer.AppServices.Impl
             return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim());
         }
 
+        public List<GYTInfoDto> GetVerifyList(GYTInfoSearchDto searchDto)
+        {
+            var query = _gytInfoDataService.GetAll().Where(x=>x.Status==BusinessState.已审核);
+
+            if (searchDto == null) return query.Map<GYTInfoDto>().ToList();
+
+            query = Filter(searchDto, query);
+
+            query = query.ToPageQuery(searchDto);
+
+            return query.Map<GYTInfoDto>().ToList();
+        }
+
         public List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto)
         {
             var query = _gytInfoDataService.GetAll();
 
-            if (searchDto.CompanyId!=0)
+            if (searchDto == null) return query.Map<GYTInfoDto>().ToList();
+
+            query = Filter(searchDto, query);
+
+            query = query.ToPageQuery(searchDto);
+
+            return query.Map<GYTInfoDto>().ToList();
+        }
+
+        private IQueryable<GYTInfo> Filter(GYTInfoSearchDto searchDto, IQueryable<GYTInfo> query)
+        {
+            if (!searchDto.CompanyName.IsNullOrEmpty())
             {
-                query = query.Where(x => x.BidCompanyId == searchDto.CompanyId || x.OriginalCompanyId == searchDto.CompanyId);
+                query = query.Where(x => x.BidCompanyName.Contains(searchDto.CompanyName) || x.OriginalCompanyName.Contains(searchDto.CompanyName));
             }
 
             if (!searchDto.TruckNo.IsNullOrEmpty())
             {
-                query = query.Where(x => x.BidTruckNo == searchDto.TruckNo||x.OriginalTruckNo==searchDto.TruckNo);
+                query = query.Where(x => x.BidTruckNo == searchDto.TruckNo || x.OriginalTruckNo == searchDto.TruckNo);
             }
 
             if (searchDto.Status != 0)
             {
                 query = query.Where(x => x.Status == searchDto.Status);
             }
-            return query.Map<GYTInfoDto>().ToList();
+
+            if (searchDto.StratDate!=null)
+            {
+                query = query.Where(x => x.BidDate >= searchDto.StratDate);
+            }
+
+            if (searchDto.StratDate != null)
+            {
+                query = query.Where(x => x.BidDate <= searchDto.EndDate);
+            }
+
+            return query;
         }
 
         public bool TargetIsUse(string truckNo)
@@ -84,6 +120,18 @@ namespace Zer.AppServices.Impl
             return
                 _gytInfoDataService.GetAll()
                     .Any(x => x.OriginalTruckNo == truckNo && x.BusinessType == BusinessType.以旧换新车辆);
+        }
+
+        public GYTInfoDto Verify(int infoId)
+        {
+            var gytInfoDto = _gytInfoDataService.GetById(infoId);
+
+            if (gytInfoDto.Status==BusinessState.已通过)
+            {
+                gytInfoDto.Status = BusinessState.已审核;
+            }
+
+            return _gytInfoDataService.Update(gytInfoDto.Map<GYTInfo>()).Map<GYTInfoDto>();
         }
     }
 }
