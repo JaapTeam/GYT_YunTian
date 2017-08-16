@@ -5,15 +5,15 @@ using Zer.GytDto.Users;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
 {
-    public class ValidateLoginAttribute : ActionFilterAttribute
+    public class ValidateLoginAttribute : ValidateRoleAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!filterContext.ActionDescriptor.GetCustomAttributes(false).Any(x => x is UnValidateLoginAttribute))
+            if (!filterContext.GetActionAttribute<UnValidateLoginAttribute>().Any())
             {
                 var userInfo = filterContext.Controller.ControllerContext.HttpContext.Session["UserInfo"];
 
-                if (userInfo == null )
+                if (userInfo == null)
                 {
                     filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
                     {

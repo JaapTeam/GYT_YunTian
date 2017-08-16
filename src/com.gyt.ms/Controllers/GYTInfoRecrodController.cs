@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Extensions;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
 namespace com.gyt.ms.Controllers
 {
-    public class GYTSuccessController : BaseController
+    public class GYTInfoRecrodController : BaseController
     {
         private readonly IGYTInfoService _gytInfoService;
         private readonly ITruckInfoService _truckInfoService;
         private readonly ICompanyService _companyService;
 
-        public GYTSuccessController(IGYTInfoService gytInfoService, ITruckInfoService truckInfoService, ICompanyService companyService)
+        public GYTInfoRecrodController(IGYTInfoService gytInfoService, ITruckInfoService truckInfoService, ICompanyService companyService)
         {
             _gytInfoService = gytInfoService;
             _truckInfoService = truckInfoService;
@@ -26,29 +26,12 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: GYTSuccess
-        public ActionResult Index(int activeId=0)
+        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 7)
         {
             ViewBag.ActiveId = activeId;
-            ViewBag.TruckList = _truckInfoService.GetAll().ToList();
-            ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _gytInfoService.GetAll().ToList();
-            return View();
-        }
-
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 7)
-        {
-            ViewBag.ActiveId = activeId;
-            var truckList = _truckInfoService.GetAll();
-            var companyList = _companyService.GetAll();
-
-            ViewBag.TruckList = truckList;
-            ViewBag.CompanyList = companyList;
             ViewBag.SearchDto = searchDto;
-
             ViewBag.Result = _gytInfoService.GetList(searchDto);
-
-            return View("Index");
+            return View();
         }
 
         public FileResult Export(string exportCode = "")
@@ -70,6 +53,26 @@ namespace com.gyt.ms.Controllers
             }
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通办理记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+        }
+
+        [AdminRole]
+        public JsonResult Verify(int infoId)
+        {
+            var gtyInfo = _gytInfoService.GetById(infoId);
+
+            if (gtyInfo.Status == BusinessState.已审核)
+            {
+                return Fail("这条记录已经审核！");
+            }
+
+            gtyInfo = _gytInfoService.Verify(infoId);
+
+            if (gtyInfo.Status != BusinessState.已审核)
+            {
+                return Fail("审核失败！");
+            }
+
+            return Success("审核成功！");
         }
     }
 }

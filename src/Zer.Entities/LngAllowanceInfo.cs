@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
@@ -7,16 +8,22 @@ namespace Zer.Entities
     public class LngAllowanceInfo : EntityBase
     {
         public int CompanyId { get; set; }
+
+        [StringLength(50)]
         public string CompanyName { get; set; }
 
         public int LotId { get; set; }
 
+        [StringLength(10)]
         public string TruckNo { get; set; }
 
+        [StringLength(15)]
         public string EngineId { get; set; }
 
+        [StringLength(20)]
         public string CylinderDefaultId { get; set; }
 
+        [StringLength(20)]
         public string CylinderSeconedId { get; set; }
     }
 }

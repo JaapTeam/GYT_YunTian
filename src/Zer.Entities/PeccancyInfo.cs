@@ -7,29 +7,32 @@ namespace Zer.Entities
     [Serializable]
     public class PeccancyInfo : EntityBase
     {
-        [MaxLength(50)]
+        [StringLength(30)]
         public string PeccancyId { get; set; }
         public int CompanyId { get; set; }
-        [MaxLength(100)]
+        [StringLength(50)]
         public string CompanyName { get; set; }
 
         public int TruckId { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(20)]
         public string FrontTruckNo { get; set; }
-         [MaxLength(20)]
+        [StringLength(20)]
         public string BehindTruckNo { get; set; }
-        [MaxLength(50)]
+        [StringLength(20)]
         public string DriverId { get; set; }
-        [MaxLength(30)]
+        [StringLength(20)]
         public string DriverName { get; set; }
 
         public DateTime? PeccancyDate { get; set; }
 
+        [StringLength(20)]
         public string PeccancyMatter { get; set; }
+
         public decimal GrossWeight { get; set; }
         public int AxisNumber { get; set; }
-         [MaxLength(50)]
+
+        [StringLength(50)]
         public string Source { get; set; }
         public Status Status { get; set; }
     }

@@ -7,6 +7,11 @@ namespace Zer.GytDto
 {
     public class LogInfoDto : DtoBase
     {
+        public LogInfoDto()
+        {
+            CreateTime = DateTime.Now;
+        }
+
         [Sort(1)]
         [ExportDisplayName("日志编号")]
         public int Id { get; set; }
@@ -29,11 +34,7 @@ namespace Zer.GytDto
         [Sort(5)]
         [ExportDisplayName("发生时间")]
         public DateTime CreateTime { get; set; }
-
-        [Sort(6)]
-        [ExportDisplayName("MAC")]
-        public string MAC { get; set; }
-
+        
         [Sort(7)]
         [ExportDisplayName("IP")]
         public string IP { get; set; }
@@ -49,6 +50,6 @@ namespace Zer.GytDto
         Edit=1,
         Delete=2,
         Change=3,
-        Auditor=4
+        Query=4
     }
 }
