@@ -5,7 +5,7 @@ using Zer.GytDto.Users;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
 {
-    public class ValidateLoginAttribute : ActionFilterAttribute
+    public class ValidateLoginAttribute : ValidateRoleAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
