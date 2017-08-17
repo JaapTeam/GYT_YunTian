@@ -30,12 +30,11 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
         }
 
-        public ActionResult Index(int activeId=0)
+        public ActionResult Index(PeccancySearchDto searchDto, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
-            ViewBag.TruckList = _truckInfoService.GetAll().ToList();
-            ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _peccancyRecrodService.GetAll().Where(x => x.Status == Status.未整改).ToList();
+            ViewBag.SearchDto = searchDto;
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x => x.Status == Status.未整改).ToList();
             return View();
         }
 

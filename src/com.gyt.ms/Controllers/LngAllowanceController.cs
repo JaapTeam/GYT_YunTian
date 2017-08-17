@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Castle.Core.Internal;
 using Zer.AppServices;
+using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Export;
 using Zer.Framework.Export.Attributes;
@@ -37,9 +38,6 @@ namespace com.gyt.ms.Controllers
         public ActionResult Index(LngAllowanceSearchDto filter = null, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
-            var truckList = _truckInfoService.GetAll();
-
-            ViewBag.TruckList = truckList;
             ViewBag.Filter = filter;
 
             var result = _lngAllowanceService.GetList(filter);
@@ -137,7 +135,7 @@ namespace com.gyt.ms.Controllers
             return View("ImportResult");
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [ReplaceSpecialCharInParameter("-", "_")]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
@@ -163,6 +161,19 @@ namespace com.gyt.ms.Controllers
             _lngAllowanceService.Add(dto);
 
             return Success();
+        }
+
+        [HttpPost]
+        public JsonResult ChangStatus(int infoId)
+        {
+            var infoDto = _lngAllowanceService.GetById(infoId);
+            if (infoDto.Status==LngStatus.已补贴)
+            {
+                return Fail("这条记录已是补贴状态，请核实！");
+            }
+
+            infoDto = _lngAllowanceService.ChangStatus(infoId);
+            return infoDto.Status!=LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)

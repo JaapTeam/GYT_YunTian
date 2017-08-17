@@ -309,7 +309,7 @@ namespace com.gyt.ms.Controllers
             gtyInfoDto.BidDate = DateTime.Now;
             gtyInfoDto.BidName = CurrentUser.DisplayName;
             gtyInfoDto.BusinessType = businessType;
-
+            gtyInfoDto.OldTruckNo = oldTruckno;
 
             #region 检查公司是否存在，不存在新增，并将公司信息添加到办理信息
             var queryAfterValidateAndRegist =

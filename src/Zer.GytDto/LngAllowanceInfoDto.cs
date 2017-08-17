@@ -1,4 +1,5 @@
 using System;
+using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
@@ -47,5 +48,10 @@ namespace Zer.GytDto
         [ImportSort(6)]
         [ExportDisplayName("Æû¸×2±àºÅ")]
         public string CylinderSeconedId { get; set; }
+
+        [ExportSort(8)]
+        [ImportSort(7)]
+        [ExportDisplayName("²¹Ìù×´Ì¬")]
+        public LngStatus Status { get; set; }
     }
 }

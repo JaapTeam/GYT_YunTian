@@ -5,8 +5,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var truckList = ViewBag.TruckList as List<TruckInfoDto>;
-    var companyList = ViewBag.CompanyList as List<CompanyInfoDto>;
     var infoList = ViewBag.Result as List<PeccancyRecrodDto>;
     var searchFilter = ViewBag.SearchDto as PeccancySearchDto;
 
@@ -31,29 +29,9 @@
                 </div>*@
         </div>
         <span style="margin-left: 10px">公司名称：</span>
-        <select class=" chosen-select" style="display: none; width: 200px" id="select_Company" name="CompanyId">
-            <option value="">&nbsp;</option>
-
-            @{
-                Debug.Assert(companyList != null, "companyList != null");
-            }
-            @foreach (var companyInfoDto in companyList)
-            {
-                <option value="@(companyInfoDto.Id)" @((companyInfoDto.Id == searchFilter.CompanyId) ? "selected" : "")>@(companyInfoDto.CompanyName)</option>
-            }
-        </select>
+        <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
         车牌号码：
-        <select class="chosen-select " style="display: none; width: 105px" id="select_Truck" name="TruckNo">
-            <option value="">&nbsp;</option>
-
-            @{
-                Debug.Assert(truckList != null, "truckList != null");
-            }
-            @foreach (var truckInfoDto in truckList)
-            {
-                <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
-            }
-        </select>
+        <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
 
         <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
 
@@ -137,33 +115,52 @@
         </tbody>
     </table>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="dataTables_paginate padding-10">
-                <ul class="pagination">
-                    <li class="prev disabled">
-                        <a href="#">
-                            <i class="icon-double-angle-left"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">
-                            <i class="icon-double-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
+    @if (searchFilter.PageCount > 1)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="dataTables_paginate padding-10">
+                    <ul class="pagination">
+
+                        <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
+                            <a href="@Url.Action("index", new
+                                             {
+                                                 searchFilter.TruckNo,
+                                                 searchFilter.CompanyName,
+                                                 PageIndex = 1,
+                                                 searchFilter.PageSize
+                                             })">
+                                <i class="icon-double-angle-left"></i>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= searchFilter.PageCount; i++)
+                        {
+                            <li class="@(searchFilter.PageIndex == i?"active":"")">
+                                <a href="@Url.Action("index", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyName,
+                                         PageIndex = i,
+                                         searchFilter.PageSize
+                                     })">@i</a>
+                                </li>
+                        }
+                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount?"disabled":"")">
+                            <a href="@Url.Action("index", new
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyName,
+                                         PageIndex = searchFilter.PageCount,
+                                         searchFilter.PageSize
+                                     })">
+                                <i class="icon-double-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 
