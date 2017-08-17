@@ -8,7 +8,7 @@ namespace Zer.GytDto
 {
     public class CardsInfoDto:DtoBase
     {
-        [Sort(1)]
+        [ExportSort(1)]
         [ExportDisplayName("办理编号")]
         public string Id { get; set; }
 
@@ -22,18 +22,18 @@ namespace Zer.GytDto
         /// <summary>
         /// 业务类型
         /// </summary>
-        [Sort(2)]
+        [ExportSort(2)]
         [ExportDisplayName("业务类型")]
         public int BusinessType { get; set; }
 
-        [Sort(3)]
+        [ExportSort(3)]
         [ExportDisplayName("原企业")]
         public int OriginalCompanyName { get; set; }
 
         /// <summary>
         ///原车牌号
         /// </summary>
-        [Sort(4)]
+        [ExportSort(4)]
         [ExportDisplayName("原车牌号")]
         public string OriginalTruckNo { get; set; }
 
@@ -46,35 +46,35 @@ namespace Zer.GytDto
         /// <summary>
         /// 申办企业名称
         /// </summary>
-        [Sort(5)]
+        [ExportSort(5)]
         [ExportDisplayName("申办企业名称")]
         public int RequestCompanyNamed { get; set; }
 
         /// <summary>
         /// 申报车牌号
         /// </summary>
-        [Sort(6)]
+        [ExportSort(6)]
         [ExportDisplayName("申报车牌号")]
         public string RequestTruckNo { get; set; }
 
         /// <summary>
         /// 申办日期
         /// </summary>
-        [Sort(7)]
+        [ExportSort(7)]
         [ExportDisplayName("申办日期")]
         public DateTime RequestDateTime { get; set; }
 
         /// <summary>
         /// 经办人
         /// </summary>
-        [Sort(8)]
+        [ExportSort(8)]
         [ExportDisplayName("经办人")]
         public string Handler { get; set; }
 
         /// <summary>
         /// 业务状态
         /// </summary>
-        [Sort(9)]
+        [ExportSort(9)]
         [ExportDisplayName("业务状态")]
         public BusinessState BusinessState { get; set; }
 
