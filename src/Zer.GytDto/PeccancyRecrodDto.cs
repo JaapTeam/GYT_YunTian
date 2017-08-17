@@ -12,27 +12,32 @@ namespace Zer.GytDto
         [ImprotIgnore]
         public int Id { get; set; }
 
-        [Sort(1)]
+        [ExportSort(1)]
         [ExportDisplayName("处罚决定书编号")]
+        [ImportSort(1)]
         public string PeccancyId { get; set; }
 
         [ExportIgnore]
         [ImprotIgnore]
         public int CompanyId { get; set; }
 
-        [Sort(2)]
+        [ExportSort(2)]
         [ExportDisplayName("公司名称")]
+        [ImportSort(2)]
         public string CompanyName { get; set; }
 
-        [Sort(3)]
+        [ExportSort(3)]
         [ExportDisplayName("前车牌号")]
+        [ImportSort(3)]
         public string FrontTruckNo { get; set; }
 
-        [Sort(4)]
+        [ExportSort(4)]
+        [ImportSort(4)]
         [ExportDisplayName("前车牌号")]
         public string BehindTruckNo { get; set; }
 
-        [Sort(5)]
+        [ExportSort(5)]
+        [ImportSort(5)]
         [ExportDisplayName("所属行业")]
         public string TraderRange { get; set; }
         
@@ -40,29 +45,36 @@ namespace Zer.GytDto
         [ImprotIgnore]
         public string DriverId { get; set; }
 
-        [Sort(6)]
+        [ExportSort(6)]
+        [ImportSort(6)]
         [ExportDisplayName("驾驶员姓名")]
         public string DriverName { get; set; }
 
-        [Sort(7)]
+        [ExportSort(7)]
+        [ImportSort(7)]
         [ExportDisplayName("违法日期")]
         public string PeccancyDate { get; set; }
 
-        [Sort(8)]
+        [ExportSort(8)]
+        [ImportSort(8)]
         [ExportDisplayName("违法事项")]
         public string PeccancyMatter { get; set; }
 
-        [Sort(9)]
+        [ExportSort(9)]
+        [ImportSort(9)]
         [ExportDisplayName("总重")]
         public string GrossWeight { get; set; }
-        [Sort(10)]
+        [ExportSort(10)]
+        [ImportSort(10)]
         [ExportDisplayName("轴数")]
         public int AxisNumber { get; set; }
-        [Sort(11)]
+
+        [ExportSort(11)]
+        [ImportSort(11)]
         [ExportDisplayName("文件来源")]
         public string Source { get; set; }
 
-        [Sort(12)]
+        [ImportSort(12)]
         [ExportDisplayName("状态")]
         [ExportIgnore]
         public Status Status { get; set; }

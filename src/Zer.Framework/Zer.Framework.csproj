@@ -40,9 +40,24 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -80,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\IgnoreAttribute.cs" />
+    <Compile Include="Attributes\ImportSortAttribute.cs" />
     <Compile Include="Cache\CacheHelper.cs" />
     <Compile Include="Dto\DtoBase.cs" />
     <Compile Include="Dto\IDto.cs" />
@@ -115,6 +131,7 @@
     <Compile Include="Helpers\ValidateHelper.cs" />
     <Compile Include="IAppService.cs" />
     <Compile Include="IDataService.cs" />
+    <Compile Include="Import\ExcelImport.cs" />
     <Compile Include="Import\Import.cs" />
     <Compile Include="Attributes\ImprotIgnoreAttribute.cs" />
     <Compile Include="Helpers\IpHelper.cs" />
