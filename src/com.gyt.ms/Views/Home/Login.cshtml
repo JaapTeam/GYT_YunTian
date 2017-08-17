@@ -5,44 +5,101 @@
 }
 
 
-<div class="row">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>港运通信息管理系统</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="@Url.Content("~")assets/js/jquery-2.0.3.min.js"></script>
+    <link href="@Url.Content("~")assets/css/login2.css" rel="stylesheet" />
+    <script src="@Url.Content("~")assets/js/login.js"></script>
+</head>
+<body>
+<h1>港运通信息管理系统<sup>V2017</sup></h1>
+
+<div class="login" style="margin-top:50px;">
     
-    <label for="username">用户名:</label><input type="text" name="username" id="username"/>
-    <label for="password">密码:</label><input type="password" name="password" id="password"/>
-    <input type="button" id="btn_login" value="登录"/>
+    <div class="header">
+        <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
+			
+        </div>
+    </div>    
+  
+    
+    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">    
+
+        <!--登录-->
+        <div class="web_login" id="web_login">
+               
+               
+            <div class="login-box">
+    
+            
+                <div class="login_form">
+                    <form action="" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
+                        <input type="hidden" name="to" value="log"/>
+                        <div class="uinArea" id="uinArea">
+                            <label class="input-tips" for="username">帐号：</label>
+                            <div class="inputOuter" id="uArea">
+                    
+                                <input type="text" id="username" name="username" class="inputstyle" />
+                            </div>
+                        </div>
+                        <div class="pwdArea" id="pwdArea">
+                            <label class="input-tips" for="password">密码：</label> 
+                            <div class="inputOuter" id="pArea">
+                    
+                                <input type="password" id="password" name="p" class="inputstyle" />
+                            </div>
+                        </div>
+               
+                        <div style="padding-left:50px;margin-top:20px;"><input type="button" value="登 录" style="width:150px;" class="button_blue" id="btn_login" /></div>
+                    </form>
+                </div>
+           
+            </div>
+               
+        </div>
+        <!--登录end-->
+    </div>
+
 </div>
+</body></html>
 
 
 <!-- basic scripts -->
 <!--[if !IE]> -->
 
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
+</script>
+
+<!-- <![endif]-->
+<!--[if IE]>
     <script type="text/javascript">
-        window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
+        window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
     </script>
+<![endif]-->
 
-    <!-- <![endif]-->
-    <!--[if IE]>
-        <script type="text/javascript">
-            window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
-        </script>
-    <![endif]-->
-    
 
-    <script type="text/javascript">
-        if ("ontouchend" in document) document.write("<script src='@Url.Content("~")assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
-    </script>
-    <script src="@Url.Content("~")assets/js/bootstrap.min.js"></script>
-    <script src="@Url.Content("~")assets/js/typeahead-bs2.min.js"></script>
+<script type="text/javascript">
+    if ("ontouchend" in document) document.write("<script src='@Url.Content("~")assets/js/jquery.mobile.custom.min.js'>" + "<" + "script>");
+</script>
+<script src="@Url.Content("~")assets/js/bootstrap.min.js"></script>
+<script src="@Url.Content("~")assets/js/typeahead-bs2.min.js"></script>
 
-    <!--[if lte IE 8]>
-        <script src="@Url.Content("~")assets/js/excanvas.min.js"></script>
-    <![endif]-->
+<!--[if lte IE 8]>
+    <script src="@Url.Content("~")assets/js/excanvas.min.js"></script>
+<![endif]-->
 <script src="@Url.Content("~")assets/js/md5.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
+
+
         $(function() {
             $('body')
-                .on('click','#btn_login',function() {
+                .on('click',
+                    '#btn_login',
+                    function() {
                         var username = $('#username').val();
                         var password = $('#password').val();
                         $.ajax({
@@ -56,7 +113,7 @@
                                     location.reload();
                                 }
                             }
-                        })
+                        });
                     });
-        })
+        });
     </script>

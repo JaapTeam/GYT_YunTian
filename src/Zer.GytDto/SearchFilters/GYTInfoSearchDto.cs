@@ -15,7 +15,7 @@ namespace Zer.GytDto.SearchFilters
 
         public BusinessState Status { get; set; }
 
-        public DateTime? StratDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
     }

@@ -13,5 +13,7 @@ namespace Zer.AppServices
         bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto);
 
         List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto);
+
+        LngAllowanceInfoDto ChangStatus(int id);
     }
 }

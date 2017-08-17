@@ -190,6 +190,7 @@
     <Content Include="assets\css\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="assets\css\jquery-ui-1.10.3.full.min.css" />
     <Content Include="assets\css\jquery.gritter.css" />
+    <Content Include="assets\css\login2.css" />
     <Content Include="assets\css\select2.css" />
     <Content Include="assets\css\ui.jqgrid.css" />
     <Content Include="assets\images\gallery\image-1.jpg" />
@@ -204,6 +205,7 @@
     <Content Include="assets\images\gallery\thumb-4.jpg" />
     <Content Include="assets\images\gallery\thumb-5.jpg" />
     <Content Include="assets\images\gallery\thumb-6.jpg" />
+    <Content Include="assets\images\1.jpg" />
     <Content Include="assets\js\ace-elements.min.js" />
     <Content Include="assets\js\ace-extra.min.js" />
     <Content Include="assets\js\ace.min.js" />
@@ -254,6 +256,7 @@
     <Content Include="assets\js\jquery.sparkline.min.js" />
     <Content Include="assets\js\jquery.ui.touch-punch.min.js" />
     <Content Include="assets\js\jquery.validate.min.js" />
+    <Content Include="assets\js\login.js" />
     <Content Include="assets\js\markdown\bootstrap-markdown.min.js" />
     <Content Include="assets\js\markdown\markdown.min.js" />
     <Content Include="assets\js\md5.js" />
