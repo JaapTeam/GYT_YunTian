@@ -164,5 +164,6 @@ namespace Zer.Framework.EntityFramework
             
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
+
     }
 }

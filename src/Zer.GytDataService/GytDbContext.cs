@@ -1,6 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Zer.Entities;
+using Zer.Framework.Entities;
 
 namespace Zer.GytDataService
 {
@@ -18,7 +21,28 @@ namespace Zer.GytDataService
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //base.OnModelCreating(modelBuilder);
         }
-        
+
+        public override int SaveChanges()
+        {
+            int result;
+
+            using (var transacton = this.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    result = base.SaveChanges();
+                    transacton.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacton.Rollback();
+                    result = 0;
+                    throw;
+                }
+            }
+            return result;
+        }
+
         public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<TruckInfo> TruckInfos { get; set; }
         public DbSet<PeccancyInfo> OverloadInfos { get; set; }
