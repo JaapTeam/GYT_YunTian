@@ -28,7 +28,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.ActiveId = activeId;
             ViewBag.Result =
                 _logInfoService.GetAll()
-                    .Where(x => x.CreateTime >= DateTime.Now.AddDays(-7) && x.CreateTime <= DateTime.Now)
+                    .Where(x=>x.UserId==CurrentUser.UserId)
                     .ToList();
 
             return View();

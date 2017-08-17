@@ -102,12 +102,12 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.Status == searchDto.Status);
             }
 
-            if (searchDto.StratDate!=null)
+            if (searchDto.StartDate!=null)
             {
-                query = query.Where(x => x.BidDate >= searchDto.StratDate);
+                query = query.Where(x => x.BidDate >= searchDto.StartDate);
             }
 
-            if (searchDto.StratDate != null)
+            if (searchDto.EndDate != null)
             {
                 query = query.Where(x => x.BidDate <= searchDto.EndDate);
             }

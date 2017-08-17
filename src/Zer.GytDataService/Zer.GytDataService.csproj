@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201708151436217_Init_DataBase.Designer.cs">
       <DependentUpon>201708151436217_Init_DataBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708161332206_aa.cs" />
+    <Compile Include="Migrations\201708161332206_aa.Designer.cs">
+      <DependentUpon>201708161332206_aa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,6 +101,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708151436217_Init_DataBase.resx">
       <DependentUpon>201708151436217_Init_DataBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708161332206_aa.resx">
+      <DependentUpon>201708161332206_aa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -64,18 +64,24 @@ namespace Zer.GytDto
         [Sort(7)]
         [ExportDisplayName("申办日期")]
         public DateTime BidDate { get; set; }
+        /// <summary>
+        /// 旧车牌号
+        /// </summary>
+        [Sort(8)]
+        [ExportDisplayName("旧车牌号")]
+        public string OldTruckNo { get; set; }
 
         /// <summary>
         /// 经办人
         /// </summary>
-        [Sort(8)]
+        [Sort(9)]
         [ExportDisplayName("经办人")]
         public string BidName { get; set; }
 
         /// <summary>
         /// 业务状态
         /// </summary>
-        [Sort(9)]
+        [Sort(10)]
         [ImprotIgnore]
         [ExportDisplayName("业务状态")]
         public BusinessState Status { get; set; }
