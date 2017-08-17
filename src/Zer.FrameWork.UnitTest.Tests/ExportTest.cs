@@ -124,19 +124,19 @@ namespace Zer.FrameWork.UnitTest.Tests
         private class CompanyInfoDto
         {
             [ExportDisplayName("编号")]
-            [Sort(1)]
+            [ExportSort(1)]
             public int Id { get; set; }
 
             [ExportDisplayName("公司名称")]
-            [Sort(3)]
+            [ExportSort(3)]
             public string CompanyName { get; set; }
 
             [ExportDisplayName("经营范围")]
-            [Sort(2)]
+            [ExportSort(2)]
             public string TraderRange { get; set; }
 
             [ExportDisplayName("创建日期")]
-            [Sort(4)]
+            [ExportSort(4)]
             public DateTime CreateDate { get; set; }
         }
     }

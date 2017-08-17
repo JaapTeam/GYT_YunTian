@@ -12,34 +12,34 @@ namespace Zer.GytDto
             CreateTime = DateTime.Now;
         }
 
-        [Sort(1)]
+        [ExportSort(1)]
         [ExportDisplayName("日志编号")]
         public int Id { get; set; }
 
         [ExportIgnore]
         public int UserId { get; set; }
 
-        [Sort(2)]
+        [ExportSort(2)]
         [ExportDisplayName("用户")]
         public string DisplayName { get; set; }
 
-        [Sort(3)]
+        [ExportSort(3)]
         [ExportDisplayName("操作类型")]
         public ActionType ActionType { get; set; }
 
-        [Sort(4)]
+        [ExportSort(4)]
         [ExportDisplayName("操作模块")]
         public string ActionModel { get; set; }
 
-        [Sort(5)]
+        [ExportSort(5)]
         [ExportDisplayName("发生时间")]
         public DateTime CreateTime { get; set; }
         
-        [Sort(7)]
+        [ExportSort(7)]
         [ExportDisplayName("IP")]
         public string IP { get; set; }
 
-        [Sort(8)]
+        [ExportSort(8)]
         [ExportDisplayName("内容")]
         public string Content { get; set; }
     }

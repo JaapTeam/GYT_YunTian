@@ -11,6 +11,7 @@ using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Export;
 using Zer.Framework.Export.Attributes;
+using Zer.Framework.Import;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
@@ -34,7 +35,7 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: LngAllowance
-        public ActionResult Index(LngAllowanceSearchDto filter = null,int activeId = 9)
+        public ActionResult Index(LngAllowanceSearchDto filter = null, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
             ViewBag.Filter = filter;
@@ -52,7 +53,7 @@ namespace com.gyt.ms.Controllers
 
         public FileResult Export(string exportCode = "")
         {
-            
+
             if (exportCode.IsNullOrEmpty())
             {
                 return null;
@@ -69,7 +70,7 @@ namespace com.gyt.ms.Controllers
                 exportList = GetValueFromSession<List<LngAllowanceInfoDto>>(exportCode);
             }
 
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}",DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
 
@@ -77,26 +78,19 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
-            if (file != null)
-            {
-                List<LngAllowanceInfoDto> lngAllowanceInfoDtoList;
-                using (StreamReader reader = new StreamReader(file.InputStream, Encoding.Default))
-                {
-                    lngAllowanceInfoDtoList = Zer.Framework.Import.Import.Read<LngAllowanceInfoDto>(reader, 1);
-                }
+            if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
 
-                if (lngAllowanceInfoDtoList != null)
-                {
-                    var sessionCode = AppendObjectToSession(lngAllowanceInfoDtoList);
-                    ////return SaveLngAllowanceData(lngAllowanceInfoDtoList);
-                    return RedirectToAction("SaveLngAllowanceData", "LngAllowance",
-                        new {id = sessionCode});
-                }
-            }
+            var excelImport = new ExcelImport<LngAllowanceInfoDto>(file.InputStream);
+            var lngAllowanceInfoDtoList = excelImport.Read();
 
-            throw new Exception("文件上传失败，导入失败");
+            if (lngAllowanceInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+
+            var sessionCode = AppendObjectToSession(lngAllowanceInfoDtoList);
+
+            return RedirectToAction("SaveLngAllowanceData", "LngAllowance",
+                new { id = sessionCode });
         }
-        
+
         [ReplaceSpecialCharInParameter("-", "_")]
         [GetParameteFromSession("id")]
         [UnLog]
@@ -142,7 +136,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [HttpPost]
-        [ReplaceSpecialCharInParameter("-","_")]
+        [ReplaceSpecialCharInParameter("-", "_")]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
             //TODO:加特殊字符替换

@@ -44,10 +44,10 @@ namespace Zer.Framework.Import
 
             properties = properties.Select(x =>
             {
-                var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
+                var sortAttribute = x.GetCustomAttribute(typeof(ExportSortAttribute)) as ExportSortAttribute;
                 if (sortAttribute == null)
                 {
-                    throw new CustomException("缺少属性" + typeof(SortAttribute).FullName, "属性名:", x.Name);
+                    throw new CustomException("缺少属性" + typeof(ExportSortAttribute).FullName, "属性名:", x.Name);
                 }
                 return new { Key = sortAttribute.Index, Value = x };
             }).OrderBy(x => x.Key).Select(x => x.Value).ToArray();
