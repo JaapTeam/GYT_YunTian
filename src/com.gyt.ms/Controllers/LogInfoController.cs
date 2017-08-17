@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Framework.Export;
-using Zer.GytDto;
 
 namespace com.gyt.ms.Controllers
 {
