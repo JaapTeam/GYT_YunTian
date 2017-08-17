@@ -83,11 +83,11 @@ namespace com.gyt.ms.Controllers
             }
         }
 
-        public JsonResult Logout()
+        public ActionResult Logout()
         {
             // TODO: unit test coding
             Session["UserInfo"] = null;
-            return Success();
+            return RedirectToAction("Login", "Home");
         }
 
         public JsonResult Frozon(int userId)

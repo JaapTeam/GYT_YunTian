@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Zer.AppServices;
 using Zer.Framework.Export;
-using Zer.GytDto;
 
 namespace com.gyt.ms.Controllers
 {
@@ -28,7 +24,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.ActiveId = activeId;
             ViewBag.Result =
                 _logInfoService.GetAll()
-                    .Where(x => x.CreateTime >= DateTime.Now.AddDays(-7) && x.CreateTime <= DateTime.Now)
+                    .Where(x=>x.UserId==CurrentUser.UserId)
                     .ToList();
 
             return View();

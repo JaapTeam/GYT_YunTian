@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Zer.Entities;
+using Zer.Framework.Dto;
 using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
@@ -70,14 +71,25 @@ namespace Zer.AppServices.Impl
         {
             var query = _peccancyRecrodDataService.GetAll();
 
-            if (!searchDto.TruckNo.IsNullOrEmpty())
+            if (searchDto == null) return query.Map<PeccancyRecrodDto>().ToList();
+
+            query = Filter(searchDto, query);
+
+            query = query.ToPageQuery(searchDto);
+
+            return query.Map<PeccancyRecrodDto>().ToList();
+        }
+
+        private IQueryable<PeccancyInfo> Filter(PeccancySearchDto searchDto, IQueryable<PeccancyInfo> query)
+        {
+            if (!searchDto.CompanyName.IsNullOrEmpty())
             {
-                query = query.Where(x => x.FrontTruckNo == searchDto.TruckNo);
+                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName));
             }
 
-            if (searchDto.CompanyId != 0)
+            if (!searchDto.TruckNo.IsNullOrEmpty())
             {
-                query = query.Where(x => x.CompanyId == searchDto.CompanyId);
+                query = query.Where(x => x.BehindTruckNo == searchDto.TruckNo || x.FrontTruckNo == searchDto.TruckNo);
             }
 
             if (searchDto.Status != 0)
@@ -85,7 +97,17 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.Status == searchDto.Status);
             }
 
-            return query.Map<PeccancyRecrodDto>().ToList();
+            if (searchDto.StartDate != null)
+            {
+                query = query.Where(x => x.PeccancyDate >= searchDto.StartDate);
+            }
+
+            if (searchDto.EndDate != null)
+            {
+                query = query.Where(x => x.PeccancyDate <= searchDto.EndDate);
+            }
+
+            return query;
         }
 
         public bool ExistsCompanyName(string companyName)

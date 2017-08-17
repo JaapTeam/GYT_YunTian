@@ -5,8 +5,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var truckList = ViewBag.TruckList as List<TruckInfoDto>;
-    var companyList =ViewBag.CompanyList as List<CompanyInfoDto>;
     var infoList = ViewBag.Result as List<PeccancyRecrodDto>;
     var searchFilter = ViewBag.SearchDto as PeccancySearchDto;
 
@@ -33,31 +31,11 @@
                 <input class="form-control" type="text" name="date-range-picker" id="drp_QueryDate">
             </div>*@
             </div>
-            <span style="margin-left: 10px">公司名称：</span>
-            <select class=" chosen-select" style="display: none; width: 200px" id="select_Company" name="CompanyId">
-                <option value="">&nbsp;</option>
-
-                @{
-                    Debug.Assert(companyList != null, "companyList != null");
-                }
-                @foreach (var companyInfoDto in companyList)
-                {
-                    <option value="@(companyInfoDto.Id)" @((companyInfoDto.Id == searchFilter.CompanyId) ? "selected" : "")>@(companyInfoDto.CompanyName)</option>
-                }
-            </select>
-            车牌号码：
-            <select class="chosen-select " style="display: none; width: 105px" id="select_Truck" name="TruckNo">
-                <option value="">&nbsp;</option>
-
-                @{
-                    Debug.Assert(truckList != null, "truckList != null");
-                }
-                @foreach (var truckInfoDto in truckList)
-                {
-                    <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == searchFilter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
-                }
-            </select>
-
+        <span style="margin-left: 10px">公司名称：</span>
+        <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
+        车牌号码：
+        <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
+       
         <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
 
         </div>
@@ -141,7 +119,7 @@
                 <td>@overloadRecrodDto.AxisNumber</td>
                 <td>@overloadRecrodDto.Source</td>
                 <td>
-                    <a class="btn btn-info btn-sm btn-small" onclick="change(@overloadRecrodDto.Id)">
+                    <a class="btn btn-xs btn-danger _verify" onclick="change(@overloadRecrodDto.Id)">
                         <i class=" icon-check">整改</i>
                     </a>
                 </td>
@@ -151,13 +129,7 @@
         </tbody>
     </table>
     
-    @using (Html.BeginForm("ImportFile", "PeccancyRecrod", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <input type="file" name="file" class="hide" id="input_file" />
-        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
-    }
-
-    @if (filter.PageCount > 1)
+    @if (searchFilter.PageCount > 1)
     {
         <div class="row">
             <div class="col-sm-12">
@@ -165,33 +137,33 @@
                     <ul class="pagination">
 
                         <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         searchFilter.TruckNo,
-                                         searchFilter.CompanyId,
-                                         PageIndex = 1,
-                                         searchFilter.PageSize
-                                     })">
+                            <a href="@Url.Action("index", new
+                                             {
+                                                 searchFilter.TruckNo,
+                                                 searchFilter.CompanyName,
+                                                 PageIndex = 1,
+                                                 searchFilter.PageSize
+                                             })">
                                 <i class="icon-double-angle-left"></i>
                             </a>
                         </li>
                         @for (int i = 1; i <= searchFilter.PageCount; i++)
                         {
-                            <li class="@(searchFilter.PageIndex == i ? "active" : "")">
-                                <a href="@Url.Action("index", "LngAllowance", new
+                            <li class="@(searchFilter.PageIndex == i?"active":"")">
+                                <a href="@Url.Action("index", new
                                      {
                                          searchFilter.TruckNo,
-                                         searchFilter.CompanyId,
+                                         searchFilter.CompanyName,
                                          PageIndex = i,
                                          searchFilter.PageSize
                                      })">@i</a>
                                 </li>
                         }
-                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
-                            <a href="@Url.Action("index", "LngAllowance", new
+                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount?"disabled":"")">
+                            <a href="@Url.Action("index", new
                                      {
                                          searchFilter.TruckNo,
-                                         searchFilter.CompanyId,
+                                         searchFilter.CompanyName,
                                          PageIndex = searchFilter.PageCount,
                                          searchFilter.PageSize
                                      })">
@@ -203,7 +175,14 @@
             </div>
         </div>
     }
+    
 
+    @using (Html.BeginForm("ImportFile", "PeccancyRecrod", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="file" class="hide" id="input_file" />
+        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+    }
+    </div>
 @section scripts{
     <script src="@Url.Content("~")assets/js/jquery.dataTables.min.js"></script>
     <script src="@Url.Content("~")assets/js/jquery.dataTables.bootstrap.js"></script>
@@ -252,39 +231,7 @@
 
         });
 
-        $(function() {
-            //$("#btn_export")
-            //    .click(function() {
-
-            //        var ids = [];
-            //        var index = 0;
-
-            //        var tbodyObj = document.getElementById('tb_Info');
-            //        $("table :checkbox")
-            //            .each(function(key, value) {
-            //                if ($(value).prop('checked')) {
-            //                    ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
-            //                    index++;
-            //                }
-            //            });
-
-            //        if (ids.length > 0) {
-            //            exportRequst(ids);
-            //        }
-            //    });
-
-            @*function exportRequst(ids) {
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("Export")",
-                    data: { ids: ids },
-                    dataType: "json",
-                    success: function(data) {
-                        alert("数据导出成功！");
-                    }
-                });
-            }*@
-
+       
            
             $("#btn_improt")
                 .click(function() {
@@ -296,7 +243,9 @@
                     $("#Submit").click();
                     $("#input_file").text("");
                 });
-        });
+        
+
+
         function change(changeId) {
             $.ajax({
                 type: "POST",
