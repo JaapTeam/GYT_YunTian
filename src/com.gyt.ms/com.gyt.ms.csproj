@@ -183,6 +183,11 @@
     <Content Include="assets\css\datepicker.css" />
     <Content Include="assets\css\daterangepicker.css" />
     <Content Include="assets\css\dropzone.css" />
+    <Content Include="assets\css\easyui\easyui.css" />
+    <Content Include="assets\css\easyui\icon.css" />
+    <Content Include="assets\css\easyui\images\calendar_arrows.png" />
+    <Content Include="assets\css\easyui\images\combo_arrow.png" />
+    <Content Include="assets\css\easyui\images\datebox_arrow.png" />
     <Content Include="assets\css\font-awesome-ie7.min.css" />
     <Content Include="assets\css\font-awesome.min.css" />
     <Content Include="assets\css\fullcalendar.css" />
@@ -221,6 +226,9 @@
     <Content Include="assets\js\date-time\daterangepicker.min.js" />
     <Content Include="assets\js\date-time\moment.min.js" />
     <Content Include="assets\js\dropzone.min.js" />
+    <Content Include="assets\js\easyui\easyui-lang-zh_CN.js" />
+    <Content Include="assets\js\easyui\jquery.easyui.min.js" />
+    <Content Include="assets\js\easyui\jquery.min.js" />
     <Content Include="assets\js\excanvas.min.js" />
     <Content Include="assets\js\flot\jquery.flot.min.js" />
     <Content Include="assets\js\flot\jquery.flot.pie.min.js" />
