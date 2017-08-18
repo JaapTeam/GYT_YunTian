@@ -56,6 +56,7 @@ namespace com.gyt.ms.Controllers
 
         [UnValidateLogin]
         [UnLog]
+        [HttpPost]
         public ActionResult Login(string userName, string password)
         {
             var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
