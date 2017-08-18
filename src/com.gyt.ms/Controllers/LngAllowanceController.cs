@@ -35,6 +35,7 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: LngAllowance
+        [UserActionLog("LNG补贴信息首页",ActionType.查询)]
         public ActionResult Index(LngAllowanceSearchDto filter = null, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
@@ -51,6 +52,7 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
+        [UserActionLog("LNG补贴信息导出", ActionType.查询)]
         public FileResult Export(string exportCode = "")
         {
 
@@ -76,6 +78,7 @@ namespace com.gyt.ms.Controllers
 
         //Todo: 建议优化检查检查重复业务逻辑
         [HttpPost]
+        [UserActionLog("LNG补贴信息批量导入", ActionType.新增)]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -137,6 +140,7 @@ namespace com.gyt.ms.Controllers
 
         [HttpPost]
         [ReplaceSpecialCharInParameter("-", "_")]
+        [UserActionLog("LNG补贴信息单条新增", ActionType.新增)]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
             //TODO:加特殊字符替换
@@ -164,6 +168,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [HttpPost]
+        [UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
         public JsonResult ChangStatus(int infoId)
         {
             var infoDto = _lngAllowanceService.GetById(infoId);

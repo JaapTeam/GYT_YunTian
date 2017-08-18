@@ -5,7 +5,7 @@ using Zer.Entities;
 using Zer.Framework.Exception;
 using Zer.GytDto;
 using Zer.GytDto.Users;
-using ActionType = Zer.GytDto.ActionType;
+using ActionType = Zer.Entities.ActionType;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
 {
@@ -29,7 +29,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                     ActionModel = string.Format("{0}/{1}",
                         filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
                         filterContext.ActionDescriptor.ActionName),
-                    ActionType = ActionType.Change,
+                    ActionType = ActionType.更改状态,
                     Content = "越权执行危险操作",
                     DisplayName = userInfo.DisplayName,
                     UserId = userInfo.UserId,

@@ -107,6 +107,7 @@
     <Compile Include="Attributes\SortAttribute.cs" />
     <Compile Include="ConvertHelper.cs" />
     <Compile Include="Dependency\IocManager.cs" />
+    <Compile Include="Dto\MenuItem.cs" />
     <Compile Include="Dto\SearchDtoExtensions.cs" />
     <Compile Include="Dto\SearchModelBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Mail\MailManager.cs" />
     <Compile Include="Module\ModuleBase.cs" />
     <Compile Include="Mvc\ActionExecutingContextExtension.cs" />
+    <Compile Include="Mvc\MenuItemManager.cs" />
     <Compile Include="Mvc\ResultCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />

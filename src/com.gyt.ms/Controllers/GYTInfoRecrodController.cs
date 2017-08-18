@@ -25,6 +25,7 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
         }
 
+        [UserActionLog("港运通办理台账",ActionType.查询)]
         // GET: GYTSuccess
         public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 4)
         {
@@ -34,6 +35,7 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
+        [UserActionLog("港运通办理台账导出", ActionType.查询)]
         public FileResult Export(string exportCode = "")
         {
             List<GYTInfoDto> exportList = new List<GYTInfoDto>();
@@ -52,10 +54,11 @@ namespace com.gyt.ms.Controllers
                 exportList = GetValueFromSession<List<GYTInfoDto>>(exportCode);
             }
 
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通办理记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通办理台账{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
         [AdminRole]
+        [UserActionLog("港运通审核",ActionType.更改状态)]
         public JsonResult Verify(int infoId)
         {
             var gtyInfo = _gytInfoService.GetById(infoId);

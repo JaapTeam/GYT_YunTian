@@ -24,10 +24,4 @@ namespace Zer.Entities
         [StringLength(20)]
         public string DisplayName { get; set; }
     }
-
-    public enum ActionType
-    {
-        Add,
-        Delete
-    }
 }

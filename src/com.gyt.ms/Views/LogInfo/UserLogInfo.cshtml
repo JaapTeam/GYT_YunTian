@@ -34,7 +34,6 @@
                 <th>操作类型</th>
                 <th>操作模块</th>
                 <th>发生时间</th>
-                <th>MAC</th>
                 <th>IP</th>
                 <th>日志内容</th>
             </tr>
@@ -64,7 +63,6 @@
                             <td>@log.ActionType</td>
                             <td>@log.ActionType</td>
                             <td>@log.CreateTime</td>
-                            <td>@log.MAC</td>
                             <td>@log.IP</td>
                             <td>
                                 <a href="@(Url.Action("LogInfo","LogInfo",new {logId=log.Id,activeId=ViewBag.ActiveId}))">详细</a>
