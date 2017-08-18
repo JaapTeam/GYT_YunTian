@@ -10,6 +10,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
@@ -29,6 +30,7 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: GYTInfo
+        [UserActionLog("港运通信息数据库",ActionType.查询)]
         public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 3)
         {
             ViewBag.ActiveId = activeId;
@@ -41,7 +43,8 @@ namespace com.gyt.ms.Controllers
 
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
+        [UserActionLog("港运通信息数据导入", ActionType.新增)]
         public ActionResult Improt(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null)
@@ -108,6 +111,7 @@ namespace com.gyt.ms.Controllers
             return View("ImportResult");
         }
 
+        [UserActionLog("港运通信息数据导出", ActionType.查询)]
         public FileResult ExportResult(string exportCode = "")
         {
             List<GYTInfoDto> exportList = new List<GYTInfoDto>();
@@ -126,7 +130,7 @@ namespace com.gyt.ms.Controllers
                 exportList = GetValueFromSession<List<GYTInfoDto>>(exportCode);
             }
 
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通信息数据{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
         //public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 3)

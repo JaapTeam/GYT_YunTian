@@ -16,30 +16,31 @@
 }
 
 
-
 <form  action="@(Url.Action("Search", "PeccancyRecrod", new { activeId = ViewBag.ActiveId }))" method="post" style="height: 50px; line-height: 45px">
     
-    <div class="div-inline">
+    <div class="div-inline" style="height: 30px">
       
-        <div class="div-inline">
-            @*<div class="input-group col-xs-5">
-                <span>查询时间：</span>
-                <span class="input-group-addon">
-                    <i class="icon-calendar"></i>
-                </span>
-
-                <input class="form-control" type="text" name="date-range-picker" id="drp_QueryDate">
-            </div>*@
-            </div>
         <span style="margin-left: 10px">公司名称：</span>
         <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
-        车牌号码：
+        <span style="margin-left: 10px">车牌号码：</span>
         <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
        
-        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
 
+
+        <span style="margin-left: 10px;">违法日期：</span>
+        <input class="easyui-datebox" style="width:120px; height: 28px" name="StartDate"  id="StartDate">
+        <span style="margin-left: 5px;margin-right: 5px">至</span>
+        <input class="easyui-datebox" style="width:120px; height: 28px" name="EndDate"  id="EndDate">
+        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+        <div style="">
+            
+        </div>
+       
         </div>
 
+  
+        
+ 
 
    
 </form>
@@ -106,20 +107,20 @@
                 </td>
                 <td>@overloadRecrodDto.CompanyName</td>
                 <td>
-                   @overloadRecrodDto.FrontTruckNo
+                    @overloadRecrodDto.FrontTruckNo
                 </td>
                 <td>@overloadRecrodDto.BehindTruckNo</td>
                 <td>@overloadRecrodDto.TraderRange</td>
                 <td>@overloadRecrodDto.DriverName</td>
                 <td>
-                    @overloadRecrodDto.PeccancyDate
+                    @string.Format("{0:yyyy-MM-dd}", overloadRecrodDto.PeccancyDate)
                 </td>
                 <td>@overloadRecrodDto.PeccancyMatter</td>
                 <td>@overloadRecrodDto.GrossWeight</td>
                 <td>@overloadRecrodDto.AxisNumber</td>
                 <td>@overloadRecrodDto.Source</td>
                 <td>
-                    <a class="btn btn-xs btn-danger _verify" onclick="change(@overloadRecrodDto.Id)">
+                    <a class="btn btn-xs btn-danger _verify" id="@overloadRecrodDto.Id">
                         <i class=" icon-check">整改</i>
                     </a>
                 </td>
@@ -138,12 +139,12 @@
 
                         <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
                             <a href="@Url.Action("index", new
-                                             {
-                                                 searchFilter.TruckNo,
-                                                 searchFilter.CompanyName,
-                                                 PageIndex = 1,
-                                                 searchFilter.PageSize
-                                             })">
+                                     {
+                                         searchFilter.TruckNo,
+                                         searchFilter.CompanyName,
+                                         PageIndex = 1,
+                                         searchFilter.PageSize
+                                     })">
                                 <i class="icon-double-angle-left"></i>
                             </a>
                         </li>
@@ -151,13 +152,13 @@
                         {
                             <li class="@(searchFilter.PageIndex == i?"active":"")">
                                 <a href="@Url.Action("index", new
-                                     {
-                                         searchFilter.TruckNo,
-                                         searchFilter.CompanyName,
-                                         PageIndex = i,
-                                         searchFilter.PageSize
-                                     })">@i</a>
-                                </li>
+                                         {
+                                             searchFilter.TruckNo,
+                                             searchFilter.CompanyName,
+                                             PageIndex = i,
+                                             searchFilter.PageSize
+                                         })">@i</a>
+                            </li>
                         }
                         <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount?"disabled":"")">
                             <a href="@Url.Action("index", new
@@ -182,29 +183,23 @@
         <input type="file" name="file" class="hide" id="input_file" />
         <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
     }
-    </div>
+</div>
+
+<div id="dialog-message" class="hide">
+    <p>确认将补贴状态改为已补贴!</p>
+
+</div><!-- #dialog-message -->
 @section scripts{
-    <script src="@Url.Content("~")assets/js/jquery.dataTables.min.js"></script>
-    <script src="@Url.Content("~")assets/js/jquery.dataTables.bootstrap.js"></script>
-    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datepicker.min.js"></script>
-    <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
-    <script src="@Url.Content("~")assets/js/date-time/daterangepicker.min.js"></script>
-    <script src="@Url.Content("~")assets/js/date-time/moment.min.js"></script>
+    @*<script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
 
+    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />*@
 
+<script src="@Url.Content("~")assets/js/easyui/jquery.easyui.min.js"></script>
+<script src="@Url.Content("~")assets/js/easyui/easyui-lang-zh_CN.js"></script>
+<link href="@Url.Content("~")assets/css/easyui/easyui.css" rel="stylesheet" />
+<link href="@Url.Content("~")assets/css/easyui/icon.css" rel="stylesheet" />
     <script type="text/javascript">
-        jQuery(function($) {
-            $('input[name=date-range-picker]')
-                .daterangepicker()
-                .prev()
-                .on(ace.click_event,
-                    function() {
-                        $(this).next().focus();
-                    });
-
-
-            $(".chosen-select").chosen();
-
+    jQuery(function ($) {
 
             $('#modal-form input[type=file]')
                 .ace_file_input({
@@ -227,12 +222,11 @@
                                 $(this).find('.chosen-drop').css('width', '210px');
                                 $(this).find('.chosen-search input').css('width', '200px');
                             });
-                    });
-
+                    });  
         });
 
-       
-           
+
+
             $("#btn_improt")
                 .click(function() {
                     $("#input_file").click();
@@ -243,20 +237,50 @@
                     $("#Submit").click();
                     $("#input_file").text("");
                 });
-        
 
+            $("._verify")
+               .on('click',
+                   function(e) { e.preventDefault();
+                   var changeId = $(this).attr("id");
 
-        function change(changeId) {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("Change")",
-                data: { id: changeId },
-            dataType: "json",
-            success: function (data) {
-                window.location = "@Url.Action("Index",new {activeId=6})";
-            }
-        });
-        }
+                       var dialog = $("#dialog-message")
+                           .removeClass('hide')
+                           .dialog({
+                               modal: true,
+                               width: '400',
+                               title: '提示！',
+                               title_html: true,
+                               buttons: [
+                                   {
+                                       text: "确认",
+                                       "class": "btn btn-xs",
+                                       click: function () {
+                                           $.ajax({
+                                               type: "Post",
+                                               url: "@Url.Action("Change")",
+                                       data: { id: changeId },
+                                       dataType: "json",
+                                       success: function (data) {
+                                           if (data.C === 901) {
+                                               $("#dialog-message").dialog("close");
+                                               $("#btn_submit").click();
+                                           } else if (data.C === 801) {
+                                               $("#dialog-message").dialog("close");
+                                               alert(data.msg);
+                                           }
+                                       }
+                                   });
+                               }
+                           }, {
+                               text: "取消",
+                               "class": "btn btn-xs",
+                               click: function () {
+                                   $(this).dialog("close");
+                               }
+                           }
+                       ]
+                   });
+           });
     </script>
 }
 

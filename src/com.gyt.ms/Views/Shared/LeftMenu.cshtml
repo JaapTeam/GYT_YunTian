@@ -1,5 +1,5 @@
-﻿@using System.Diagnostics
-@using com.gyt.ms.Models
+﻿@using com.gyt.ms.Models
+@using Zer.Framework.Dto
 
 @{
     var menuList = ViewBag.MenuItems as List<MenuItem>;
@@ -19,7 +19,7 @@
                 <li class="@(menu.IsCurrentPage?"active open":"")">
                     <a href="javascript:();" class="dropdown-toggle">
                         <i class="@menu.Icon"></i>
-                        <span class="menu-text"> @menu.TextInfo </span>
+                        <span class=""> @menu.TextInfo </span>
 
                         <b class="arrow icon-angle-down"></b>
                     </a>

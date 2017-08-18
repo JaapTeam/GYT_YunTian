@@ -119,7 +119,7 @@
                                     @gytInfoDto.OldTruckNo
                                 </td>
                                 <td>
-                                    @gytInfoDto.BidDate
+                                    @string.Format("{0:yyyy-MM-dd}", gytInfoDto.BidDate)
                                 </td>
                                 <td>@gytInfoDto.BidName</td>
                                 <td>
@@ -327,11 +327,11 @@
                                             success: function (data) {
                                                 console.log(data);
 
-                                                if (data.c === 901) {
-                                                    $("#dialog-message").dialog("close");
+                                                if (data.C === 901) {
+                                                    $(dialog).dialog("close");
                                                     $("#btn_submit").click();
                                                 }
-                                                if (data.c === 801) {
+                                                if (data.C === 801) {
                                                     $(dialog).dialog("close");
                                                     alert(data.msg);
                                                 }
