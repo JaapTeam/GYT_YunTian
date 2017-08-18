@@ -142,7 +142,6 @@
     <Compile Include="App_Start\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessHandleController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
     <Compile Include="Controllers\GYTInfoRecrodController.cs" />
@@ -158,7 +157,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HandleDataDto.cs" />
-    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

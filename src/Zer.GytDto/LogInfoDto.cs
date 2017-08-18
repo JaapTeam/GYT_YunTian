@@ -1,4 +1,5 @@
 ﻿using System;
+using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Dto;
 using Zer.Framework.Export.Attributes;
@@ -42,14 +43,5 @@ namespace Zer.GytDto
         [ExportSort(8)]
         [ExportDisplayName("内容")]
         public string Content { get; set; }
-    }
-
-    public enum ActionType
-    {
-        Add=0,
-        Edit=1,
-        Delete=2,
-        Change=3,
-        Query=4
     }
 }

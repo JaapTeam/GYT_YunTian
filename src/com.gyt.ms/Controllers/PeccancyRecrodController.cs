@@ -10,6 +10,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 using Zer.Services;
@@ -30,6 +31,7 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
         }
 
+        [UserActionLog("超载超限记录查询", ActionType.查询)]
         public ActionResult Index(PeccancySearchDto searchDto, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
@@ -39,6 +41,7 @@ namespace com.gyt.ms.Controllers
         }
 
         //ToDo:单元测试
+        [UserActionLog("超载超限记录整改状态变更", ActionType.更改状态)]
         public JsonResult Change(int id=0)
         {
             if (id == 0)
@@ -58,6 +61,7 @@ namespace com.gyt.ms.Controllers
 
         //Todo: 建议优化检查检查重复业务逻辑
         [System.Web.Mvc.HttpPost]
+        [UserActionLog("超载超限记录批量导入", ActionType.新增)]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -116,6 +120,7 @@ namespace com.gyt.ms.Controllers
             return View("ImportResult");
         }
 
+        [UserActionLog("超载超限记录导出", ActionType.查询)]
         public FileResult ExportResult(string exportCode = "")
         {
             List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();
@@ -138,6 +143,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [System.Web.Mvc.HttpPost]
+        [UserActionLog("超载超限记录查询", ActionType.查询)]
         public ActionResult Search(PeccancySearchDto searchDto, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;

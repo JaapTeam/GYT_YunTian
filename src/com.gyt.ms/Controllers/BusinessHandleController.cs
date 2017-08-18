@@ -29,6 +29,7 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: BusinessHandle
+        [UserActionLog("业务办理", ActionType.查询)]
         public ActionResult Index(int activeId = 1)
         {
             ViewBag.ActiveId = activeId;
@@ -273,6 +274,7 @@ namespace com.gyt.ms.Controllers
             return Success(null,sb.ToString());
         }
 
+        [UserActionLog("业务办理", ActionType.新增)]
         public JsonResult SuccessInfo(string bidCompanyName="", string bidTruckNo="", string oldTruckno="",
            bool isAnnual = true, bool isOperationCancel = true, bool isTransferRecrod=true,bool isGytStatus=true,
            bool isGytCancel = true, bool isConsistentInfo = true, BusinessType businessType = BusinessType.天然气车辆, int activeId = 1)

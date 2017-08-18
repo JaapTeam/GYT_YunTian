@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Dto;
@@ -53,7 +54,7 @@ namespace Zer.GytDto
         [ExportSort(7)]
         [ImportSort(7)]
         [ExportDisplayName("违法日期")]
-        public string PeccancyDate { get; set; }
+        public DateTime PeccancyDate { get; set; }
 
         [ExportSort(8)]
         [ImportSort(8)]
