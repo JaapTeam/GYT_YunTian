@@ -26,7 +26,7 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: GYTSuccess
-        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 7)
+        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 4)
         {
             ViewBag.ActiveId = activeId;
             ViewBag.SearchDto = searchDto;

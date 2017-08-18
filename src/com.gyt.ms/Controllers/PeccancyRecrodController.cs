@@ -50,10 +50,10 @@ namespace com.gyt.ms.Controllers
 
             if (!result)
             {
-                return Fail();
+                return Fail("整改失败，请联系系统管理人员！");
             }
 
-            return Success();
+            return Success("整改成功！");
         }
 
         //Todo: 建议优化检查检查重复业务逻辑
