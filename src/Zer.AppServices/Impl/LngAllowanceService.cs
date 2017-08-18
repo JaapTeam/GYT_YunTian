@@ -75,6 +75,17 @@ namespace Zer.AppServices.Impl
             return query.Map<LngAllowanceInfoDto>().ToList();
         }
 
+        public LngAllowanceInfoDto ChangStatus(int id)
+        {
+            var infoDto = _lngAllowanceInfoDataService.GetById(id);
+            if (infoDto.Status == LngStatus.未补贴)
+            {
+                infoDto.Status = LngStatus.已补贴;
+            }
+
+            return _lngAllowanceInfoDataService.Update(infoDto.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
+        }
+
         private IQueryable<LngAllowanceInfo> Filter(LngAllowanceSearchDto searchDto, IQueryable<LngAllowanceInfo> query)
         {
             if (!searchDto.TruckNo.IsNullOrEmpty())

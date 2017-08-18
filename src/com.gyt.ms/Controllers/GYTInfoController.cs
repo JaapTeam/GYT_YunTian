@@ -9,6 +9,7 @@ using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
+using Zer.Framework.Import;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
@@ -43,78 +44,68 @@ namespace com.gyt.ms.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult Improt(HttpPostedFileBase file)
         {
-            if (file != null)
+            if (file == null || file.InputStream == null)
+                throw new Exception("文件上传失败，导入失败");
+
+            var excelImport = new ExcelImport<GYTInfoDto>(file.InputStream);
+            var gtyGytInfoDtoList = excelImport.Read();
+
+            if (gtyGytInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+
+            // 检测数据库中已经存在的重复数据
+            var existsgtyGytInfoDtoList = gtyGytInfoDtoList
+                .Where(x => _gytInfoService.Exists(x.BidTruckNo))
+                .ToList();
+
+            // 筛选出需要导入的数据
+            var mustImportgtyGytInfoDtoList =
+                gtyGytInfoDtoList
+                    .Where(x => !existsgtyGytInfoDtoList
+                        .Select(info => info.BidTruckNo)
+                        .Contains(x.BidTruckNo)).ToList();
+
+            // 初始化检测并注册其中的新公司信息
+            InitCompanyInfoDtoList(mustImportgtyGytInfoDtoList);
+
+            //var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
+            var truckInfoDtoList = new List<TruckInfoDto>();
+            foreach (var gtyGytInfoDto in mustImportgtyGytInfoDtoList)
             {
-
-                List<GYTInfoDto> gtyGytInfoDtoList;
-
-                using (StreamReader reader = new StreamReader(file.InputStream, Encoding.Default))
+                truckInfoDtoList.Add(new TruckInfoDto
                 {
-                    gtyGytInfoDtoList = Zer.Framework.Import.Import.Read<GYTInfoDto>(reader, 1);
+                    FrontTruckNo = gtyGytInfoDto.BidTruckNo,
+                    CompanyId = gtyGytInfoDto.BidCompanyId
+                });
 
-                    if (gtyGytInfoDtoList != null)
-                    {
-                        //overloadRecrodDtoList.ForEach(ValidataInputString);
-
-                        // 检测数据库中已经存在的重复数据
-                        var existsgtyGytInfoDtoList = gtyGytInfoDtoList
-                                                       .Where(x => _gytInfoService.Exists(x.BidTruckNo))
-                                                       .ToList();
-
-                        // 筛选出需要导入的数据
-                        var mustImportgtyGytInfoDtoList =
-                            gtyGytInfoDtoList
-                                .Where(x => !existsgtyGytInfoDtoList
-                                    .Select(info => info.BidTruckNo)
-                                    .Contains(x.BidTruckNo)).ToList();
-
-                        // 初始化检测并注册其中的新公司信息
-                        InitCompanyInfoDtoList(mustImportgtyGytInfoDtoList);
-
-                        //var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
-                        var truckInfoDtoList = new List<TruckInfoDto>();
-                        foreach (var gtyGytInfoDto in mustImportgtyGytInfoDtoList)
-                        {
-                            truckInfoDtoList.Add(new TruckInfoDto
-                            {
-                                FrontTruckNo = gtyGytInfoDto.BidTruckNo,
-                                CompanyId = gtyGytInfoDto.BidCompanyId
-                            });
-
-                            truckInfoDtoList.Add(new TruckInfoDto
-                            {
-                                FrontTruckNo = gtyGytInfoDto.OriginalTruckNo,
-                                CompanyId = gtyGytInfoDto.OriginalCompanyId
-                            });
-                        }
-
-                        // 初始化检测并注册其中的新车辆信息
-                        InitTruckInfoDtoList(truckInfoDtoList);
-
-                        mustImportgtyGytInfoDtoList.ForEach(x=>x.Status=BusinessState.已通过);
-
-                        // 保存信息，并得到保存成功的结果
-                        var importSuccessList = _gytInfoService.AddRange(mustImportgtyGytInfoDtoList);
-
-                        var importFailedList = mustImportgtyGytInfoDtoList.Where(x => importSuccessList.Contains(x))
-                            .ToList();
-
-                        // 展示导入结果
-                        ViewBag.ActiveId = 6;
-
-                        ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
-                        ViewBag.FailedCode = AppendObjectToSession(importFailedList);
-                        ViewBag.ExistedCode = AppendObjectToSession(mustImportgtyGytInfoDtoList);
-
-                        ViewBag.SuccessList = importSuccessList;
-                        ViewBag.FailedList = importFailedList;
-                        ViewBag.ExistedList = existsgtyGytInfoDtoList;
-                        return View("ImportResult");
-
-                    }
-                }
+                truckInfoDtoList.Add(new TruckInfoDto
+                {
+                    FrontTruckNo = gtyGytInfoDto.OriginalTruckNo,
+                    CompanyId = gtyGytInfoDto.OriginalCompanyId
+                });
             }
-            return View();
+
+            // 初始化检测并注册其中的新车辆信息
+            InitTruckInfoDtoList(truckInfoDtoList);
+
+            mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.已通过);
+
+            // 保存信息，并得到保存成功的结果
+            var importSuccessList = _gytInfoService.AddRange(mustImportgtyGytInfoDtoList);
+
+            var importFailedList = mustImportgtyGytInfoDtoList.Where(x => importSuccessList.Contains(x))
+                .ToList();
+
+            // 展示导入结果
+            ViewBag.ActiveId = 6;
+
+            ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+            ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+            ViewBag.ExistedCode = AppendObjectToSession(mustImportgtyGytInfoDtoList);
+
+            ViewBag.SuccessList = importSuccessList;
+            ViewBag.FailedList = importFailedList;
+            ViewBag.ExistedList = existsgtyGytInfoDtoList;
+            return View("ImportResult");
         }
 
         public FileResult ExportResult(string exportCode = "")
@@ -154,7 +145,7 @@ namespace com.gyt.ms.Controllers
         //    return View("Index");
         //}
 
-       
+
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {

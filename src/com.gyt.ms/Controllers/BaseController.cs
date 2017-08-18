@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using com.gyt.ms.Models;
-using WebGrease.Css.Extensions;
-using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
 using Zer.Framework.Mvc.Logs.Attributes;
@@ -166,7 +163,7 @@ namespace com.gyt.ms.Controllers
             overLoadChange.Id = 7;
             overLoadChange.ActionName = "Index";
             overLoadChange.ControllerName = "PeccancyChangeInfo";
-            overLoadChange.TextInfo = "超载超限整改信息数据库";
+            overLoadChange.TextInfo = "超载超限已整改数据库";
             overLoadChange.IsCurrentPage = false;
             overLoadChange.Icon = "icon-file-alt";
 

@@ -9,6 +9,7 @@ using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
+using Zer.Framework.Import;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 using Zer.Services;
@@ -29,12 +30,11 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
         }
 
-        public ActionResult Index(int activeId=0)
+        public ActionResult Index(PeccancySearchDto searchDto, int activeId = 9)
         {
             ViewBag.ActiveId = activeId;
-            ViewBag.TruckList = _truckInfoService.GetAll().ToList();
-            ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _peccancyRecrodService.GetAll().Where(x => x.Status == Status.未整改).ToList();
+            ViewBag.SearchDto = searchDto;
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x => x.Status == Status.未整改).ToList();
             return View();
         }
 
@@ -60,71 +60,60 @@ namespace com.gyt.ms.Controllers
         [System.Web.Mvc.HttpPost]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
-            if (file != null)
+            if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
+
+            var excelImport = new ExcelImport<PeccancyRecrodDto>(file.InputStream);
+            var overloadRecrodDtoList = excelImport.Read();
+
+            if (overloadRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+
+            // 检测数据库中已经存在的重复数据
+            var existsoverloadRecrodDtoList = overloadRecrodDtoList
+                .Where(x => _peccancyRecrodService.Exists(x))
+                .ToList();
+
+            // 筛选出需要导入的数据
+            var mustImportoverloadRecrodDtoList =
+                overloadRecrodDtoList
+                    .Where(x => !existsoverloadRecrodDtoList
+                        .Select(overLoad => overLoad.PeccancyId)
+                        .Contains(x.PeccancyId)).ToList();
+
+            // 初始化检测并注册其中的新公司信息
+            InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
+
+            //var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
+            var truckInfoDtoList = new List<TruckInfoDto>();
+            foreach (var overLoadDto in mustImportoverloadRecrodDtoList)
             {
-                List<PeccancyRecrodDto> overloadRecrodDtoList;
-
-                using (StreamReader reader = new StreamReader(file.InputStream, Encoding.Default))
+                truckInfoDtoList.Add(new TruckInfoDto
                 {
-                    overloadRecrodDtoList = Zer.Framework.Import.Import.Read<PeccancyRecrodDto>(reader, 1);
-
-                    if (overloadRecrodDtoList != null)
-                    {
-                        //overloadRecrodDtoList.ForEach(ValidataInputString);
-
-                        // 检测数据库中已经存在的重复数据
-                        var existsoverloadRecrodDtoList = overloadRecrodDtoList
-                                                       .Where(x => _peccancyRecrodService.Exists(x))
-                                                       .ToList();
-
-                        // 筛选出需要导入的数据
-                        var mustImportoverloadRecrodDtoList =
-                            overloadRecrodDtoList
-                                .Where(x => !existsoverloadRecrodDtoList
-                                    .Select(overLoad => overLoad.PeccancyId)
-                                    .Contains(x.PeccancyId)).ToList();
-
-                        // 初始化检测并注册其中的新公司信息
-                        InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
-
-                        //var dic = mustImportoverloadRecrodDtoList.ToDictionary(x => x.PeccancyId, v => v.CompanyId);
-                        var truckInfoDtoList = new List<TruckInfoDto>();
-                        foreach (var overLoadDto in mustImportoverloadRecrodDtoList)
-                        {
-                            truckInfoDtoList.Add(new TruckInfoDto
-                            {
-                                FrontTruckNo = overLoadDto.FrontTruckNo,
-                                BehindTruckNo = overLoadDto.BehindTruckNo,
-                                CompanyId = overLoadDto.CompanyId
-                            });
-                        }
-
-                        // 初始化检测并注册其中的新车辆信息
-                        InitTruckInfoDtoList(truckInfoDtoList);
-
-                        // 保存信息，并得到保存成功的结果
-                        var importSuccessList = _peccancyRecrodService.AddRange(mustImportoverloadRecrodDtoList);
-
-                        var importFailedList = mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x))
-                            .ToList();
-
-                        // 展示导入结果
-                        ViewBag.ActiveId = 6;
-
-                        ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
-                        ViewBag.FailedCode = AppendObjectToSession(importFailedList);
-                        ViewBag.ExistedCode = AppendObjectToSession(existsoverloadRecrodDtoList);
-
-                        ViewBag.SuccessList = importSuccessList;
-                        ViewBag.FailedList = importFailedList;
-                        ViewBag.ExistedList = existsoverloadRecrodDtoList;
-                        return View("ImportResult");
-
-                    }
-                }
-
+                    FrontTruckNo = overLoadDto.FrontTruckNo,
+                    BehindTruckNo = overLoadDto.BehindTruckNo,
+                    CompanyId = overLoadDto.CompanyId
+                });
             }
-            throw new Exception("文件上传失败，导入失败");
+
+            // 初始化检测并注册其中的新车辆信息
+            InitTruckInfoDtoList(truckInfoDtoList);
+
+            // 保存信息，并得到保存成功的结果
+            var importSuccessList = _peccancyRecrodService.AddRange(mustImportoverloadRecrodDtoList);
+
+            var importFailedList = mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x))
+                .ToList();
+
+            // 展示导入结果
+            ViewBag.ActiveId = 6;
+
+            ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+            ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+            ViewBag.ExistedCode = AppendObjectToSession(existsoverloadRecrodDtoList);
+
+            ViewBag.SuccessList = importSuccessList;
+            ViewBag.FailedList = importFailedList;
+            ViewBag.ExistedList = existsoverloadRecrodDtoList;
+            return View("ImportResult");
         }
 
         public FileResult ExportResult(string exportCode = "")
