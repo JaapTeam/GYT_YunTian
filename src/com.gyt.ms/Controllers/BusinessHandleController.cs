@@ -7,9 +7,12 @@ using System.Web.Mvc;
 using com.gyt.ms.Models;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
+using Zer.GytDto.Users;
 
 namespace com.gyt.ms.Controllers
 {
@@ -271,115 +274,6 @@ namespace com.gyt.ms.Controllers
             return Success(null,sb.ToString());
         }
 
-        [UserActionLog("业务办理", ActionType.新增)]
-        public JsonResult SuccessInfo(string bidCompanyName="", string bidTruckNo="", string oldTruckno="",
-           bool isAnnual = true, bool isOperationCancel = true, bool isTransferRecrod=true,bool isGytStatus=true,
-           bool isGytCancel = true, bool isConsistentInfo = true, BusinessType businessType = BusinessType.天然气车辆)
-        {
-           
-
-            if (bidCompanyName == "")
-            {
-                return Fail("申报企业名不能为空！");
-            }
-
-            if (bidTruckNo == "")
-            {
-                return Fail("申报车牌号不能为空！");
-            }
-
-            if (oldTruckno == "" && businessType == BusinessType.以旧换新车辆)
-            {
-                return Fail("旧车牌号不能为空！");
-            }
-
-            //是否重复申办
-            var isExists = _gytInfoService.Exists(bidTruckNo);
-            if (isExists)
-            {
-                return Fail();
-            }
-
-            //有无违规记录
-            var isPeccancy = _peccancyRecrodService.ExistsCompanyName(bidCompanyName);
-            var targetIsUse = _gytInfoService.TargetIsUse(oldTruckno);
-
-            var gtyInfoDto = new GYTInfoDto();
-            gtyInfoDto.BidDate = DateTime.Now;
-            gtyInfoDto.BidName = CurrentUser.DisplayName;
-            gtyInfoDto.BusinessType = businessType;
-            gtyInfoDto.OldTruckNo = oldTruckno;
-
-            #region 检查公司是否存在，不存在新增，并将公司信息添加到办理信息
-            var queryAfterValidateAndRegist =
-                _companyService.QueryAfterValidateAndRegist(new List<CompanyInfoDto>
-                {
-                    new CompanyInfoDto {CompanyName = bidCompanyName}
-                });
-            var firstOrDefault = queryAfterValidateAndRegist.FirstOrDefault();
-            if (firstOrDefault != null)
-            {
-                gtyInfoDto.BidCompanyId = firstOrDefault.Id;
-                gtyInfoDto.BidCompanyName = firstOrDefault.CompanyName;
-            }
-            else
-            {
-                var companyInfoDto = _companyService.GetByLikeName(bidCompanyName);
-                gtyInfoDto.BidCompanyId = companyInfoDto.FirstOrDefault().Id;
-                gtyInfoDto.BidCompanyName = companyInfoDto.FirstOrDefault().CompanyName;
-            }
-            #endregion
-
-            #region  检查车牌是否存在，不存在新增，并将公司信息添加到办理信息
-            if (_truckInfoService.Exists(bidTruckNo))
-            {
-                gtyInfoDto.BidTruckNo = bidTruckNo;
-            }
-            else
-            {
-                _truckInfoService.Add(new TruckInfoDto
-                {
-                    FrontTruckNo = bidTruckNo,
-                    CompanyId = gtyInfoDto.BidCompanyId,
-                    CompanyName = gtyInfoDto.BidCompanyName
-                });
-
-                gtyInfoDto.BidTruckNo = bidTruckNo;
-            }
-
-            #endregion
-
-            HandleDataDto handleDataDto = new HandleDataDto();
-
-            #region 判断审查条件
-            if (isAnnual && isOperationCancel && isTransferRecrod && isGytStatus && isGytCancel && isConsistentInfo && !isPeccancy && !targetIsUse)
-            {
-                gtyInfoDto.Status = BusinessState.初审通过;
-                handleDataDto.Result = true;
-                _gytInfoService.Add(gtyInfoDto);
-            }
-            else
-            {
-                handleDataDto.Result = false;
-            }
-            
-            #endregion
-
-            handleDataDto.BidCompanyName = bidCompanyName;
-            handleDataDto.BidTruckNo = bidTruckNo;
-            handleDataDto.BusinessType = businessType;
-            handleDataDto.IsAnnual = isAnnual;
-            handleDataDto.IsConsistentInfo = isConsistentInfo;
-            handleDataDto.IsGytCancel = isGytCancel;
-            handleDataDto.IsGytStatus = isGytStatus;
-            handleDataDto.IsPeccancy = isPeccancy;
-            handleDataDto.OldTruckNo = oldTruckno;
-            handleDataDto.IsTransferRecrod = isTransferRecrod;
-            handleDataDto.TargetIsUse = targetIsUse;
-
-            return Success(handleDataDto,"success");
-        }
-
         [UnLog]
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
@@ -395,11 +289,98 @@ namespace com.gyt.ms.Controllers
         public JsonResult TruckRepetitionCheck(string truckNo)
         {
             var result = _gytInfoService.TargetIsUse(truckNo);
-            if (result)
+            return result ? Fail() : Success();
+        }
+
+        public ActionResult Commit(GYTInfoDto dto)
+        {
+            // TODO: 根据业务类型不同，判断条件不同
+            switch (dto.BusinessType)
             {
-                return Fail();
+                case BusinessType.天然气车辆: 
+                    
+                    break;
+
+                case BusinessType.过户车辆: 
+
+                case BusinessType.以旧换新车辆:
+
+                    if (!_companyService.Exists(dto.OriginalCompanyName))
+                    {
+                        throw new CustomException("原公司信息不存在","公司名称",dto.OriginalCompanyName);
+                    }
+
+                    if (!_truckInfoService.Exists(dto.OriginalTruckNo))
+                    {
+                        throw new CustomException("原车辆信息不存在", "车牌号", dto.OriginalTruckNo);
+                    }
+
+                    break;
+
+                default: throw new CustomException("不正常的业务提交");
             }
-            return Success();
+
+            if (!_peccancyRecrodService.ExistsCompanyName(dto.BidCompanyName))
+            {
+                throw new CustomException("申办企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.BidCompanyName);
+            }
+
+            if (!_peccancyRecrodService.ExistsCompanyName(dto.OriginalCompanyName))
+            {
+                throw new CustomException("申办企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.OriginalCompanyName);
+            }
+
+            //检测公司是否存在
+            var companyList = new List<CompanyInfoDto>
+            {
+                new CompanyInfoDto() {CompanyName = dto.BidCompanyName},
+                new CompanyInfoDto() {CompanyName = dto.OriginalCompanyName}
+            };
+
+            companyList = _companyService.QueryAfterValidateAndRegist(companyList);
+
+            var bidCompanyInfo = companyList.FirstOrDefault(x => x.CompanyName.Trim() == dto.BidCompanyName.Trim());
+
+            dto.BidCompanyId = bidCompanyInfo != null ? bidCompanyInfo.Id : 0;
+
+            var originalCompanyInfo = companyList.FirstOrDefault(x => x.CompanyName.Trim() == dto.OriginalCompanyName.Trim());
+
+            dto.OriginalCompanyId = originalCompanyInfo != null ? originalCompanyInfo.Id : 0;
+
+
+            // 检测车辆信息
+            var waitForRegistTruckInfo = new List<TruckInfoDto>
+            {
+                new TruckInfoDto(){FrontTruckNo =  dto.BidTruckNo,CompanyId = dto.BidCompanyId,CompanyName = dto.BidCompanyName}
+            };
+
+            if (dto.BusinessType.ToInt() > 0)
+            {
+                waitForRegistTruckInfo.Add(new TruckInfoDto
+                {
+                    FrontTruckNo = dto.OriginalTruckNo,
+                    CompanyId = dto.OriginalCompanyId,
+                    CompanyName = dto.OriginalCompanyName
+                });
+            }
+
+            _truckInfoService.QueryAfterValidateAndRegist(waitForRegistTruckInfo);
+
+            var userInfoDto = GetValueFromSession<UserInfoDto>("UserInfo");
+
+            dto.BidName = userInfoDto.UserName;
+            dto.BidDisplayName = userInfoDto.DisplayName;
+            dto.Status = BusinessState.初审通过;
+            dto.BidDate = DateTime.Now;
+
+            var result = _gytInfoService.Add(dto);
+
+            if (result == null)
+            {
+                throw new CustomException("数据保存失败，请重试.");
+            }
+
+            return RedirectToAction("Index", "GYTInfo");
         }
     }
 }

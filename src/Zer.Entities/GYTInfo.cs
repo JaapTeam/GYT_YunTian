@@ -28,13 +28,14 @@ namespace Zer.Entities
 
         [StringLength(10)]
         public string BidTruckNo { get; set; }
-        [StringLength(10)]
-        public string OldTruckNo { get; set; }
 
         public DateTime? BidDate { get; set; }
 
         [StringLength(20)]
         public string BidName { get; set; }
+
+        [StringLength(20)]
+        public string BidDisplayName { get; set; }
 
         public BusinessState Status { get; set; }
     }
