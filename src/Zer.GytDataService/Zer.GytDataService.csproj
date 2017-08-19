@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.Designer.cs">
       <DependentUpon>201708190543428_removePeccancyRecordCount_CompanyInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708191416511_modify_gytInfoEntity.cs" />
+    <Compile Include="Migrations\201708191416511_modify_gytInfoEntity.Designer.cs">
+      <DependentUpon>201708191416511_modify_gytInfoEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -132,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.resx">
       <DependentUpon>201708190543428_removePeccancyRecordCount_CompanyInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191416511_modify_gytInfoEntity.resx">
+      <DependentUpon>201708191416511_modify_gytInfoEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
