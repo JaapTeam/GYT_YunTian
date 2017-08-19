@@ -61,9 +61,19 @@ namespace Zer.AppServices.Impl
 
         public List<TruckInfoDto> QueryAfterValidateAndRegist(List<TruckInfoDto> list)
         {
-            var waitForRegistList = list.Where(x => !(Exists(x.FrontTruckNo) || Exists(x.BehindTruckNo))).ToList();
+            //var waitForRegistList = list.Where(x => !(Exists(x.FrontTruckNo) || Exists(x.BehindTruckNo))).ToList();
 
-            return AddRange(waitForRegistList);
+            var existsTruckList = _truckInfoDataService.GetAll()
+                .Where(x => list.Select(y => y.BehindTruckNo).Contains(x.FrontTruckNo)).ToList();
+
+            var waitForRegistList = list.Where(x => existsTruckList.All(y => y.FrontTruckNo != x.FrontTruckNo))
+                .ToList();
+
+            var registedList = AddRange(waitForRegistList);
+
+            registedList.AddRange(existsTruckList.Map<TruckInfoDto>().ToList());
+
+            return registedList;
         }
 
     }

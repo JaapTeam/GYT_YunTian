@@ -115,17 +115,8 @@ namespace Zer.Framework.Mvc
             gytInfo.IsCurrentPage = false;
             gytInfo.Icon = "icon-file-alt";
 
-            MenuItem gtyHandleRecrod = new MenuItem();
-            gtyHandleRecrod.Id = 4;
-            gtyHandleRecrod.ActionName = "Index";
-            gtyHandleRecrod.ControllerName = "GYTInfoRecrod";
-            gtyHandleRecrod.TextInfo = "港运通办理台账";
-            gtyHandleRecrod.IsCurrentPage = false;
-            gtyHandleRecrod.Icon = "icon-file-alt";
-
             gytDataManage.ChildItems = new List<MenuItem>();
             gytDataManage.ChildItems.Add(gytInfo);
-            gytDataManage.ChildItems.Add(gtyHandleRecrod);
             MenuItems.Add(gytDataManage);
 
             #endregion

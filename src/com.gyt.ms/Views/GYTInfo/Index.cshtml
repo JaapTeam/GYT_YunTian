@@ -2,25 +2,28 @@
 @using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
+@using Zer.GytDto.Users
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var userInfo = ViewBag.UserInfo as UserInfoDto;
+
     var infoList = ViewBag.Result as List<GYTInfoDto>;
 
-    var searchFilter = ViewBag.SearchDto as GYTInfoSearchDto ?? (GYTInfoSearchDto)new GYTInfoSearchDto();
+    var searchFilter = ViewBag.SearchDto as GYTInfoSearchDto ?? (GYTInfoSearchDto) new GYTInfoSearchDto();
 }
 
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-inline" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo"))" method="post">
+        <form class="form-inline" id="form_search" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo"))" method="post">
             <label style="margin-left: 10px" for="input_CompanyName">公司名称：</label>
-            <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
-            
+            <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName"/>
+
             <label style="margin-left: 10px" for="input_TruckNo">车牌号码：</label>
-            <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
-            
+            <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo"/>
+
             <label style="margin-left: 10px" for="input_Status">办理状态：</label>
             <select name="Status" id="input_Status">
                 <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
@@ -35,14 +38,14 @@
         <div class="table-header">
 
             <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-                
+
                 <a class="white" href="javascript:void(0)" id="btn_improt">
-                    <i class="icon-cloud-upload bigger-110" >
+                    <i class="icon-cloud-upload bigger-110">
                         <span class="">批量导入</span>
                     </i>
                 </a>
 
-                <a class="white" id="btn_export" href="@(Url.Action("ExportResult","GYTInfo",new {exportcode="All"}))">
+                <a class="white" id="btn_export" href="javascript:;">
                     <i class="icon-cloud-download bigger-110">
                         <span class="">导出</span>
                     </i>
@@ -57,7 +60,7 @@
                 <tr>
                     <th class="center">
                         <label>
-                            <input type="checkbox" class="ace" />
+                            <input type="checkbox" class="ace"/>
                             <span class="lbl"></span>
                         </label>
                     </th>
@@ -70,7 +73,11 @@
                     <th>旧车牌号</th>
                     <th>办理日期</th>
                     <th>经办人</th>
-                    <th></th>
+                    <th>详情</th>
+                    @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                    {
+                        <th>审核</th>
+                    }
                 </tr>
                 </thead>
                 <tbody>
@@ -82,7 +89,7 @@
                             <tr>
                                 <td class="center">
                                     <label>
-                                        <input type="checkbox" class="ace" />
+                                        <input type="checkbox" class="ace"/>
                                         <span class="lbl"></span>
                                     </label>
                                 </td>
@@ -104,21 +111,46 @@
                                     @string.Format("{0:yyyy-MM-dd}", gytInfoDto.BidDate)
                                 </td>
                                 <td>@gytInfoDto.BidName</td>
-                                
-                                <td><a href="javascript:;">详情</a></td>
+
+                                <td>
+                                    <a href="javascript:;">详情</a>
+                                </td>
+
+                                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                                {
+                                    <td>
+                                        @if (gytInfoDto.Status == BusinessState.已办理)
+                                        {
+                                            <span class="label label-sm label-success">
+                                                <i class="icon-ok"> 已办理</i>
+                                            </span>
+                                        }
+
+                                        @if (gytInfoDto.Status == BusinessState.初审通过)
+                                        {
+                                            <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
+                                                <i class=" icon-check">审核</i>
+                                            </a>
+                                        }
+
+                                        @if (gytInfoDto.Status == BusinessState.条件不符)
+                                        {
+                                            <i class="icon-ban-circle"> 不符合办理条件</i>
+                                        }
+                                    </td>
+                                }
                             </tr>
                         }
                     }
-
                 }
-                
+
                 </tbody>
             </table>
 
-            @using (Html.BeginForm("Improt", "GYTInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Improt", "GYTInfo", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
-                <input type="file" name="file" class="hide" id="input_file" />
-                <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+                <input type="file" name="file" class="hide" id="input_file"/>
+                <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
             }
 
             @if (searchFilter.PageCount > 1)
@@ -128,7 +160,7 @@
                         <div class="dataTables_paginate padding-10">
                             <ul class="pagination">
 
-                                <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
+                                <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
                                     <a href="@Url.Action("index", new
                                              {
                                                  searchFilter.TruckNo,
@@ -141,24 +173,25 @@
                                 </li>
                                 @for (int i = 1; i <= searchFilter.PageCount; i++)
                                 {
-                                    <li class="@(searchFilter.PageIndex == i?"active":"")">
+                                    <li class="@(searchFilter.PageIndex == i ? "active" : "")">
                                         <a href="@Url.Action("index", new
-                                     {
-                                         searchFilter.TruckNo,
-                                         searchFilter.CompanyName,
-                                         PageIndex = i,
-                                         searchFilter.PageSize
-                                     })">@i</a>
-                                </li>
+                                                 {
+                                                     searchFilter.TruckNo,
+                                                     searchFilter.CompanyName,
+                                                     PageIndex = i,
+                                                     searchFilter.PageSize
+                                                 })">
+                                            @i</a>
+                                    </li>
                                 }
-                                <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount?"disabled":"")">
+                                <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
                                     <a href="@Url.Action("index", new
-                                     {
-                                         searchFilter.TruckNo,
-                                         searchFilter.CompanyName,
-                                         PageIndex = searchFilter.PageCount,
-                                         searchFilter.PageSize
-                                     })">
+                                             {
+                                                 searchFilter.TruckNo,
+                                                 searchFilter.CompanyName,
+                                                 PageIndex = searchFilter.PageCount,
+                                                 searchFilter.PageSize
+                                             })">
                                         <i class="icon-double-angle-right"></i>
                                     </a>
                                 </li>
@@ -169,14 +202,14 @@
             }
         </div>
     </div>
-    
+
 
 </div>
 
 @section scripts{
 
     <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
-    
+
 
     <script type="text/javascript">
         jQuery(function($) {
@@ -220,7 +253,17 @@
 
         });
 
-        $(function() {
+        $(function () {
+            $('body')
+                .on('click',
+                    '#btn_export',
+                    function () {
+                        var oraginActionUrl = $('#form_search').attr("action");
+                        $('#form_search').attr("action", '@Url.Action("ExportResult","GYTInfo")');
+                        $('#btn_submit').click();
+                        $('#form_search').attr("action",oraginActionUrl);
+                    });
+
             $("#btn_improt")
                 .click(function() {
                     $("#input_file").click();
@@ -233,7 +276,7 @@
                 });
         });
 
-        
+
     </script>
 
 }
