@@ -31,10 +31,9 @@ namespace com.gyt.ms.Controllers
 
         // GET: GYTInfo
         [UserActionLog("港运通信息数据库",ActionType.查询)]
-        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 3)
+        public ActionResult Index(GYTInfoSearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
-
+           
             ViewBag.CompanyList = _companyService.GetAll();
             ViewBag.TruckList = _truckInfoService.GetAll();
             ViewBag.SearchDto = searchDto;
@@ -99,7 +98,7 @@ namespace com.gyt.ms.Controllers
                 .ToList();
 
             // 展示导入结果
-            ViewBag.ActiveId = 6;
+          
 
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
             ViewBag.FailedCode = AppendObjectToSession(importFailedList);

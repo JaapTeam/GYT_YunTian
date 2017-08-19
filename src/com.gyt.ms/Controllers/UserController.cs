@@ -169,36 +169,31 @@ namespace com.gyt.ms.Controllers
             return Fail();
         }
 
-        public ActionResult ChangePassword(int activeId = 0)
+        public ActionResult ChangePassword()
         {
-            ViewBag.ActiveId = activeId;
             return View();
         }
 
-        public ActionResult AccountManage(int activeId = 0)
+        public ActionResult AccountManage()
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.Result = _userInfoService.GetAll();
             return View();
         }
 
         [UserActionLog("查看用户详细信息", ActionType.编辑)]
-        public ActionResult AccountInfo(int activeId = 0, int userId = 0)
+        public ActionResult AccountInfo(int userId = 0)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.UserInfo = _userInfoService.GetById(userId);
             return View();
         }
 
-        public ActionResult AddUserInfo(int activeId = 0)
+        public ActionResult AddUserInfo()
         {
-            ViewBag.ActiveId = activeId;
             return View();
         }
 
-        public ActionResult EditUserInfo(int activeId = 0, int userId = 0)
+        public ActionResult EditUserInfo(int userId = 0)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.Result = _userInfoService.GetById(userId);
             return View();
         }

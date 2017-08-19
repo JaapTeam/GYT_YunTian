@@ -5,29 +5,24 @@
 @{
     var menuList = ViewBag.MenuItems as List<MenuItem>;
 }
-<ul class="nav nav-list">
-    <li>
-        <a href="@Url.Action("Index","Home")">
-            <i class="icon-home"></i>
-            <span class="menu-text"> 首页 </span>
-        </a>
-    </li>
 
-    @{
-        if (!menuList.IsNullOrEmpty())
-        {
-            foreach (var item in menuList)
+
+@{
+    if (!menuList.IsNullOrEmpty())
+    {
+        <ul class="nav nav-list">
+            @foreach (var item in menuList)
             {
-                <li class="@(item.IsCurrentPage ? "active open" : "")">
-                    <a href="javascript:();" class="dropdown-toggle">
-                        <i class="@item.Icon"></i>
-                        <span class=""> @item.TextInfo </span>
+                if (!item.ChildItems.IsNullOrEmpty())
+                {
+                    <li class="@(item.IsCurrentPage ? "active open" : "")">
+                        <a href="javascript:();" class="dropdown-toggle">
+                            <i class="@item.Icon"></i>
+                            <span class=""> @item.TextInfo </span>
 
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
 
-                    @if (!item.ChildItems.IsNullOrEmpty())
-                    {
                         <ul class="submenu">
                             @foreach (var childItem in item.ChildItems)
                             {
@@ -39,43 +34,18 @@
                                 </li>
                             }
                         </ul>
-                    }
-
-
-                </li>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action(item.ActionName, item.ControllerName)">
+                            <i class="icon-home"></i>
+                            <span class="menu-text"> @item.TextInfo </span>
+                        </a>
+                    </li>
+                }
             }
-        }
+        </ul>
     }
-
-
-    @*@{
-        if (menuList != null)
-        {
-            foreach (var menu in menuList)
-            {
-                <li class="@(menu.IsCurrentPage?"active open":"")">
-                    <a href="javascript:();" class="dropdown-toggle">
-                        <i class="@menu.Icon"></i>
-                        <span class=""> @menu.TextInfo </span>
-
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                    @if (menu.ChildItems != null)
-                    {
-                        <ul class="submenu">
-                            @foreach (var child in menu.ChildItems)
-                            {
-                                <li class="@(child.IsCurrentPage ? "active" : "")">
-                                    <a href="@Url.Action(child.ActionName, child.ControllerName, new { activeId = child.Id })">
-                                        <i class="@child.Icon"></i>
-                                        @child.TextInfo
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    }  
-                </li>
-            }
-        }
-    }*@
-</ul>
+}

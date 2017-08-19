@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-inline" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo", new { activeId = ViewBag.ActiveId }))" method="post">
+        <form class="form-inline" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo"))" method="post">
             <label style="margin-left: 10px" for="input_CompanyName">公司名称：</label>
             <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
             

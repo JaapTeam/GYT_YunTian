@@ -16,7 +16,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
 
             var menuItemManager = new MenuItemManager();
 
-            var menuItemId = menuItemManager.GetId(controllerName, actionName);
+            var currentMentItem = menuItemManager.GetId(controllerName, actionName);
             
 
             foreach (var item in menuItemManager.MenuItems)
@@ -24,7 +24,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                 if (item.ChildItems == null) continue;
                 foreach (var child in item.ChildItems)
                 {
-                    if (child.Id != menuItemId) continue;
+                    if (child.Id != currentMentItem.Id) continue;
 
                     item.IsCurrentPage = true;
                     child.IsCurrentPage = true;
@@ -32,7 +32,8 @@ namespace Zer.Framework.Mvc.Logs.Attributes
             }
 
             filterContext.Controller.ViewBag.MenuItems = menuItemManager.MenuItems;
-            filterContext.Controller.ViewBag.ActiveId = menuItemId;
+            filterContext.Controller.ViewBag.Title = currentMentItem.TextInfo;
+            filterContext.Controller.ViewBag.ActiveId = currentMentItem.Id;
             base.OnActionExecuting(filterContext);
         }
     }

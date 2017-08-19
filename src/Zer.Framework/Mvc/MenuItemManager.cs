@@ -16,14 +16,7 @@ namespace Zer.Framework.Mvc
             InitMenuItems();
         }
 
-        //public static MenuItemManager Instance { get; private set; }
-
-        //static MenuItemManager()
-        //{
-        //    Instance = new MenuItemManager();
-        //}
-
-        public int GetId(string controllerName, string actionName)
+        public MenuItem GetId(string controllerName, string actionName)
         {
             var menuitem = this.MenuItems
                 .SelectMany(x => x.ChildItems)
@@ -31,11 +24,29 @@ namespace Zer.Framework.Mvc
                      String.Equals(x.ActionName, actionName, StringComparison.CurrentCultureIgnoreCase) &&
                      String.Equals(x.ControllerName, controllerName, StringComparison.CurrentCultureIgnoreCase));
 
-            return menuitem == null ? 0 : menuitem.Id;
+            return menuitem ?? new MenuItem()
+            {
+                ActionName = "index",
+                ControllerName = "home",
+                ChildItems = new List<MenuItem>(),
+                Icon = "icon-home",
+                Id = 1000,
+                TextInfo = "首页"
+            };
         }
 
         private void InitMenuItems()
         {
+            MenuItems.Add(new MenuItem()
+            {
+                ActionName = "index",
+                ControllerName = "home",
+                ChildItems =  new List<MenuItem>(),
+                Icon = "icon-home",
+                Id = 1000,
+                TextInfo = "首页"
+            });
+
             #region 港运通业务办理
 
             MenuItem businessHandle = new MenuItem();

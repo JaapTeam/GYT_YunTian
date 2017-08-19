@@ -36,18 +36,16 @@ namespace com.gyt.ms.Controllers
 
         // GET: LngAllowance
         [UserActionLog("LNG补贴信息首页",ActionType.查询)]
-        public ActionResult Index(LngAllowanceSearchDto filter = null, int activeId = 9)
+        public ActionResult Index(LngAllowanceSearchDto filter = null)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.Filter = filter;
 
             var result = _lngAllowanceService.GetList(filter);
             return View(result);
         }
 
-        public ActionResult Add(int activeId = 9)
+        public ActionResult Add()
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.CompanyList = _companyService.GetAll();
             return View();
         }
@@ -126,8 +124,6 @@ namespace com.gyt.ms.Controllers
                 .ToList();
 
             // 展示导入结果
-            ViewBag.ActiveId = 9;
-
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
             ViewBag.FailedCode = AppendObjectToSession(importFailedList);
             ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
