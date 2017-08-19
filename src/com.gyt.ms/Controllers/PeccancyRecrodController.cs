@@ -35,7 +35,7 @@ namespace com.gyt.ms.Controllers
         public ActionResult Index(PeccancySearchDto searchDto)
         {
             ViewBag.SearchDto = searchDto;
-            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).ToList();
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x=>x.Status == Status.未整改).ToList();
             //.Where(x => x.Status == Status.未整改).ToList();
             return View();
         }
