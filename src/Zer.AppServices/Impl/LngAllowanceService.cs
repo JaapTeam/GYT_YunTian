@@ -93,15 +93,16 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo));
             }
 
-            if (!searchDto.EngineId.IsNullOrEmpty())
+            if (!searchDto.CompanyName.IsNullOrEmpty())
             {
-                query = query.Where(x => x.EngineId.Contains(searchDto.EngineId));
+                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName));
             }
 
             if (searchDto.IsAllowanced.HasValue)
             {
-                //query = query.Where(x=>x.)
+                query = query.Where(x => x.Status == searchDto.IsAllowanced.Value);
             }
+
             return query;
         }
     }
