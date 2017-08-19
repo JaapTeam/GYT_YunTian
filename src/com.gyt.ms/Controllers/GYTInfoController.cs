@@ -38,7 +38,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.CompanyList = _companyService.GetAll();
             ViewBag.TruckList = _truckInfoService.GetAll();
             ViewBag.SearchDto = searchDto;
-            ViewBag.Result = _gytInfoService.GetVerifyList(searchDto);
+            ViewBag.Result = _gytInfoService.GetList(searchDto);
             return View();
 
         }
@@ -133,24 +133,42 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通信息数据{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
-        //public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 3)
-        //{
-        //    ViewBag.ActiveId = activeId;
-        //    var truckList = _truckInfoService.GetAll();
-        //    var companyList = _companyService.GetAll();
+        [AdminRole]
+        [UserActionLog("港运通审核", ActionType.更改状态)]
+        public JsonResult Verify(int infoId)
+        {
+            var gtyInfo = _gytInfoService.GetById(infoId);
 
-        //    ViewBag.TruckList = truckList;
-        //    ViewBag.CompanyList = companyList;
-        //    ViewBag.SearchDto = searchDto;
+            if (gtyInfo.Status == BusinessState.已办理)
+            {
+                return Fail("这条记录已经审核！");
+            }
 
-        //    searchDto.Status = BusinessState.初审通过;
-        //    ViewBag.Result = _gytInfoService.GetList(searchDto);
+            gtyInfo = _gytInfoService.Verify(infoId);
 
-        //    return View("Index");
-        //}
+            if (gtyInfo.Status != BusinessState.已办理)
+            {
+                return Fail("审核失败！");
+            }
 
+            return Success("审核成功！");
+        }
 
+        public ActionResult AddGas()
+        {
+            return View();
+        }
 
+        public ActionResult replaceOld()
+        {
+            return View();
+        }
+
+        public ActionResult TransferOwner()
+        {
+            return View();
+        }
+        
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {
             var improtCompanyInfoDtoList = new List<CompanyInfoDto>();

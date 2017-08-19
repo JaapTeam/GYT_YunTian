@@ -1,17 +1,54 @@
 ﻿@using com.gyt.ms.Models
 @using Zer.Framework.Dto
+@using Zer.Framework.Extensions
 
 @{
     var menuList = ViewBag.MenuItems as List<MenuItem>;
 }
 <ul class="nav nav-list">
     <li>
-        <a href="@Url.Action("Index","Home",new {id=14})">
+        <a href="@Url.Action("Index","Home")">
             <i class="icon-home"></i>
             <span class="menu-text"> 首页 </span>
         </a>
     </li>
+
     @{
+        if (!menuList.IsNullOrEmpty())
+        {
+            foreach (var item in menuList)
+            {
+                <li class="@(item.IsCurrentPage ? "active open" : "")">
+                    <a href="javascript:();" class="dropdown-toggle">
+                        <i class="@item.Icon"></i>
+                        <span class=""> @item.TextInfo </span>
+
+                        <b class="arrow icon-angle-down"></b>
+                    </a>
+
+                    @if (!item.ChildItems.IsNullOrEmpty())
+                    {
+                        <ul class="submenu">
+                            @foreach (var childItem in item.ChildItems)
+                            {
+                                <li class="@(childItem.IsCurrentPage ? "active" : "")">
+                                    <a href="@Url.Action(childItem.ActionName, childItem.ControllerName)">
+                                        <i class="@childItem.Icon"></i>
+                                        @childItem.TextInfo
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+
+                </li>
+            }
+        }
+    }
+
+
+    @*@{
         if (menuList != null)
         {
             foreach (var menu in menuList)
@@ -40,5 +77,5 @@
                 </li>
             }
         }
-    }
+    }*@
 </ul>

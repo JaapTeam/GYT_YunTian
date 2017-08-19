@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics
+@using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
 
@@ -14,10 +15,19 @@
 <div class="row">
     <div class="col-xs-12">
         <form class="form-inline" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo", new { activeId = ViewBag.ActiveId }))" method="post">
-            <span style="margin-left: 10px">公司名称：</span>
+            <label style="margin-left: 10px" for="input_CompanyName">公司名称：</label>
             <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
-            车牌号码：
+            
+            <label style="margin-left: 10px" for="input_TruckNo">车牌号码：</label>
             <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
+            
+            <label style="margin-left: 10px" for="input_Status">办理状态：</label>
+            <select name="Status" id="input_Status">
+                <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
+                <option value="@(BusinessState.初审通过)" @(searchFilter.Status == BusinessState.初审通过 ? "selected" : "")>初审通过</option>
+                <option value="@(BusinessState.已办理)" @(searchFilter.Status == BusinessState.已办理 ? "selected" : "")>已办理</option>
+            </select>
+
 
             <button type="submit" class="btn btn-small btn-info" id="btn_submit" style="margin-left: 20px">查询</button>
         </form>

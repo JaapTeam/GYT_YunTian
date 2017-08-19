@@ -96,25 +96,5 @@ namespace com.gyt.ms.Controllers
             return File(data, "text/plain", string.Format("{0}-{1:yyyy-MM-dd}.csv", fileName, DateTime.Now));
         }
         
-        [UnLog]
-        [UnValidateInputsAttribute]
-        [UnValidateLogin]
-        public ActionResult LeftMenu(int id)
-        {
-            foreach (var item in menuItemManager.MenuItems)
-            {
-                if (item.ChildItems == null) continue;
-                foreach (var child in item.ChildItems)
-                {
-                    if (child.Id != id) continue;
-
-                    item.IsCurrentPage = true;
-                    child.IsCurrentPage = true;
-                }
-            }
-            
-            ViewBag.MenuItems = menuItemManager.MenuItems;
-            return PartialView("LeftMenu");
-        }
     }
 }
