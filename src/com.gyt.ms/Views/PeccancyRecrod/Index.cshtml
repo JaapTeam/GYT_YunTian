@@ -26,14 +26,8 @@
         <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
         <span style="margin-left: 10px">车牌号码：</span>
         <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
-       
-
-
-        <span style="margin-left: 10px;">违法日期：</span>
-        <input class="easyui-datebox" style="width:120px; height: 28px" name="StartDate"  id="StartDate">
-        <span style="margin-left: 5px;margin-right: 5px">至</span>
-        <input class="easyui-datebox" style="width:120px; height: 28px" name="EndDate"  id="EndDate">
-        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+      
+        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
         <div style="">
             
         </div>
@@ -187,14 +181,10 @@
 
 </div><!-- #dialog-message -->
 @section scripts{
-    @*<script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
+    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
 
-    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />*@
+    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
 
-<script src="@Url.Content("~")assets/js/easyui/jquery.easyui.min.js"></script>
-<script src="@Url.Content("~")assets/js/easyui/easyui-lang-zh_CN.js"></script>
-<link href="@Url.Content("~")assets/css/easyui/easyui.css" rel="stylesheet" />
-<link href="@Url.Content("~")assets/css/easyui/icon.css" rel="stylesheet" />
     <script type="text/javascript">
     jQuery(function ($) {
 
@@ -262,8 +252,8 @@
                                                $("#dialog-message").dialog("close");
                                                $("#btn_submit").click();
                                            } else if (data.C === 801) {
+                                               console.log(data);
                                                $("#dialog-message").dialog("close");
-                                               alert(data.msg);
                                            }
                                        }
                                    });
