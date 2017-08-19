@@ -29,8 +29,29 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: BusinessHandle
-        [UserActionLog("业务办理", ActionType.查询)]
+        [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET: BusinessHandle
+        [UserActionLog("天然气车辆业务办理", ActionType.查询)]
+        public ActionResult Gas()
+        {
+            return View();
+        }
+
+        // GET: BusinessHandle
+        [UserActionLog("过户车辆业务办理", ActionType.查询)]
+        public ActionResult Transfer()
+        {
+            return View();
+        }
+
+        // GET: BusinessHandle
+        [UserActionLog("已旧换新车辆业务办理", ActionType.查询)]
+        public ActionResult New()
         {
             return View();
         }
@@ -270,6 +291,7 @@ namespace com.gyt.ms.Controllers
 
             return Success(null,sb.ToString());
         }
+        
 
         [UserActionLog("业务办理", ActionType.新增)]
         public JsonResult SuccessInfo(string bidCompanyName="", string bidTruckNo="", string oldTruckno="",
@@ -399,6 +421,18 @@ namespace com.gyt.ms.Controllers
             {
                 return Fail();
             }
+            return Success();
+        }
+
+        [UnLog]
+        public JsonResult TruckNoExistsHandle(string truckNo)
+        {
+            var isExists = _gytInfoService.Exists(truckNo);
+            if (isExists)
+            {
+                return Fail();
+            }
+
             return Success();
         }
     }
