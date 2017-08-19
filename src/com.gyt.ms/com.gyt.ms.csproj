@@ -339,6 +339,9 @@
     <Content Include="Views\GYTInfo\AddGas.cshtml" />
     <Content Include="Views\GYTInfo\replaceOld.cshtml" />
     <Content Include="Views\GYTInfo\TransferOwner.cshtml" />
+    <Content Include="Views\BusinessHandle\Gas.cshtml" />
+    <Content Include="Views\BusinessHandle\Transfer.cshtml" />
+    <Content Include="Views\BusinessHandle\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
