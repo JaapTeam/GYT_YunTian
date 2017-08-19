@@ -61,7 +61,7 @@ namespace Zer.AppServices.Impl
 
         public List<GYTInfoDto> GetVerifyList(GYTInfoSearchDto searchDto)
         {
-            var query = _gytInfoDataService.GetAll().Where(x=>x.Status==BusinessState.已审核);
+            var query = _gytInfoDataService.GetAll().Where(x=>x.Status==BusinessState.已办理);
 
             if (searchDto == null) return query.Map<GYTInfoDto>().ToList();
 
@@ -126,9 +126,9 @@ namespace Zer.AppServices.Impl
         {
             var gytInfoDto = _gytInfoDataService.GetById(infoId);
 
-            if (gytInfoDto.Status==BusinessState.已通过)
+            if (gytInfoDto.Status==BusinessState.初审通过)
             {
-                gytInfoDto.Status = BusinessState.已审核;
+                gytInfoDto.Status = BusinessState.已办理;
             }
 
             return _gytInfoDataService.Update(gytInfoDto.Map<GYTInfo>()).Map<GYTInfoDto>();

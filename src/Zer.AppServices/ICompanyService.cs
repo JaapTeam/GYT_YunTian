@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Zer.Entities;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices
 {
@@ -32,5 +33,7 @@ namespace Zer.AppServices
         /// <param name="companyInfoDtos"></param>
         /// <returns><see cref="List{CompanyInfoDto}"/></returns>
         List<CompanyInfoDto> QueryAfterValidateAndRegist(List<CompanyInfoDto> companyInfoDtos);
+
+        List<CompanyInfoDto> GetWithPeccancyRecored(CompanySearchDto filter);
     }
 }

@@ -63,14 +63,14 @@ namespace com.gyt.ms.Controllers
         {
             var gtyInfo = _gytInfoService.GetById(infoId);
 
-            if (gtyInfo.Status == BusinessState.已审核)
+            if (gtyInfo.Status == BusinessState.已办理)
             {
                 return Fail("这条记录已经审核！");
             }
 
             gtyInfo = _gytInfoService.Verify(infoId);
 
-            if (gtyInfo.Status != BusinessState.已审核)
+            if (gtyInfo.Status != BusinessState.已办理)
             {
                 return Fail("审核失败！");
             }
