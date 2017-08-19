@@ -71,13 +71,6 @@ namespace Zer.GytDto
         [ExportDisplayName("申办日期")]
         [ImportSort(6)]
         public DateTime BidDate { get; set; }
-        /// <summary>
-        /// 旧车牌号
-        /// </summary>
-        [ExportSort(8)]
-        [ImportSort(7)]
-        [ExportDisplayName("旧车牌号")]
-        public string OldTruckNo { get; set; }
 
         /// <summary>
         /// 经办人
@@ -86,6 +79,10 @@ namespace Zer.GytDto
         [ExportDisplayName("经办人")]
         [ImportSort(8)]
         public string BidName { get; set; }
+
+        [ImprotIgnore]
+        [ExportIgnore]
+        public string BidDisplayName { get; set; }
 
         /// <summary>
         /// 业务状态
