@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "Gas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3 class="header smaller lighter blue">天然气车辆业务办理</h3>
+
+<form action="@Url.Action("Commit", "BusinessHandle")" method="post">
+    <div class="form-horizontal" role="form">
+        <div id="container">
+            <div id="gas">
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label no-padding-right" for="input_CompanyName"> 申办企业名称: </label>
+
+                    <div class="col-sm-8">
+                        <input type="text" id="input_CompanyName" placeholder="请输入企业名称" class="col-xs-10 col-sm-5" name="BidCompanyName">
+                        <span class="help-inline col-xs-12 col-sm-7">
+                        </span>
+                    </div>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label no-padding-right" for="input_bidTruckNo"> 申办车牌号: </label>
+
+                    <div class="col-sm-8">
+                        <input type="text" id="input_bidTruckNo" placeholder="请输入申办车牌号" class="col-xs-10 col-sm-5" name="BidTruckNo">
+                    </div>
+                    <span class="hide" id="sp_bidTruckNo"></span>
+                </div>
+
+                <div class="space-4"></div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label no-padding-right"> 超载超限违规情况: </label>
+                    <div class="col-sm-8">
+                        <span class="label label-lg label-success" id="_sp_Illegal">无违规</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label no-padding-right"> 车辆年审情况: </label>
+                    <div class="col-sm-8">
+                        <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                            <div class="radio" id="radio_Verify">
+                                <label>
+                                    <input type="radio" class="ace" value="true" checked="checked" name="lblAnnual">
+                                    <span class="lbl"> 已年审 </span>
+                                </label>
+                                <label style="margin-left: 20px">
+                                    <input type="radio" class="ace" value="false" name="lblAnnual">
+                                    <span class="lbl"> 未年审 </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-5 col-md-9">
+                <button class="btn btn-info" id="submit" type="submit">
+                    <i class="icon-indent-right bigger-110"></i>
+                    提交审查
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dialog-message" class="hide">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="col-sm-12">
+                <h3 class="header smaller lighter green">
+                    <i class="icon-bullhorn"></i>
+                    <span id="span_result"></span>
+                </h3>
+
+                <div class="alert alert-danger" id="isAnnual" style="display:none">
+                    <i class="icon-remove"></i>
+                    车辆年审未通过！
+                    <br>
+                </div>
+
+                <div class="alert alert-danger" id="isPeccancy" style="display:none">
+                    <i class="icon-remove"></i>
+                    申办企业名下车辆有超限超载违法记录！
+                    <br>
+                </div>
+
+                <div class="alert alert-danger" id="result" style="display:none">
+                    <i class="icon-remove"></i>
+                    该车牌号下已有办理记录，请核实！
+                    <br>
+                </div>
+
+                <div class="alert alert-success" id="success" style="display:none">
+                    <i class="icon-ok"></i>
+                    所有条件满足，办理申请已受理，请等待审核结果！
+                    <br>
+                </div>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+</div><!-- #dialog-message -->
+
+@section scripts{
+    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
+
+    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet"/>
+    <script type="text/javascript">
+
+        $("#submit")
+            .on('click',
+                function(e) {
+                    var isAnnual = $('#radio_Verify input:radio:checked').val();
+                    var isPeccancy = $("#_sp_Illegal").html();
+                    IsExists();
+                    var isExists = $("#sp_bidTruckNo").html();
+
+                    if (isAnnual === "true" && isPeccancy === "无违规" && isExists==="true") {
+                        return true;
+                    }
+                    ShowDialog(isAnnual, isPeccancy, isExists, e);
+                    return false;
+                });
+
+        function ShowDialog(isAnnual, isPeccancy, isExists, e) {
+            e.preventDefault();
+
+            $("#isAnnual").css("display", "none");
+            $("#isPeccancy").css("display", "none");
+            $("#result").css("display", "none");
+
+            if (isAnnual === "false") {
+                $("#isAnnual").removeAttr("style");
+            }
+
+            if (isPeccancy === "有违规") {
+                $("#isPeccancy").removeAttr("style");
+            }
+
+            if (isExists === "false") {
+                $("#result").removeAttr("style");
+            }
+            var dialog = $("#dialog-message")
+                .removeClass('hide')
+                .dialog({
+                    modal: true,
+                    width: '600',
+                    title: "审查提示！",
+                    title_html: true,
+                    buttons: [
+                        {
+                            text: "确认",
+                            "class": "btn btn-xs",
+                            click: function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+        }
+
+        $(document)
+            .on('input',
+                '#input_CompanyName',
+                function(event) {
+
+                    var val = $("#input_CompanyName").val();
+                    companyPeccancyCheck(val, "#_sp_Illegal");
+
+                });
+
+        function companyPeccancyCheck(companyName, span) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("CompanyPeccancyCheck")",
+                data: { companyName: companyName },
+                dataType: "json",
+                success: function(data) {
+                    if (data.C === 901) {
+                        $(span).html("无违规");
+                        $(span).removeClass();
+                        $(span).addClass("label label-lg label-success");
+
+                    }
+                    if (data.C === 801) {
+                        $(span).html("有违规");
+                        $(span).removeClass();
+                        $(span).addClass("label label-lg label-warning");
+                    }
+                }
+            });
+        };
+
+        function IsExists(truckNo) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TruckNoExistsHandle")",
+                data: { truckNo: truckNo },
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    console.log(data);
+                    if (data.C === 901) {
+                        $("#sp_bidTruckNo").html("true");
+                    }
+                    if (data.C === 801) {
+                        $("#sp_bidTruckNo").html("false");
+                    }
+                }
+            });
+        }
+    </script>
+}

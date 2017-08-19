@@ -50,27 +50,15 @@ namespace Zer.Framework.Mvc
             #region 港运通业务办理
 
             MenuItem businessHandle = new MenuItem();
-            businessHandle.Id = 0;
+            businessHandle.Id = 888;
             businessHandle.TextInfo = "港运通业务办理";
             businessHandle.Icon = "icon-briefcase";
-
-            var businessHandleChild = new MenuItem();
-            businessHandleChild.Id = 1;
-            businessHandleChild.ActionName = "Index";
-            businessHandleChild.ControllerName = "BusinessHandle";
-            businessHandleChild.TextInfo = "港运通业务办理";
-            businessHandleChild.IsCurrentPage = false;
-            businessHandleChild.Icon = "icon-briefcase";
-           
-
-            businessHandle.ChildItems = new List<MenuItem>();
-            businessHandle.ChildItems.Add(businessHandleChild);
 
             businessHandle.ChildItems.Add(new MenuItem()
             {
                 Id = 101,
-                ActionName = "AddGas",
-                ControllerName = "GytInfo",
+                ActionName = "Gas",
+                ControllerName = "BusinessHandle",
                 TextInfo="天然气车辆业务",
                 IsCurrentPage = false,
                 Icon = "icon-briefcase"
@@ -79,8 +67,8 @@ namespace Zer.Framework.Mvc
             businessHandle.ChildItems.Add(new MenuItem()
             {
                 Id = 102,
-                ActionName = "replaceOld",
-                ControllerName = "GytInfo",
+                ActionName = "New",
+                ControllerName = "BusinessHandle",
                 TextInfo = "以旧换新业务",
                 IsCurrentPage = false,
                 Icon = "icon-briefcase"
@@ -89,8 +77,8 @@ namespace Zer.Framework.Mvc
             businessHandle.ChildItems.Add(new MenuItem()
             {
                 Id = 103,
-                ActionName = "transferOwner",
-                ControllerName = "GytInfo",
+                ActionName = "Transfer",
+                ControllerName = "BusinessHandle",
                 TextInfo = "车辆过户业务",
                 IsCurrentPage = false,
                 Icon = "icon-briefcase"
@@ -115,17 +103,8 @@ namespace Zer.Framework.Mvc
             gytInfo.IsCurrentPage = false;
             gytInfo.Icon = "icon-file-alt";
 
-            MenuItem gtyHandleRecrod = new MenuItem();
-            gtyHandleRecrod.Id = 4;
-            gtyHandleRecrod.ActionName = "Index";
-            gtyHandleRecrod.ControllerName = "GYTInfoRecrod";
-            gtyHandleRecrod.TextInfo = "港运通办理台账";
-            gtyHandleRecrod.IsCurrentPage = false;
-            gtyHandleRecrod.Icon = "icon-file-alt";
-
             gytDataManage.ChildItems = new List<MenuItem>();
             gytDataManage.ChildItems.Add(gytInfo);
-            gytDataManage.ChildItems.Add(gtyHandleRecrod);
             MenuItems.Add(gytDataManage);
 
             #endregion

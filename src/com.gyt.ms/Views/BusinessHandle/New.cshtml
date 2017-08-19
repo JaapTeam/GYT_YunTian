@@ -1,0 +1,405 @@
+﻿
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="header smaller lighter blue">以旧换新车辆业务办理</h3>
+
+<form action="@Url.Action("Commit", "BusinessHandle")" method="post">
+    <div class="form-horizontal" role="form">
+        <div id="container">
+
+
+            <div id="transfer">
+
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right" for="input_CompanyName"> 申办企业名称: </label>
+
+                    <div class="col-sm-8">
+
+                        <input type="text" id="input_CompanyName" placeholder="请输入企业名称" class="col-xs-10 col-sm-5" name="BidCompanyName">
+
+                    </div>
+
+                </div>
+                <div class="space-4"></div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right" for="input_bidTruckNo"> 申办车牌号: </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" id="input_bidTruckNo" placeholder="请输入申办车牌号" class="col-xs-10 col-sm-5" name="BidTruckNo">
+
+                    </div>
+                    <span class="hide" id="sp_bidTruckNo"></span>
+                </div>
+
+                <div class="space-4"></div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right" for="input_OriginalCompanyName"> 原企业名称: </label>
+
+                    <div class="col-sm-8">
+
+                        <input type="text" id="input_OriginalCompanyName" placeholder="请输入原企业名称" class="col-xs-10 col-sm-5" name="OriginalCompanyName">
+
+                    </div>
+
+                </div>
+                <div class="space-4"></div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right" for="input_OriginalTruckNo"> 原车牌号: </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" id="input_OriginalTruckNo" placeholder="请输入原车牌号" class="col-xs-10 col-sm-5" name="OriginalTruckNo">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right"> 超载超限违规情况: </label>
+                    <div class="col-sm-8">
+
+                        <span class="label label-lg label-success" id="_sp_Illegal">无违规</span>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right"> 指标无重复使用: </label>
+                    <div class="col-sm-8">
+
+                        <span class="label label-lg label-success" id="_sp_quota">无重复使用</span>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right"> 运营证注销状态:</label>
+                    <div class="col-sm-8">
+
+                        <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+
+                            <div class="radio" id="radio_Cancel">
+
+                                <label>
+
+                                    <input type="radio" class="ace" checked="checked" name="lblCancel" value="true">
+                                    <span class="lbl"> 已注销 </span>
+
+                                </label>
+                                <label style="margin-left: 20px">
+
+                                    <input type="radio" class="ace" name="lblCancel" value="false">
+                                    <span class="lbl"> 未注销 </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right"> 运营证存在过户记录: </label>
+                    <div class="col-sm-8">
+
+                        <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+
+                            <div class="radio" id="radioTransfer">
+
+                                <label>
+
+                                    <input type="radio" class="ace" checked="checked" name="lblTransfer" value="true">
+                                    <span class="lbl"> 不存在 </span>
+
+                                </label>
+                                <label style="margin-left: 20px">
+
+                                    <input type="radio" class="ace" name="lblTransfer" value="false">
+                                    <span class="lbl"> 存在 </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right"> 报废车回收与系统信息一致: </label>
+                    <div class="col-sm-8">
+
+                        <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+
+                            <div class="radio" id="radioInfo">
+
+                                <label>
+
+                                    <input name="lblInfo" type="radio" class="ace" checked="checked" value="true">
+                                    <span class="lbl"> 一致 </span>
+
+                                </label>
+                                <label style="margin-left: 20px">
+
+                                    <input name="lblInfo" type="radio" class="ace" value="false">
+                                    <span class="lbl"> 不一致 </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-5 col-md-9">
+                <button class="btn btn-info" id="submit" type="submit">
+                    <i class="icon-indent-right bigger-110"></i>
+                    提交审查
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="dialog-message" class="hide">
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <div class="col-sm-12">
+                <h3 class="header smaller lighter green">
+                    <i class="icon-bullhorn"></i>
+                    <span id="span_result"></span>
+                </h3>
+                
+                <div class="alert alert-danger" id="isOperationCancel" style="display:none">
+                    <i class="icon-remove"></i>
+                    运营证未注销！
+                    <br>
+                </div>
+                
+
+                <div class="alert alert-danger" id="isTransferRecrod" style="display:none">
+                    <i class="icon-remove"></i>
+                    运营证存在过户记录！
+                    <br>
+                </div>
+                
+                <div class="alert alert-danger" id="isGytStatus" style="display:none">
+                    <i class="icon-remove"></i>
+                    过户前任意一手港运通未注销！
+                    <br>
+                </div>
+                
+                <div class="alert alert-danger" id="isConsistentInfo" style="display:none">
+                    <i class="icon-remove"></i>
+                    报废车回收与系统信息不一致！
+                    <br>
+                </div>
+
+                <div class="alert alert-danger" id="isPeccancy" style="display:none">
+                    <i class="icon-remove"></i>
+                    申办企业名下车辆有超限超载违法记录！
+                    <br>
+                </div>
+
+                <div class="alert alert-danger" id="result" style="display:none">
+                    <i class="icon-remove"></i>
+                    该车牌号下已有办理记录，请核实！
+                    <br>
+                </div>
+                
+
+
+                <div class="alert alert-success" id="success" style="display:none">
+                    <i class="icon-ok"></i>
+                    所有条件满足，办理申请已受理，请等待审核结果！
+                    <br>
+                </div>
+            </div>
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+</div><!-- #dialog-message -->
+
+@section scripts{
+    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
+
+    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        $("#submit")
+            .on('click',
+                function(e) {
+                    var isPeccancy = $("#_sp_Illegal").html();
+                    var isRepetition = $("#_sp_quota").html();
+
+                    var isOperationCancel = $('#radio_Cancel input:radio:checked').val();
+                    var isTransferRecrod = $('#radioTransfer input:radio:checked').val();
+                    var isConsistentInfo = $('#radioInfo input:radio:checked').val();
+                    
+                    IsExists();
+
+                    var isExists = $("#sp_bidTruckNo").html();
+
+                    if (isPeccancy === "无违规" && isRepetition === "无重复使用" && isExists === "true" && isOperationCancel === "true" && isTransferRecrod === "true" && isConsistentInfo === "true") {
+                        return true;
+                    }
+                    ShowDialog(isPeccancy, isExists, isOperationCancel, isTransferRecrod, isConsistentInfo, e);
+                    return false;
+                });
+
+        function ShowDialog(isPeccancy, isExists, isOperationCancel, isTransferRecrod, isConsistentInfo, e) {
+            e.preventDefault();
+
+         
+            $("#isPeccancy").css("display", "none");
+            $("#result").css("display", "none");
+            $("#isConsistentInfo").css("display", "none");
+            $("#isTransferRecrod").css("display", "none");
+            $("#isOperationCancel").css("display", "none");
+
+            if (isPeccancy === "有违规") {
+                $("#isPeccancy").removeAttr("style");
+            }
+
+            if (isExists === "false") {
+                $("#result").removeAttr("style");
+            }
+
+            if (isOperationCancel === "false") {
+                $("#isConsistentInfo").removeAttr("style");
+            }
+
+            if (isTransferRecrod === "false") {
+                $("#isTransferRecrod").removeAttr("style");
+            }
+
+            if (isConsistentInfo === "false") {
+                $("#isOperationCancel").removeAttr("style");
+            }
+
+
+            var dialog = $("#dialog-message")
+                .removeClass('hide')
+                .dialog({
+                    modal: true,
+                    width: '600',
+                    title: "审查提示！",
+                    title_html: true,
+                    buttons: [
+                        {
+                            text: "确认",
+                            "class": "btn btn-xs",
+                            click: function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    ]
+                });
+        }
+
+        $(document)
+            .on('input',
+                '#input_CompanyName',
+                function(event) {
+
+                    var val = $("#input_CompanyName").val();
+                    companyPeccancyCheck(val, "#_sp_Illegal");
+
+                });
+
+        function companyPeccancyCheck(companyName, span) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("CompanyPeccancyCheck")",
+                data: { companyName: companyName },
+                dataType: "json",
+                success: function(data) {
+                    if (data.C === 901) {
+                        $(span).html("无违规");
+                        $(span).removeClass();
+                        $(span).addClass("label label-lg label-success");
+
+                    }
+                    if (data.C === 801) {
+                        $(span).html("有违规");
+                        $(span).removeClass();
+                        $(span).addClass("label label-lg label-warning");
+                    }
+                }
+            });
+        };
+
+        $(document)
+        .on('input',
+            '#input_OriginalTruckNo',
+            function (event) {
+
+                var val = $("#input_OriginalTruckNo").val();
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("TruckRepetitionCheck")",
+                    data: { truckNo: val },
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.C === 901) {
+                        $("#_sp_quota").html("无重复使用");
+                        $("#_sp_quota").removeClass();
+                        $("#_sp_quota").addClass("label label-lg label-success");
+                    }
+                    if (data.C === 801) {
+                        $("#_sp_quota").html("有重复使用");
+                        $("#_sp_quota").removeClass();
+                        $("#_sp_quota").addClass("label label-lg label-warning");
+                    }
+                }
+            });
+
+        });
+
+        function IsExists(truckNo) {
+            $.ajax({
+                type: "Get",
+                url: "@Url.Action("TruckNoExistsHandle")",
+                data: { truckNo: truckNo },
+                dataType: "json",
+                async: false,
+                success: function(data) {
+                    console.log(data);
+                    if (data.C === 901) {
+                        $("#sp_bidTruckNo").html("true");
+                    }
+                    if (data.C === 801) {
+                        $("#sp_bidTruckNo").html("false");
+                    }
+                }
+            });
+        }
+
+    </script>
+}

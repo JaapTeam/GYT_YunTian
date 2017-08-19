@@ -83,7 +83,7 @@ namespace Zer.AppServices.Impl
         /// <returns><see cref="List{CompanyInfoDto}"/></returns>
         public List<CompanyInfoDto> QueryAfterValidateAndRegist(List<CompanyInfoDto> companyInfoDtos)
         {
-            var companyNameList = companyInfoDtos.Select(x => x.CompanyName).Distinct().ToList();
+            var companyNameList = companyInfoDtos.Select(x => x.CompanyName.Trim()).Distinct().ToList();
 
             var notExistsCompanyName = companyNameList.Where(x => !Exists(x));
             var newRegistCompanyInfoDtoList = notExistsCompanyName.Select(name =>
