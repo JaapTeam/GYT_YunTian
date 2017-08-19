@@ -72,7 +72,7 @@ namespace Zer.Framework.Mvc
             overLoadDataManage.Id = 5;
             overLoadDataManage.TextInfo = "超载超限数据管理";
             overLoadDataManage
-                .Icon = "icon-credit-card";
+                .Icon = "icon-truck";
 
             MenuItem overLoadRecrod = new MenuItem();
             overLoadRecrod.Id = 6;
@@ -80,7 +80,7 @@ namespace Zer.Framework.Mvc
             overLoadRecrod.ControllerName = "PeccancyRecrod";
             overLoadRecrod.TextInfo = "超载超限信息数据库";
             overLoadRecrod.IsCurrentPage = false;
-            overLoadRecrod.Icon = "icon-file-alt";
+            overLoadRecrod.Icon = "icon-align-left";
 
             MenuItem overLoadChange = new MenuItem();
             overLoadChange.Id = 7;
@@ -102,7 +102,7 @@ namespace Zer.Framework.Mvc
             MenuItem lgnInfo = new MenuItem();
             lgnInfo.Id = 8;
             lgnInfo.TextInfo = "LNG补贴信息数据库";
-            lgnInfo.Icon = "icon-credit-card";
+            lgnInfo.Icon = "icon-ambulance";
 
             MenuItem lgnInfoChild = new MenuItem();
             lgnInfoChild.Id = 9;
@@ -131,7 +131,7 @@ namespace Zer.Framework.Mvc
             logInfo.ControllerName = "LogInfo";
             logInfo.TextInfo = "日志管理";
             logInfo.IsCurrentPage = false;
-            logInfo.Icon = "icon-file-alt";
+            logInfo.Icon = "icon-eye-open";
 
             MenuItem accountManage = new MenuItem();
             accountManage.Id = 12;
@@ -139,7 +139,7 @@ namespace Zer.Framework.Mvc
             accountManage.ControllerName = "User";
             accountManage.TextInfo = "账户管理";
             accountManage.IsCurrentPage = false;
-            accountManage.Icon = "icon-file-alt";
+            accountManage.Icon = "icon-user";
 
             MenuItem changPassword = new MenuItem();
             changPassword.Id = 13;
@@ -147,7 +147,7 @@ namespace Zer.Framework.Mvc
             changPassword.ControllerName = "User";
             changPassword.TextInfo = "修改密码";
             changPassword.IsCurrentPage = false;
-            changPassword.Icon = "icon-file-alt";
+            changPassword.Icon = " icon-key";
 
             systemManage.ChildItems = new List<MenuItem>();
             systemManage.ChildItems.Add(logInfo);

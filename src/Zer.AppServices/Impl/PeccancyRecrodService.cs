@@ -13,10 +13,12 @@ namespace Zer.AppServices.Impl
     public class PeccancyRecrodService : IPeccancyRecrodService
     {
         private readonly IPeccancyRecrodDataService _peccancyRecrodDataService;
+        private readonly ICompanyService _companyService;
 
-        public PeccancyRecrodService(IPeccancyRecrodDataService peccancyRecrodDataService)
+        public PeccancyRecrodService(IPeccancyRecrodDataService peccancyRecrodDataService, ICompanyService companyService)
         {
             _peccancyRecrodDataService = peccancyRecrodDataService;
+            _companyService = companyService;
         }
 
         public PeccancyRecrodDto GetById(int id)

@@ -13,7 +13,7 @@ namespace Zer.Entities
         /// <summary>
         /// 企业经营范围
         /// </summary>
-        [StringLength(20)]
+        [StringLength(200)]
         public string TraderRange { get; set; }
     }
 }

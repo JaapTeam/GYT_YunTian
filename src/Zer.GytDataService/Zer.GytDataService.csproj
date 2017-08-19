@@ -76,6 +76,18 @@
     <Compile Include="Migrations\201708171305519_lngAllowanceInfo-add-Status.Designer.cs">
       <DependentUpon>201708171305519_lngAllowanceInfo-add-Status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708190348040_change_company_traderRange_length.cs" />
+    <Compile Include="Migrations\201708190348040_change_company_traderRange_length.Designer.cs">
+      <DependentUpon>201708190348040_change_company_traderRange_length.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708190505102_add_PeccancyRecordCount_CompanyInfo.cs" />
+    <Compile Include="Migrations\201708190505102_add_PeccancyRecordCount_CompanyInfo.Designer.cs">
+      <DependentUpon>201708190505102_add_PeccancyRecordCount_CompanyInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.cs" />
+    <Compile Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.Designer.cs">
+      <DependentUpon>201708190543428_removePeccancyRecordCount_CompanyInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,6 +123,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708171305519_lngAllowanceInfo-add-Status.resx">
       <DependentUpon>201708171305519_lngAllowanceInfo-add-Status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708190348040_change_company_traderRange_length.resx">
+      <DependentUpon>201708190348040_change_company_traderRange_length.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708190505102_add_PeccancyRecordCount_CompanyInfo.resx">
+      <DependentUpon>201708190505102_add_PeccancyRecordCount_CompanyInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.resx">
+      <DependentUpon>201708190543428_removePeccancyRecordCount_CompanyInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

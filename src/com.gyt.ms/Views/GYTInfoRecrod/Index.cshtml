@@ -123,17 +123,17 @@
                                 </td>
                                 <td>@gytInfoDto.BidName</td>
                                 <td>
-                                    @if (gytInfoDto.Status == BusinessState.已审核)
+                                    @if (gytInfoDto.Status == BusinessState.已办理)
                                     {
                                         <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
                                     }
 
-                                    @if (gytInfoDto.Status == BusinessState.已通过)
+                                    @if (gytInfoDto.Status == BusinessState.初审通过)
                                     {
                                         <span class="label label-sm label-info"><i class="icon-spinner"> 已受理</i></span>
                                     }
 
-                                    @if (gytInfoDto.Status == BusinessState.初始)
+                                    @if (gytInfoDto.Status == BusinessState.条件不符)
                                     {
                                         <span class="label label-sm label-danger"><i class="icon-ban-circle"> 条件不符</i></span>
                                     }
@@ -145,19 +145,19 @@
                                     if (userInfo.Role == RoleLevel.Administrator)
                                     {
                                         <td>
-                                            @if (gytInfoDto.Status == BusinessState.已审核)
+                                            @if (gytInfoDto.Status == BusinessState.已办理)
                                             {
                                                 <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
                                             }
                                     
-                                            @if (gytInfoDto.Status == BusinessState.已通过)
+                                            @if (gytInfoDto.Status == BusinessState.初审通过)
                                             {
                                                 <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
                                                     <i class=" icon-check">审核</i>
                                                 </a>
                                             }
                                     
-                                            @if (gytInfoDto.Status == BusinessState.初始)
+                                            @if (gytInfoDto.Status == BusinessState.条件不符)
                                             {
                                                 <i class="icon-ban-circle"> 不符合办理条件</i>
                                             }

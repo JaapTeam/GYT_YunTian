@@ -357,7 +357,7 @@ namespace com.gyt.ms.Controllers
             #region 判断审查条件
             if (isAnnual && isOperationCancel && isTransferRecrod && isGytStatus && isGytCancel && isConsistentInfo && !isPeccancy && !targetIsUse)
             {
-                gtyInfoDto.Status = BusinessState.已通过;
+                gtyInfoDto.Status = BusinessState.初审通过;
                 handleDataDto.Result = true;
                 _gytInfoService.Add(gtyInfoDto);
             }
