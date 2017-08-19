@@ -33,13 +33,11 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("港运通信息数据库",ActionType.查询)]
         public ActionResult Index(GYTInfoSearchDto searchDto)
         {
-           
             ViewBag.CompanyList = _companyService.GetAll();
             ViewBag.TruckList = _truckInfoService.GetAll();
             ViewBag.SearchDto = searchDto;
             ViewBag.Result = _gytInfoService.GetList(searchDto);
             return View();
-
         }
 
         [HttpPost]
@@ -111,23 +109,11 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("港运通信息数据导出", ActionType.查询)]
-        public FileResult ExportResult(string exportCode = "")
+        public FileResult ExportResult(GYTInfoSearchDto searchDto)
         {
-            List<GYTInfoDto> exportList = new List<GYTInfoDto>();
-
-            if (exportCode.IsNullOrEmpty())
-            {
-                return null;
-            }
-
-            if (exportCode.ToLower() == "all")
-            {
-                exportList = _gytInfoService.GetAll();
-            }
-            else
-            {
-                exportList = GetValueFromSession<List<GYTInfoDto>>(exportCode);
-            }
+            searchDto.PageSize = Int32.MaxValue;
+            searchDto.PageIndex = 1;
+            var exportList = _gytInfoService.GetList(searchDto);
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通信息数据{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
