@@ -125,17 +125,17 @@ namespace Zer.Framework.Mvc
             overLoadRecrod.IsCurrentPage = false;
             overLoadRecrod.Icon = "icon-align-left";
 
-            MenuItem overLoadChange = new MenuItem();
-            overLoadChange.Id = 7;
-            overLoadChange.ActionName = "Index";
-            overLoadChange.ControllerName = "PeccancyChangeInfo";
-            overLoadChange.TextInfo = "超载超限已整改数据库";
-            overLoadChange.IsCurrentPage = false;
-            overLoadChange.Icon = "icon-file-alt";
+            //MenuItem overLoadChange = new MenuItem();
+            //overLoadChange.Id = 7;
+            //overLoadChange.ActionName = "Index";
+            //overLoadChange.ControllerName = "PeccancyChangeInfo";
+            //overLoadChange.TextInfo = "超载超限已整改数据库";
+            //overLoadChange.IsCurrentPage = false;
+            //overLoadChange.Icon = "icon-file-alt";
 
             overLoadDataManage.ChildItems = new List<MenuItem>();
             overLoadDataManage.ChildItems.Add(overLoadRecrod);
-            overLoadDataManage.ChildItems.Add(overLoadChange);
+            //overLoadDataManage.ChildItems.Add(overLoadChange);
             MenuItems.Add(overLoadDataManage);
 
             #endregion
