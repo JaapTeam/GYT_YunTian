@@ -4,8 +4,10 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Zer.AppServices.Extensions;
 using Zer.Entities;
+using Zer.Framework.Dto;
 using Zer.GytDataService;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 using Zer.GytDto.Users;
 
 namespace Zer.AppServices.Impl
@@ -34,6 +36,15 @@ namespace Zer.AppServices.Impl
             var query = _logInfoDataService.GetAll().RoleFilter(userInfo);
             return Mapper.Map<List<LogInfoDto>>(query.ToList());
         }
+
+        public List<LogInfoDto> GetList(LogInfoSearchDto filter, UserInfoDto userInfo)
+        {
+            var query = _logInfoDataService.GetAll().RoleFilter(userInfo).ToPageQuery(filter).ToList();
+
+            return Mapper.Map<List<LogInfoDto>>(query);
+        }
+
+
 
         public LogInfoDto Add(LogInfoDto model)
         {

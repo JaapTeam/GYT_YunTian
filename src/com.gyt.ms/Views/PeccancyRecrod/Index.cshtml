@@ -33,7 +33,10 @@
         <input class="easyui-datebox" style="width:120px; height: 28px" name="StartDate"  id="StartDate">
         <span style="margin-left: 5px;margin-right: 5px">至</span>
         <input class="easyui-datebox" style="width:120px; height: 28px" name="EndDate"  id="EndDate">
-        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+        
+        <input type="text" class="hidden" name="PageIndex" id="input_pageIndex" />
+
+        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
         <div style="">
             
         </div>
@@ -126,7 +129,7 @@
         }
         </tbody>
     </table>
-    
+   
     @if (searchFilter.PageCount > 1)
     {
         <div class="row">
@@ -134,37 +137,19 @@
                 <div class="dataTables_paginate padding-10">
                     <ul class="pagination">
 
-                        <li class="prev @(searchFilter.PageIndex == 1?"disabled":"")">
-                            <a href="@Url.Action("index", new
-                                     {
-                                         searchFilter.TruckNo,
-                                         searchFilter.CompanyName,
-                                         PageIndex = 1,
-                                         searchFilter.PageSize
-                                     })">
+                        <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
+                            <a class="__page" href="javascript:;" data-pageindex='1'>
                                 <i class="icon-double-angle-left"></i>
                             </a>
                         </li>
                         @for (int i = 1; i <= searchFilter.PageCount; i++)
                         {
-                            <li class="@(searchFilter.PageIndex == i?"active":"")">
-                                <a href="@Url.Action("index", new
-                                         {
-                                             searchFilter.TruckNo,
-                                             searchFilter.CompanyName,
-                                             PageIndex = i,
-                                             searchFilter.PageSize
-                                         })">@i</a>
+                            <li class="@(searchFilter.PageIndex == i ? "active" : "")">
+                                <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
                             </li>
                         }
-                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount?"disabled":"")">
-                            <a href="@Url.Action("index", new
-                                     {
-                                         searchFilter.TruckNo,
-                                         searchFilter.CompanyName,
-                                         PageIndex = searchFilter.PageCount,
-                                         searchFilter.PageSize
-                                     })">
+                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
+                            <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
                                 <i class="icon-double-angle-right"></i>
                             </a>
                         </li>
@@ -196,7 +181,15 @@
 <link href="@Url.Content("~")assets/css/easyui/easyui.css" rel="stylesheet" />
 <link href="@Url.Content("~")assets/css/easyui/icon.css" rel="stylesheet" />
     <script type="text/javascript">
-    jQuery(function ($) {
+        $(function () {
+
+            $('body').on('click',
+                '.__page',
+                function() {
+                    var pageIndex = $(this).attr('data-pageindex');
+                    $('#input_pageIndex').val(pageIndex);
+                    $('#btn_submit').click();
+                });
 
             $('#modal-form input[type=file]')
                 .ace_file_input({
@@ -219,65 +212,65 @@
                                 $(this).find('.chosen-drop').css('width', '210px');
                                 $(this).find('.chosen-search input').css('width', '200px');
                             });
-                    });  
+                    });
         });
 
 
+        $("#btn_improt")
+            .click(function() {
+                $("#input_file").click();
+            });
 
-            $("#btn_improt")
-                .click(function() {
-                    $("#input_file").click();
+        $("#input_file")
+            .change(function() {
+                $("#Submit").click();
+                $("#input_file").text("");
+            });
+
+        $("._verify")
+            .on('click',
+                function(e) {
+                    e.preventDefault();
+                    var changeId = $(this).attr("id");
+
+                    var dialog = $("#dialog-message")
+                        .removeClass('hide')
+                        .dialog({
+                            modal: true,
+                            width: '400',
+                            title: '提示！',
+                            title_html: true,
+                            buttons: [
+                                {
+                                    text: "确认",
+                                    "class": "btn btn-xs",
+                                    click: function() {
+                                        $.ajax({
+                                            type: "Post",
+                                            url: "@Url.Action("Change")",
+                                            data: { id: changeId },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                if (data.C === 901) {
+                                                    $("#dialog-message").dialog("close");
+                                                    $("#btn_submit").click();
+                                                } else if (data.C === 801) {
+                                                    $("#dialog-message").dialog("close");
+                                                    alert(data.msg);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }, {
+                                    text: "取消",
+                                    "class": "btn btn-xs",
+                                    click: function() {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            ]
+                        });
                 });
-
-            $("#input_file")
-                .change(function() {
-                    $("#Submit").click();
-                    $("#input_file").text("");
-                });
-
-            $("._verify")
-               .on('click',
-                   function(e) { e.preventDefault();
-                   var changeId = $(this).attr("id");
-
-                       var dialog = $("#dialog-message")
-                           .removeClass('hide')
-                           .dialog({
-                               modal: true,
-                               width: '400',
-                               title: '提示！',
-                               title_html: true,
-                               buttons: [
-                                   {
-                                       text: "确认",
-                                       "class": "btn btn-xs",
-                                       click: function () {
-                                           $.ajax({
-                                               type: "Post",
-                                               url: "@Url.Action("Change")",
-                                       data: { id: changeId },
-                                       dataType: "json",
-                                       success: function (data) {
-                                           if (data.C === 901) {
-                                               $("#dialog-message").dialog("close");
-                                               $("#btn_submit").click();
-                                           } else if (data.C === 801) {
-                                               $("#dialog-message").dialog("close");
-                                               alert(data.msg);
-                                           }
-                                       }
-                                   });
-                               }
-                           }, {
-                               text: "取消",
-                               "class": "btn btn-xs",
-                               click: function () {
-                                   $(this).dialog("close");
-                               }
-                           }
-                       ]
-                   });
-           });
     </script>
 }
 

@@ -27,6 +27,8 @@
         <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ?"selected": "")>已补贴</option>
         <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
     </select>
+    
+    <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
 
     <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
 </form>
@@ -142,34 +144,18 @@
                     <ul class="pagination">
 
                         <li class="prev @(filter.PageIndex == 1?"disabled":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         filter.TruckNo, filter.CompanyName,filter.IsAllowanced, PageIndex = 1,filter.PageSize
-                                     })">
+                            <a class="__page" href="javascript:;" data-pageindex='1'>
                                 <i class="icon-double-angle-left"></i>
                             </a>
                         </li>
                         @for (int i = 1; i <= filter.PageCount; i++)
                         {
                         <li class="@(filter.PageIndex == i?"active":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         filter.TruckNo,
-                                         filter.CompanyName,filter.IsAllowanced,
-                                         PageIndex = i,
-                                         filter.PageSize
-                                     })">@i</a>
+                            <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
                         </li>
                         }
                         <li class="next  @(filter.PageIndex == filter.PageCount?"disabled":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         filter.TruckNo,
-                                         filter.CompanyName,
-                                         filter.IsAllowanced,
-                                         PageIndex = filter.PageCount,
-                                         filter.PageSize
-                                     })">
+                            <a class="__page" href="javascript:;" data-pageindex='@filter.PageCount'>
                                 <i class="icon-double-angle-right"></i>
                             </a>
                         </li>
@@ -200,7 +186,15 @@
 
     <script type="text/javascript">
 
-        jQuery(function($) {
+       $(function() {
+           // 分页代码
+           $('body').on('click',
+               '.__page',
+               function() {
+                   var pageIndex = $(this).attr('data-pageindex');
+                   $('#input_pageIndex').val(pageIndex);
+                   $('#btn_submit').click();
+               });
 
 
             $(".chosen-select").chosen();
