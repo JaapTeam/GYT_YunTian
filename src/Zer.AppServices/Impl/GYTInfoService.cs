@@ -59,19 +59,6 @@ namespace Zer.AppServices.Impl
             return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim());
         }
 
-        public List<GYTInfoDto> GetVerifyList(GYTInfoSearchDto searchDto)
-        {
-            var query = _gytInfoDataService.GetAll().Where(x=>x.Status==BusinessState.已办理);
-
-            if (searchDto == null) return query.Map<GYTInfoDto>().ToList();
-
-            query = Filter(searchDto, query);
-
-            query = query.ToPageQuery(searchDto);
-
-            return query.Map<GYTInfoDto>().ToList();
-        }
-
         public List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto)
         {
             var query = _gytInfoDataService.GetAll();
@@ -97,7 +84,7 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.BidTruckNo == searchDto.TruckNo || x.OriginalTruckNo == searchDto.TruckNo);
             }
 
-            if (searchDto.Status != 0)
+            if (searchDto.Status.HasValue)
             {
                 query = query.Where(x => x.Status == searchDto.Status);
             }

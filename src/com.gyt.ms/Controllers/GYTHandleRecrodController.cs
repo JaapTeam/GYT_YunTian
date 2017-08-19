@@ -12,9 +12,9 @@ namespace com.gyt.ms.Controllers
     {
         // GET: GYTSuccessInfo
         [UserActionLog("港运通办理信息数据库", ActionType.查询)]
-        public ActionResult Index(int id=0)
+        public ActionResult Index()
         {
-            ViewBag.ActiveId = 4;
+           
             return View();
         }
     }

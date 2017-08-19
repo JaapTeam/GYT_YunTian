@@ -32,9 +32,8 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("超载超限记录查询", ActionType.查询)]
-        public ActionResult Index(PeccancySearchDto searchDto, int activeId = 6)
+        public ActionResult Index(PeccancySearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.SearchDto = searchDto;
             ViewBag.Result = _peccancyRecrodService.GetList(searchDto).ToList();
             //.Where(x => x.Status == Status.未整改).ToList();
@@ -109,8 +108,6 @@ namespace com.gyt.ms.Controllers
                 .ToList();
 
             // 展示导入结果
-            ViewBag.ActiveId = 6;
-
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
             ViewBag.FailedCode = AppendObjectToSession(importFailedList);
             ViewBag.ExistedCode = AppendObjectToSession(existsoverloadRecrodDtoList);

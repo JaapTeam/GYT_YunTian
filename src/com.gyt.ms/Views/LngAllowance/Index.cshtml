@@ -12,7 +12,7 @@
     }
 }
 
-<form class="form-inline" action="@(Url.Action("Index","LngAllowance",new {activeid=9}))" method="post" style="height: 50px; line-height: 45px">
+<form class="form-inline" action="@(Url.Action("Index","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
    
 
     @*<select name="TruckNo" class=" chosen-select" style="display: none; width: 200px">
@@ -35,7 +35,7 @@
 <div class="table-header">
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-        <a class="white" href="@(Url.Action("add", "LngAllowance", new {activeid = 9}))">
+        <a class="white" href="@(Url.Action("add", "LngAllowance"))">
             <i class="icon-plus-sign bigger-110">
                 <span class="">新增</span>
             </i>

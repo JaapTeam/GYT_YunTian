@@ -27,9 +27,8 @@ namespace com.gyt.ms.Controllers
 
         [UserActionLog("港运通办理台账",ActionType.查询)]
         // GET: GYTSuccess
-        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 4)
+        public ActionResult Index(GYTInfoSearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.SearchDto = searchDto;
             ViewBag.Result = _gytInfoService.GetList(searchDto);
             return View();

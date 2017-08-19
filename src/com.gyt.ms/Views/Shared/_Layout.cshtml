@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>控制台</title>
+    <title>@(string.Format("港运通信息管理系统-{0}", ViewBag.Title??""))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- basic styles -->
     <link href="@Url.Content("~")assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -130,7 +130,9 @@
 
             
                 <!--Left Menu-->
-                @{Html.RenderAction("leftmenu", "Base",new {id=activeId});}
+                @{
+                    Html.RenderPartial("LeftMenu");
+                }
                 <!-- /.nav-list -->
 
                 <div class="sidebar-collapse" id="sidebar-collapse">

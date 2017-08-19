@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Zer.Framework.Dto;
 
 namespace Zer.Framework.Mvc
@@ -13,8 +16,37 @@ namespace Zer.Framework.Mvc
             InitMenuItems();
         }
 
+        public MenuItem GetId(string controllerName, string actionName)
+        {
+            var menuitem = this.MenuItems
+                .SelectMany(x => x.ChildItems)
+                 .FirstOrDefault(x =>
+                     String.Equals(x.ActionName, actionName, StringComparison.CurrentCultureIgnoreCase) &&
+                     String.Equals(x.ControllerName, controllerName, StringComparison.CurrentCultureIgnoreCase));
+
+            return menuitem ?? new MenuItem()
+            {
+                ActionName = "index",
+                ControllerName = "home",
+                ChildItems = new List<MenuItem>(),
+                Icon = "icon-home",
+                Id = 1000,
+                TextInfo = "首页"
+            };
+        }
+
         private void InitMenuItems()
         {
+            MenuItems.Add(new MenuItem()
+            {
+                ActionName = "index",
+                ControllerName = "home",
+                ChildItems =  new List<MenuItem>(),
+                Icon = "icon-home",
+                Id = 1000,
+                TextInfo = "首页"
+            });
+
             #region 港运通业务办理
 
             MenuItem businessHandle = new MenuItem();
@@ -29,9 +61,41 @@ namespace Zer.Framework.Mvc
             businessHandleChild.TextInfo = "港运通业务办理";
             businessHandleChild.IsCurrentPage = false;
             businessHandleChild.Icon = "icon-briefcase";
+           
 
             businessHandle.ChildItems = new List<MenuItem>();
             businessHandle.ChildItems.Add(businessHandleChild);
+
+            businessHandle.ChildItems.Add(new MenuItem()
+            {
+                Id = 101,
+                ActionName = "AddGas",
+                ControllerName = "GytInfo",
+                TextInfo="天然气车辆业务",
+                IsCurrentPage = false,
+                Icon = "icon-briefcase"
+            });
+
+            businessHandle.ChildItems.Add(new MenuItem()
+            {
+                Id = 102,
+                ActionName = "replaceOld",
+                ControllerName = "GytInfo",
+                TextInfo = "以旧换新业务",
+                IsCurrentPage = false,
+                Icon = "icon-briefcase"
+            });
+
+            businessHandle.ChildItems.Add(new MenuItem()
+            {
+                Id = 103,
+                ActionName = "transferOwner",
+                ControllerName = "GytInfo",
+                TextInfo = "车辆过户业务",
+                IsCurrentPage = false,
+                Icon = "icon-briefcase"
+            });
+
             MenuItems.Add(businessHandle);
 
             #endregion

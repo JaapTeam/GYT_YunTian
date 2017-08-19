@@ -34,7 +34,6 @@ namespace com.gyt.ms.Controllers
         {
             var homePageSize = (int)CacheHelper.GetCache("HomePageSize");
 
-            ViewBag.ActiveId = 14;
             var searchDto =new GYTInfoSearchDto()
             {
                 PageSize = homePageSize,

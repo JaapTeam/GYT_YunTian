@@ -336,6 +336,9 @@
     <Content Include="Views\PeccancyRecrod\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\GYTInfoRecrod\Index.cshtml" />
+    <Content Include="Views\GYTInfo\AddGas.cshtml" />
+    <Content Include="Views\GYTInfo\replaceOld.cshtml" />
+    <Content Include="Views\GYTInfo\TransferOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

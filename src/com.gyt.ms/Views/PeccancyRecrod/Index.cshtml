@@ -1,12 +1,14 @@
 ﻿@using System.Diagnostics
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
+@using Zer.GytDto.Users
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var infoList = ViewBag.Result as List<PeccancyRecrodDto>;
     var searchFilter = ViewBag.SearchDto as PeccancySearchDto;
+    var userInfo = ViewBag.UserInfo as UserInfoDto;
 
     if (searchFilter == null)
     {
@@ -16,7 +18,7 @@
 }
 
 
-<form  action="@(Url.Action("index", "PeccancyRecrod", new { activeId = ViewBag.ActiveId }))" method="post" style="height: 50px; line-height: 45px">
+<form  action="@(Url.Action("index", "PeccancyRecrod"))" method="post" style="height: 50px; line-height: 45px">
     
     <div class="div-inline" style="height: 30px">
       
@@ -181,7 +183,7 @@
 </div>
 
 <div id="dialog-message" class="hide">
-    <p>确认将补贴状态改为已补贴!</p>
+    <p>确认将本记录状态变更为 [已整改] ?</p>
 
 </div><!-- #dialog-message -->
 @section scripts{

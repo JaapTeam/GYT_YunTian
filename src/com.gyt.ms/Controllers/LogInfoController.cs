@@ -23,9 +23,8 @@ namespace com.gyt.ms.Controllers
 
         // GET: Log
         //[UserActionLog("查询日志记录", ActionType.查询)]
-        public ActionResult Index(int activeId=0)
+        public ActionResult Index()
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.Result =
                 _logInfoService.GetAll(GetValueFromSession<UserInfoDto>("UserInfo"));
 
@@ -33,9 +32,8 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("查看日志记录详情", ActionType.查询)]
-        public ActionResult LogInfo(int activeId,int logId)
+        public ActionResult LogInfo(int logId)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.LogInfo = _logInfoService.GetById(logId);
             return View();
         }
@@ -49,10 +47,9 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("查询当前用户日志记录", ActionType.查询)]
-        public ActionResult UserLogInfo(int userId=0,int activeId=0)
+        public ActionResult UserLogInfo()
         {
             var userInfoDto = GetValueFromSession<UserInfoDto>("UserInfo");
-            ViewBag.ActiveId = activeId;
             ViewBag.Result = _logInfoService.GetListByUserId(userInfoDto.UserId, GetValueFromSession<UserInfoDto>("UserInfo"));
             return View();
         }

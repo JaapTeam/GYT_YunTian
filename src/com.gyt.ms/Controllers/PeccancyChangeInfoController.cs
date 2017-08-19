@@ -29,9 +29,8 @@ namespace com.gyt.ms.Controllers
 
         // GET: OverLoadChangeInfo
         [UserActionLog("超载超限已整改记录查询", ActionType.查询)]
-        public ActionResult Index(PeccancySearchDto searchDto, int activeId = 9)
+        public ActionResult Index(PeccancySearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
             // todo:这样做不行呀。只显示已整改信息？
             ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x => x.Status == Status.已整改).ToList();
             return View();
@@ -39,9 +38,8 @@ namespace com.gyt.ms.Controllers
 
         [System.Web.Mvc.HttpPost]
         [UserActionLog("超载超限已整改记录查询", ActionType.查询)]
-        public ActionResult Search(PeccancySearchDto searchDto, int activeId = 7)
+        public ActionResult Search(PeccancySearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
             var truckList = _truckInfoService.GetAll();
             var companyList = _companyService.GetAll();
 
