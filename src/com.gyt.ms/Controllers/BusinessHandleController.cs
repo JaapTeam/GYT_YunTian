@@ -143,10 +143,12 @@ namespace com.gyt.ms.Controllers
 
             dto.BidCompanyId = bidCompanyInfo != null ? bidCompanyInfo.Id : 0;
 
-            var originalCompanyInfo = companyList.FirstOrDefault(x => x.CompanyName.Trim() == dto.OriginalCompanyName.Trim());
+            if (!dto.OriginalCompanyName.IsNullOrEmpty())
+            {
+                var originalCompanyInfo = companyList.FirstOrDefault(x => x.CompanyName.Trim() == dto.OriginalCompanyName.Trim());
 
-            dto.OriginalCompanyId = originalCompanyInfo != null ? originalCompanyInfo.Id : 0;
-
+                dto.OriginalCompanyId = originalCompanyInfo != null ? originalCompanyInfo.Id : 0;
+            }
 
             // 检测车辆信息
             var waitForRegistTruckInfo = new List<TruckInfoDto>
