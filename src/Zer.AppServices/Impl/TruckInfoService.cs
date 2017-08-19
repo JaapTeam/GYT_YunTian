@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Zer.Entities;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
@@ -61,10 +62,15 @@ namespace Zer.AppServices.Impl
 
         public List<TruckInfoDto> QueryAfterValidateAndRegist(List<TruckInfoDto> list)
         {
-            //var waitForRegistList = list.Where(x => !(Exists(x.FrontTruckNo) || Exists(x.BehindTruckNo))).ToList();
+            if (list.IsNullOrEmpty())
+            {
+                return new List<TruckInfoDto>();
+            }
+
+            var truckNoList = list.Select(x => x.FrontTruckNo).ToList();
 
             var existsTruckList = _truckInfoDataService.GetAll()
-                .Where(x => list.Select(y => y.BehindTruckNo).Contains(x.FrontTruckNo)).ToList();
+                .Where(x => truckNoList.Contains(x.FrontTruckNo)).ToList();
 
             var waitForRegistList = list.Where(x => existsTruckList.All(y => y.FrontTruckNo != x.FrontTruckNo))
                 .ToList();
