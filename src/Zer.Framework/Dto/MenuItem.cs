@@ -4,6 +4,11 @@ namespace Zer.Framework.Dto
 {
     public class MenuItem
     {
+        public MenuItem()
+        {
+            ChildItems = new List<MenuItem>();
+        }
+
         public int Id { get; set; }
         public string ActionName { get; set; }
         public string ControllerName { get; set; }

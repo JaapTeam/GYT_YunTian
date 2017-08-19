@@ -32,248 +32,38 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: BusinessHandle
-        [UserActionLog("业务办理", ActionType.查询)]
+        [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         public ActionResult Index()
         {
             return View();
         }
 
-        public JsonResult Html(BusinessType businessType = BusinessType.天然气车辆)
+        // GET: BusinessHandle
+        [UserActionLog("天然气车辆业务办理", ActionType.查询)]
+        public ActionResult Gas()
         {
-            StringBuilder sb = new StringBuilder();
-
-            if (businessType == BusinessType.天然气车辆)
-            {
-                #region 天然气车辆HTML
-
-                sb.Append("<div id='gas'>");
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_CompanyName'> 申办企业名称: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append(
-                    "<input type='text' id='input_CompanyName' placeholder='请输入企业名称' class='col-xs-10 col-sm-5'>");
-                sb.Append("<span class='help-inline col-xs-12 col-sm-7'>");
-                sb.Append("</span>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='space-4'></div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_bidTruckNo'> 申办车牌号: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append(
-                    "<input type='text' id='input_bidTruckNo' placeholder='请输入申办车牌号' class='col-xs-10 col-sm-5'>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='space-4'></div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 超载超限违规情况: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<span class='label label-lg label-success' id='_sp_Illegal'>无违规</span>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 车辆年审情况: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<div class='control-group' style='margin-top: -5px; margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radio_Verify'>");
-                sb.Append("<label>");
-                sb.Append("<input type='radio' class='ace' value='true' checked='checked' name='lblAnnual'>");
-                sb.Append("<span class='lbl'> 已年审 </span>");
-                sb.Append("</label>");
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' value='false' name='lblAnnual'>");
-                sb.Append("<span class='lbl'> 未年审 </span>");
-                sb.Append("</label>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                #endregion
-
-            }
-            else if (businessType == BusinessType.过户车辆)
-            {
-                #region 过户车辆
-
-                sb.Append("<div id='new'>");
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_CompanyName'> 申办企业名称: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<input type='text' id='input_CompanyName' placeholder='请输入企业名称' class='col-xs-10 col-sm-5'>");
-                sb.Append("<span class='help-inline col-xs-12 col-sm-7'></span></div> </div>");
-                sb.Append("<div class='space-4'></div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_bidTruckNo'> 申办车牌号: </label>");
-
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<input type='text' id='input_bidTruckNo' placeholder='请输入申办车牌号' class='col-xs-10 col-sm-5'>");
-                sb.Append("</div></div>");
-
-                sb.Append("<div class='space-4'></div>");
-
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 超载超限违规情况: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<span class='label label-lg label-success' id='_sp_Illegal'>无违规</span></div></div>");
-
-
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 港运通注销状态: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radio_GCancel'><label>");
-
-                sb.Append("<input type='radio' class='ace' checked='checked' name='lblCancel' value='true'>");
-                sb.Append("<span class='lbl'> 已注销 </span></label>");
-
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' name='lblCancel' value='false'>");
-                sb.Append("<span class='lbl'> 未注销 </span></label></div> </div> </div></div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 车辆年审情况: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append(" <div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radio_Verify'><label>");
-
-                sb.Append("<input type='radio' class='ace' checked='checked' name='lblAnnual' value='true'>");
-                sb.Append("<span class=' lbl'> 已年审 </span></label>");
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' name='lblAnnual' value='false'>");
-                sb.Append("<span class='lbl'> 未年审 </span> </label> </div> </div> </div></div></div>");
-
-                #endregion
-        
-            }
-            else if (businessType == BusinessType.以旧换新车辆)
-            {
-                #region 以旧换新车辆HTML
-
-                sb.Append("<div id='transfer'>");
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_CompanyName'> 申办企业名称: </label>");
-
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<input type='text' id='input_CompanyName' placeholder='请输入企业名称' class='col-xs-10 col-sm-5'>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='space-4'></div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_bidTruckNo'> 申办车牌号: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append(
-                    "<input type='text' id='input_bidTruckNo' placeholder='请输入申办车牌号' class='col-xs-10 col-sm-5'>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-
-                sb.Append("<div class='space-4'></div>");
-
-                sb.Append("<div class='form-group'>");
-                sb.Append(
-                    "<label class='col-sm-3 control-label no-padding-right' for='input_oldTruckno'> 旧车牌号: </label>");
-
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<input type='text' id='input_oldTruckno' placeholder='请输入旧车牌号' class='col-xs-10 col-sm-5'>");
-                sb.Append("<span class='help-inline col-xs-12 col-sm-7'>");
-                sb.Append("</span>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='space-4'></div>");
-
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 超载超限违规情况: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<span class='label label-lg label-success' id='_sp_Illegal'>无违规</span>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 指标无重复使用: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<span class='label label-lg label-success' id='_sp_quota'>无重复使用</span>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 运营证注销状态:</label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radio_Cancel'>");
-                sb.Append("<label>");
-                sb.Append("<input type='radio' class='ace' checked='checked' name='lblCancel' value='true'>");
-                sb.Append("<span class='lbl'> 已注销 </span>");
-                sb.Append("</label>");
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' name='lblCancel' value='false'>");
-                sb.Append("<span class='lbl'> 未注销 </span>");
-                sb.Append("</label>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 运营证存在过户记录: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radioTransfer'>");
-                sb.Append("<label>");
-                sb.Append("<input type='radio' class='ace' checked='checked' name='lblTransfer' value='true'>");
-                sb.Append("<span class='lbl'> 不存在 </span>");
-                sb.Append("</label>");
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' name='lblTransfer' value='false'>");
-                sb.Append("<span class='lbl'> 存在 </span>");
-                sb.Append("</label>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 过户前任意一手港运通状态: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radioState'>");
-                sb.Append("<label>");
-                sb.Append("<input type='radio' class='ace' checked='checked' name='lblState' value='true'>");
-                sb.Append("<span class='lbl'> 已注销 </span>");
-                sb.Append("</label>");
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input type='radio' class='ace' name='lblState' value='false'>");
-                sb.Append("<span class=' lbl'> 未注销 </span>");
-                sb.Append("</label>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("<div class='form-group'>");
-                sb.Append("<label class='col-sm-3 control-label no-padding-right'> 报废车回收与系统信息一致: </label>");
-                sb.Append("<div class='col-sm-9'>");
-                sb.Append("<div class='control-group' style='margin-top: -5px;margin-left: -20px'>");
-                sb.Append("<div class='radio' id='radioInfo'>");
-                sb.Append("<label>");
-                sb.Append("<input name='lblInfo' type='radio' class='ace' checked='checked' value='true'>");
-                sb.Append("<span class='lbl'> 一致 </span>");
-                sb.Append("</label>");
-                sb.Append("<label style='margin-left: 20px'>");
-                sb.Append("<input name='lblInfo' type='radio' class='ace' value='false'>");
-                sb.Append("<span class='lbl'> 不一致 </span>");
-                sb.Append("</label>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-                sb.Append("</div>");
-
-                #endregion
-            }
-
-            return Success(null,sb.ToString());
+            return View();
         }
 
+        // GET: BusinessHandle
+        [UserActionLog("过户车辆业务办理", ActionType.查询)]
+        public ActionResult Transfer()
+        {
+            return View();
+        }
+
+        // GET: BusinessHandle
+        [UserActionLog("已旧换新车辆业务办理", ActionType.查询)]
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 检查申办企业是否有违法记录
+        /// </summary>
+        /// <param name="companyName"></param>
+        /// <returns></returns>
         [UnLog]
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
@@ -285,6 +75,11 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
+        /// <summary>
+        /// 已旧换新指标是否被使用
+        /// </summary>
+        /// <param name="truckNo"></param>
+        /// <returns></returns>
         [UnLog]
         public JsonResult TruckRepetitionCheck(string truckNo)
         {
@@ -301,33 +96,38 @@ namespace com.gyt.ms.Controllers
                     
                     break;
 
-                case BusinessType.过户车辆: 
+                case BusinessType.过户车辆:
+
+                    ValidateAllowBid(dto);
+                    break;
 
                 case BusinessType.以旧换新车辆:
 
-                    if (!_companyService.Exists(dto.OriginalCompanyName))
+                    if (_gytInfoService.TargetIsUse(dto.OriginalTruckNo))
                     {
-                        throw new CustomException("原公司信息不存在","公司名称",dto.OriginalCompanyName);
+                        throw new CustomException("已旧换新指标已被使用，不符合办理条件"); 
                     }
 
-                    if (!_truckInfoService.Exists(dto.OriginalTruckNo))
-                    {
-                        throw new CustomException("原车辆信息不存在", "车牌号", dto.OriginalTruckNo);
-                    }
+                    ValidateAllowBid(dto);
 
                     break;
 
                 default: throw new CustomException("不正常的业务提交");
             }
 
-            if (!_peccancyRecrodService.ExistsCompanyName(dto.BidCompanyName))
+            if (_gytInfoService.Exists(dto.BidTruckNo))
+            {
+                throw new CustomException("申办车牌号已存在办理记录，不符合办理条件", "申办车牌号", dto.BidTruckNo);
+            }
+
+            if (_peccancyRecrodService.ExistsCompanyName(dto.BidCompanyName))
             {
                 throw new CustomException("申办企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.BidCompanyName);
             }
 
-            if (!_peccancyRecrodService.ExistsCompanyName(dto.OriginalCompanyName))
+            if (_peccancyRecrodService.ExistsCompanyName(dto.OriginalCompanyName))
             {
-                throw new CustomException("申办企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.OriginalCompanyName);
+                throw new CustomException("原企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.OriginalCompanyName);
             }
 
             //检测公司是否存在
@@ -343,10 +143,12 @@ namespace com.gyt.ms.Controllers
 
             dto.BidCompanyId = bidCompanyInfo != null ? bidCompanyInfo.Id : 0;
 
-            var originalCompanyInfo = companyList.FirstOrDefault(x => x.CompanyName.Trim() == dto.OriginalCompanyName.Trim());
+            if (!dto.OriginalCompanyName.IsNullOrEmpty())
+            {
+                var originalCompanyInfo = companyList.FirstOrDefault(x => x.CompanyName.Trim() == dto.OriginalCompanyName.Trim());
 
-            dto.OriginalCompanyId = originalCompanyInfo != null ? originalCompanyInfo.Id : 0;
-
+                dto.OriginalCompanyId = originalCompanyInfo != null ? originalCompanyInfo.Id : 0;
+            }
 
             // 检测车辆信息
             var waitForRegistTruckInfo = new List<TruckInfoDto>
@@ -381,6 +183,36 @@ namespace com.gyt.ms.Controllers
             }
 
             return RedirectToAction("Index", "GYTInfo");
+        }
+
+        private void ValidateAllowBid(GYTInfoDto dto)
+        {
+            if (!_companyService.Exists(dto.OriginalCompanyName))
+            {
+                throw new CustomException("原公司信息不存在", "公司名称", dto.OriginalCompanyName);
+            }
+
+            if (!_truckInfoService.Exists(dto.OriginalTruckNo))
+            {
+                throw new CustomException("原车辆信息不存在", "车牌号", dto.OriginalTruckNo);
+            }
+        }
+
+        /// <summary>
+        /// 检查是否重复办理
+        /// </summary>
+        /// <param name="truckNo"></param>
+        /// <returns></returns>
+        [UnLog]
+        public JsonResult TruckNoExistsHandle(string truckNo)
+        {
+            var isExists = _gytInfoService.Exists(truckNo);
+            if (isExists)
+            {
+                return Fail();
+            }
+
+            return Success();
         }
     }
 }

@@ -31,7 +31,7 @@
                 <option value="@(BusinessState.已办理)" @(searchFilter.Status == BusinessState.已办理 ? "selected" : "")>已办理</option>
             </select>
 
-
+            <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
             <button type="submit" class="btn btn-small btn-info" id="btn_submit" style="margin-left: 20px">查询</button>
         </form>
 
@@ -157,37 +157,18 @@
                             <ul class="pagination">
 
                                 <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
-                                    <a href="@Url.Action("index", new
-                                             {
-                                                 searchFilter.TruckNo,
-                                                 searchFilter.CompanyName,
-                                                 PageIndex = 1,
-                                                 searchFilter.PageSize
-                                             })">
+                                    <a class="__page" href="javascript:;" data-pageindex='1'>
                                         <i class="icon-double-angle-left"></i>
                                     </a>
                                 </li>
                                 @for (int i = 1; i <= searchFilter.PageCount; i++)
                                 {
                                     <li class="@(searchFilter.PageIndex == i ? "active" : "")">
-                                        <a href="@Url.Action("index", new
-                                                 {
-                                                     searchFilter.TruckNo,
-                                                     searchFilter.CompanyName,
-                                                     PageIndex = i,
-                                                     searchFilter.PageSize
-                                                 })">
-                                            @i</a>
+                                        <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
                                     </li>
                                 }
                                 <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
-                                    <a href="@Url.Action("index", new
-                                             {
-                                                 searchFilter.TruckNo,
-                                                 searchFilter.CompanyName,
-                                                 PageIndex = searchFilter.PageCount,
-                                                 searchFilter.PageSize
-                                             })">
+                                    <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
                                         <i class="icon-double-angle-right"></i>
                                     </a>
                                 </li>
@@ -208,7 +189,7 @@
 
 
     <script type="text/javascript">
-        jQuery(function($) {
+      $(function() {
 
 
             $(".chosen-select").chosen();
@@ -252,12 +233,19 @@
         $(function () {
             $('body')
                 .on('click',
+                    '.__page',
+                    function() {
+                        var pageIndex = $(this).attr('data-pageindex');
+                        $('#input_pageIndex').val(pageIndex);
+                        $('#btn_submit').click();
+                    })
+                .on('click',
                     '#btn_export',
-                    function () {
+                    function() {
                         var oraginActionUrl = $('#form_search').attr("action");
                         $('#form_search').attr("action", '@Url.Action("ExportResult","GYTInfo")');
                         $('#btn_submit').click();
-                        $('#form_search').attr("action",oraginActionUrl);
+                        $('#form_search').attr("action", oraginActionUrl);
                     });
 
             $("#btn_improt")
