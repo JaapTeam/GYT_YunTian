@@ -6,63 +6,85 @@
 
 <h3 class="header smaller lighter blue">过户车辆业务办理</h3>
 
-<form action="" method="post">
+<form action="@Url.Action("Commit", "BusinessHandle")" method="post">
     <div class="form-horizontal" role="form">
         <div id="container">
             <div id="transfer">
-                
+
                 <div class="form-group">
-                    
-                  
+
+
                     <label class="col-sm-4 control-label no-padding-right" for="input_CompanyName"> 申办企业名称: </label>
                     <div class="col-sm-8">
-                        
+
                         <input type="text" id="input_CompanyName" placeholder="请输入企业名称" class="col-xs-10 col-sm-5" name="BidCompanyName">
                         <span class="help-inline col-xs-12 col-sm-7"></span>
                     </div>
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-    
+
                     <label class="col-sm-4 control-label no-padding-right" for="input_bidTruckNo"> 申办车牌号: </label>
 
                     <div class="col-sm-8">
-                        
+
                         <input type="text" id="input_bidTruckNo" placeholder="请输入申办车牌号" class="col-xs-10 col-sm-5" name="BidTruckNo">
-                        
+
                     </div>
                     <span class="hide" id="sp_bidTruckNo"></span>
                 </div>
+                <div class="space-4"></div>
+                <div class="form-group">
 
+                    <label class="col-sm-4 control-label no-padding-right" for="input_OriginalCompanyName"> 原企业名称: </label>
+
+                    <div class="col-sm-8">
+
+                        <input type="text" id="input_OriginalCompanyName" placeholder="请输入原企业名称" class="col-xs-10 col-sm-5" name="OriginalCompanyName">
+
+                    </div>
+
+                </div>
+                <div class="space-4"></div>
+                <div class="form-group">
+
+                    <label class="col-sm-4 control-label no-padding-right" for="input_OriginalTruckNo"> 原车牌号: </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" id="input_OriginalTruckNo" placeholder="请输入原车牌号" class="col-xs-10 col-sm-5" name="OriginalTruckNo">
+
+                    </div>
+
+                </div>
                 <div class="space-4"></div>
 
                 <div class="form-group">
-                    
+
                     <label class="col-sm-4 control-label no-padding-right"> 超载超限违规情况: </label>
                     <div class="col-sm-8">
-                        
+
                         <span class="label label-lg label-success" id="_sp_Illegal">无违规</span>
                     </div>
                 </div>
 
 
                 <div class="form-group">
-                    
+
                     <label class="col-sm-4 control-label no-padding-right"> 港运通注销状态: </label>
                     <div class="col-sm-8">
-                        
+
                         <div class="control-group" style="margin-top: -5px;margin-left: -20px">
-                            
+
                             <div class="radio" id="radio_GCancel">
                                 <label>
-                                    
+
 
                                     <input type="radio" class="ace" checked="checked" name="lblCancel" value="true">
                                     <span class="lbl"> 已注销 </span>
                                 </label>
 
                                 <label style="margin-left: 20px">
-                                    
+
                                     <input type="radio" class="ace" name="lblCancel" value="false">
                                     <span class="lbl"> 未注销 </span>
                                 </label>
@@ -71,21 +93,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    
+
                     <label class="col-sm-4 control-label no-padding-right"> 车辆年审情况: </label>
                     <div class="col-sm-8">
-                        
-                         <div class="control-group" style="margin-top: -5px;margin-left: -20px">
-                            
+
+                        <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+
                             <div class="radio" id="radio_Verify">
                                 <label>
-                                    
+
 
                                     <input type="radio" class="ace" checked="checked" name="lblAnnual" value="true">
                                     <span class=" lbl"> 已年审 </span>
                                 </label>
                                 <label style="margin-left: 20px">
-                                    
+
                                     <input type="radio" class="ace" name="lblAnnual" value="false">
                                     <span class="lbl"> 未年审 </span>
                                 </label>
