@@ -2,10 +2,13 @@
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
+using Zer.Framework.Dto;
 using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
+using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices.Impl
 {
@@ -13,7 +16,8 @@ namespace Zer.AppServices.Impl
     {
         private readonly ICompanyInfoDataService _companyInfoDataService;
 
-        public CompanyService(ICompanyInfoDataService companyInfoDataService)
+        public CompanyService(
+            ICompanyInfoDataService companyInfoDataService)
         {
             _companyInfoDataService = companyInfoDataService;
         }
@@ -56,9 +60,9 @@ namespace Zer.AppServices.Impl
         public List<CompanyInfoDto> GetByLikeName(string likeName)
         {
             return _companyInfoDataService
-                   .GetAll()
-                   .Where(x => x.CompanyName.Contains(likeName))
-                   .Map<CompanyInfoDto>().ToList();
+                .GetAll()
+                .Where(x => x.CompanyName.Contains(likeName))
+                .Map<CompanyInfoDto>().ToList();
         }
 
         public bool Exists(string companyFullName)
@@ -79,14 +83,15 @@ namespace Zer.AppServices.Impl
         /// <returns><see cref="List{CompanyInfoDto}"/></returns>
         public List<CompanyInfoDto> QueryAfterValidateAndRegist(List<CompanyInfoDto> companyInfoDtos)
         {
-            var companyNameList = companyInfoDtos.Select(x=>x.CompanyName).Distinct().ToList();
+            var companyNameList = companyInfoDtos.Select(x => x.CompanyName).Distinct().ToList();
 
             var notExistsCompanyName = companyNameList.Where(x => !Exists(x));
             var newRegistCompanyInfoDtoList = notExistsCompanyName.Select(name =>
                 new CompanyInfoDto
                 {
                     CompanyName = name,
-                    TraderRange=companyInfoDtos.Where(x=>x.CompanyName==name).Select(x=>x.TraderRange).FirstOrDefault()
+                    TraderRange = companyInfoDtos.Where(x => x.CompanyName == name).Select(x => x.TraderRange)
+                        .FirstOrDefault()
                 }).ToList();
 
             // 新增所有不存在的公司
@@ -95,5 +100,24 @@ namespace Zer.AppServices.Impl
             var companyInfoDtoList = GetAll().Where(x => companyNameList.Contains(x.CompanyName)).ToList();
             return companyInfoDtoList;
         }
+
+        public List<CompanyInfoDto> GetWithPeccancyRecored(CompanySearchDto filter)
+        {
+            var query = _companyInfoDataService.GetAll();
+            query = Filter(filter, query);
+            query = query.ToPageQuery(filter);
+            return query.Map<CompanyInfoDto>().ToList();
+        }
+
+        private IQueryable<CompanyInfo> Filter(CompanySearchDto searchDto, IQueryable<CompanyInfo> query)
+        {
+            if (!searchDto.CompanyIdList.IsNullOrEmpty())
+            {
+                query = query.Where(x => searchDto.CompanyIdList.Contains(x.Id));
+            }
+            return query;
+        }
+
+
     }
 }

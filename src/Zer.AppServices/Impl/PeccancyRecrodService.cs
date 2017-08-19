@@ -13,10 +13,12 @@ namespace Zer.AppServices.Impl
     public class PeccancyRecrodService : IPeccancyRecrodService
     {
         private readonly IPeccancyRecrodDataService _peccancyRecrodDataService;
+        private readonly ICompanyService _companyService;
 
-        public PeccancyRecrodService(IPeccancyRecrodDataService peccancyRecrodDataService)
+        public PeccancyRecrodService(IPeccancyRecrodDataService peccancyRecrodDataService, ICompanyService companyService)
         {
             _peccancyRecrodDataService = peccancyRecrodDataService;
+            _companyService = companyService;
         }
 
         public PeccancyRecrodDto GetById(int id)
@@ -97,12 +99,12 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.Status == searchDto.Status);
             }
 
-            if (searchDto.StartDate != null)
+            if (searchDto.StartDate.HasValue)
             {
                 query = query.Where(x => x.PeccancyDate >= searchDto.StartDate);
             }
 
-            if (searchDto.EndDate != null)
+            if (searchDto.EndDate.HasValue)
             {
                 query = query.Where(x => x.PeccancyDate <= searchDto.EndDate);
             }

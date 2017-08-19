@@ -14,7 +14,7 @@
     }
 }
 
-<form action="@(Url.Action("Search", "PeccancyChangeInfo", new { activeId = ViewBag.ActiveId }))" method="post" style="height: 50px; line-height: 45px">
+<form action="@(Url.Action("Search", "PeccancyChangeInfo"))" method="post" style="height: 50px; line-height: 45px">
 
     <div class="div-inline">
 
@@ -104,7 +104,7 @@
                 <td>@overloadRecrodDto.TraderRange</td>
                 <td>@overloadRecrodDto.DriverName</td>
                 <td>
-                    @overloadRecrodDto.PeccancyDate
+                    @string.Format("{0:yyyy-MM-dd}", overloadRecrodDto.PeccancyDate)
                 </td>
                 <td>@overloadRecrodDto.PeccancyMatter</td>
                 <td>@overloadRecrodDto.GrossWeight</td>

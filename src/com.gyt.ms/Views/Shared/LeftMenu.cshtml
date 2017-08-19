@@ -1,44 +1,51 @@
-﻿@using System.Diagnostics
-@using com.gyt.ms.Models
+﻿@using com.gyt.ms.Models
+@using Zer.Framework.Dto
+@using Zer.Framework.Extensions
 
 @{
     var menuList = ViewBag.MenuItems as List<MenuItem>;
 }
-<ul class="nav nav-list">
-    <li>
-        <a href="@Url.Action("Index","Home",new {id=14})">
-            <i class="icon-home"></i>
-            <span class="menu-text"> 首页 </span>
-        </a>
-    </li>
-    @{
-        if (menuList != null)
-        {
-            foreach (var menu in menuList)
-            {
-                <li class="@(menu.IsCurrentPage?"active open":"")">
-                    <a href="javascript:();" class="dropdown-toggle">
-                        <i class="@menu.Icon"></i>
-                        <span class="menu-text"> @menu.TextInfo </span>
 
-                        <b class="arrow icon-angle-down"></b>
-                    </a>
-                    @if (menu.ChildItems != null)
-                    {
+
+@{
+    if (!menuList.IsNullOrEmpty())
+    {
+        <ul class="nav nav-list">
+            @foreach (var item in menuList)
+            {
+                if (!item.ChildItems.IsNullOrEmpty())
+                {
+                    <li class="@(item.IsCurrentPage ? "active open" : "")">
+                        <a href="javascript:();" class="dropdown-toggle">
+                            <i class="@item.Icon"></i>
+                            <span class=""> @item.TextInfo </span>
+
+                            <b class="arrow icon-angle-down"></b>
+                        </a>
+
                         <ul class="submenu">
-                            @foreach (var child in menu.ChildItems)
+                            @foreach (var childItem in item.ChildItems)
                             {
-                                <li class="@(child.IsCurrentPage ? "active" : "")">
-                                    <a href="@Url.Action(child.ActionName, child.ControllerName, new { activeId = child.Id })">
-                                        <i class="@child.Icon"></i>
-                                        @child.TextInfo
+                                <li class="@(childItem.IsCurrentPage ? "active" : "")">
+                                    <a href="@Url.Action(childItem.ActionName, childItem.ControllerName)">
+                                        <i class="@childItem.Icon"></i>
+                                        @childItem.TextInfo
                                     </a>
                                 </li>
                             }
                         </ul>
-                    }  
-                </li>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action(item.ActionName, item.ControllerName)">
+                            <i class="icon-home"></i>
+                            <span class="menu-text"> @item.TextInfo </span>
+                        </a>
+                    </li>
+                }
             }
-        }
+        </ul>
     }
-</ul>
+}

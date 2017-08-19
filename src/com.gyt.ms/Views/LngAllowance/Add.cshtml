@@ -97,7 +97,7 @@
                             data: postModel,
                             success: function (d) {
                                 if (d.C == '901') {
-                                    window.location = '@Url.Action("Index","LngAllowance",new{activeId=9})';
+                                    window.location = '@Url.Action("Index","LngAllowance")';
                                 } else {
                                     alert(d.msg);
                                 }

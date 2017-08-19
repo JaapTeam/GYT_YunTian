@@ -59,19 +59,6 @@ namespace Zer.AppServices.Impl
             return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim());
         }
 
-        public List<GYTInfoDto> GetVerifyList(GYTInfoSearchDto searchDto)
-        {
-            var query = _gytInfoDataService.GetAll().Where(x=>x.Status==BusinessState.已审核);
-
-            if (searchDto == null) return query.Map<GYTInfoDto>().ToList();
-
-            query = Filter(searchDto, query);
-
-            query = query.ToPageQuery(searchDto);
-
-            return query.Map<GYTInfoDto>().ToList();
-        }
-
         public List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto)
         {
             var query = _gytInfoDataService.GetAll();
@@ -97,17 +84,17 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.BidTruckNo == searchDto.TruckNo || x.OriginalTruckNo == searchDto.TruckNo);
             }
 
-            if (searchDto.Status != 0)
+            if (searchDto.Status.HasValue)
             {
                 query = query.Where(x => x.Status == searchDto.Status);
             }
 
-            if (searchDto.StartDate!=null)
+            if (searchDto.StartDate.HasValue)
             {
                 query = query.Where(x => x.BidDate >= searchDto.StartDate);
             }
 
-            if (searchDto.EndDate != null)
+            if (searchDto.EndDate.HasValue)
             {
                 query = query.Where(x => x.BidDate <= searchDto.EndDate);
             }
@@ -126,9 +113,9 @@ namespace Zer.AppServices.Impl
         {
             var gytInfoDto = _gytInfoDataService.GetById(infoId);
 
-            if (gytInfoDto.Status==BusinessState.已通过)
+            if (gytInfoDto.Status==BusinessState.初审通过)
             {
-                gytInfoDto.Status = BusinessState.已审核;
+                gytInfoDto.Status = BusinessState.已办理;
             }
 
             return _gytInfoDataService.Update(gytInfoDto.Map<GYTInfo>()).Map<GYTInfoDto>();

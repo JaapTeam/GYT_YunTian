@@ -13,6 +13,7 @@ namespace com.gyt.ms
         {
             IocConfig.Config();
             AutoMapperConfig.Initialze();
+            CacheInitial.ReadConfig();
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

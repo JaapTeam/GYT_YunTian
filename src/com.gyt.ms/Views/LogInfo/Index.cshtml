@@ -58,13 +58,13 @@
                             </td>
                             <td>@log.Id</td>
                             <td>
-                                <a href="@Url.Action("AccountInfo", "User", new { userId = log.UserId,activeId=ViewBag.ActiveId })">@log.DisplayName</a>
+                                <a href="@Url.Action("AccountInfo", "User", new { userId = log.UserId, })">@log.DisplayName</a>
                             </td>
                             <td>@log.ActionType</td>
-                            <td>@log.ActionType</td>
-                            <td>@log.CreateTime</td>
+                            <td>@log.ActionModel</td>
+                            <td>@string.Format("{0:yyyy-MM-dd hh:mm:ss}", log.CreateTime)</td>
                             <td>
-                                <a href="@(Url.Action("LogInfo","LogInfo",new {logId=log.Id,activeId=ViewBag.ActiveId}))">详细</a>
+                                <a href="@(Url.Action("LogInfo","LogInfo",new {logId=log.Id}))">详细</a>
                             </td>
                         </tr>
                     }

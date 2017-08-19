@@ -29,16 +29,14 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: BusinessHandle
-        public ActionResult Index(int activeId = 1)
+        [UserActionLog("业务办理", ActionType.查询)]
+        public ActionResult Index()
         {
-            ViewBag.ActiveId = activeId;
-            
             return View();
         }
 
-        public JsonResult Html(BusinessType businessType = BusinessType.天然气车辆, int activeId = 1)
+        public JsonResult Html(BusinessType businessType = BusinessType.天然气车辆)
         {
-            ViewBag.ActiveId = activeId;
             StringBuilder sb = new StringBuilder();
 
             if (businessType == BusinessType.天然气车辆)
@@ -273,11 +271,12 @@ namespace com.gyt.ms.Controllers
             return Success(null,sb.ToString());
         }
 
+        [UserActionLog("业务办理", ActionType.新增)]
         public JsonResult SuccessInfo(string bidCompanyName="", string bidTruckNo="", string oldTruckno="",
            bool isAnnual = true, bool isOperationCancel = true, bool isTransferRecrod=true,bool isGytStatus=true,
-           bool isGytCancel = true, bool isConsistentInfo = true, BusinessType businessType = BusinessType.天然气车辆, int activeId = 1)
+           bool isGytCancel = true, bool isConsistentInfo = true, BusinessType businessType = BusinessType.天然气车辆)
         {
-            ViewBag.ActiveId = activeId;
+           
 
             if (bidCompanyName == "")
             {
@@ -355,7 +354,7 @@ namespace com.gyt.ms.Controllers
             #region 判断审查条件
             if (isAnnual && isOperationCancel && isTransferRecrod && isGytStatus && isGytCancel && isConsistentInfo && !isPeccancy && !targetIsUse)
             {
-                gtyInfoDto.Status = BusinessState.已通过;
+                gtyInfoDto.Status = BusinessState.初审通过;
                 handleDataDto.Result = true;
                 _gytInfoService.Add(gtyInfoDto);
             }

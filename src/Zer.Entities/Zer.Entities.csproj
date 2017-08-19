@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionType.cs" />
     <Compile Include="GYTInfo.cs" />
     <Compile Include="CompanyInfo.cs" />
     <Compile Include="LngAllowanceInfo.cs" />

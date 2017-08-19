@@ -9,7 +9,7 @@ using Zer.Framework.Mvc.Logs;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.Users;
-using ActionType = Zer.GytDto.ActionType;
+using ActionType = Zer.Entities.ActionType;
 
 
 namespace com.gyt.ms.Controllers
@@ -27,6 +27,7 @@ namespace com.gyt.ms.Controllers
             _userInfoService = userInfoService;
         }
 
+        [UserActionLog("新增用户", ActionType.新增)]
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
             if (userInfoDto.UserName.IsNullOrEmpty() ||
@@ -64,7 +65,7 @@ namespace com.gyt.ms.Controllers
             UserActionLogger.Instance.Info(new LogInfoDto()
             {
                 ActionModel = "登录",
-                ActionType =  ActionType.Query,
+                ActionType =  ActionType.查询,
                 Content = string.Format("UserName:{0}, Result:{1}",userName,loginResult),
                 CreateTime = DateTime.Now
             });
@@ -86,11 +87,21 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Logout()
         {
-            // TODO: unit test coding
+            var userInfoDto = GetValueFromSession<UserInfoDto>("UserInfo");
+
+            UserActionLogger.Instance.Info(new LogInfoDto()
+            {
+                ActionModel = "登出/注销",
+                ActionType = ActionType.更改状态,
+                Content = string.Format("用户名:{0}, 真实姓名:{1}", userInfoDto.UserName, userInfoDto.DisplayName),
+                CreateTime = DateTime.Now
+            });
+
             Session["UserInfo"] = null;
             return RedirectToAction("Login", "Home");
         }
 
+        [UserActionLog("用户状态变更-->冻结", ActionType.更改状态)]
         public JsonResult Frozon(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
@@ -105,6 +116,7 @@ namespace com.gyt.ms.Controllers
             return frozonResult == FrozenResult.Success ? Success() : Fail();
         }
 
+        [UserActionLog("用户状态变更-->激活", ActionType.更改状态)]
         public JsonResult Thaw(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
@@ -124,6 +136,7 @@ namespace com.gyt.ms.Controllers
             return Fail();
         }
 
+        [UserActionLog("用户修改密码", ActionType.编辑)]
         public JsonResult ChangePasswrod(string newPassword, string currentPassword)
         {
             newPassword = newPassword.Md5Encoding();
@@ -156,39 +169,36 @@ namespace com.gyt.ms.Controllers
             return Fail();
         }
 
-        public ActionResult ChangePassword(int activeId = 0)
+        public ActionResult ChangePassword()
         {
-            ViewBag.ActiveId = activeId;
             return View();
         }
 
-        public ActionResult AccountManage(int activeId = 0)
+        public ActionResult AccountManage()
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.Result = _userInfoService.GetAll();
             return View();
         }
 
-        public ActionResult AccountInfo(int activeId = 0, int userId = 0)
+        [UserActionLog("查看用户详细信息", ActionType.编辑)]
+        public ActionResult AccountInfo(int userId = 0)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.UserInfo = _userInfoService.GetById(userId);
             return View();
         }
 
-        public ActionResult AddUserInfo(int activeId = 0)
+        public ActionResult AddUserInfo()
         {
-            ViewBag.ActiveId = activeId;
             return View();
         }
 
-        public ActionResult EditUserInfo(int activeId = 0, int userId = 0)
+        public ActionResult EditUserInfo(int userId = 0)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.Result = _userInfoService.GetById(userId);
             return View();
         }
 
+        [UserActionLog("编辑个人信息", ActionType.编辑)]
         public JsonResult Edit(UserInfoDto userInfoDto)
         {
             if (userInfoDto.UserName.IsNullOrEmpty())

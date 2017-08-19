@@ -2,7 +2,7 @@
 @using Zer.GytDto.Users
 
 @{
-    ViewBag.Title = "EditUserInfo";
+    ViewBag.Title = "编辑UserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var userInfoDto = ViewBag.Result as UserInfoDto;
@@ -118,7 +118,7 @@
                     data: { userInfoDto: dto },
                     dataType: "json",
                     success: function (data) {
-                        window.location.href = "@Url.Action("AccountManage",new {activeId=ViewBag.ActiveId})";
+                        window.location.href = "@Url.Action("AccountManage")";
                     }
                 });
 

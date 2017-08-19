@@ -10,6 +10,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 using Zer.Services;
@@ -30,15 +31,17 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
         }
 
-        public ActionResult Index(PeccancySearchDto searchDto, int activeId = 9)
+        [UserActionLog("超载超限记录查询", ActionType.查询)]
+        public ActionResult Index(PeccancySearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
             ViewBag.SearchDto = searchDto;
-            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x => x.Status == Status.未整改).ToList();
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).ToList();
+            //.Where(x => x.Status == Status.未整改).ToList();
             return View();
         }
 
         //ToDo:单元测试
+        [UserActionLog("超载超限记录整改状态变更", ActionType.更改状态)]
         public JsonResult Change(int id=0)
         {
             if (id == 0)
@@ -50,14 +53,15 @@ namespace com.gyt.ms.Controllers
 
             if (!result)
             {
-                return Fail();
+                return Fail("整改失败，请联系系统管理人员！");
             }
 
-            return Success();
+            return Success("整改成功！");
         }
 
         //Todo: 建议优化检查检查重复业务逻辑
         [System.Web.Mvc.HttpPost]
+        [UserActionLog("超载超限记录批量导入", ActionType.新增)]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -104,8 +108,6 @@ namespace com.gyt.ms.Controllers
                 .ToList();
 
             // 展示导入结果
-            ViewBag.ActiveId = 6;
-
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
             ViewBag.FailedCode = AppendObjectToSession(importFailedList);
             ViewBag.ExistedCode = AppendObjectToSession(existsoverloadRecrodDtoList);
@@ -116,6 +118,7 @@ namespace com.gyt.ms.Controllers
             return View("ImportResult");
         }
 
+        [UserActionLog("超载超限记录导出", ActionType.查询)]
         public FileResult ExportResult(string exportCode = "")
         {
             List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();
@@ -137,22 +140,23 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限未整改记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Search(PeccancySearchDto searchDto, int activeId = 9)
-        {
-            ViewBag.ActiveId = activeId;
-            var truckList = _truckInfoService.GetAll();
-            var companyList = _companyService.GetAll();
+        //[System.Web.Mvc.HttpPost]
+        //[UserActionLog("超载超限记录查询", ActionType.查询)]
+        //public ActionResult Search(PeccancySearchDto searchDto, int activeId = 9)
+        //{
+        //    ViewBag.ActiveId = activeId;
+        //    var truckList = _truckInfoService.GetAll();
+        //    var companyList = _companyService.GetAll();
 
-            ViewBag.TruckList = truckList;
-            ViewBag.CompanyList = companyList;
-            ViewBag.SearchDto = searchDto;
+        //    ViewBag.TruckList = truckList;
+        //    ViewBag.CompanyList = companyList;
+        //    ViewBag.SearchDto = searchDto;
 
-            searchDto.Status = Status.未整改;
-            ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
-            
-            return View("Index");
-        }
+        //    searchDto.Status = Status.未整改;
+        //    ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
+
+        //    return View("Index", "PeccancyRecrod");
+        //}
 
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)

@@ -75,6 +75,7 @@
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
     <Compile Include="Attributes\CustomExceptionAttribute.cs" />
     <Compile Include="Attributes\RoleAttribute.cs" />
+    <Compile Include="Attributes\SetMenuItemAttribute.cs" />
     <Compile Include="Attributes\UnValidateInputsAttribute.cs" />
     <Compile Include="Attributes\UnValidateLoginAttribute.cs" />
     <Compile Include="Attributes\ValidateInputAttribute.cs" />

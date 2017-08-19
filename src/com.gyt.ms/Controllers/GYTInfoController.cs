@@ -10,6 +10,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
@@ -29,19 +30,18 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: GYTInfo
-        public ActionResult Index(GYTInfoSearchDto searchDto, int activeId = 3)
+        [UserActionLog("港运通信息数据库",ActionType.查询)]
+        public ActionResult Index(GYTInfoSearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
-
             ViewBag.CompanyList = _companyService.GetAll();
             ViewBag.TruckList = _truckInfoService.GetAll();
             ViewBag.SearchDto = searchDto;
-            ViewBag.Result = _gytInfoService.GetVerifyList(searchDto);
+            ViewBag.Result = _gytInfoService.GetList(searchDto);
             return View();
-
         }
 
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
+        [UserActionLog("港运通信息数据导入", ActionType.新增)]
         public ActionResult Improt(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null)
@@ -87,7 +87,7 @@ namespace com.gyt.ms.Controllers
             // 初始化检测并注册其中的新车辆信息
             InitTruckInfoDtoList(truckInfoDtoList);
 
-            mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.已通过);
+            mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.初审通过);
 
             // 保存信息，并得到保存成功的结果
             var importSuccessList = _gytInfoService.AddRange(mustImportgtyGytInfoDtoList);
@@ -96,7 +96,7 @@ namespace com.gyt.ms.Controllers
                 .ToList();
 
             // 展示导入结果
-            ViewBag.ActiveId = 6;
+          
 
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
             ViewBag.FailedCode = AppendObjectToSession(importFailedList);
@@ -108,45 +108,52 @@ namespace com.gyt.ms.Controllers
             return View("ImportResult");
         }
 
-        public FileResult ExportResult(string exportCode = "")
+        [UserActionLog("港运通信息数据导出", ActionType.查询)]
+        public FileResult ExportResult(GYTInfoSearchDto searchDto)
         {
-            List<GYTInfoDto> exportList = new List<GYTInfoDto>();
+            searchDto.PageSize = Int32.MaxValue;
+            searchDto.PageIndex = 1;
+            var exportList = _gytInfoService.GetList(searchDto);
 
-            if (exportCode.IsNullOrEmpty())
-            {
-                return null;
-            }
-
-            if (exportCode.ToLower() == "all")
-            {
-                exportList = _gytInfoService.GetAll();
-            }
-            else
-            {
-                exportList = GetValueFromSession<List<GYTInfoDto>>(exportCode);
-            }
-
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("港运通信息数据{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
-        //public ActionResult Search(GYTInfoSearchDto searchDto, int activeId = 3)
-        //{
-        //    ViewBag.ActiveId = activeId;
-        //    var truckList = _truckInfoService.GetAll();
-        //    var companyList = _companyService.GetAll();
+        [AdminRole]
+        [UserActionLog("港运通审核", ActionType.更改状态)]
+        public JsonResult Verify(int infoId)
+        {
+            var gtyInfo = _gytInfoService.GetById(infoId);
 
-        //    ViewBag.TruckList = truckList;
-        //    ViewBag.CompanyList = companyList;
-        //    ViewBag.SearchDto = searchDto;
+            if (gtyInfo.Status == BusinessState.已办理)
+            {
+                return Fail("这条记录已经审核！");
+            }
 
-        //    searchDto.Status = BusinessState.已通过;
-        //    ViewBag.Result = _gytInfoService.GetList(searchDto);
+            gtyInfo = _gytInfoService.Verify(infoId);
 
-        //    return View("Index");
-        //}
+            if (gtyInfo.Status != BusinessState.已办理)
+            {
+                return Fail("审核失败！");
+            }
 
+            return Success("审核成功！");
+        }
 
+        public ActionResult AddGas()
+        {
+            return View();
+        }
 
+        public ActionResult replaceOld()
+        {
+            return View();
+        }
+
+        public ActionResult TransferOwner()
+        {
+            return View();
+        }
+        
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {
             var improtCompanyInfoDtoList = new List<CompanyInfoDto>();

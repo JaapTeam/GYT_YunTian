@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CacheInitial.cs" />
     <Compile Include="App_Start\ControllerInstaller.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
@@ -142,7 +143,6 @@
     <Compile Include="App_Start\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessHandleController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
     <Compile Include="Controllers\GYTHandleRecrodController.cs" />
     <Compile Include="Controllers\GYTInfoRecrodController.cs" />
@@ -158,7 +158,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HandleDataDto.cs" />
-    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +182,11 @@
     <Content Include="assets\css\datepicker.css" />
     <Content Include="assets\css\daterangepicker.css" />
     <Content Include="assets\css\dropzone.css" />
+    <Content Include="assets\css\easyui\easyui.css" />
+    <Content Include="assets\css\easyui\icon.css" />
+    <Content Include="assets\css\easyui\images\calendar_arrows.png" />
+    <Content Include="assets\css\easyui\images\combo_arrow.png" />
+    <Content Include="assets\css\easyui\images\datebox_arrow.png" />
     <Content Include="assets\css\font-awesome-ie7.min.css" />
     <Content Include="assets\css\font-awesome.min.css" />
     <Content Include="assets\css\fullcalendar.css" />
@@ -221,6 +225,9 @@
     <Content Include="assets\js\date-time\daterangepicker.min.js" />
     <Content Include="assets\js\date-time\moment.min.js" />
     <Content Include="assets\js\dropzone.min.js" />
+    <Content Include="assets\js\easyui\easyui-lang-zh_CN.js" />
+    <Content Include="assets\js\easyui\jquery.easyui.min.js" />
+    <Content Include="assets\js\easyui\jquery.min.js" />
     <Content Include="assets\js\excanvas.min.js" />
     <Content Include="assets\js\flot\jquery.flot.min.js" />
     <Content Include="assets\js\flot\jquery.flot.pie.min.js" />
@@ -275,6 +282,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
     <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
+    <None Include="Properties\PublishProfiles\sa.pubxml" />
     <None Include="Properties\PublishProfiles\ssssss.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -328,6 +336,9 @@
     <Content Include="Views\PeccancyRecrod\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\GYTInfoRecrod\Index.cshtml" />
+    <Content Include="Views\GYTInfo\AddGas.cshtml" />
+    <Content Include="Views\GYTInfo\replaceOld.cshtml" />
+    <Content Include="Views\GYTInfo\TransferOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
