@@ -284,6 +284,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
+    <Content Include="Content\templates\超限超限数据导入模板.xlsx" />
+    <Content Include="Content\templates\lng导入模板.xlsx" />
     <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
     <None Include="Properties\PublishProfiles\sa.pubxml" />
     <None Include="Properties\PublishProfiles\ssssss.pubxml" />
