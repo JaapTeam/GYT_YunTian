@@ -8,7 +8,7 @@ namespace Zer.AppServices
     {
         List<PeccancyRecrodDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
 
-        bool ChangeStatusById(int id);
+        bool ChangeStatusById(string id);
 
         List<PeccancyRecrodDto> GetListByIds(int[] ids);
 
