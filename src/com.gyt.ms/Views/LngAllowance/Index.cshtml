@@ -1,10 +1,13 @@
-﻿@using Castle.Core.Internal
+﻿
 @using Zer.Entities
+@using Zer.Framework.Extensions
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
+@using Zer.GytDto.Users
 @{
     var lngList = Model as List<LngAllowanceInfoDto>;
     var filter = ViewBag.Filter as LngAllowanceSearchDto;
+    var userInfo = ViewBag.UserInfo as UserInfoDto;
 
     if (filter == null)
     {
@@ -80,7 +83,11 @@
                 <th>气瓶1编号</th>
                 <th>气瓶2编号</th>
                 <th>补贴状态</th>
-                <th></th>
+                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                {
+                    <th></th>
+                }
+               
             </tr>
         </thead>
         <tbody>
@@ -124,25 +131,29 @@
                                 <span class="label label-sm label-success"><i class="icon-ok"> 已补贴</i></span>
                             }
                         </td>
-                        <td>
-                            @if (item.Status == LngStatus.未补贴)
-                            {
-                                <a class="btn btn-xs btn-danger _verify"
-                                   data-id="@item.Id"
-                                   data-companyname="@item.CompanyName"
-                                   data-truckno="@item.TruckNo ">
-                                    <i class=" icon-check">
-                                        审核
-                                    </i>
-                                </a>
-                            }
-                            else if (item.Status == LngStatus.已补贴)
-                            {
-                                <span class="label label-sm label-success">
-                                    <i class="icon-ok"> 已补贴</i>
-                                </span>
-                            }
-                        </td>
+        @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+        {
+
+            <td>
+                @if (item.Status == LngStatus.未补贴)
+                {
+                    <a class="btn btn-xs btn-danger _verify"
+                       data-id="@item.Id"
+                       data-companyname="@item.CompanyName"
+                       data-truckno="@item.TruckNo ">
+                        <i class=" icon-check">
+                            审核
+                        </i>
+                    </a>
+                }
+                else if (item.Status == LngStatus.已补贴)
+                {
+                    <span class="label label-sm label-success">
+                        <i class="icon-ok"> 已补贴</i>
+                    </span>
+                }
+            </td>
+        }
                     </tr>
                 }
             }

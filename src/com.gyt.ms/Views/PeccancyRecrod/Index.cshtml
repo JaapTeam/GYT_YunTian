@@ -105,7 +105,11 @@
                 <th>总重（吨）</th>
                 <th>轴数</th>
                 <th>文件来源</th>
-                <th>整改</th>
+                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                {
+                    <th>整改</th>
+                }
+                
             </tr>
             </thead>
             <tbody>
