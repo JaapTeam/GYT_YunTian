@@ -53,12 +53,7 @@
     </div>
     
     <div class="div-inline" style="height: 30px">
-        
-      
-
-
         <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
-
     </div>
     
 </form>
@@ -77,6 +72,12 @@
             <a class="white" id="btn_export">
                 <i class="icon-cloud-download bigger-110">
                     <span class="">导出</span>
+                </i>
+            </a>
+            
+            <a class="white" href="@Url.Content("~")Content/templates/超限超限数据导入模板.xlsx">
+                <i class="icon-book bigger-110">
+                    <span class="">导入模板下载</span>
                 </i>
             </a>
         </div>
@@ -232,7 +233,6 @@
   
     <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
     <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-    
 
     <script type="text/javascript">
     $(function () {
@@ -257,7 +257,9 @@
                 changeId = $(link).attr('data-peccancyid');
                 //var row = $(link).parent().parent().html();
 
-                $('.__dialog_content').html("您确认要将这条处罚决定书编号为[<label class='label label-danger'>" + changeId + "</label>]记录的状态更改为“已整改”吗？");
+                $('.__dialog_content').html("您确认要将这条处罚决定书编号为<label class='label label-danger'>"
+                    + changeId +
+                    "</label>记录的状态更改为“<label class='label label-danger'>已整改</label>”吗？");
 
                 $('#myModal').modal("show");
             })
@@ -270,7 +272,7 @@
 
             // 点击确认
             .on('click', '.__modal_confirmed', function () {
-                alert(changeId);
+                
                 $.ajax({
                     type: "Post",
                     url: "@Url.Action("Change","PeccancyRecrod")",
@@ -313,93 +315,7 @@
                 $('#form_search').attr("action", oraginActionUrl);
             });
 
-        //$('#datetimepicker').datetimepicker({
-        //    format: 'yyyy-mm-dd hh:ii'
-        //});
-
-        //$("#btn_improt")
-        //    .click(function () {
-        //        $("#input_file").click();
-        //    });
-
-        //$("#input_file")
-        //    .change(function () {
-        //        $("#Submit").click();
-        //        $("#input_file").text("");
-        //    });
-
-        //$('#modal-form input[type=file]')
-        //    .ace_file_input({
-        //        style: 'well',
-        //        btn_choose: 'Drop files here or click to choose',
-        //        btn_change: null,
-        //        no_icon: 'icon-cloud-upload',
-        //        droppable: true,
-        //        thumbnail: 'large'
-        //    });
-
-
-        //$('#modal-form')
-        //    .on('shown.bs.modal',
-        //        function() {
-        //            $(this)
-        //                .find('.chosen-container')
-        //                .each(function() {
-        //                    $(this).find('a:first-child').css('width', '210px');
-        //                    $(this).find('.chosen-drop').css('width', '210px');
-        //                    $(this).find('.chosen-search input').css('width', '200px');
-        //                });
-        //        });
     });
-
-
-  
-
-    @*$("._verify")
-            .on('click',
-                function(e) {
-                    e.preventDefault();
-                    var changeId = $(this).attr("id");
-
-                    var dialog = $("#dialog-message")
-                        .removeClass('hide')
-                        .dialog({
-                            modal: true,
-                            width: '400',
-                            title: '提示！',
-                            title_html: true,
-                            buttons: [
-                                {
-                                    text: "确认",
-                                    "class": "btn btn-xs",
-                                    click: function() {
-                                        $.ajax({
-                                            type: "Post",
-                                            url: "@Url.Action("Change")",
-                                            data: { id: changeId },
-                                            dataType: "json",
-                                            success: function(data) {
-                                                if (data.C === 901) {
-                                                    $("#dialog-message").dialog("close");
-                                                    $("#btn_submit").click();
-                                                } else if (data.C === 801) {
-                                                    $("#dialog-message").dialog("close");
-                                                    alert(data.msg);
-                                                }
-                                            }
-                                        });
-                                    }
-                                }, {
-                                    text: "取消",
-                                    "class": "btn btn-xs",
-                                    click: function() {
-                                        $(this).dialog("close");
-                                    }
-                                }
-                            ]
-                        });
-
-                });*@
 </script>
 }
 

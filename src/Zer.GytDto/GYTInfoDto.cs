@@ -77,7 +77,7 @@ namespace Zer.GytDto
         /// </summary>
         [ExportSort(9)]
         [ExportDisplayName("经办人")]
-        [ImportSort(8)]
+        [ImportSort(7)]
         public string BidName { get; set; }
 
         [ImprotIgnore]
@@ -88,7 +88,7 @@ namespace Zer.GytDto
         /// 业务状态
         /// </summary>
         [ExportSort(10)]
-        [ImprotIgnore]
+        [ImportSort(8)]
         [ExportDisplayName("业务状态")]
         public BusinessState Status { get; set; }
     }
