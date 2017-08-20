@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics
+@using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
 @using Zer.GytDto.Users
@@ -18,22 +19,26 @@
 }
 
 
-<form  action="@(Url.Action("index", "PeccancyRecrod"))" method="post" style="height: 50px; line-height: 45px">
-    
+<form action="@(Url.Action("index", "PeccancyRecrod"))" method="post" style="height: 50px; line-height: 45px" id="form_search">
+
     <div class="div-inline" style="height: 30px">
-      
+
         <span style="margin-left: 10px">公司名称：</span>
         <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
         <span style="margin-left: 10px">车牌号码：</span>
         <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
-        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+        <label for="input_TruckNo" style="margin-left: 10px"> 整改状态：</label>
+        <select id="input_IsAllowanced" name="Status">
+            <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
+            <option value="@(Status.已整改)" @(searchFilter.Status.HasValue && searchFilter.Status.Value == Status.已整改 ? "selected" : "")>已整改</option>
+            <option value="@(Status.未整改)" @(searchFilter.Status.HasValue && searchFilter.Status.Value == Status.未整改 ? "selected" : "")>未整改</option>
+        </select>
+        <input type="text" class="hidden" name="PageIndex" id="input_pageIndex" />
         <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
-        <div style="">
-            
-        </div>
-       
-        </div>
-   
+
+
+    </div>
+
 </form>
 
 <div class="table-header" style="margin-top: 20px">
@@ -45,7 +50,7 @@
             </i>
         </a>
 
-        <a class="white" id="btn_export" href="@(Url.Action("ExportResult","PeccancyRecrod",new {exportcode="All"}))">
+        <a class="white" id="btn_export">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
             </i>
@@ -75,8 +80,7 @@
             <th>总重（吨）</th>
             <th>轴数</th>
             <th>文件来源</th>
-            <th></th>
-            @*<th></th>*@
+            <th>整改</th>
         </tr>
         </thead>
         <tbody>
@@ -110,11 +114,24 @@
                 <td>@overloadRecrodDto.GrossWeight</td>
                 <td>@overloadRecrodDto.AxisNumber</td>
                 <td>@overloadRecrodDto.Source</td>
-                <td>
-                    <a class="btn btn-xs btn-danger _verify" id="@overloadRecrodDto.Id">
-                        <i class=" icon-check">整改</i>
-                    </a>
-                </td>
+                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                {
+                    <td>
+                        @if (overloadRecrodDto.Status == Status.已整改)
+                        {
+                            <span class="label label-sm label-success">
+                                <i class="icon-ok"> 已整改</i>
+                            </span>
+                        }
+
+                        @if (overloadRecrodDto.Status == Status.未整改)
+                        {
+                            <a class="btn btn-xs btn-danger _verify" id="@overloadRecrodDto.Id">
+                                <i class=" icon-check">整改</i>
+                            </a>
+                        }
+                    </td>
+                }
                 @*<td><a href="javascript:;">详情</a></td>*@
             </tr>
         }
@@ -176,7 +193,14 @@
                     var pageIndex = $(this).attr('data-pageindex');
                     $('#input_pageIndex').val(pageIndex);
                     $('#btn_submit').click();
-                });
+                }).on('click',
+                    '#btn_export',
+                    function() {
+                        var oraginActionUrl = $('#form_search').attr("action");
+                        $('#form_search').attr("action", '@Url.Action("ExportResult", "PeccancyRecrod")');
+                        $('#btn_submit').click();
+                        $('#form_search').attr("action", oraginActionUrl);
+                    });
 
             $('#modal-form input[type=file]')
                 .ace_file_input({
@@ -258,7 +282,7 @@
                             ]
                         });
                 });
-    </script>
+</script>
 }
 
 
