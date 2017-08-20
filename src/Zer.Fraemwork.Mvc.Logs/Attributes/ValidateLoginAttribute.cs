@@ -15,7 +15,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                 filterContext.Controller.ControllerContext.HttpContext.Session["UserInfo"] = new UserInfoDto()
                 {
                     DisplayName = "≤‚ ‘”√ªß",
-                    UserId=-1,
+                    UserId = -1,
                     UserName = "local_testuser",
                     Role = RoleLevel.Administrator
                 };

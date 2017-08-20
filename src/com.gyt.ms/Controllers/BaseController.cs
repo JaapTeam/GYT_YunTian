@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using com.gyt.ms.Models;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
+using Zer.Framework.Mvc.Logs;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto.Users;
 
@@ -12,13 +13,6 @@ namespace com.gyt.ms.Controllers
 {
     public class BaseController : Controller
     {
-        private readonly MenuItemManager menuItemManager;
-
-        public BaseController()
-        {
-            this.menuItemManager = new MenuItemManager();
-        }
-
         public UserInfoDto CurrentUser
         {
             get
