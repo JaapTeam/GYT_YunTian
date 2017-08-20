@@ -12,23 +12,24 @@
     }
 }
 
-<form class="form-inline" action="@(Url.Action("Index","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
+<form class="form-inline" id="form_search" action="@(Url.Action("Index","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
    
+    <label for="input_TruckNo" style="margin-left: 10px"> 公司名称：</label>
+    <input type="text" class="input-mini" value="@(filter.CompanyName)" style="width: 150px" name="TruckNo" id="input_CompanyName" />
 
-    @*<select name="TruckNo" class=" chosen-select" style="display: none; width: 200px">
-        @if (!truckList.IsNullOrEmpty())
-        {
-            <option value="">全部</option>
-            foreach (var truckInfoDto in truckList)
-            {
-                <option value="@(truckInfoDto.FrontTruckNo)" @((truckInfoDto.FrontTruckNo == filter.TruckNo) ? "selected" : "")>@(truckInfoDto.FrontTruckNo)</option>
-            }
-        }
-    </select>*@
-    
+
     <label for="input_TruckNo" style="margin-left: 10px"> 车牌号码：</label>
     <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
     
+    <label for="input_TruckNo" style="margin-left: 10px"> 补贴状态：</label>
+    <select id="input_IsAllowanced" name="IsAllowanced">
+        <option value="" @(!filter.IsAllowanced.HasValue ? "selected" : "")>全部</option>
+        <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ?"selected": "")>已补贴</option>
+        <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
+    </select>
+    
+    <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
+
     <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
 </form>
 
@@ -47,7 +48,7 @@
             </i>
         </a>
 
-        <a class="white" target="_blank" href="@(Url.Action("Export","LngAllowance",new {exportcode="All"}))">
+        <a class="white" target="_blank" href="javascript:;" id="btn_export">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
             </i>
@@ -143,30 +144,18 @@
                     <ul class="pagination">
 
                         <li class="prev @(filter.PageIndex == 1?"disabled":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         filter.TruckNo, filter.EngineId, PageIndex = 1,filter.PageSize
-                                     })">
+                            <a class="__page" href="javascript:;" data-pageindex='1'>
                                 <i class="icon-double-angle-left"></i>
                             </a>
                         </li>
                         @for (int i = 1; i <= filter.PageCount; i++)
                         {
                         <li class="@(filter.PageIndex == i?"active":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         filter.TruckNo,
-                                         filter.EngineId,
-                                         PageIndex = i,
-                                         filter.PageSize
-                                     })">@i</a>
+                            <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
                         </li>
                         }
                         <li class="next  @(filter.PageIndex == filter.PageCount?"disabled":"")">
-                            <a href="@Url.Action("index", "LngAllowance", new
-                                     {
-                                         filter.TruckNo, filter.EngineId, PageIndex = filter.PageCount,filter.PageSize
-                                     })">
+                            <a class="__page" href="javascript:;" data-pageindex='@filter.PageCount'>
                                 <i class="icon-double-angle-right"></i>
                             </a>
                         </li>
@@ -197,7 +186,15 @@
 
     <script type="text/javascript">
 
-        jQuery(function($) {
+       $(function() {
+           // 分页代码
+           $('body').on('click',
+               '.__page',
+               function() {
+                   var pageIndex = $(this).attr('data-pageindex');
+                   $('#input_pageIndex').val(pageIndex);
+                   $('#btn_submit').click();
+               });
 
 
             $(".chosen-select").chosen();
@@ -232,6 +229,15 @@
                     $("#input_file").click();
                 });
 
+            $('#btn_export').click(function () {
+                var oldUrl = $('#form_search').attr('action');
+                var url = '@Url.Action("Export", "LngAllowance")';
+                
+                $('#form_search').attr('action', url);
+                $("#btn_submit").click();
+                $('#form_search').attr('action', oldUrl);
+            });
+
             $("#input_file")
                 .change(function() {
                     $("#Submit").click();
@@ -260,27 +266,28 @@
                                             type: "Post",
                                             url: "@Url.Action("ChangStatus")",
                                             data: { infoId: infoId },
-                                        dataType: "json",
-                                        success: function(data) {
-                                            if (data.C === 901) {
-                                                $("#dialog-message").dialog("close");
-                                                $("#btn_submit").click();
-                                            } else if (data.C === 801) {
-                                                $("#dialog-message").dialog("close");
-                                                alert(data.msg);
+                                            dataType: "json",
+                                            success: function (data) {
+                                                if (data.C === 901) {
+                                                    $("#dialog-message").dialog("close");
+                                                    $("#btn_submit").click();
+                                                } else if (data.C === 801) {
+                                                    $("#dialog-message").dialog("close");
+                                                    alert(data.msg);
+                                                }
                                             }
-                                        }
-                                    });
-                }
-        }, {
-        text: "取消",
-        "class": "btn btn-xs",
-        click: function() {
-            $(this).dialog("close");
-        }
-        }
-        ]
-        });});
+                                        });
+                                    }
+                                }, {
+                                    text: "取消",
+                                    "class": "btn btn-xs",
+                                    click: function () {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            ]
+                        });
+                });
 
     </script>
 }

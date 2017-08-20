@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-info bigger" target="_blank" href="@(Url.Action("Export", "LngAllowance", new { exportCode = ViewBag.FailedCode.ToString() }))">>
+                        <a class="btn btn-xs btn-info bigger" target="_blank" href="@Url.Action("Export", "LngAllowance", new { exportCode = ViewBag.FailedCode.ToString() })">>
                             <i class="icon-share"></i>
                             导出
                         </a>
@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-inverse bigger" target="_blank" href="@(Url.Action("Export", "LngAllowance", new {exportCode = ViewBag.ExistedCode.ToString()}))">
+                        <a class="btn btn-xs btn-inverse bigger" target="_blank" href="@Url.Action("Export", "LngAllowance", new {exportCode = ViewBag.ExistedCode.ToString()})">
                             <i class="icon-share"></i>
                             导出
                         </a>
@@ -224,7 +224,7 @@ else
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-success bigger" target="_blank" href="@(Url.Action("Export", "LngAllowance", new { exportCode = ViewBag.SuccessCode.ToString() }))">
+                        <a class="btn btn-xs btn-success bigger" target="_blank" href="@Url.Action("Export", "LngAllowance", new { exportCode = ViewBag.SuccessCode.ToString() })">
                             <i class="icon-share"></i>
                             导出
                         </a>

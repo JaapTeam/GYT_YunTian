@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
 using Zer.GytDto.Users;
 
 namespace Zer.AppServices
@@ -13,5 +14,7 @@ namespace Zer.AppServices
         List<LogInfoDto> GetListByUserId(int userId,UserInfoDto userinfo);
 
         List<LogInfoDto> GetAll(UserInfoDto userInfo);
+
+        List<LogInfoDto> GetList(LogInfoSearchDto filter, UserInfoDto userInfo);
     }
 }

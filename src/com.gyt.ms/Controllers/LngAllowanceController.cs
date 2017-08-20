@@ -51,24 +51,13 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("LNG补贴信息导出", ActionType.查询)]
-        public FileResult Export(string exportCode = "")
+        public FileResult Export(LngAllowanceSearchDto searchDto)
         {
+            if (searchDto == null) return null;
 
-            if (exportCode.IsNullOrEmpty())
-            {
-                return null;
-            }
-
-            List<LngAllowanceInfoDto> exportList = new List<LngAllowanceInfoDto>();
-
-            if (exportCode.ToLower() == "all")
-            {
-                exportList = _lngAllowanceService.GetAll();
-            }
-            else
-            {
-                exportList = GetValueFromSession<List<LngAllowanceInfoDto>>(exportCode);
-            }
+            searchDto.PageSize = Int32.MaxValue;
+            searchDto.PageIndex = 1;
+            var exportList = _lngAllowanceService.GetList(searchDto);
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
@@ -139,8 +128,6 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("LNG补贴信息单条新增", ActionType.新增)]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
-            //TODO:加特殊字符替换
-
             CompanyInfoDto companyInfoDto = _companyService.GetById(dto.CompanyId);
             dto.CompanyName = companyInfoDto.CompanyName;
 

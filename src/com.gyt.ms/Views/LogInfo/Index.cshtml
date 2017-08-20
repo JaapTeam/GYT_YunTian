@@ -1,14 +1,23 @@
-﻿@using System.Diagnostics
-@using Zer.GytDto
+﻿@using Zer.GytDto
+@using Zer.GytDto.SearchFilters
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var dataList = ViewBag.Result as List<LogInfoDto>;
+
+    var filter = ViewBag.Filter as LogInfoSearchDto;
 }
 
 <h3 class="header smaller lighter blue">日志管理</h3>
+
+<form class="form-inline" id="form_search" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "LogInfo"))" method="post">
+   
+    <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
+    <button type="submit" class="hidden" id="btn_submit" style="margin-left: 20px"></button>
+</form>
+
 <div class="table-header">
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
@@ -74,36 +83,40 @@
         </tbody>
     </table>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="dataTables_paginate padding-10">
-                <ul class="pagination">
-                    <li class="prev disabled">
-                        <a href="#">
-                            <i class="icon-double-angle-left"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">
-                            <i class="icon-double-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
+    		 
+    @if (filter.PageCount > 1)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="dataTables_paginate padding-10">
+                    <ul class="pagination">
+
+                        <li class="prev @(filter.PageIndex == 1?"disabled":"")">
+                            <a class="__page" href="javascript:;" data-pageindex='1'>
+                                <i class="icon-double-angle-left"></i>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= filter.PageCount; i++)
+                        {
+                            <li class="@(filter.PageIndex == i?"active":"")">
+                                <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
+                            </li>
+                        }
+                        <li class="next  @(filter.PageIndex == filter.PageCount?"disabled":"")">
+                            <a class="__page" href="javascript:;" data-pageindex='@filter.PageCount'>
+                                <i class="icon-double-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 @section scripts{
+
+
     <script type="text/javascript">
         $(function() {
 
@@ -134,10 +147,20 @@
                     data: { ids: ids},
                     dataType: "json",
                     success: function (data) {
-                       alert("数据导出成功！");
+                        alert("数据导出成功！");
                     }
                 });
             }
+        })
+    </script>
+
+    <script>
+        $(function() {
+            $('body').on('click', '.__page', function () {
+                var pageIndex = $(this).attr('data-pageindex');
+                $('#input_pageIndex').val(pageIndex);
+                $('#btn_submit').click();
+            })
         })
     </script>
 }

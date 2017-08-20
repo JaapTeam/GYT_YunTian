@@ -35,8 +35,7 @@ namespace com.gyt.ms.Controllers
         public ActionResult Index(PeccancySearchDto searchDto)
         {
             ViewBag.SearchDto = searchDto;
-            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x=>x.Status == Status.未整改).ToList();
-            //.Where(x => x.Status == Status.未整改).ToList();
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).ToList();
             return View();
         }
 
@@ -119,45 +118,16 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("超载超限记录导出", ActionType.查询)]
-        public FileResult ExportResult(string exportCode = "")
+        public FileResult ExportResult(PeccancySearchDto searchDto)
         {
-            List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();
+            if (searchDto == null) return null;
 
-            if (exportCode.IsNullOrEmpty())
-            {
-                return null;
-            }
+            searchDto.PageSize = Int32.MaxValue;
+            searchDto.PageIndex = 1;
+            var exportList = _peccancyRecrodService.GetList(searchDto);
 
-            if (exportCode.ToLower() == "all")
-            {
-                exportList = _peccancyRecrodService.GetAll().Where(x=>x.Status==Status.未整改).ToList();
-            }
-            else
-            {
-                exportList = GetValueFromSession<List<PeccancyRecrodDto>>(exportCode);
-            }
-
-            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限未整改记录{0:yyyyMMddhhmmssfff}", DateTime.Now));
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限信息数据库{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
-
-        //[System.Web.Mvc.HttpPost]
-        //[UserActionLog("超载超限记录查询", ActionType.查询)]
-        //public ActionResult Search(PeccancySearchDto searchDto, int activeId = 9)
-        //{
-        //    ViewBag.ActiveId = activeId;
-        //    var truckList = _truckInfoService.GetAll();
-        //    var companyList = _companyService.GetAll();
-
-        //    ViewBag.TruckList = truckList;
-        //    ViewBag.CompanyList = companyList;
-        //    ViewBag.SearchDto = searchDto;
-
-        //    searchDto.Status = Status.未整改;
-        //    ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
-
-        //    return View("Index", "PeccancyRecrod");
-        //}
-
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)
         {

@@ -94,7 +94,7 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.BehindTruckNo == searchDto.TruckNo || x.FrontTruckNo == searchDto.TruckNo);
             }
 
-            if (searchDto.Status != 0)
+            if (searchDto.Status.HasValue)
             {
                 query = query.Where(x => x.Status == searchDto.Status);
             }

@@ -4,6 +4,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Mvc.Logs.Attributes;
+using Zer.GytDto.SearchFilters;
 using Zer.GytDto.Users;
 
 namespace com.gyt.ms.Controllers
@@ -23,11 +24,10 @@ namespace com.gyt.ms.Controllers
 
         // GET: Log
         //[UserActionLog("查询日志记录", ActionType.查询)]
-        public ActionResult Index()
+        public ActionResult Index(LogInfoSearchDto filter)
         {
-            ViewBag.Result =
-                _logInfoService.GetAll(GetValueFromSession<UserInfoDto>("UserInfo"));
-
+            ViewBag.Result = _logInfoService.GetList(filter, GetValueFromSession<UserInfoDto>("UserInfo"));
+            ViewBag.Filter = filter;
             return View();
         }
 
