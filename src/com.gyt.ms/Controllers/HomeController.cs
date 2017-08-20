@@ -7,6 +7,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Cache;
 using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
@@ -52,6 +53,11 @@ namespace com.gyt.ms.Controllers
                 .Take(homePageSize)
                 .Select(x => new { CompanyId = x.Key, Count = x.Count() }).OrderByDescending(x => x.Count).ToList();
 
+            if (companyIdList.IsNullOrEmpty())
+            {
+                return View();
+            }
+
             CompanySearchDto companyFilter = new CompanySearchDto()
             {
                 PageIndex = 1,
@@ -60,12 +66,18 @@ namespace com.gyt.ms.Controllers
             };
 
             var companyList = _companyService.GetWithPeccancyRecored(companyFilter);
+
+            if (companyList.IsNullOrEmpty())
+            {
+                return View();
+            }
+
             companyList = companyList.Join(companyIdList, x => x.Id, x => x.CompanyId, (x, id) => new CompanyInfoDto()
             {
                 CompanyName = x.CompanyName,
                 Id = x.Id,
                 PeccancyRecordCount = id.Count,
-                TraderRange = x.TraderRange.Length>9? x.TraderRange.Substring(0,10)+ "..." : x.TraderRange
+                TraderRange = (!x.TraderRange.IsNullOrEmpty()) && x.TraderRange.Length>9? x.TraderRange.Substring(0,10)+ "..." : x.TraderRange
             }).OrderByDescending(x=>x.PeccancyRecordCount).ToList();
 
             ViewBag.CompanyList = companyList;
