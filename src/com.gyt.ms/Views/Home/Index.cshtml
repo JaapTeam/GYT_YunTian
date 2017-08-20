@@ -75,7 +75,14 @@
                                     @if (userInfo.Role == RoleLevel.Administrator)
                                     {
                                         <td class="hidden-480">
-                                            <a class="btn btn-minier btn-danger" href="javascript:;">办理</a>
+                                            <a class="btn btn-xs btn-danger _verify"
+                                               href="javascript:;"
+                                               data-bussinesstype="@item.BusinessType"
+                                               data-companyname="@item.BidCompanyName"
+                                               data-bidtruckno="@item.BidTruckNo"
+                                               data-id="@item.Id">
+                                                办理
+                                            </a>
                                         </td>
                                     }
 
@@ -131,7 +138,7 @@
                                         <a href="javascript:;" class="__btn_company_details" data-companyName='@item.CompanyName'>@item.CompanyName</a>
                                     </td>
                                     <td>
-                                        @item.TraderRange
+                                        @(item.TraderRange.IsNullOrEmpty() ? "" : item.TraderRange)
                                     </td>
                                     <td class="hidden-480">
                                         @item.PeccancyRecordCount
@@ -156,10 +163,82 @@
     <input type="submit" id="search_peccancyrecord" class="hidden" />
 </form>
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    港运通业务办理确认提示
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content">
+                您确认要将这条记录的状态更改为“审批通过”吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger __modal_confirmed">
+                    同意办理
+                </button>
+                <button type="button" class="btn btn-default __modal_close" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
 @section scripts{
     <script type="text/javascript">
         $(function () {
             $('body')
+                // 模态对话框显示
+                .on('click', '._verify', function () {
+                    var link = $(this);
+                    infoId = $(link).attr('data-id');
+
+                    var bussinesstype = $(link).attr('data-bussinesstype');
+                    var companyname = $(link).attr('data-companyname');
+                    var bidtruckno = $(link).attr('data-bidtruckno');
+
+                    $('.__dialog_content').html(
+                        "您确认将批准<label class='label label-danger'>" +
+                        companyname + "</label>有关<label class='label label-danger'>" +
+                        bidtruckno + "</label>车辆的<label class='label label-danger'>" +
+                        bussinesstype + "</label>业务申请吗？");
+
+                    $('#myModal').modal("show");
+                })
+
+                // 点击关闭
+                .on('click', '.__modal_close', function () {
+                    infoId = 0;
+                    $('#myModal').modal("hide");
+                })
+
+                // 点击确认
+                .on('click', '.__modal_confirmed', function () {
+                    $.ajax({
+                        type: "Post",
+                        url: "@Url.Action("Verify", "gytinfo")",
+                        data: { infoId: infoId },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.C === 901) {
+                                $('#myModal').modal("hide");
+                                location.reload();
+                            }
+                            if (data.C === 801) {
+                                $('#myModal').modal("hide");
+                                alert(data.msg);
+                            }
+                        }
+                    })
+                })
+
                 .on('click',
                     '.__btn_company_details',
                     function() {
