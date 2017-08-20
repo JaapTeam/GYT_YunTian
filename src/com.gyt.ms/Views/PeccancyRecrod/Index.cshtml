@@ -88,13 +88,7 @@
         <table id="sample-table-2" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </th>
-                <th>编号</th>
+                <th>处罚书编号</th>
                 <th>公司名称</th>
                 <th>前车牌号</th>
                 <th>后车牌号</th>
@@ -120,12 +114,6 @@
             @foreach (var peccancyRecrodDto in infoList)
             {
                 <tr>
-                    <td class="center">
-                        <label>
-                            <input type="checkbox" class="ace" />
-                            <span class="lbl"></span>
-                        </label>
-                    </td>
                     <td class="__PeccancyId">@peccancyRecrodDto.PeccancyId</td>
                     <td class="__CompanyName">@peccancyRecrodDto.CompanyName</td>
                     <td>
@@ -176,7 +164,30 @@
                                     <i class="icon-double-angle-left"></i>
                                 </a>
                             </li>
-                            @for (int i = 1; i <= searchFilter.PageCount; i++)
+                            @{
+                                var indexStart = 1;
+                                var indexEnd = searchFilter.PageCount;
+                                if (searchFilter.PageCount >= 15)
+                                {
+                                    indexStart = searchFilter.PageIndex - 7;
+
+                                    if (indexStart <= 0)
+                                    {
+                                        indexStart = 1;
+                                    }
+
+                                    indexEnd = indexStart + 15;
+
+                                    if (indexStart >= searchFilter.PageCount - 15)
+                                    {
+                                        indexStart = searchFilter.PageCount - 15;
+                                        indexEnd = searchFilter.PageCount;
+                                    }
+                                }
+
+                            }
+
+                            @for (int i = indexStart; i <= indexEnd; i++)
                             {
                                 <li class="@(searchFilter.PageIndex == i ? "active" : "")">
                                     <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
@@ -186,6 +197,14 @@
                                 <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
                                     <i class="icon-double-angle-right"></i>
                                 </a>
+                            </li>
+                            
+                            <li class="prev">
+                                <label cla for="jump_page">
+                                    跳转至：
+                                    <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
+                                </label>
+                                <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
                             </li>
                         </ul>
                     </div>
@@ -294,6 +313,11 @@
             })
 
             // 分页
+            .on('click', '.__jump', function () {
+                var pageIndex = $('#jump_page').val();
+                $('#input_pageIndex').val(pageIndex);
+                $('#btn_submit').click();
+            })
             .on('click','.__page',function () {
                 var pageIndex = $(this).attr('data-pageindex');
                 $('#input_pageIndex').val(pageIndex);

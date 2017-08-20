@@ -143,7 +143,6 @@
     <Compile Include="Mail\MailManager.cs" />
     <Compile Include="Module\ModuleBase.cs" />
     <Compile Include="Mvc\ActionExecutingContextExtension.cs" />
-    <Compile Include="Mvc\MenuItemManager.cs" />
     <Compile Include="Mvc\ResultCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IRepository.cs" />

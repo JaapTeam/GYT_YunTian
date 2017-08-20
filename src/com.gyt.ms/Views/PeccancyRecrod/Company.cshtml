@@ -113,6 +113,14 @@
                                     <i class="icon-double-angle-right"></i>
                                 </a>
                             </li>
+                            
+                            <li class="prev">
+                                <label cla for="jump_page">
+                                    跳转至：
+                                    <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
+                                </label>
+                                <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -121,6 +129,10 @@
     </div>
 </div>
 
+<form action="@Url.Action("index", "PeccancyRecrod")" method="post">
+    <input type="text" name="CompanyName" id="search_peccancyrecord_companyName" class="hidden" />
+    <input type="submit" id="search_peccancyrecord" class="hidden" />
+</form>
 
 @section header{
     <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -150,11 +162,23 @@
             $('body')
 
                 // 分页
+                .on('click', '.__jump', function () {
+                    var pageIndex = $('#jump_page').val();
+                    $('#input_pageIndex').val(pageIndex);
+                    $('#btn_submit').click();
+                })
+
                 .on('click','.__page',function () {
                     var pageIndex = $(this).attr('data-pageindex');
                     $('#input_pageIndex').val(pageIndex);
                     $('#btn_submit').click();
                 })
+
+                .on('click','.__btn_company_details',function() {
+                        var companyName = $(this).attr('data-companyName');
+                        $('#search_peccancyrecord_companyName').val(companyName);
+                        $('#search_peccancyrecord').click();
+                    })
 
                 // 文件导出
                 .on('click',
