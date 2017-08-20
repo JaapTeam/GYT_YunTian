@@ -117,25 +117,25 @@ namespace Zer.Framework.Mvc
             overLoadDataManage
                 .Icon = "icon-truck";
 
-            MenuItem overLoadRecrod = new MenuItem();
-            overLoadRecrod.Id = 6;
-            overLoadRecrod.ActionName = "Index";
-            overLoadRecrod.ControllerName = "PeccancyRecrod";
-            overLoadRecrod.TextInfo = "超载超限信息数据库";
-            overLoadRecrod.IsCurrentPage = false;
-            overLoadRecrod.Icon = "icon-align-left";
+            MenuItem peccancyRecrod = new MenuItem();
+            peccancyRecrod.Id = 6;
+            peccancyRecrod.ActionName = "Index";
+            peccancyRecrod.ControllerName = "PeccancyRecrod";
+            peccancyRecrod.TextInfo = "超载超限信息数据库";
+            peccancyRecrod.IsCurrentPage = false;
+            peccancyRecrod.Icon = "icon-align-left";
 
-            //MenuItem overLoadChange = new MenuItem();
-            //overLoadChange.Id = 7;
-            //overLoadChange.ActionName = "Index";
-            //overLoadChange.ControllerName = "PeccancyChangeInfo";
-            //overLoadChange.TextInfo = "超载超限已整改数据库";
-            //overLoadChange.IsCurrentPage = false;
-            //overLoadChange.Icon = "icon-file-alt";
+            MenuItem peccancyWithCompany = new MenuItem();
+            peccancyWithCompany.Id = 7;
+            peccancyWithCompany.ActionName = "Company";
+            peccancyWithCompany.ControllerName = "PeccancyRecrod";
+            peccancyWithCompany.TextInfo = "公司违章信息查询";
+            peccancyWithCompany.IsCurrentPage = false;
+            peccancyWithCompany.Icon = "icon-file-alt";
 
             overLoadDataManage.ChildItems = new List<MenuItem>();
-            overLoadDataManage.ChildItems.Add(overLoadRecrod);
-            //overLoadDataManage.ChildItems.Add(overLoadChange);
+            overLoadDataManage.ChildItems.Add(peccancyRecrod);
+            overLoadDataManage.ChildItems.Add(peccancyWithCompany);
             MenuItems.Add(overLoadDataManage);
 
             #endregion

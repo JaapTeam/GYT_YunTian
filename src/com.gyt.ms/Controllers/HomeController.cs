@@ -47,40 +47,12 @@ namespace com.gyt.ms.Controllers
             ViewBag.GytInfoWaitCheckList = gytInfoWaitCheckList;
 
 
-            var companyIdList = _peccancyRecrodService.GetAll().GroupBy(x => x.CompanyId, x => x)
-                .Where(x => x.Any())
-                .OrderByDescending(x => x.Count())
-                .Take(homePageSize)
-                .Select(x => new { CompanyId = x.Key, Count = x.Count() }).OrderByDescending(x => x.Count).ToList();
-
-            if (companyIdList.IsNullOrEmpty())
+            var filter = new PeccancyWithCompanySearchDto
             {
-                return View();
-            }
-
-            CompanySearchDto companyFilter = new CompanySearchDto()
-            {
-                PageIndex = 1,
-                PageSize = homePageSize,
-                CompanyIdList = companyIdList.Select(x => x.CompanyId).Distinct().ToList()
+                PageSize = homePageSize
             };
 
-            var companyList = _companyService.GetWithPeccancyRecored(companyFilter);
-
-            if (companyList.IsNullOrEmpty())
-            {
-                return View();
-            }
-
-            companyList = companyList.Join(companyIdList, x => x.Id, x => x.CompanyId, (x, id) => new CompanyInfoDto()
-            {
-                CompanyName = x.CompanyName,
-                Id = x.Id,
-                PeccancyRecordCount = id.Count,
-                TraderRange = (!x.TraderRange.IsNullOrEmpty()) && x.TraderRange.Length>9? x.TraderRange.Substring(0,10)+ "..." : x.TraderRange
-            }).OrderByDescending(x=>x.PeccancyRecordCount).ToList();
-
-            ViewBag.CompanyList = companyList;
+            ViewBag.CompanyList = _peccancyRecrodService.GetPeccancyGroupByCompany(filter);
 
             return View();
         }
@@ -91,15 +63,5 @@ namespace com.gyt.ms.Controllers
         {
             return View();
         }
-
-        ////public ActionResult About()
-        ////{
-        ////    throw new CustomException("define a new exception!",
-        ////        new Dictionary<string, string>()
-        ////        {
-        ////            {"username","paul"}
-        ////        });
-            
-        ////}
     }
 }

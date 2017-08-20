@@ -17,9 +17,6 @@ namespace Zer.GytDto
         [ExportSort(3)]
         [ExportDisplayName("经营范围")]
         public string TraderRange { get; set; }
-
-
-        public int? PeccancyRecordCount { get; set; }
     }
 
 }

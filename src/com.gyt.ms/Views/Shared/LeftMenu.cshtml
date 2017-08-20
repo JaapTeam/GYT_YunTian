@@ -11,6 +11,7 @@
     if (!menuList.IsNullOrEmpty())
     {
         <ul class="nav nav-list">
+            
             @foreach (var item in menuList)
             {
                 if (!item.ChildItems.IsNullOrEmpty())
@@ -22,7 +23,6 @@
 
                             <b class="arrow icon-angle-down"></b>
                         </a>
-
                         <ul class="submenu">
                             @foreach (var childItem in item.ChildItems)
                             {
@@ -38,13 +38,14 @@
                 }
                 else
                 {
-                    <li>
+                    <li class="@(item.IsCurrentPage ? "active" : "")">
                         <a href="@Url.Action(item.ActionName, item.ControllerName)">
                             <i class="icon-home"></i>
                             <span class="menu-text"> @item.TextInfo </span>
                         </a>
                     </li>
                 }
+
             }
         </ul>
     }

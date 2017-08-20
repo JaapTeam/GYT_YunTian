@@ -21,13 +21,18 @@ namespace Zer.Framework.Mvc.Logs.Attributes
 
             foreach (var item in menuItemManager.MenuItems)
             {
+                if (item.Id == currentMentItem.Id)
+                {
+                    item.IsCurrentPage = true;
+                    break;
+                }
                 if (item.ChildItems == null) continue;
                 foreach (var child in item.ChildItems)
                 {
                     if (child.Id != currentMentItem.Id) continue;
-
                     item.IsCurrentPage = true;
                     child.IsCurrentPage = true;
+                    break;
                 }
             }
 

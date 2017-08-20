@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Castle.Core.Internal;
@@ -13,7 +11,6 @@ using Zer.Framework.Import;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
-using Zer.Services;
 
 namespace com.gyt.ms.Controllers
 {
@@ -39,7 +36,27 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
-        //ToDo:单元测试
+        [UserActionLog("公司违章记录统计", ActionType.查询)]
+        public ActionResult Company(PeccancyWithCompanySearchDto dto)
+        {
+            ViewBag.Filter = dto;
+            ViewBag.CompanyList = _peccancyRecrodService.GetPeccancyGroupByCompany(dto);
+
+            return View();
+        }
+
+        [UserActionLog("公司违章记录统计信息导出", ActionType.查询)]
+        public FileResult ExportPecancyWithCompany(PeccancyWithCompanySearchDto dto)
+        {
+            if (dto == null) return null;
+
+            dto.PageSize = Int32.MaxValue;
+            dto.PageIndex = 1;
+            var exportList = _peccancyRecrodService.GetPeccancyGroupByCompany(dto);
+
+            return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("公司违章记录统计信息-{0:yyyyMMddhhmmssfff}", DateTime.Now));
+        }
+
         [UserActionLog("超载超限记录整改状态变更", ActionType.更改状态)]
         public JsonResult Change(string id="")
         {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Zer.Entities;
+using Zer.GytDto.OutputDto;
 using Zer.GytDto.Users;
 
 namespace Zer.GytDto
@@ -32,6 +33,7 @@ namespace Zer.GytDto
                 cfg.CreateMap<PeccancyInfo, PeccancyRecrodDto>().ReverseMap();
                 cfg.CreateMap<SystemLogInfo, SystemLogInfoDto>().ReverseMap();
                 cfg.CreateMap<GYTInfo, GYTInfoDto>().ReverseMap();
+                cfg.CreateMap<CompanyInfo, PeccancyGroupByCompanyDto>();
             });
 
             _hasInitialzed = true;
