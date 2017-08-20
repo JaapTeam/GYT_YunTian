@@ -41,9 +41,9 @@ namespace com.gyt.ms.Controllers
 
         //ToDo:单元测试
         [UserActionLog("超载超限记录整改状态变更", ActionType.更改状态)]
-        public JsonResult Change(int id=0)
+        public JsonResult Change(string id="")
         {
-            if (id == 0)
+            if (id.IsNullOrEmpty())
             {
                 return Fail("请选择需要整改的记录！");
             }
