@@ -27,7 +27,7 @@
             <label style="margin-left: 10px" for="input_Status">办理状态：</label>
             <select name="Status" id="input_Status">
                 <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
-                <option value="@(BusinessState.初审通过)" @(searchFilter.Status == BusinessState.初审通过 ? "selected" : "")>初审通过</option>
+                <option value="@(BusinessState.已注销)" @(searchFilter.Status == BusinessState.已注销 ? "selected" : "")>已注销</option>
                 <option value="@(BusinessState.已办理)" @(searchFilter.Status == BusinessState.已办理 ? "selected" : "")>已办理</option>
             </select>
 
@@ -128,7 +128,7 @@
                                             </span>
                                         }
 
-                                        @if (gytInfoDto.Status == BusinessState.初审通过)
+                                        @if (gytInfoDto.Status == BusinessState.已注销)
                                         {
                                             <a class="btn btn-xs btn-danger _verify"
                                                href="javascript:;"
@@ -140,10 +140,7 @@
     </a>
                                         }
 
-                                        @if (gytInfoDto.Status == BusinessState.条件不符)
-                                        {
-                                            <i class="icon-ban-circle"> 不符合办理条件</i>
-                                        }
+                                     
                                     </td>
                                 }
                             </tr>

@@ -55,8 +55,7 @@ namespace Zer.Entities
     /// </summary>
     public enum BusinessState
     {
-        条件不符 = 0,
-        初审通过 = 4,
+        已注销 = 4,
         已办理 = 8
     }
 }

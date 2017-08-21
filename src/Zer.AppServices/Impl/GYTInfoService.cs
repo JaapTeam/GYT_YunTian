@@ -34,15 +34,15 @@ namespace Zer.AppServices.Impl
 
         public GYTInfoDto Add(GYTInfoDto model)
         {
-            if (Exists(model.BidTruckNo))
-            {
-                throw new CustomException(
-                    "公司信息已经存在",
-                    new Dictionary<string, string>()
-                    {
-                        {"CompanyName", model.BidTruckNo}
-                    });
-            }
+            //if (Exists(model.BidTruckNo))
+            //{
+            //    throw new CustomException(
+            //        "公司信息已经存在",
+            //        new Dictionary<string, string>()
+            //        {
+            //            {"CompanyName", model.BidTruckNo}
+            //        });
+            //}
 
             var gtyInfoDto = model.Map<GYTInfo>();
             return _gytInfoDataService.Insert(gtyInfoDto).Map<GYTInfoDto>();
@@ -70,6 +70,12 @@ namespace Zer.AppServices.Impl
             query = query.ToPageQuery(searchDto);
 
             return query.Map<GYTInfoDto>().ToList();
+        }
+
+        public GYTInfoDto GetByBidTruckNo(string bidTruckNo)
+        {
+            var entity = _gytInfoDataService.FirstOrDefault(x => String.Equals(x.BidTruckNo, bidTruckNo.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            return entity == null ? null : entity.Map<GYTInfoDto>();
         }
 
         private IQueryable<GYTInfo> Filter(GYTInfoSearchDto searchDto, IQueryable<GYTInfo> query)
@@ -113,7 +119,7 @@ namespace Zer.AppServices.Impl
         {
             var gytInfoDto = _gytInfoDataService.GetById(infoId);
 
-            if (gytInfoDto.Status==BusinessState.初审通过)
+            if (gytInfoDto.Status==BusinessState.已注销)
             {
                 gytInfoDto.Status = BusinessState.已办理;
             }
