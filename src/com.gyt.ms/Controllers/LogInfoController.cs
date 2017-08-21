@@ -39,9 +39,15 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("导出日志记录", ActionType.查询)]
-        public FileResult Export(int[] ids)
+        public FileResult Export()
         {
-            var list = _logInfoService.GetListByIds(ids, GetValueFromSession<UserInfoDto>("UserInfo"));
+            var filter = new LogInfoSearchDto()
+            {
+                PageIndex = 1,
+                PageSize = int.MaxValue
+            };
+
+           var list = _logInfoService.GetList(filter, GetValueFromSession<UserInfoDto>("UserInfo"));
 
             return ExportCsv(list.GetBuffer(),"日志记录");
         }

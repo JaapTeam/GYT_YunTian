@@ -1,6 +1,7 @@
 ﻿@using Zer.Entities
 @using Zer.Framework.Extensions
 @using Zer.GytDto
+@using Zer.GytDto.OutputDto
 @using Zer.GytDto.Users
 
 @{
@@ -11,7 +12,7 @@
 
     var userInfo = ViewBag.UserInfo as UserInfoDto;
 
-    var companyList = ViewBag.CompanyList as List<CompanyInfoDto>;
+    var companyList = ViewBag.CompanyList as List<PeccancyGroupByCompanyDto>;
 }
 
 <div class="row">
@@ -138,7 +139,7 @@
                                         <a href="javascript:;" class="__btn_company_details" data-companyName='@item.CompanyName'>@item.CompanyName</a>
                                     </td>
                                     <td>
-                                        @(item.TraderRange.IsNullOrEmpty() ? "" : item.TraderRange)
+                                        @(item.TraderRange.IsNullOrEmpty() ? "" : (item.TraderRange.Length > 10 ? item.TraderRange.Substring(0, 9) + "..." : item.TraderRange))
                                     </td>
                                     <td class="hidden-480">
                                         @item.PeccancyRecordCount

@@ -1,7 +1,5 @@
 ﻿@using Zer.GytDto.Users
 @{
-    var activeId=0;
-    activeId = ViewBag.ActiveId;
     var userInfo = ViewBag.UserInfo as UserInfoDto;
 }
 <!DOCTYPE html>
@@ -39,10 +37,10 @@
 
         <div class="navbar-container" id="navbar-container">
             <div class="navbar-header pull-left">
-                <a href="index.html" class="navbar-brand">
+                <a href="@Url.Action("index","Home")" class="navbar-brand">
                     <small>
-                        <i class="icon-leaf"></i>
-                        后台管理系统
+                        @*<i class="icon-leaf"></i>*@
+                        港运通信息管理系统
                     </small>
                 </a><!-- /.brand -->
             </div><!-- /.navbar-header -->
@@ -137,15 +135,7 @@
                     <script type="text/javascript">
                         try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
                     </script>
-
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="@(Url.Action("index","Home"))">首页</a>
-                        </li>
-                        <li class="active">控制台</li>
-                    </ul><!-- .breadcrumb -->
-
+                    @{Html.RenderPartial("_breadcrumb");}
                 </div>
 
                 <div class="page-content">
@@ -164,9 +154,9 @@
             </div><!-- /.main-content -->
         </div><!-- /.main-container-inner -->
 
-        <a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        @*<a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
             <i class="icon-double-angle-up icon-only bigger-110"></i>
-        </a>
+        </a>*@
     </div><!-- /.main-container -->
     <!-- basic scripts -->
     <!--[if !IE]> -->
