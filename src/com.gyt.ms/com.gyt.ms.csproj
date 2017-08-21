@@ -173,6 +173,7 @@
     <Content Include="assets\css\ace-rtl.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />
     <Content Include="assets\css\ace.min.css" />
+    <Content Include="assets\css\bootstrap-datetimepicker.min.css" />
     <Content Include="assets\css\bootstrap-editable.css" />
     <Content Include="assets\css\bootstrap-timepicker.css" />
     <Content Include="assets\css\bootstrap.min.css" />
@@ -221,8 +222,10 @@
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\chosen.jquery.min.js" />
     <Content Include="assets\js\date-time\bootstrap-datepicker.min.js" />
+    <Content Include="assets\js\date-time\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\js\date-time\bootstrap-timepicker.min.js" />
     <Content Include="assets\js\date-time\daterangepicker.min.js" />
+    <Content Include="assets\js\date-time\locales\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="assets\js\date-time\moment.min.js" />
     <Content Include="assets\js\dropzone.min.js" />
     <Content Include="assets\js\easyui\easyui-lang-zh_CN.js" />
@@ -281,6 +284,15 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
+    <Content Include="Content\templates\超限超限数据导入模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\lng导入模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\港运通信息数据库导入.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
     <None Include="Properties\PublishProfiles\sa.pubxml" />
     <None Include="Properties\PublishProfiles\ssssss.pubxml" />
@@ -342,6 +354,8 @@
     <Content Include="Views\BusinessHandle\Gas.cshtml" />
     <Content Include="Views\BusinessHandle\Transfer.cshtml" />
     <Content Include="Views\BusinessHandle\New.cshtml" />
+    <Content Include="Views\PeccancyRecrod\Company.cshtml" />
+    <Content Include="Views\Shared\_breadcrumb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -50,6 +50,12 @@
                         <span class="">导出</span>
                     </i>
                 </a>
+                
+                <a class="white" href="@Url.Content("~")Content/templates/港运通信息数据库导入.xlsx">
+                    <i class="icon-book bigger-110">
+                        <span class="">导入模板下载</span>
+                    </i>
+                </a>
             </div>
 
         </div>
@@ -58,12 +64,12 @@
             <table id="sample-table-2" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th class="center">
+                    @*<th class="center">
                         <label>
                             <input type="checkbox" class="ace"/>
                             <span class="lbl"></span>
                         </label>
-                    </th>
+                    </th>*@
                     <th>办理编号</th>
                     <th>业务类型</th>
                     <th>原企业</th>
@@ -86,12 +92,12 @@
                         foreach (var gytInfoDto in infoList)
                         {
                             <tr>
-                                <td class="center">
+                                @*<td class="center">
                                     <label>
                                         <input type="checkbox" class="ace"/>
                                         <span class="lbl"></span>
                                     </label>
-                                </td>
+                                </td>*@
                                 <td>
                                     <a href="javascript:;">@gytInfoDto.Id</a>
                                 </td>
@@ -124,9 +130,14 @@
 
                                         @if (gytInfoDto.Status == BusinessState.初审通过)
                                         {
-                                            <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
-                                                <i class=" icon-check">审核</i>
-                                            </a>
+                                            <a class="btn btn-xs btn-danger _verify"
+                                               href="javascript:;"
+       data-bussinesstype="@gytInfoDto.BusinessType"
+       data-companyname="@gytInfoDto.BidCompanyName"
+       data-bidtruckno="@gytInfoDto.BidTruckNo"
+       data-id="@gytInfoDto.Id">
+        <i class=" icon-check">审核</i>
+    </a>
                                         }
 
                                         @if (gytInfoDto.Status == BusinessState.条件不符)
@@ -161,7 +172,30 @@
                                         <i class="icon-double-angle-left"></i>
                                     </a>
                                 </li>
-                                @for (int i = 1; i <= searchFilter.PageCount; i++)
+                                @{
+                                    var indexStart = 1;
+                                    var indexEnd = searchFilter.PageCount;
+                                    if (searchFilter.PageCount >= 15)
+                                    {
+                                        indexStart = searchFilter.PageIndex - 7;
+
+                                        if (indexStart <= 0)
+                                        {
+                                            indexStart = 1;
+                                        }
+
+                                        indexEnd = indexStart + 15;
+
+                                        if (indexStart >= searchFilter.PageCount - 15)
+                                        {
+                                            indexStart = searchFilter.PageCount - 15;
+                                            indexEnd = searchFilter.PageCount;
+                                        }
+                                    }
+
+                                }
+
+                                @for (int i = indexStart; i <= indexEnd; i++)
                                 {
                                     <li class="@(searchFilter.PageIndex == i ? "active" : "")">
                                         <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
@@ -171,6 +205,14 @@
                                     <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
                                         <i class="icon-double-angle-right"></i>
                                     </a>
+                                </li>
+                                
+                                <li class="prev">
+                                    <label cla for="jump_page">
+                                        跳转至：
+                                        <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
+                                    </label>
+                                    <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
                                 </li>
                             </ul>
                         </div>
@@ -183,83 +225,117 @@
 
 </div>
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    港运通业务办理确认提示
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content">
+                您确认要将这条记录的状态更改为“审批通过”吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger __modal_confirmed">
+                    同意办理
+                </button>
+                <button type="button" class="btn btn-default __modal_close" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 @section scripts{
 
-    <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
-
-
     <script type="text/javascript">
-      $(function() {
-
-
-            $(".chosen-select").chosen();
-
-
-            /////////
-            $('#modal-form input[type=file]')
-                .ace_file_input({
-                    style: 'well',
-                    btn_choose: 'Drop files here or click to choose',
-                    btn_change: null,
-                    no_icon: 'icon-cloud-upload',
-                    droppable: true,
-                    thumbnail: 'large'
-                });
-
-            //chosen plugin inside a modal will have a zero width because the select element is originally hidden
-            //and its width cannot be determined.
-            //so we set the width after modal is show
-            $('#modal-form')
-                .on('shown.bs.modal',
-                    function() {
-                        $(this)
-                            .find('.chosen-container')
-                            .each(function() {
-                                $(this).find('a:first-child').css('width', '210px');
-                                $(this).find('.chosen-drop').css('width', '210px');
-                                $(this).find('.chosen-search input').css('width', '200px');
-                            });
-                    });
-            /**
-             //or you can activate the chosen plugin after modal is shown
-             //this way select element becomes visible with dimensions and chosen works as expected
-             $('#modal-form').on('shown', function () {
-                        $(this).find('.modal-chosen').chosen();
-                    })
-             */
-
-        });
 
         $(function () {
+
+            var infoId = 0;
+
             $('body')
-                .on('click',
-                    '.__page',
-                    function() {
+                
+                // 模态对话框显示
+                .on('click', '._verify', function () {
+                    var link = $(this);
+                    infoId = $(link).attr('data-id');
+
+                    var bussinesstype = $(link).attr('data-bussinesstype');
+                    var companyname = $(link).attr('data-companyname');
+                    var bidtruckno = $(link).attr('data-bidtruckno');
+
+                    $('.__dialog_content').html(
+                        "您确认将批准<label class='label label-danger'>" +
+                        companyname + "</label>有关<label class='label label-danger'>" +
+                        bidtruckno + "</label>车辆的<label class='label label-danger'>" +
+                        bussinesstype + "</label>业务申请吗？");
+
+                    $('#myModal').modal("show");
+                })
+
+                // 点击关闭
+                .on('click', '.__modal_close', function () {
+                    infoId = 0;
+                    $('#myModal').modal("hide");
+                })
+
+                // 点击确认
+                .on('click', '.__modal_confirmed', function () {
+                    $.ajax({
+                        type: "Post",
+                        url: "@Url.Action("Verify")",
+                        data: { infoId: infoId },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.C === 901) {
+                                $('#myModal').modal("hide");
+                                $("#btn_submit").click();
+                            }
+                            if (data.C === 801) {
+                                $('#myModal').modal("hide");
+                                alert(data.msg);
+                            }
+                        }
+                    })
+                })
+
+                //弹出文件选择弹框
+                .on('click','#btn_improt',function() {
+                        $("#input_file").click();
+                })
+
+                // 提交文件导入请求
+                .on('change','#input_file',function() {
+                        $("#Submit").click();
+                        $("#input_file").text("");
+                })
+
+                .on('click', '.__jump', function () {
+                    var pageIndex = $('#jump_page').val();
+                    $('#input_pageIndex').val(pageIndex);
+                    $('#btn_submit').click();
+                })
+
+                .on('click','.__page',function() {
                         var pageIndex = $(this).attr('data-pageindex');
                         $('#input_pageIndex').val(pageIndex);
                         $('#btn_submit').click();
-                    })
-                .on('click',
-                    '#btn_export',
-                    function() {
+                })
+
+                .on('click','#btn_export',function() {
                         var oraginActionUrl = $('#form_search').attr("action");
                         $('#form_search').attr("action", '@Url.Action("ExportResult","GYTInfo")');
                         $('#btn_submit').click();
                         $('#form_search').attr("action", oraginActionUrl);
                     });
-
-            $("#btn_improt")
-                .click(function() {
-                    $("#input_file").click();
-                });
-
-            $("#input_file")
-                .change(function() {
-                    $("#Submit").click();
-                    $("#input_file").text("");
-                });
         });
-
 
     </script>
 

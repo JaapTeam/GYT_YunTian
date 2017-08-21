@@ -89,6 +89,11 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Commit(GYTInfoDto dto)
         {
+            if (dto.BidCompanyName.IsNullOrEmpty() || dto.BidTruckNo.IsNullOrEmpty())
+            {
+                throw new CustomException("参数错误，请重新输入"); 
+            }
+
             // TODO: 根据业务类型不同，判断条件不同
             switch (dto.BusinessType)
             {
@@ -187,12 +192,12 @@ namespace com.gyt.ms.Controllers
 
         private void ValidateAllowBid(GYTInfoDto dto)
         {
-            if (!_companyService.Exists(dto.OriginalCompanyName))
+            if ( dto.OriginalCompanyName.IsNullOrEmpty() || !_companyService.Exists(dto.OriginalCompanyName))
             {
                 throw new CustomException("原公司信息不存在", "公司名称", dto.OriginalCompanyName);
             }
 
-            if (!_truckInfoService.Exists(dto.OriginalTruckNo))
+            if (dto.OriginalTruckNo.IsNullOrEmpty() || !_truckInfoService.Exists(dto.OriginalTruckNo))
             {
                 throw new CustomException("原车辆信息不存在", "车牌号", dto.OriginalTruckNo);
             }

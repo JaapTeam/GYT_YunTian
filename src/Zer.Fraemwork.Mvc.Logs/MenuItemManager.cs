@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using Zer.Entities;
 using Zer.Framework.Dto;
+using Zer.GytDto.Users;
 
-namespace Zer.Framework.Mvc
+namespace Zer.Framework.Mvc.Logs
 {
     public class MenuItemManager
     {
         public List<MenuItem> MenuItems { get; private set; }
 
-        public MenuItemManager()
+        private readonly UserInfoDto _userInfo;
+
+        public MenuItemManager(UserInfoDto userInfo)
         {
+            _userInfo = userInfo;
             MenuItems = new List<MenuItem>();
             InitMenuItems();
         }
@@ -117,25 +121,25 @@ namespace Zer.Framework.Mvc
             overLoadDataManage
                 .Icon = "icon-truck";
 
-            MenuItem overLoadRecrod = new MenuItem();
-            overLoadRecrod.Id = 6;
-            overLoadRecrod.ActionName = "Index";
-            overLoadRecrod.ControllerName = "PeccancyRecrod";
-            overLoadRecrod.TextInfo = "超载超限信息数据库";
-            overLoadRecrod.IsCurrentPage = false;
-            overLoadRecrod.Icon = "icon-align-left";
+            MenuItem peccancyRecrod = new MenuItem();
+            peccancyRecrod.Id = 6;
+            peccancyRecrod.ActionName = "Index";
+            peccancyRecrod.ControllerName = "PeccancyRecrod";
+            peccancyRecrod.TextInfo = "超载超限信息数据库";
+            peccancyRecrod.IsCurrentPage = false;
+            peccancyRecrod.Icon = "icon-align-left";
 
-            MenuItem overLoadChange = new MenuItem();
-            overLoadChange.Id = 7;
-            overLoadChange.ActionName = "Index";
-            overLoadChange.ControllerName = "PeccancyChangeInfo";
-            overLoadChange.TextInfo = "超载超限已整改数据库";
-            overLoadChange.IsCurrentPage = false;
-            overLoadChange.Icon = "icon-file-alt";
+            MenuItem peccancyWithCompany = new MenuItem();
+            peccancyWithCompany.Id = 7;
+            peccancyWithCompany.ActionName = "Company";
+            peccancyWithCompany.ControllerName = "PeccancyRecrod";
+            peccancyWithCompany.TextInfo = "公司违章信息查询";
+            peccancyWithCompany.IsCurrentPage = false;
+            peccancyWithCompany.Icon = "icon-file-alt";
 
             overLoadDataManage.ChildItems = new List<MenuItem>();
-            overLoadDataManage.ChildItems.Add(overLoadRecrod);
-            overLoadDataManage.ChildItems.Add(overLoadChange);
+            overLoadDataManage.ChildItems.Add(peccancyRecrod);
+            overLoadDataManage.ChildItems.Add(peccancyWithCompany);
             MenuItems.Add(overLoadDataManage);
 
             #endregion
@@ -176,13 +180,18 @@ namespace Zer.Framework.Mvc
             logInfo.IsCurrentPage = false;
             logInfo.Icon = "icon-eye-open";
 
-            MenuItem accountManage = new MenuItem();
-            accountManage.Id = 12;
-            accountManage.ActionName = "AccountManage";
-            accountManage.ControllerName = "User";
-            accountManage.TextInfo = "账户管理";
-            accountManage.IsCurrentPage = false;
-            accountManage.Icon = "icon-user";
+            //if (_userInfo.Role != RoleLevel.User)
+            //{
+                systemManage.ChildItems.Add(new MenuItem
+                                            {
+                                                Id = 12,
+                                                ActionName = "AccountManage",
+                                                ControllerName = "User",
+                                                TextInfo = "账户管理",
+                                                IsCurrentPage = false,
+                                                Icon = "icon-user"
+                                            });
+            //}
 
             MenuItem changPassword = new MenuItem();
             changPassword.Id = 13;
@@ -194,7 +203,6 @@ namespace Zer.Framework.Mvc
 
             systemManage.ChildItems = new List<MenuItem>();
             systemManage.ChildItems.Add(logInfo);
-            systemManage.ChildItems.Add(accountManage);
             systemManage.ChildItems.Add(changPassword);
             MenuItems.Add(systemManage);
 

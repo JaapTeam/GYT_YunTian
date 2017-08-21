@@ -76,8 +76,8 @@ namespace Zer.GytDto
         public string Source { get; set; }
 
         [ImportSort(12)]
+        [ExportSort(12)]
         [ExportDisplayName("状态")]
-        [ExportIgnore]
         public Status Status { get; set; }
     }
 }

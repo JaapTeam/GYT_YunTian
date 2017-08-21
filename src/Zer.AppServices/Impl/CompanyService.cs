@@ -16,6 +16,7 @@ namespace Zer.AppServices.Impl
     {
         private readonly ICompanyInfoDataService _companyInfoDataService;
 
+
         public CompanyService(
             ICompanyInfoDataService companyInfoDataService)
         {

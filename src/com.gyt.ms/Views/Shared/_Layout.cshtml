@@ -1,7 +1,5 @@
 ﻿@using Zer.GytDto.Users
 @{
-    var activeId=0;
-    activeId = ViewBag.ActiveId;
     var userInfo = ViewBag.UserInfo as UserInfoDto;
 }
 <!DOCTYPE html>
@@ -22,25 +20,13 @@
     <link rel="stylesheet" href="@Url.Content("~")assets/css/ace.min.css" />
     <link rel="stylesheet" href="@Url.Content("~")assets/css/ace-rtl.min.css" />
     <link rel="stylesheet" href="@Url.Content("~")assets/css/ace-skins.min.css" />
-    <link rel="stylesheet" href="@Url.Content("~")assets/css/datepicker.css" />
-    <link rel="stylesheet" href="@Url.Content("~")assets/css/chosen.css" />
+    
+    @RenderSection("header",false)
 
-    <link href="@Url.Content("~")assets/css/daterangepicker.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="@Url.Content("~")assets/css/datepicker.css" />*@
+    @*<link rel="stylesheet" href="@Url.Content("~")assets/css/chosen.css" />*@
 
-
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="@Url.Content("~")assets/css/ace-ie.min.css" />
-    <![endif]-->
-    <!-- inline styles related to this page -->
-    <!-- ace settings handler -->
-
-    <script src="@Url.Content("~")assets/js/ace-extra.min.js"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="@Url.Content("~")assets/js/html5shiv.js"></script>
-        <script src="@Url.Content("~")assets/js/respond.min.js"></script>
-    <![endif]-->
+    @*<link href="@Url.Content("~")assets/css/daterangepicker.css" rel="stylesheet" />*@
 </head>
 
 <body>
@@ -51,10 +37,10 @@
 
         <div class="navbar-container" id="navbar-container">
             <div class="navbar-header pull-left">
-                <a href="index.html" class="navbar-brand">
+                <a href="@Url.Action("index","Home")" class="navbar-brand">
                     <small>
-                        <i class="icon-leaf"></i>
-                        后台管理系统
+                        @*<i class="icon-leaf"></i>*@
+                        港运通信息管理系统
                     </small>
                 </a><!-- /.brand -->
             </div><!-- /.navbar-header -->
@@ -149,15 +135,7 @@
                     <script type="text/javascript">
                         try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
                     </script>
-
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="icon-home home-icon"></i>
-                            <a href="@(Url.Action("index","Home"))">首页</a>
-                        </li>
-                        <li class="active">控制台</li>
-                    </ul><!-- .breadcrumb -->
-
+                    @{Html.RenderPartial("_breadcrumb");}
                 </div>
 
                 <div class="page-content">
@@ -176,9 +154,9 @@
             </div><!-- /.main-content -->
         </div><!-- /.main-container-inner -->
 
-        <a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        @*<a href="javascript:();" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
             <i class="icon-double-angle-up icon-only bigger-110"></i>
-        </a>
+        </a>*@
     </div><!-- /.main-container -->
     <!-- basic scripts -->
     <!--[if !IE]> -->
@@ -208,14 +186,26 @@
 
     <script src="@Url.Content("~")assets/js/ace-elements.min.js"></script>
     <script src="@Url.Content("~")assets/js/ace.min.js"></script>
-
-    <!-- inline scripts related to this page -->
-
-    <script src="@Url.Content("~")assets/js/highcharts/highcharts.js"></script>
-    <script src="@Url.Content("~")assets/js/highcharts/exporting.js"></script>
-    <script src="@Url.Content("~")assets/js/highcharts/highcharts-zh_CN.js"></script>
     
-    @RenderSection("scripts", false)
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="@Url.Content("~")assets/css/ace-ie.min.css" />
+        <![endif]-->
+        <!-- inline styles related to this page -->
+        <!-- ace settings handler -->
+
+        <script src="@Url.Content("~")assets/js/ace-extra.min.js"></script>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="@Url.Content("~")assets/js/html5shiv.js"></script>
+            <script src="@Url.Content("~")assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- inline scripts related to this page -->
+  
+
+    
+        @RenderSection("scripts", false)
         </body>
 </html>
 

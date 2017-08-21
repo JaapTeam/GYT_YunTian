@@ -1,4 +1,5 @@
 ﻿@using System.Diagnostics
+@using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
 @using Zer.GytDto.Users
@@ -17,248 +18,333 @@
     
 }
 
+<div class="row">
+<form action="@(Url.Action("index", "PeccancyRecrod"))" method="post" style="height: 50px; line-height: 45px" id="form_search">
 
-<form  action="@(Url.Action("index", "PeccancyRecrod"))" method="post" style="height: 50px; line-height: 45px">
-    
     <div class="div-inline" style="height: 30px">
-      
+
         <span style="margin-left: 10px">公司名称：</span>
         <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
         <span style="margin-left: 10px">车牌号码：</span>
         <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
-        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
-        <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
-        <div style="">
-            
-        </div>
-       
-        </div>
-   
+        <label for="input_TruckNo" style="margin-left: 10px"> 整改状态：</label>
+        <select id="input_IsAllowanced" name="Status">
+            <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
+            <option value="@(Status.已整改)" @(searchFilter.Status.HasValue && searchFilter.Status.Value == Status.已整改 ? "selected" : "")>已整改</option>
+            <option value="@(Status.未整改)" @(searchFilter.Status.HasValue && searchFilter.Status.Value == Status.未整改 ? "selected" : "")>未整改</option>
+        </select>
+        
+        <span style="margin-left: 10px">日期：</span>
+        <label class="input-append date form_date" id="startDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+            <input class="input-mini" name="StartDate" size="16"
+                   style="width: 90px" type="text"
+                   value="@(searchFilter.StartDate.HasValue ? string.Format("{0:yyyy-M-dd}", searchFilter.StartDate.Value) : "")">
+            <span class="add-on"><i class="icon-th"></i></span>
+        </label>  
+        <span>到</span>
+        <label class="input-append date form_date" id="endDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+            <input class="input-mini" name="EndDate" size="16" style="width: 90px"
+                   type="text" 
+                   value="@(searchFilter.EndDate.HasValue? string.Format("{0:yyyy-M-dd}",searchFilter.EndDate.Value):"")">
+            <span class="add-on"><i class="icon-th"></i></span>
+        </label>  
+        
+        <button type="submit" class="btn btn-sm btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
+    </div>
+    
+    <div class="div-inline" style="height: 30px">
+        <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
+    </div>
+    
 </form>
+</div>
 
-<div class="table-header" style="margin-top: 20px">
+<div class="row">
+    <div class="table-header" style="margin-top: 20px">
 
-    <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-        <a class="white"  id="btn_improt">
-            <i class="icon-cloud-upload bigger-110">
-                <span class="">批量导入</span>
-            </i>
-        </a>
+        <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+            <a class="white"  id="btn_improt">
+                <i class="icon-cloud-upload bigger-110">
+                    <span class="">批量导入</span>
+                </i>
+            </a>
 
-        <a class="white" id="btn_export" href="@(Url.Action("ExportResult","PeccancyRecrod",new {exportcode="All"}))">
-            <i class="icon-cloud-download bigger-110">
-                <span class="">导出</span>
-            </i>
-        </a>
+            <a class="white" id="btn_export">
+                <i class="icon-cloud-download bigger-110">
+                    <span class="">导出</span>
+                </i>
+            </a>
+            
+            <a class="white" href="@Url.Content("~")Content/templates/超限超限数据导入模板.xlsx">
+                <i class="icon-book bigger-110">
+                    <span class="">导入模板下载</span>
+                </i>
+            </a>
+        </div>
+
     </div>
 
-</div>
-
-<div class="table-responsive">
-    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
-        <thead>
-        <tr>
-            <th class="center">
-                <label>
-                    <input type="checkbox" class="ace" />
-                    <span class="lbl"></span>
-                </label>
-            </th>
-            <th>编号</th>
-            <th>公司名称</th>
-            <th>前车牌号</th>
-            <th>后车牌号</th>
-            <th>所属行业</th>
-            <th>驾驶员姓名</th>
-            <th>违法日期</th>
-            <th>违法事项</th>
-            <th>总重（吨）</th>
-            <th>轴数</th>
-            <th>文件来源</th>
-            <th></th>
-            @*<th></th>*@
-        </tr>
-        </thead>
-        <tbody>
-
-        @{
-            Debug.Assert(infoList != null, "infoList != null");
-        }
-        @foreach (var overloadRecrodDto in infoList)
-        {
+    <div class="table-responsive">
+        <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+            <thead>
             <tr>
-                <td class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </td>
-                <td>
-                    <a href="javascript:;">@overloadRecrodDto.Id</a>
-                </td>
-                <td>@overloadRecrodDto.CompanyName</td>
-                <td>
-                    @overloadRecrodDto.FrontTruckNo
-                </td>
-                <td>@overloadRecrodDto.BehindTruckNo</td>
-                <td>@overloadRecrodDto.TraderRange</td>
-                <td>@overloadRecrodDto.DriverName</td>
-                <td>
-                    @string.Format("{0:yyyy-MM-dd}", overloadRecrodDto.PeccancyDate)
-                </td>
-                <td>@overloadRecrodDto.PeccancyMatter</td>
-                <td>@overloadRecrodDto.GrossWeight</td>
-                <td>@overloadRecrodDto.AxisNumber</td>
-                <td>@overloadRecrodDto.Source</td>
-                <td>
-                    <a class="btn btn-xs btn-danger _verify" id="@overloadRecrodDto.Id">
-                        <i class=" icon-check">整改</i>
-                    </a>
-                </td>
-                @*<td><a href="javascript:;">详情</a></td>*@
+                <th>处罚书编号</th>
+                <th>公司名称</th>
+                <th>前车牌号</th>
+                <th>后车牌号</th>
+                <th>所属行业</th>
+                <th>驾驶员姓名</th>
+                <th>违法日期</th>
+                <th>违法事项</th>
+                <th>总重（吨）</th>
+                <th>轴数</th>
+                <th>文件来源</th>
+                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                {
+                    <th>整改</th>
+                }
+                
             </tr>
-        }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+
+            @{
+                Debug.Assert(infoList != null, "infoList != null");
+            }
+            @foreach (var peccancyRecrodDto in infoList)
+            {
+                <tr>
+                    <td class="__PeccancyId">@peccancyRecrodDto.PeccancyId</td>
+                    <td class="__CompanyName">@peccancyRecrodDto.CompanyName</td>
+                    <td>
+                        @peccancyRecrodDto.FrontTruckNo
+                    </td>
+                    <td>@peccancyRecrodDto.BehindTruckNo</td>
+                    <td>@peccancyRecrodDto.TraderRange</td>
+                    <td>@peccancyRecrodDto.DriverName</td>
+                    <td>
+                        @string.Format("{0:yyyy-MM-dd}", peccancyRecrodDto.PeccancyDate)
+                    </td>
+                    <td>@peccancyRecrodDto.PeccancyMatter</td>
+                    <td>@peccancyRecrodDto.GrossWeight</td>
+                    <td>@peccancyRecrodDto.AxisNumber</td>
+                    <td>@peccancyRecrodDto.Source</td>
+                    @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                    {
+                        <td>
+                            @if (peccancyRecrodDto.Status == Status.已整改)
+                            {
+                                <span class="label label-sm label-success">
+                                    <i class="icon-ok"> 已整改</i>
+                                </span>
+                            }
+
+                            @if (peccancyRecrodDto.Status == Status.未整改)
+                            {
+                                <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.PeccancyId">
+                                    <i class=" icon-check">整改</i>
+                                </a>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+            </tbody>
+        </table>
    
-    @if (searchFilter.PageCount > 1)
-    {
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="dataTables_paginate padding-10">
-                    <ul class="pagination">
+        @if (searchFilter.PageCount > 1)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dataTables_paginate padding-10">
+                        <ul class="pagination">
 
-                        <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
-                            <a class="__page" href="javascript:;" data-pageindex='1'>
-                                <i class="icon-double-angle-left"></i>
-                            </a>
-                        </li>
-                        @for (int i = 1; i <= searchFilter.PageCount; i++)
-                        {
-                            <li class="@(searchFilter.PageIndex == i ? "active" : "")">
-                                <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
+                            <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
+                                <a class="__page" href="javascript:;" data-pageindex='1'>
+                                    <i class="icon-double-angle-left"></i>
+                                </a>
                             </li>
-                        }
-                        <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
-                            <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
-                                <i class="icon-double-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    }
-    
-
-    @using (Html.BeginForm("ImportFile", "PeccancyRecrod", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        <input type="file" name="file" class="hide" id="input_file" />
-        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
-    }
-</div>
-
-<div id="dialog-message" class="hide">
-    <p>确认将本记录状态变更为 [已整改] ?</p>
-
-</div><!-- #dialog-message -->
-@section scripts{
-    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
-
-    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
-
-    <script type="text/javascript">
-        $(function () {
-
-            $('body').on('click',
-                '.__page',
-                function() {
-                    var pageIndex = $(this).attr('data-pageindex');
-                    $('#input_pageIndex').val(pageIndex);
-                    $('#btn_submit').click();
-                });
-
-            $('#modal-form input[type=file]')
-                .ace_file_input({
-                    style: 'well',
-                    btn_choose: 'Drop files here or click to choose',
-                    btn_change: null,
-                    no_icon: 'icon-cloud-upload',
-                    droppable: true,
-                    thumbnail: 'large'
-                });
-
-
-            $('#modal-form')
-                .on('shown.bs.modal',
-                    function() {
-                        $(this)
-                            .find('.chosen-container')
-                            .each(function() {
-                                $(this).find('a:first-child').css('width', '210px');
-                                $(this).find('.chosen-drop').css('width', '210px');
-                                $(this).find('.chosen-search input').css('width', '200px');
-                            });
-                    });
-        });
-
-
-        $("#btn_improt")
-            .click(function() {
-                $("#input_file").click();
-            });
-
-        $("#input_file")
-            .change(function() {
-                $("#Submit").click();
-                $("#input_file").text("");
-            });
-
-        $("._verify")
-            .on('click',
-                function(e) {
-                    e.preventDefault();
-                    var changeId = $(this).attr("id");
-
-                    var dialog = $("#dialog-message")
-                        .removeClass('hide')
-                        .dialog({
-                            modal: true,
-                            width: '400',
-                            title: '提示！',
-                            title_html: true,
-                            buttons: [
+                            @{
+                                var indexStart = 1;
+                                var indexEnd = searchFilter.PageCount;
+                                if (searchFilter.PageCount >= 15)
                                 {
-                                    text: "确认",
-                                    "class": "btn btn-xs",
-                                    click: function() {
-                                        $.ajax({
-                                            type: "Post",
-                                            url: "@Url.Action("Change")",
-                                            data: { id: changeId },
-                                            dataType: "json",
-                                            success: function(data) {
-                                                if (data.C === 901) {
-                                                    $("#dialog-message").dialog("close");
-                                                    $("#btn_submit").click();
-                                                } else if (data.C === 801) {
-                                                    $("#dialog-message").dialog("close");
-                                                    alert(data.msg);
-                                                }
-                                            }
-                                        });
+                                    indexStart = searchFilter.PageIndex - 7;
+
+                                    if (indexStart <= 0)
+                                    {
+                                        indexStart = 1;
                                     }
-                                }, {
-                                    text: "取消",
-                                    "class": "btn btn-xs",
-                                    click: function() {
-                                        $(this).dialog("close");
+
+                                    indexEnd = indexStart + 15;
+
+                                    if (indexStart >= searchFilter.PageCount - 15)
+                                    {
+                                        indexStart = searchFilter.PageCount - 15;
+                                        indexEnd = searchFilter.PageCount;
                                     }
                                 }
-                            ]
-                        });
+
+                            }
+
+                            @for (int i = indexStart; i <= indexEnd; i++)
+                            {
+                                <li class="@(searchFilter.PageIndex == i ? "active" : "")">
+                                    <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
+                                </li>
+                            }
+                            <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
+                                <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
+                                    <i class="icon-double-angle-right"></i>
+                                </a>
+                            </li>
+                            
+                            <li class="prev">
+                                <label cla for="jump_page">
+                                    跳转至：
+                                    <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
+                                </label>
+                                <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    
+
+        @using (Html.BeginForm("ImportFile", "PeccancyRecrod", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="file" class="hide" id="input_file" />
+            <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+        }
+    </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    整改确认提示
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content">
+                您确认要将这条记录的状态更改为“已整改”吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger __modal_confirmed">
+                    确认整改
+                </button>
+                <button type="button" class="btn btn-default __modal_close" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+@section header{
+    <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+  
+    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        var changeId = "";
+
+        $('.form_date').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+
+       
+        $('body')
+            // 模态对话框显示
+            .on('click', '._verify', function () {
+                var link = $(this);
+                changeId = $(link).attr('data-peccancyid');
+                //var row = $(link).parent().parent().html();
+
+                $('.__dialog_content').html("您确认要将这条处罚决定书编号为<label class='label label-danger'>"
+                    + changeId +
+                    "</label>记录的状态更改为“<label class='label label-danger'>已整改</label>”吗？");
+
+                $('#myModal').modal("show");
+            })
+
+            // 点击关闭
+            .on('click', '.__modal_close', function () {
+                changeId = "";
+                $('#myModal').modal("hide");
+            })
+
+            // 点击确认
+            .on('click', '.__modal_confirmed', function () {
+                
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("Change","PeccancyRecrod")",
+                    data: { id: changeId },
+                    success: function(data) {
+                        if (data.C === 901) {
+                            $('#myModal').modal("hide");
+                            $("#btn_submit").click();
+                        } else if (data.C === 801) {
+                            $('#myModal').modal("hide");
+                            alert(data.msg);
+                        }
+                    }
                 });
-    </script>
+            })
+
+            // 分页
+            .on('click', '.__jump', function () {
+                var pageIndex = $('#jump_page').val();
+                $('#input_pageIndex').val(pageIndex);
+                $('#btn_submit').click();
+            })
+            .on('click','.__page',function () {
+                var pageIndex = $(this).attr('data-pageindex');
+                $('#input_pageIndex').val(pageIndex);
+                $('#btn_submit').click();
+            })
+
+            //弹出文件选择弹框
+            .on('click', '#btn_improt',function() {
+                $("#input_file").click();
+            })
+            // 提交文件导入请求
+            .on('change', '#input_file',function() {
+                $("#Submit").click();
+                $("#input_file").text("");
+            })
+            // 文件导出
+            .on('click',
+            '#btn_export',
+            function () {
+                var oraginActionUrl = $('#form_search').attr("action");
+                $('#form_search').attr("action", '@Url.Action("ExportResult", "PeccancyRecrod")');
+                $('#btn_submit').click();
+                $('#form_search').attr("action", oraginActionUrl);
+            });
+
+    });
+</script>
 }
 
 

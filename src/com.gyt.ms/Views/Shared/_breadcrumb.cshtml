@@ -1,0 +1,37 @@
+﻿@using Zer.Framework.Dto
+@using Zer.Framework.Extensions
+
+@{
+    var menuList = ViewBag.MenuItems as List<MenuItem>;
+    var activeId = (int)ViewBag.ActiveId;
+
+    MenuItem parentItem = null;
+    MenuItem currentMenuItem = null;
+
+    if (!menuList.IsNullOrEmpty())
+    {
+        parentItem = menuList.FirstOrDefault(x => x.ChildItems.Any(y => y.Id == activeId));
+        currentMenuItem = menuList.SelectMany(x => x.ChildItems).FirstOrDefault(x => x.Id == activeId);
+    }
+}
+
+<ul class="breadcrumb">
+    <li>
+        <i class="icon-home home-icon"></i>
+        <a href="@(Url.Action("index","Home"))">首页</a>
+    </li>
+    @if (parentItem != null)
+    {
+        <li class="active">
+            @parentItem.TextInfo
+        </li>
+    }
+    
+    @if (currentMenuItem != null)
+    {
+        <li class="active">
+          @currentMenuItem.TextInfo
+        </li>
+    }
+   
+</ul><!-- .breadcrumb -->

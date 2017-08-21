@@ -15,35 +15,24 @@ namespace Zer.Framework.Mvc.Logs.Attributes
         //private static readonly ISystemLogInfoDataService Logger;
         private readonly string _viewName;
 
-        static CustomExceptionAttribute()
-        {
-            //Logger = IocManager.Instance.Resolve<ISystemLogInfoDataService>();
-        }
-
         public CustomExceptionAttribute(string viewName)
         {
+            if (viewName.IsNullOrEmpty())
+            {
+                _viewName = "Error";
+            }
             _viewName = viewName;
         }
 
         public void OnException(ExceptionContext filterContext)
         {
-            //var exceptionMessage = filterContext.Exception.Message;
-            //var controllerName = (string)filterContext.RouteData.Values["controller"];
-            //var actionName = (string)filterContext.RouteData.Values["action"];
-
-            //var systemLog = new SystemLogInfo();
-            //systemLog.ActionName = actionName;
-            //systemLog.ControllerName = controllerName;
-            //systemLog.Content = exceptionMessage;
-
-            //Logger.Insert(systemLog);
-
-            //MailHelper mail = new MailHelper();
-
             var exception = filterContext.Exception;
 
+            if (exception is CustomException)
+            {
+                
+            }
 
-            var baseException = exception as BaseException;
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 AjaxException(filterContext, exception);
