@@ -98,14 +98,14 @@ namespace com.gyt.ms.Controllers
         {
             if (dto.BidCompanyName.IsNullOrEmpty() || dto.BidTruckNo.IsNullOrEmpty())
             {
-                throw new CustomException("参数错误，请重新输入"); 
+                throw new CustomException("参数错误，请重新输入");
             }
 
             // TODO: 根据业务类型不同，判断条件不同
             switch (dto.BusinessType)
             {
-                case BusinessType.天然气车辆: 
-                    
+                case BusinessType.天然气车辆:
+
                     break;
 
                 case BusinessType.过户车辆:
@@ -117,7 +117,7 @@ namespace com.gyt.ms.Controllers
 
                     if (_gytInfoService.TargetIsUse(dto.OriginalTruckNo))
                     {
-                        throw new CustomException("已旧换新指标已被使用，不符合办理条件"); 
+                        throw new CustomException("已旧换新指标已被使用，不符合办理条件");
                     }
 
                     ValidateAllowBid(dto);
@@ -173,7 +173,7 @@ namespace com.gyt.ms.Controllers
                 waitForRegistTruckInfo.Add(new TruckInfoDto
                 {
                     FrontTruckNo = dto.OriginalTruckNo,
-                    CompanyId = dto.OriginalCompanyId,
+                    CompanyId = dto.OriginalCompanyId ?? 0,
                     CompanyName = dto.OriginalCompanyName
                 });
             }
@@ -199,7 +199,7 @@ namespace com.gyt.ms.Controllers
 
         private void ValidateAllowBid(GYTInfoDto dto)
         {
-            if ( dto.OriginalCompanyName.IsNullOrEmpty() || !_companyService.Exists(dto.OriginalCompanyName))
+            if (dto.OriginalCompanyName.IsNullOrEmpty() || !_companyService.Exists(dto.OriginalCompanyName))
             {
                 throw new CustomException("原公司信息不存在", "公司名称", dto.OriginalCompanyName);
             }
@@ -227,9 +227,9 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
-        private List<string> PartString(string str,char mark)
+        private List<string> PartString(string str, char mark)
         {
-            if (str.Length<=0)
+            if (str.Length <= 0)
             {
                 return new List<string>();
             }

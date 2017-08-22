@@ -13,7 +13,7 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests.Tests
         {
             var testEntity = new TestEntityWithStringPrimaryKey();
             var service = new TestEntityWithStringPrimaryKeyDataService();
-            var expectedPartOfId = string.Format("GYT{0:yyyyMMddhh}", DateTime.Now);
+            var expectedPartOfId = string.Format("GYT{0:yyMMddhh}", DateTime.Now);
             var actual = service.Insert(testEntity);
 
             actual.Id.IsNullOrEmpty().Should().BeFalse();

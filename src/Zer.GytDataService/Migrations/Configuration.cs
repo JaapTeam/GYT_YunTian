@@ -1,4 +1,5 @@
 using Zer.Entities;
+using Zer.Framework.Entities;
 
 namespace Zer.GytDataService.Migrations
 {
@@ -21,6 +22,9 @@ namespace Zer.GytDataService.Migrations
                 // ÃÜÂë:123456
                 new UserInfo() { DisplayName = "¹ÜÀíÔ±", UserName = "admin888", Role = RoleLevel.Administrator, Password = "14e1b600b1fd579f47433b88e8d85291" }
             );
+
+            context.CompanyInfos.AddOrUpdate(company => company.Id,
+                new CompanyInfo() {CompanyName = "", State = State.Active, Id = 0, TraderRange = ""});
         }
     }
 }

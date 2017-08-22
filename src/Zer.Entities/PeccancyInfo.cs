@@ -5,7 +5,7 @@ using Zer.Framework.Entities;
 namespace Zer.Entities
 {
     [Serializable]
-    public class PeccancyInfo : EntityBase
+    public class PeccancyInfo : EntityBase<string>
     {
         [StringLength(30)]
         public string PeccancyId { get; set; }
@@ -35,6 +35,9 @@ namespace Zer.Entities
         [StringLength(50)]
         public string Source { get; set; }
         public Status Status { get; set; }
+        [Key]
+        [StringLength(30)]
+        public override string Id { get; set; }
     }
 
     public enum Status

@@ -41,7 +41,7 @@ namespace Zer.GytDataService.Migrations
                 "dbo.LngAllowanceInfoes",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.String(nullable: false, maxLength: 30),
                         CompanyId = c.Int(nullable: false),
                         CompanyName = c.String(maxLength: 50),
                         LotId = c.Int(nullable: false),
@@ -50,7 +50,6 @@ namespace Zer.GytDataService.Migrations
                         CylinderDefaultId = c.String(maxLength: 20),
                         CylinderSeconedId = c.String(maxLength: 20),
                         Status = c.Int(nullable: false),
-                        State = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -74,7 +73,7 @@ namespace Zer.GytDataService.Migrations
                 "dbo.PeccancyInfoes",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.String(nullable: false, maxLength: 30),
                         PeccancyId = c.String(maxLength: 30),
                         CompanyId = c.Int(nullable: false),
                         CompanyName = c.String(maxLength: 50),
@@ -89,7 +88,6 @@ namespace Zer.GytDataService.Migrations
                         AxisNumber = c.Int(nullable: false),
                         Source = c.String(maxLength: 50),
                         Status = c.Int(nullable: false),
-                        State = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

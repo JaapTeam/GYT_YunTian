@@ -16,8 +16,8 @@ namespace Zer.GytDataService
     public abstract class GytRepository<TEntity,TPrimaryKey> : EfRepositoryBase<TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
-        protected GytRepository(DbContext dbContext)
-            : base(dbContext)
+        protected GytRepository()
+            : base(new GytDbContext())
         {
         }
     }

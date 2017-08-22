@@ -9,7 +9,7 @@ namespace Zer.Entities
     {
         public BusinessType BusinessType { get; set; }
 
-        public int OriginalCompanyId { get; set; }
+        public int? OriginalCompanyId { get; set; }
 
         [StringLength(50)]
         public string OriginalCompanyName { get; set; }

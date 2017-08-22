@@ -80,7 +80,7 @@ namespace com.gyt.ms.Controllers
                 truckInfoDtoList.Add(new TruckInfoDto
                 {
                     FrontTruckNo = gtyGytInfoDto.OriginalTruckNo,
-                    CompanyId = gtyGytInfoDto.OriginalCompanyId
+                    CompanyId = gtyGytInfoDto.OriginalCompanyId??0
                 });
             }
 

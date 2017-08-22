@@ -7,13 +7,13 @@ namespace Zer.GytDataService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitDb : IMigrationMetadata
+    public sealed partial class changes_unknow : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changes_unknow));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708221529239_InitDb"; }
+            get { return "201708221732533_changes_unknow"; }
         }
         
         string IMigrationMetadata.Source
