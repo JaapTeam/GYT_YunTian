@@ -9,7 +9,7 @@ using Zer.Framework.Entities;
 namespace Zer.Entities
 {
     [Serializable]
-    public class GYTInfo:EntityBase
+    public class GYTInfo : EntityBase<string>
     {
         public BusinessType BusinessType { get; set; }
 
@@ -38,6 +38,9 @@ namespace Zer.Entities
         public string BidDisplayName { get; set; }
 
         public BusinessState Status { get; set; }
+        [Key]
+        [StringLength(30)]
+        public override string Id { get; set; }
     }
 
     /// <summary>
