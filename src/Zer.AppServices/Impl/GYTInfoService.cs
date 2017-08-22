@@ -74,7 +74,8 @@ namespace Zer.AppServices.Impl
 
         public GYTInfoDto GetByBidTruckNo(string bidTruckNo)
         {
-            var entity = _gytInfoDataService.FirstOrDefault(x => String.Equals(x.BidTruckNo, bidTruckNo.Trim(), StringComparison.CurrentCultureIgnoreCase));
+            var entity = _gytInfoDataService
+                .FirstOrDefault(x => x.BidTruckNo.Trim().ToUpper() == bidTruckNo.Trim().ToUpper());//string.Equals(x.BidTruckNo, bidTruckNo.Trim(), StringComparison.CurrentCultureIgnoreCase));
             return entity == null ? null : entity.Map<GYTInfoDto>();
         }
 
