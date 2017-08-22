@@ -128,7 +128,7 @@
                                         <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
                                     }
 
-                                    @if (gytInfoDto.Status == BusinessState.初审通过)
+                                    @if (gytInfoDto.Status == BusinessState.已注销)
                                     {
                                         <span class="label label-sm label-info"><i class="icon-spinner"> 已受理</i></span>
                                     }
@@ -150,7 +150,7 @@
                                                 <span class="label label-sm label-success"><i class="icon-ok"> 已办理</i></span>
                                             }
                                     
-                                            @if (gytInfoDto.Status == BusinessState.初审通过)
+                                            @if (gytInfoDto.Status == BusinessState.已注销)
                                             {
                                                 <a class="btn btn-xs btn-danger _verify" id="@gytInfoDto.Id">
                                                     <i class=" icon-check">审核</i>
