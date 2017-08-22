@@ -9,12 +9,14 @@ using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Attributes;
+using Zer.Framework.Cache;
 using Zer.Framework.Export;
 using Zer.Framework.Export.Attributes;
 using Zer.Framework.Import;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
+using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
@@ -162,6 +164,21 @@ namespace com.gyt.ms.Controllers
 
             infoDto = _lngAllowanceService.ChangStatus(infoId);
             return infoDto.Status!=LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
+        }
+
+        public ActionResult Edit(int infoId)
+        {
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
+            var infoDto = _lngAllowanceService.GetById(infoId);
+
+            return View(infoDto);
+        }
+
+        public JsonResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
+        {
+            _lngAllowanceService.Edit(lngAllowanceInfoDto);
+            return Success();
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)

@@ -54,6 +54,11 @@ namespace Zer.AppServices.Impl
             return _gytInfoDataService.AddRange(entities).Map<GYTInfoDto>().ToList();
         }
 
+        public GYTInfoDto Edit(GYTInfoDto model)
+        {
+            return _gytInfoDataService.Update(model.Map<GYTInfo>()).Map<GYTInfoDto>();
+        }
+
         public bool Exists(string bidTruckNo)
         {
             return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim());

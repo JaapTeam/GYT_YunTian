@@ -14,6 +14,7 @@ namespace Zer.AppServices
         /// </summary>
         List<TEntityDto> AddRange(List<TEntityDto> list);
 
+        TEntityDto Edit(TEntityDto model);
     }
 
 }

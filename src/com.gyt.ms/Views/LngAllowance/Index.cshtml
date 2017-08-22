@@ -137,6 +137,12 @@
                             审核
                         </i>
                     </a>
+                    <a class="btn btn-xs btn-success _edit"
+                       href="@Url.Action("Edit","LngAllowance",new {infoId=item.Id})">
+                        <i class=" icon-check">
+                            编辑
+                        </i>
+                    </a>
                 }
                 else if (item.Status == LngStatus.已补贴)
                 {

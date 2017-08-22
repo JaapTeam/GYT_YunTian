@@ -131,12 +131,16 @@
                                         {
                                             <a class="btn btn-xs btn-danger _verify"
                                                href="javascript:;"
-       data-bussinesstype="@gytInfoDto.BusinessType"
-       data-companyname="@gytInfoDto.BidCompanyName"
-       data-bidtruckno="@gytInfoDto.BidTruckNo"
-       data-id="@gytInfoDto.Id">
-        <i class=" icon-check">审核</i>
-    </a>
+                                               data-bussinesstype="@gytInfoDto.BusinessType"
+                                               data-companyname="@gytInfoDto.BidCompanyName"
+                                               data-bidtruckno="@gytInfoDto.BidTruckNo"
+                                               data-id="@gytInfoDto.Id">
+                                                <i class=" icon-check">审核</i>
+                                            </a>
+                                            <a class="btn btn-xs btn-success _edit"
+                                               href="@Url.Action("Edit","GYTInfo",new {infoId=gytInfoDto.Id})">
+                                                <i class=" icon-check">编辑</i>
+                                            </a>
                                         }
 
                                         @if (gytInfoDto.Status == BusinessState.条件不符)

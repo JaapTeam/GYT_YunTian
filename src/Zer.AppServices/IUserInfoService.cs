@@ -16,7 +16,5 @@ namespace Zer.AppServices
         ChangePasswordResult ChangePassword(int userId, string newPassword);
 
         bool Exists(string userName);
-
-        bool Edit(UserInfoDto userInfoDto);
     }
 }
