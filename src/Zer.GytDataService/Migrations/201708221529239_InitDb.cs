@@ -3,7 +3,7 @@ namespace Zer.GytDataService.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init_DataBase : DbMigration
+    public partial class InitDb : DbMigration
     {
         public override void Up()
         {
@@ -13,7 +13,7 @@ namespace Zer.GytDataService.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CompanyName = c.String(maxLength: 50),
-                        TraderRange = c.String(maxLength: 20),
+                        TraderRange = c.String(maxLength: 200),
                         State = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -22,7 +22,7 @@ namespace Zer.GytDataService.Migrations
                 "dbo.GYTInfoes",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.String(nullable: false, maxLength: 30),
                         BusinessType = c.Int(nullable: false),
                         OriginalCompanyId = c.Int(nullable: false),
                         OriginalCompanyName = c.String(maxLength: 50),
@@ -32,8 +32,8 @@ namespace Zer.GytDataService.Migrations
                         BidTruckNo = c.String(maxLength: 10),
                         BidDate = c.DateTime(),
                         BidName = c.String(maxLength: 20),
+                        BidDisplayName = c.String(maxLength: 20),
                         Status = c.Int(nullable: false),
-                        State = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -49,6 +49,7 @@ namespace Zer.GytDataService.Migrations
                         EngineId = c.String(maxLength: 15),
                         CylinderDefaultId = c.String(maxLength: 20),
                         CylinderSeconedId = c.String(maxLength: 20),
+                        Status = c.Int(nullable: false),
                         State = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

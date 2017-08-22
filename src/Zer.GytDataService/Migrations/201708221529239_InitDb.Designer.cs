@@ -7,13 +7,13 @@ namespace Zer.GytDataService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class change_company_traderRange_length : IMigrationMetadata
+    public sealed partial class InitDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(change_company_traderRange_length));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708190348040_change_company_traderRange_length"; }
+            get { return "201708221529239_InitDb"; }
         }
         
         string IMigrationMetadata.Source

@@ -6,7 +6,7 @@ namespace Zer.GytDataService.Impl
 {
     public class GYTInfoDataService : GytRepository<GYTInfo,string>, IGYTInfoDataService
     {
-        public GYTInfoDataService(DbContext dbContext) : base(dbContext)
+        public GYTInfoDataService() : base(new GytDbContext())
         {
         }
 

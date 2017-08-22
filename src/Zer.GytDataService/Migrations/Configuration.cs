@@ -14,13 +14,13 @@ namespace Zer.GytDataService.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(GytDbContext context)
+        protected override void Seed(Zer.GytDataService.GytDbContext context)
         {
             context.UserInfos.AddOrUpdate(
-                u=>u.UserName,
+                u => u.UserName,
                 // √‹¬Î:123456
                 new UserInfo() { DisplayName = "π‹¿Ì‘±", UserName = "admin888", Role = RoleLevel.Administrator, Password = "14e1b600b1fd579f47433b88e8d85291" }
-                );
+            );
         }
     }
 }
