@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "New";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var provinceList = ViewBag.ProvinceList as List<string>;
+    var characterList = ViewBag.CharacterList as List<string>;
 }
 
 <h3 class="header smaller lighter blue">以旧换新车辆业务办理</h3>
@@ -26,13 +29,37 @@
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-
                     <label class="col-sm-4 control-label no-padding-right" for="input_bidTruckNo"> 申办车牌号: </label>
                     <div class="col-sm-8">
+                        <select class="select2-default _province col-sm-1">
+                            <option></option>
+                            @{
+                                if (provinceList != null && provinceList.Count > 0)
+                                {
+                                    foreach (var item in provinceList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            }
+                        </select>
 
-                        <input type="text" id="input_bidTruckNo" placeholder="请输入申办车牌号" class="col-xs-10 col-sm-5" name="BidTruckNo">
-
+                        <select class="select2-default _character col-sm-1" style="margin-left: 8px">
+                            <option></option>
+                            @{
+                                if (characterList != null && characterList.Count > 0)
+                                {
+                                    foreach (var item in characterList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <input type="text" placeholder="请输入申办车牌号" id="input_bidTruckNo" class="4" style="margin-left: 8px">
+                        <input type="text" class="hide" name="BidTruckNo">
                     </div>
+
                     <span class="hide" id="sp_bidTruckNo"></span>
                 </div>
 
@@ -50,14 +77,38 @@
                 </div>
                 <div class="space-4"></div>
                 <div class="form-group">
-
-                    <label class="col-sm-4 control-label no-padding-right" for="input_OriginalTruckNo"> 原车牌号: </label>
+                    <label class="col-sm-4 control-label no-padding-right" for="input_OriginalTruckNo"> 原车牌号:: </label>
                     <div class="col-sm-8">
+                        <select class="select2-default _province_original col-sm-1">
+                            <option></option>
+                            @{
+                                if (provinceList != null && provinceList.Count > 0)
+                                {
+                                    foreach (var item in provinceList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            }
+                        </select>
 
-                        <input type="text" id="input_OriginalTruckNo" placeholder="请输入原车牌号" class="col-xs-10 col-sm-5" name="OriginalTruckNo">
-
+                        <select class="select2-default _character_original col-sm-1" style="margin-left: 8px">
+                            <option></option>
+                            @{
+                                if (characterList != null && characterList.Count > 0)
+                                {
+                                    foreach (var item in characterList)
+                                    {
+                                        <option value="@item">@item</option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <input type="text" placeholder="请输入原车牌号" id="input_OriginalTruckNo" class="4" style="margin-left: 8px">
+                        <input type="text" class="hide" name="OriginalTruckNo">
                     </div>
 
+                    <span class="hide" id="sp_originalTruckNo"></span>
                 </div>
 
                 <div class="form-group">
@@ -246,129 +297,139 @@
 </div><!-- #dialog-message -->
 
 @section scripts{
-    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
+<script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
 
-    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
+<link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet" />
     <script type="text/javascript">
-              
-    $(function() {
-        
-  
-        $("#submit")
-            .on('click',
-                function(e) {
-                    var isPeccancy = $("#_sp_Illegal").html();
-                    var isRepetition = $("#_sp_quota").html();
 
-                    var isOperationCancel = $('#radio_Cancel input:radio:checked').val();
-                    var isTransferRecrod = $('#radioTransfer input:radio:checked').val();
-                    var isConsistentInfo = $('#radioInfo input:radio:checked').val();
-                    
-                    IsExists();
-
-                    var isExists = $("#sp_bidTruckNo").html();
-
-                    if (isPeccancy === "无违规" && isRepetition === "无重复使用" && isExists === "true" && isOperationCancel === "true" && isTransferRecrod === "true" && isConsistentInfo === "true") {
-                        return true;
-                    }
-                    ShowDialog(isPeccancy, isExists, isOperationCancel, isTransferRecrod, isConsistentInfo, e);
-                    return false;
-                });
-
-        function ShowDialog(isPeccancy, isExists, isOperationCancel, isTransferRecrod, isConsistentInfo, e) {
-            e.preventDefault();
-
-         
-            $("#isPeccancy").css("display", "none");
-            $("#result").css("display", "none");
-            $("#isConsistentInfo").css("display", "none");
-            $("#isTransferRecrod").css("display", "none");
-            $("#isOperationCancel").css("display", "none");
-
-            if (isPeccancy === "有违规") {
-                $("#isPeccancy").removeAttr("style");
-            }
-
-            if (isExists === "false") {
-                $("#result").removeAttr("style");
-            }
-
-            if (isOperationCancel === "false") {
-                $("#isConsistentInfo").removeAttr("style");
-            }
-
-            if (isTransferRecrod === "false") {
-                $("#isTransferRecrod").removeAttr("style");
-            }
-
-            if (isConsistentInfo === "false") {
-                $("#isOperationCancel").removeAttr("style");
-            }
-
-
-            var dialog = $("#dialog-message")
-                .removeClass('hide')
-                .dialog({
-                    modal: true,
-                    width: '600',
-                    title: "审查提示！",
-                    title_html: true,
-                    buttons: [
-                        {
-                            text: "确认",
-                            "class": "btn btn-xs",
-                            click: function() {
-                                $(this).dialog("close");
-                            }
+            function IsExists(truckNo) {
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("TruckNoExistsHandle")",
+                    data: { truckNo: truckNo },
+                    dataType: "json",
+                    async: false,
+                    success: function(data) {
+                        console.log(data);
+                        if (data.C === 901) {
+                            $("#sp_bidTruckNo").html("true");
                         }
-                    ]
-                });
-        }
-
-        $(document)
-            .on('input',
-                '#input_CompanyName',
-                function(event) {
-
-                    var val = $("#input_CompanyName").val();
-                    companyPeccancyCheck(val, "#_sp_Illegal");
-
-                });
-
-        function companyPeccancyCheck(companyName, span) {
-            $.ajax({
-                type: "Get",
-                url: "@Url.Action("CompanyPeccancyCheck")",
-                data: { companyName: companyName },
-                dataType: "json",
-                success: function(data) {
-                    if (data.C === 901) {
-                        $(span).html("无违规");
-                        $(span).removeClass();
-                        $(span).addClass("label label-lg label-success");
-
+                        if (data.C === 801) {
+                            $("#sp_bidTruckNo").html("false");
+                        }
                     }
-                    if (data.C === 801) {
-                        $(span).html("有违规");
-                        $(span).removeClass();
-                        $(span).addClass("label label-lg label-warning");
-                    }
+                });
+            }
+
+            function ShowDialog(isPeccancy, isExists, isOperationCancel, isTransferRecrod, isConsistentInfo, e) {
+                e.preventDefault();
+
+
+                $("#isPeccancy").css("display", "none");
+                $("#result").css("display", "none");
+                $("#isConsistentInfo").css("display", "none");
+                $("#isTransferRecrod").css("display", "none");
+                $("#isOperationCancel").css("display", "none");
+
+                if (isPeccancy === "有违规") {
+                    $("#isPeccancy").removeAttr("style");
                 }
-            });
-        };
 
-        $(document)
-        .on('input',
-            '#input_OriginalTruckNo',
-            function (event) {
+                if (isExists === "false") {
+                    $("#result").removeAttr("style");
+                }
 
+                if (isOperationCancel === "false") {
+                    $("#isConsistentInfo").removeAttr("style");
+                }
+
+                if (isTransferRecrod === "false") {
+                    $("#isTransferRecrod").removeAttr("style");
+                }
+
+                if (isConsistentInfo === "false") {
+                    $("#isOperationCancel").removeAttr("style");
+                }
+
+
+                var dialog = $("#dialog-message")
+                    .removeClass('hide')
+                    .dialog({
+                        modal: true,
+                        width: '600',
+                        title: "审查提示！",
+                        title_html: true,
+                        buttons: [
+                            {
+                                text: "确认",
+                                "class": "btn btn-xs",
+                                click: function() {
+                                    $(this).dialog("close");
+                                }
+                            }
+                        ]
+                    });
+            }
+
+            function companyPeccancyCheck(companyName, span) {
+                $.ajax({
+                    type: "Get",
+                    url: "@Url.Action("CompanyPeccancyCheck")",
+                    data: { companyName: companyName },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.C === 901) {
+                            $(span).html("无违规");
+                            $(span).removeClass();
+                            $(span).addClass("label label-lg label-success");
+
+                        }
+                        if (data.C === 801) {
+                            $(span).html("有违规");
+                            $(span).removeClass();
+                            $(span).addClass("label label-lg label-warning");
+                        }
+                    }
+                });
+            }
+        
+        $("body").on("click", "#submit", function (e) {
+
+            var truckNo = $("._province").val() + $("._character").val() + $("#input_bidTruckNo").val();
+            $("input[name^='BidTruckNo']").val(truckNo);
+
+            var originalTruckNo = $("._province_original").val() + $("._character_original").val() + $("#input_OriginalTruckNo").val();
+            $("input[name^='OriginalTruckNo']").val(originalTruckNo);
+
+                var isPeccancy = $("#_sp_Illegal").html();
+                var isRepetition = $("#_sp_quota").html();
+
+                var isOperationCancel = $('#radio_Cancel input:radio:checked').val();
+                var isTransferRecrod = $('#radioTransfer input:radio:checked').val();
+                var isConsistentInfo = $('#radioInfo input:radio:checked').val();
+
+                IsExists();
+
+                var isExists = $("#sp_bidTruckNo").html();
+
+                if (isPeccancy === "无违规" &&
+                    isRepetition === "无重复使用" &&
+                    isExists === "true" &&
+                    isOperationCancel === "true" &&
+                    isTransferRecrod === "true" &&
+                    isConsistentInfo === "true") {
+                    return true;
+                }
+                ShowDialog(isPeccancy, isExists, isOperationCancel, isTransferRecrod, isConsistentInfo, e);
+                return false;
+            }).on("#input_OriginalTruckNo", "input", function () {
                 var val = $("#input_OriginalTruckNo").val();
                 $.ajax({
                     type: "Get",
                     url: "@Url.Action("TruckRepetitionCheck")",
                     data: { truckNo: val },
                 dataType: "json",
-                success: function (data) {
+                success: function(data) {
 
                     if (data.C === 901) {
                         $("#_sp_quota").html("无重复使用");
@@ -383,27 +444,11 @@
                 }
             });
 
-        });
-
-        function IsExists(truckNo) {
-            $.ajax({
-                type: "Get",
-                url: "@Url.Action("TruckNoExistsHandle")",
-                data: { truckNo: truckNo },
-                dataType: "json",
-                async: false,
-                success: function(data) {
-                    console.log(data);
-                    if (data.C === 901) {
-                        $("#sp_bidTruckNo").html("true");
-                    }
-                    if (data.C === 801) {
-                        $("#sp_bidTruckNo").html("false");
-                    }
-                }
+        })
+        .on("input", "#input_OriginalTruckNo", function (e) {
+                e.stopPropagation();
+                var val = $("#input_CompanyName").val();
+                companyPeccancyCheck(val, "#_sp_Illegal");
             });
-        }
-    })
-
     </script>
 }
