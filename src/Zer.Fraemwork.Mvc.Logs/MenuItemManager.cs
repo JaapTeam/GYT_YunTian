@@ -180,8 +180,8 @@ namespace Zer.Framework.Mvc.Logs
             logInfo.IsCurrentPage = false;
             logInfo.Icon = "icon-eye-open";
 
-            //if (_userInfo.Role != RoleLevel.User)
-            //{
+            if (_userInfo.Role != RoleLevel.User)
+            {
                 systemManage.ChildItems.Add(new MenuItem
                                             {
                                                 Id = 12,
@@ -191,7 +191,7 @@ namespace Zer.Framework.Mvc.Logs
                                                 IsCurrentPage = false,
                                                 Icon = "icon-user"
                                             });
-            //}
+            }
 
             MenuItem changPassword = new MenuItem();
             changPassword.Id = 13;
@@ -201,7 +201,7 @@ namespace Zer.Framework.Mvc.Logs
             changPassword.IsCurrentPage = false;
             changPassword.Icon = " icon-key";
 
-            systemManage.ChildItems = new List<MenuItem>();
+            
             systemManage.ChildItems.Add(logInfo);
             systemManage.ChildItems.Add(changPassword);
             MenuItems.Add(systemManage);
