@@ -78,10 +78,11 @@
                     <th>申办车牌号</th>
                     <th>办理日期</th>
                     <th>经办人</th>
-                    <th>详情</th>
+                    <th>状态</th>
                     @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                     {
-                        <th>审核</th>
+                        <th>详情</th>
+                        
                     }
                 </tr>
                 </thead>
@@ -115,31 +116,28 @@
                                 <td>@gytInfoDto.BidName</td>
 
                                 <td>
-                                    <a href="javascript:;">详情</a>
+                                    @if (gytInfoDto.Status == BusinessState.已办理)
+                                    {
+                                        <span class="label label-sm label-success">
+                                            <i class="icon-ok"> 已办理</i>
+                                        </span>
+                                    }
+
+                                    @if (gytInfoDto.Status == BusinessState.已注销)
+                                    {
+                                        <span class="label label-sm label-danger">
+                                            <i class=" icon-minus-sign"> 已注销</i>
+                                        </span>
+                                    }
+
                                 </td>
 
                                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                                 {
                                     <td>
-                                        @if (gytInfoDto.Status == BusinessState.已办理)
-                                        {
-                                            <span class="label label-sm label-success">
-                                                <i class="icon-ok"> 已办理</i>
-                                            </span>
-                                        }
-
-                                        @if (gytInfoDto.Status == BusinessState.已注销)
-                                        {
-                                            <a class="btn btn-xs btn-danger _verify"
-                                               href="javascript:;"
-                                               data-bussinesstype="@gytInfoDto.BusinessType"
-                                               data-companyname="@gytInfoDto.BidCompanyName"
-                                               data-bidtruckno="@gytInfoDto.BidTruckNo"
-                                               data-id="@gytInfoDto.Id">
-                                                <i class=" icon-check">审核</i>
-                                            </a>
-                                        }
-                                     
+                                        <a class="btn btn-info btn-minier btn-xs" href="javascript:;">
+                                            <i class=" icon-edit"> 编辑</i>
+                                        </a>
                                     </td>
                                 }
                             </tr>
