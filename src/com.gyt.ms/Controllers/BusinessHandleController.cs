@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using com.gyt.ms.Models;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Cache;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc.Logs.Attributes;
@@ -42,6 +43,8 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         public ActionResult Gas()
         {
+            ViewBag.ProvinceList = PartString(CacheHelper.GetCache("Province").ToString(), ',');
+            ViewBag.CharacterList = PartString(CacheHelper.GetCache("Character").ToString(), ',');
             return View();
         }
 
@@ -49,6 +52,8 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("过户车辆业务办理", ActionType.查询)]
         public ActionResult Transfer()
         {
+            ViewBag.ProvinceList = PartString(CacheHelper.GetCache("Province").ToString(), ',');
+            ViewBag.CharacterList = PartString(CacheHelper.GetCache("Character").ToString(), ',');
             return View();
         }
 
@@ -56,6 +61,8 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("已旧换新车辆业务办理", ActionType.查询)]
         public ActionResult New()
         {
+            ViewBag.ProvinceList = PartString(CacheHelper.GetCache("Province").ToString(), ',');
+            ViewBag.CharacterList = PartString(CacheHelper.GetCache("Character").ToString(), ',');
             return View();
         }
 
@@ -248,6 +255,21 @@ namespace com.gyt.ms.Controllers
             }
 
             return Success();
+        }
+
+        private List<string> PartString(string str,char mark)
+        {
+            if (str.Length<=0)
+            {
+                return new List<string>();
+            }
+
+            if (mark.ToString().IsNullOrEmpty())
+            {
+                return new List<string>();
+            }
+            var stringList = str.Split(mark).ToList();
+            return stringList;
         }
     }
 }
