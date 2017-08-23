@@ -356,6 +356,9 @@
     <Content Include="Views\BusinessHandle\New.cshtml" />
     <Content Include="Views\PeccancyRecrod\Company.cshtml" />
     <Content Include="Views\Shared\_breadcrumb.cshtml" />
+    <Content Include="Views\GYTInfo\Edit.cshtml" />
+    <Content Include="Views\PeccancyRecrod\Edit.cshtml" />
+    <Content Include="Views\LngAllowance\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

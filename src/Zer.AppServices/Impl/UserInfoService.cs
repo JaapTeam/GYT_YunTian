@@ -82,17 +82,7 @@ namespace Zer.AppServices.Impl
             return _userIbfoDataService.GetAll().Any(x => x.UserName == userName);
         }
 
-        public bool Edit(UserInfoDto userInfoDto)
-        {
-            var entity = _userIbfoDataService.GetById(userInfoDto.UserId);
-
-            entity.UserName = userInfoDto.UserName;
-            entity.DisplayName = userInfoDto.DisplayName;
-            entity.Email = userInfoDto.Email;
-            entity.MobilePhone = userInfoDto.MobilePhone;
-
-            return _userIbfoDataService.Update(entity) != null;
-        }
+       
 
         public UserInfoDto GetById(int id)
         {
@@ -112,6 +102,18 @@ namespace Zer.AppServices.Impl
         public List<UserInfoDto> AddRange(List<UserInfoDto> list)
         {
             throw new NotImplementedException();
+        }
+
+        public UserInfoDto Edit(UserInfoDto model)
+        {
+            var entity = _userIbfoDataService.GetById(model.UserId);
+
+            entity.UserName = model.UserName;
+            entity.DisplayName = model.DisplayName;
+            entity.Email = model.Email;
+            entity.MobilePhone = model.MobilePhone;
+
+            return _userIbfoDataService.Update(entity).Map<UserInfoDto>();
         }
     }
 }

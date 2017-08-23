@@ -45,6 +45,11 @@ namespace Zer.AppServices.Impl
             return insertList;
         }
 
+        public LngAllowanceInfoDto Edit(LngAllowanceInfoDto model)
+        {
+            return _lngAllowanceInfoDataService.Update(model.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
+        }
+
         public List<LngAllowanceInfoDto> GetList(FilterMatchInputDto filterMatchInput)
         {
             throw new System.NotImplementedException();

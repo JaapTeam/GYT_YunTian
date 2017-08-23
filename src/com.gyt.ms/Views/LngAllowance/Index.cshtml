@@ -86,6 +86,7 @@
                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                 {
                     <th></th>
+                    <th></th>
                 }
                
             </tr>
@@ -123,7 +124,7 @@
                                 <span class="label label-sm label-success"><i class="icon-ok"> 已补贴</i></span>
                             }
                         </td>
-        @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                        @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
         {
 
             <td>
@@ -135,6 +136,12 @@
                        data-truckno="@item.TruckNo ">
                         <i class=" icon-check">
                             审核
+                        </i>
+                    </a>
+                    <a class="btn btn-xs btn-success _edit"
+                       href="@Url.Action("Edit","LngAllowance",new {infoId=item.Id})">
+                        <i class=" icon-check">
+                            编辑
                         </i>
                     </a>
                 }

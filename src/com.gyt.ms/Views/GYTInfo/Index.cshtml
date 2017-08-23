@@ -26,7 +26,7 @@
             <label style="margin-left: 10px" for="input_Status">办理状态：</label>
             <select name="Status" id="input_Status">
                 <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
-                <option value="@(BusinessState.初审通过)" @(searchFilter.Status == BusinessState.初审通过 ? "selected" : "")>初审通过</option>
+                <option value="@(BusinessState.已注销)" @(searchFilter.Status == BusinessState.已注销 ? "selected" : "")>已注销</option>
                 <option value="@(BusinessState.已办理)" @(searchFilter.Status == BusinessState.已办理 ? "selected" : "")>已办理</option>
             </select>
 
@@ -77,10 +77,11 @@
                     <th>申办车牌号</th>
                     <th>办理日期</th>
                     <th>经办人</th>
-                    <th>详情</th>
+                    <th>状态</th>
                     @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                     {
-                        <th>审核</th>
+                        <th>详情</th>
+                        
                     }
                 </tr>
                 </thead>
@@ -114,7 +115,20 @@
                                 <td>@gytInfoDto.BidName</td>
 
                                 <td>
-                                    <a href="javascript:;">详情</a>
+                                    @if (gytInfoDto.Status == BusinessState.已办理)
+                                    {
+                                        <span class="label label-sm label-success">
+                                            <i class="icon-ok"> 已办理</i>
+                                        </span>
+                                    }
+
+                                    @if (gytInfoDto.Status == BusinessState.已注销)
+                                    {
+                                        <span class="label label-sm label-danger">
+                                            <i class=" icon-minus-sign"> 已注销</i>
+                                        </span>
+                                    }
+
                                 </td>
 
                                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
@@ -131,12 +145,16 @@
                                         {
                                             <a class="btn btn-xs btn-danger _verify"
                                                href="javascript:;"
-       data-bussinesstype="@gytInfoDto.BusinessType"
-       data-companyname="@gytInfoDto.BidCompanyName"
-       data-bidtruckno="@gytInfoDto.BidTruckNo"
-       data-id="@gytInfoDto.Id">
-        <i class=" icon-check">审核</i>
-    </a>
+                                               data-bussinesstype="@gytInfoDto.BusinessType"
+                                               data-companyname="@gytInfoDto.BidCompanyName"
+                                               data-bidtruckno="@gytInfoDto.BidTruckNo"
+                                               data-id="@gytInfoDto.Id">
+                                                <i class=" icon-check">审核</i>
+                                            </a>
+                                            <a class="btn btn-xs btn-success _edit"
+                                               href="@Url.Action("Edit","GYTInfo",new {infoId=gytInfoDto.Id})">
+                                                <i class=" icon-check">编辑</i>
+                                            </a>
                                         }
 
                                         @if (gytInfoDto.Status == BusinessState.条件不符)

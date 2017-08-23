@@ -56,6 +56,11 @@ namespace Zer.AppServices.Impl
             throw new System.NotImplementedException();
         }
 
+        public LogInfoDto Edit(LogInfoDto model)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<LogInfoDto> GetListByFilterMatch(FilterMatchInputDto filterMatch)
         {
             throw new System.NotImplementedException();
