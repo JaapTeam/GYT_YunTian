@@ -18,7 +18,7 @@ namespace Zer.GytDto
         /// </summary>
         [ExportIgnore]
         [ImprotIgnore]
-        public int OriginalCompanyId { get; set; }
+        public int? OriginalCompanyId { get; set; }
 
         /// <summary>
         /// 业务类型

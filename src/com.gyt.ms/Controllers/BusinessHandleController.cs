@@ -94,6 +94,7 @@ namespace com.gyt.ms.Controllers
             return result ? Fail() : Success();
         }
 
+        [UserActionLog("业务办理", ActionType.新增)]
         public JsonResult Commit(GYTInfoDto dto)
         {
             var validateResult = CommonValidate(dto);
@@ -223,7 +224,7 @@ namespace com.gyt.ms.Controllers
                 waitForRegistTruckInfo.Add(new TruckInfoDto
                 {
                     FrontTruckNo = dto.OriginalTruckNo,
-                    CompanyId = dto.OriginalCompanyId,
+                    CompanyId = dto.OriginalCompanyId ?? 0,
                     CompanyName = dto.OriginalCompanyName
                 });
             }
@@ -234,7 +235,7 @@ namespace com.gyt.ms.Controllers
 
             dto.BidName = userInfoDto.UserName;
             dto.BidDisplayName = userInfoDto.DisplayName;
-            dto.Status = BusinessState.已注销;
+            dto.Status = BusinessState.已办理;
             dto.BidDate = DateTime.Now;
 
             return _gytInfoService.Add(dto);
@@ -255,6 +256,6 @@ namespace com.gyt.ms.Controllers
             }
 
             return Success();
-        }  
+        }
     }
 }

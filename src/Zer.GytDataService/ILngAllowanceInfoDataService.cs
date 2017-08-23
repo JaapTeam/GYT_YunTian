@@ -3,7 +3,7 @@ using Zer.Framework.Repository;
 
 namespace Zer.GytDataService
 {
-    public interface ILngAllowanceInfoDataService : IRepository<LngAllowanceInfo>
+    public interface ILngAllowanceInfoDataService : IRepository<LngAllowanceInfo,string>
     {
     }
 }

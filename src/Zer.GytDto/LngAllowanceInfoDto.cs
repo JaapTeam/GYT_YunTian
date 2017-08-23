@@ -13,7 +13,7 @@ namespace Zer.GytDto
         [ExportSort(1)]
         [ImprotIgnore]
         [ExportDisplayName("±àºÅ")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [ExportIgnore]
         [ImprotIgnore]

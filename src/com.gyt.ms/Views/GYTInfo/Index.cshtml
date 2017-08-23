@@ -80,8 +80,7 @@
                     <th>状态</th>
                     @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                     {
-                        <th>详情</th>
-                        
+                        <th>编辑</th>
                     }
                 </tr>
                 </thead>
@@ -92,12 +91,6 @@
                         foreach (var gytInfoDto in infoList)
                         {
                             <tr>
-                                @*<td class="center">
-                                    <label>
-                                        <input type="checkbox" class="ace"/>
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>*@
                                 <td>
                                     <a href="javascript:;">@gytInfoDto.Id</a>
                                 </td>
@@ -134,33 +127,11 @@
                                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                                 {
                                     <td>
-                                        @if (gytInfoDto.Status == BusinessState.已办理)
-                                        {
-                                            <span class="label label-sm label-success">
-                                                <i class="icon-ok"> 已办理</i>
-                                            </span>
-                                        }
 
-                                        @if (gytInfoDto.Status == BusinessState.初审通过)
-                                        {
-                                            <a class="btn btn-xs btn-danger _verify"
-                                               href="javascript:;"
-                                               data-bussinesstype="@gytInfoDto.BusinessType"
-                                               data-companyname="@gytInfoDto.BidCompanyName"
-                                               data-bidtruckno="@gytInfoDto.BidTruckNo"
-                                               data-id="@gytInfoDto.Id">
-                                                <i class=" icon-check">审核</i>
-                                            </a>
-                                            <a class="btn btn-xs btn-success _edit"
-                                               href="@Url.Action("Edit","GYTInfo",new {infoId=gytInfoDto.Id})">
-                                                <i class=" icon-check">编辑</i>
-                                            </a>
-                                        }
-
-                                        @if (gytInfoDto.Status == BusinessState.条件不符)
-                                        {
-                                            <i class="icon-ban-circle"> 不符合办理条件</i>
-                                        }
+                                        <a class="btn btn-xs btn-success _edit"
+                                           href="@Url.Action("Edit", "GYTInfo", new {infoId = gytInfoDto.Id})">
+                                            <i class=" icon-check">编辑</i>
+                                        </a>
                                     </td>
                                 }
                             </tr>
@@ -238,7 +209,6 @@
             }
         </div>
     </div>
-
 
 </div>
 

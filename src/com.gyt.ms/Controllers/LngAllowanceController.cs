@@ -154,7 +154,7 @@ namespace com.gyt.ms.Controllers
 
         [HttpPost]
         [UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
-        public JsonResult ChangStatus(int infoId)
+        public JsonResult ChangStatus(string infoId)
         {
             var infoDto = _lngAllowanceService.GetById(infoId);
             if (infoDto.Status==LngStatus.已补贴)
@@ -166,7 +166,7 @@ namespace com.gyt.ms.Controllers
             return infoDto.Status!=LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
         }
 
-        public ActionResult Edit(int infoId)
+        public ActionResult Edit(string infoId)
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
             ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');

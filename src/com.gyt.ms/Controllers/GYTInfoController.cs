@@ -82,7 +82,7 @@ namespace com.gyt.ms.Controllers
                 truckInfoDtoList.Add(new TruckInfoDto
                 {
                     FrontTruckNo = gtyGytInfoDto.OriginalTruckNo,
-                    CompanyId = gtyGytInfoDto.OriginalCompanyId
+                    CompanyId = gtyGytInfoDto.OriginalCompanyId??0
                 });
             }
 
@@ -122,7 +122,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("港运通审核", ActionType.更改状态)]
-        public JsonResult Verify(int infoId)
+        public JsonResult Verify(string infoId)
         {
             var gtyInfo = _gytInfoService.GetById(infoId);
 
@@ -141,7 +141,7 @@ namespace com.gyt.ms.Controllers
             return Success("审核成功！");
         }
 
-        public ActionResult Edit(int infoId)
+        public ActionResult Edit(string infoId)
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
             ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');

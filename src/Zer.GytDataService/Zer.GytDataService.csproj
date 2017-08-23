@@ -62,39 +62,27 @@
     <Compile Include="Impl\LngAllowanceInfoDataService.cs" />
     <Compile Include="Impl\LogInfoDataService.cs" />
     <Compile Include="Impl\PeccancyRecrodDataService.cs" />
-    <Compile Include="Migrations\201708151436217_Init_DataBase.cs">
-      <SubType>Code</SubType>
+    <Compile Include="Migrations\201708221613343_InitDb.cs" />
+    <Compile Include="Migrations\201708221613343_InitDb.Designer.cs">
+      <DependentUpon>201708221613343_InitDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708151436217_Init_DataBase.Designer.cs">
-      <DependentUpon>201708151436217_Init_DataBase.cs</DependentUpon>
+    <Compile Include="Migrations\201708221732533_changes_unknow.cs" />
+    <Compile Include="Migrations\201708221732533_changes_unknow.Designer.cs">
+      <DependentUpon>201708221732533_changes_unknow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708161332206_aa.cs" />
-    <Compile Include="Migrations\201708161332206_aa.Designer.cs">
-      <DependentUpon>201708161332206_aa.cs</DependentUpon>
+    <Compile Include="Migrations\201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.cs" />
+    <Compile Include="Migrations\201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.Designer.cs">
+      <DependentUpon>201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708171305519_lngAllowanceInfo-add-Status.cs" />
-    <Compile Include="Migrations\201708171305519_lngAllowanceInfo-add-Status.Designer.cs">
-      <DependentUpon>201708171305519_lngAllowanceInfo-add-Status.cs</DependentUpon>
+    <Compile Include="Migrations\201708231637024_remove_manyPropertyInPeccancyInfoEntity.cs" />
+    <Compile Include="Migrations\201708231637024_remove_manyPropertyInPeccancyInfoEntity.Designer.cs">
+      <DependentUpon>201708231637024_remove_manyPropertyInPeccancyInfoEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708190348040_change_company_traderRange_length.cs" />
-    <Compile Include="Migrations\201708190348040_change_company_traderRange_length.Designer.cs">
-      <DependentUpon>201708190348040_change_company_traderRange_length.cs</DependentUpon>
+    <Compile Include="Migrations\201708231644113_set_database_generateOption.cs" />
+    <Compile Include="Migrations\201708231644113_set_database_generateOption.Designer.cs">
+      <DependentUpon>201708231644113_set_database_generateOption.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708190505102_add_PeccancyRecordCount_CompanyInfo.cs" />
-    <Compile Include="Migrations\201708190505102_add_PeccancyRecordCount_CompanyInfo.Designer.cs">
-      <DependentUpon>201708190505102_add_PeccancyRecordCount_CompanyInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.cs" />
-    <Compile Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.Designer.cs">
-      <DependentUpon>201708190543428_removePeccancyRecordCount_CompanyInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708191416511_modify_gytInfoEntity.cs" />
-    <Compile Include="Migrations\201708191416511_modify_gytInfoEntity.Designer.cs">
-      <DependentUpon>201708191416511_modify_gytInfoEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
     <Compile Include="Impl\TruckInfoDataService.cs" />
@@ -119,26 +107,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708151436217_Init_DataBase.resx">
-      <DependentUpon>201708151436217_Init_DataBase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708221613343_InitDb.resx">
+      <DependentUpon>201708221613343_InitDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708161332206_aa.resx">
-      <DependentUpon>201708161332206_aa.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708221732533_changes_unknow.resx">
+      <DependentUpon>201708221732533_changes_unknow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708171305519_lngAllowanceInfo-add-Status.resx">
-      <DependentUpon>201708171305519_lngAllowanceInfo-add-Status.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.resx">
+      <DependentUpon>201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708190348040_change_company_traderRange_length.resx">
-      <DependentUpon>201708190348040_change_company_traderRange_length.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708231637024_remove_manyPropertyInPeccancyInfoEntity.resx">
+      <DependentUpon>201708231637024_remove_manyPropertyInPeccancyInfoEntity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708190505102_add_PeccancyRecordCount_CompanyInfo.resx">
-      <DependentUpon>201708190505102_add_PeccancyRecordCount_CompanyInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708190543428_removePeccancyRecordCount_CompanyInfo.resx">
-      <DependentUpon>201708190543428_removePeccancyRecordCount_CompanyInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708191416511_modify_gytInfoEntity.resx">
-      <DependentUpon>201708191416511_modify_gytInfoEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708231644113_set_database_generateOption.resx">
+      <DependentUpon>201708231644113_set_database_generateOption.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

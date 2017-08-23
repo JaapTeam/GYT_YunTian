@@ -1,8 +1,20 @@
-﻿namespace Zer.Framework.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Principal;
+
+namespace Zer.Framework.Entities
 {
-    public class EntityBase:IEntity<int>,IRecordState
+    public class EntityBase:EntityBase<int>,IRecordState
     {
-        public int Id { get; set; }
         public State State { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public override int Id { get; set; }
+    }
+
+    public abstract class EntityBase<TPrimaryKey> : IEntity<TPrimaryKey>
+    {
+        [Key]
+        public abstract TPrimaryKey Id { get; set; }
     }
 }

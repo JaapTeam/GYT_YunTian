@@ -56,20 +56,15 @@ namespace Zer.AppServices.Impl
 
         public bool ChangeStatusById(string id)
         {
-            var overLoadInfoDto = _peccancyRecrodDataService.Single(x => x.PeccancyId == id);
+            var overLoadInfoDto = _peccancyRecrodDataService.Single(x => x.Id == id);
             overLoadInfoDto.Status = Status.已整改;
             return _peccancyRecrodDataService.Update(overLoadInfoDto.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>().Status == Status.已整改;
-        }
-
-        public List<PeccancyRecrodDto> GetListByIds(int[] ids)
-        {
-            throw new System.NotImplementedException();
         }
 
         public bool Exists(PeccancyRecrodDto overloadRecrodDto)
         {
             return _peccancyRecrodDataService.GetAll()
-                .Any(x => x.PeccancyId == overloadRecrodDto.PeccancyId);
+                .Any(x => x.Id == overloadRecrodDto.Id);
         }
 
         public List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto)
@@ -165,7 +160,7 @@ namespace Zer.AppServices.Impl
         {
             return
                 _peccancyRecrodDataService.GetAll()
-                    .Where(x => x.PeccancyId.Equals(peccancyId))
+                    .Where(x => x.Id.Equals(peccancyId))
                     .ToList()
                     .FirstOrDefault()
                     .Map<PeccancyRecrodDto>();
