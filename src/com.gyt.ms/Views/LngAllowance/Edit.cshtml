@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="header smaller lighter blue">LNG补贴信息编辑</h3>
+@if (Model != null)
+{
+    <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit","PeccancyRecrod")">
+        <input value="@Model.Id" class="hide" name="Id" />
+
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_companyName" style="color: red"> 公司名称 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_companyName" placeholder="公司名称" class="col-xs-10 col-sm-5" value="@Model.CompanyName" name="CompanyName">
+                <label id="lbl_companyName" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_lotId" style="color: red"> 批次 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_lotId" placeholder="批次" class="col-xs-10 col-sm-5" value="@Model.LotId" name="LotId">
+                <label id="lbl_lotId" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_truckNo" style="color: red"> 车牌号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_truckNo" placeholder="车牌号" class="col-xs-10 col-sm-5" value="@Model.TruckNo" name="TruckNo">
+                <label id="lbl_behindTruckNo" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_engineId" style="color: red"> 发动机号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_engineId" placeholder="发动机号" class="col-xs-10 col-sm-5" value="@Model.EngineId" name="EngineId">
+                <label id="lbl_traderRange" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_cylinderDefaultId" style="color: red"> 汽缸1编号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_cylinderDefaultId" placeholder="汽缸1编号" class="col-xs-10 col-sm-5" value="@Model.CylinderDefaultId" name="CylinderDefaultId">
+                <label id="lbl_driverName" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_cylinderSeconedId" style="color: red"> 汽缸2编号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_cylinderSeconedId" placeholder="汽缸2编号" class="col-xs-10 col-sm-5" value="@Model.CylinderSeconedId" name="CylinderSeconedId">
+                <label id="lbl_peccancyMatter" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-info" type="submit" id="btn_Save">
+                    <i class="icon-ok bigger-110"></i>
+                    保存
+                </button>
+
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn" type="reset">
+                    <i class="icon-undo bigger-110"></i>
+                    清空
+                </button>
+            </div>
+        </div>
+    </form>
+}

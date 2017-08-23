@@ -125,32 +125,34 @@
                             }
                         </td>
                         @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
-                        {
-                            <td>
-                                @if (item.Status == LngStatus.未补贴)
-                                {
-                                    <a class="btn btn-xs btn-danger _verify"
-                                       data-id="@item.Id"
-                                       data-companyname="@item.CompanyName"
-                                       data-truckno="@item.TruckNo ">
-                                        <i class=" icon-check">
-                                            审核
-                                        </i>
-                                    </a>
-                                }
-                                else if (item.Status == LngStatus.已补贴)
-                                {
-                                    <span class="label label-sm label-success">
-                                        <i class="icon-ok"> 已补贴</i>
-                                    </span>
-                                }
-                            </td>
-                            <td>
-                                <a class="btn btn-info btn-minier btn-xs" href="javascript:;">
-                                    <i class=" icon-edit"> 编辑</i>
-                                </a>
-                            </td>
-                        }
+        {
+
+            <td>
+                @if (item.Status == LngStatus.未补贴)
+                {
+                    <a class="btn btn-xs btn-danger _verify"
+                       data-id="@item.Id"
+                       data-companyname="@item.CompanyName"
+                       data-truckno="@item.TruckNo ">
+                        <i class=" icon-check">
+                            审核
+                        </i>
+                    </a>
+                    <a class="btn btn-xs btn-success _edit"
+                       href="@Url.Action("Edit","LngAllowance",new {infoId=item.Id})">
+                        <i class=" icon-check">
+                            编辑
+                        </i>
+                    </a>
+                }
+                else if (item.Status == LngStatus.已补贴)
+                {
+                    <span class="label label-sm label-success">
+                        <i class="icon-ok"> 已补贴</i>
+                    </span>
+                }
+            </td>
+        }
                     </tr>
                 }
             }

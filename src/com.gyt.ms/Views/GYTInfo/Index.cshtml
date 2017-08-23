@@ -134,9 +134,33 @@
                                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                                 {
                                     <td>
-                                        <a class="btn btn-info btn-minier btn-xs" href="javascript:;">
-                                            <i class=" icon-edit"> 编辑</i>
-                                        </a>
+                                        @if (gytInfoDto.Status == BusinessState.已办理)
+                                        {
+                                            <span class="label label-sm label-success">
+                                                <i class="icon-ok"> 已办理</i>
+                                            </span>
+                                        }
+
+                                        @if (gytInfoDto.Status == BusinessState.初审通过)
+                                        {
+                                            <a class="btn btn-xs btn-danger _verify"
+                                               href="javascript:;"
+                                               data-bussinesstype="@gytInfoDto.BusinessType"
+                                               data-companyname="@gytInfoDto.BidCompanyName"
+                                               data-bidtruckno="@gytInfoDto.BidTruckNo"
+                                               data-id="@gytInfoDto.Id">
+                                                <i class=" icon-check">审核</i>
+                                            </a>
+                                            <a class="btn btn-xs btn-success _edit"
+                                               href="@Url.Action("Edit","GYTInfo",new {infoId=gytInfoDto.Id})">
+                                                <i class=" icon-check">编辑</i>
+                                            </a>
+                                        }
+
+                                        @if (gytInfoDto.Status == BusinessState.条件不符)
+                                        {
+                                            <i class="icon-ban-circle"> 不符合办理条件</i>
+                                        }
                                     </td>
                                 }
                             </tr>

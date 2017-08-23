@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="header smaller lighter blue">超载超限信息编辑</h3>
+
+@if (Model != null)
+{
+    <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit","PeccancyRecrod")">
+        <input value="@Model.Id" class="hide" name="Id" />
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_bidCompnyName" style="color: red"> 处罚决定书编号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_bidCompnyName" placeholder="处罚决定书编号" class="col-xs-10 col-sm-5 editable" value="@Model.PeccancyId" name="PeccancyId">
+                <label id="lbl_peccancyId" style="color: red; display: none"></label>
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_companyName" style="color: red"> 公司名称 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_companyName" placeholder="公司名称" class="col-xs-10 col-sm-5" value="@Model.CompanyName" name="CompanyName">
+                <label id="lbl_companyName" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_frontTruckNo" style="color: red"> 前车牌号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_frontTruckNo" placeholder="前车牌号" class="col-xs-10 col-sm-5" value="@Model.FrontTruckNo" name="FrontTruckNo">
+                <label id="lbl_frontTruckNo" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="lbl_behindTruckNo" style="color: red"> 后车牌号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_frontTruckNo" placeholder="后车牌号" class="col-xs-10 col-sm-5" value="@Model.BehindTruckNo" name="BehindTruckNo">
+                <label id="lbl_behindTruckNo" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_traderRange" style="color: red"> 所属行业 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_traderRange" placeholder="所属行业" class="col-xs-10 col-sm-5" value="@Model.TraderRange" name="TraderRange">
+                <label id="lbl_traderRange" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_driverName" style="color: red"> 驾驶员姓名 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_driverName" placeholder="驾驶员姓名" class="col-xs-10 col-sm-5" value="@Model.DriverName" name="DriverName">
+                <label id="lbl_driverName" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_peccancyDate" style="color: red"> 违法日期 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_peccancyDate" placeholder="违法日期" class="col-xs-10 col-sm-5" value="@Model.PeccancyDate" name="PeccancyDate">
+                <label id="lbl_peccancyDate" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_peccancyMatter" style="color: red"> 违法事项 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_peccancyMatter" placeholder="违法事项" class="col-xs-10 col-sm-5" value="@Model.PeccancyMatter" name="PeccancyMatter">
+                <label id="lbl_peccancyMatter" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_source" style="color: red"> 文件来源 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_source" placeholder="文件来源" class="col-xs-10 col-sm-5" value="@Model.Source" name="Source">
+                <label id="lbl_source" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-info" type="submit" id="btn_Save">
+                    <i class="icon-ok bigger-110"></i>
+                    保存
+                </button>
+
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn" type="reset">
+                    <i class="icon-undo bigger-110"></i>
+                    清空
+                </button>
+            </div>
+        </div>
+    </form>
+}
+

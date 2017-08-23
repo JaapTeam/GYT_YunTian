@@ -58,6 +58,11 @@ namespace Zer.AppServices.Impl
             return _companyInfoDataService.AddRange(entities).Map<CompanyInfoDto>().ToList();
         }
 
+        public CompanyInfoDto Edit(CompanyInfoDto model)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<CompanyInfoDto> GetByLikeName(string likeName)
         {
             return _companyInfoDataService
