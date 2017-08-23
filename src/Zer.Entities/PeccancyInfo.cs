@@ -7,8 +7,11 @@ namespace Zer.Entities
     [Serializable]
     public class PeccancyInfo : EntityBase<string>
     {
+        [Key]
         [StringLength(30)]
-        public string PeccancyId { get; set; }
+        public override string Id { get; set; }
+        //[StringLength(30)]
+        //public string PeccancyId { get; set; }
         public int CompanyId { get; set; }
         [StringLength(50)]
         public string CompanyName { get; set; }
@@ -35,9 +38,7 @@ namespace Zer.Entities
         [StringLength(50)]
         public string Source { get; set; }
         public Status Status { get; set; }
-        [Key]
-        [StringLength(30)]
-        public override string Id { get; set; }
+       
     }
 
     public enum Status

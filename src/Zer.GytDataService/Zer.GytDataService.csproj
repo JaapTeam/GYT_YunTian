@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201708221732533_changes_unknow.Designer.cs">
       <DependentUpon>201708221732533_changes_unknow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.cs" />
+    <Compile Include="Migrations\201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.Designer.cs">
+      <DependentUpon>201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708221732533_changes_unknow.resx">
       <DependentUpon>201708221732533_changes_unknow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.resx">
+      <DependentUpon>201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

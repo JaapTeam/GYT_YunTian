@@ -2,21 +2,15 @@ using System;
 using System.Data.Entity;
 using System.Security.Cryptography;
 using Zer.Entities;
+using Zer.Framework.UUID;
 
 namespace Zer.GytDataService.Impl
 {
-    public class LngAllowanceInfoDataService : GytRepository<LngAllowanceInfo,string>, ILngAllowanceInfoDataService
+    public class LngAllowanceInfoDataService : GytRepository<LngAllowanceInfo, string>, ILngAllowanceInfoDataService
     {
         public override string GeneratePrimaryKey()
         {
-            RNGCryptoServiceProvider csp = new RNGCryptoServiceProvider();
-            byte[] byteCsp = new byte[10];
-            csp.GetBytes(byteCsp);
-            var seed = Math.Abs(BitConverter.ToInt32(byteCsp, 0));
-
-            Random r = new Random(seed);
-            var value = string.Format("GYT{0:yyMMddhhmsff}{1}", DateTime.Now, r.Next(1000, 9999));
-            return value;
+            return string.Format("LNG{0:yyMMddhhmm}{1}", DateTime.Now, UUIdManager.Instance.Queue());
         }
     }
 }

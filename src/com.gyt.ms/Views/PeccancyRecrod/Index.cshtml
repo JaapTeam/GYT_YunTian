@@ -114,7 +114,7 @@
             @foreach (var peccancyRecrodDto in infoList)
             {
                 <tr>
-                    <td class="__PeccancyId">@peccancyRecrodDto.PeccancyId</td>
+                    <td class="__PeccancyId">@peccancyRecrodDto.Id</td>
                     <td class="__CompanyName">@peccancyRecrodDto.CompanyName</td>
                     <td>
                         @peccancyRecrodDto.FrontTruckNo
@@ -141,7 +141,7 @@
 
                             @if (peccancyRecrodDto.Status == Status.未整改)
                             {
-                                <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.PeccancyId">
+                                <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.Id">
                                     <i class=" icon-check">整改</i>
                                 </a>
                             }

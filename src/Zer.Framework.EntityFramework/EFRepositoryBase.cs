@@ -32,7 +32,7 @@ namespace Zer.Framework.EntityFramework
 
         public override IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
         {
-            foreach (var entity in list.Where(x=>x.Id.ToString().IsNullOrEmpty()))
+            foreach (var entity in list.Where(x=>x.Id == null || x.Id.ToString().IsNullOrEmpty()))
             {
                 entity.Id = GeneratePrimaryKey();
             }

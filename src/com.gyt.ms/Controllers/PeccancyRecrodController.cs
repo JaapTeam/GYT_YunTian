@@ -96,8 +96,8 @@ namespace com.gyt.ms.Controllers
             var mustImportoverloadRecrodDtoList =
                 overloadRecrodDtoList
                     .Where(x => !existsoverloadRecrodDtoList
-                        .Select(overLoad => overLoad.PeccancyId)
-                        .Contains(x.PeccancyId)).ToList();
+                        .Select(overLoad => overLoad.Id)
+                        .Contains(x.Id)).ToList();
 
             // 初始化检测并注册其中的新公司信息
             InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
