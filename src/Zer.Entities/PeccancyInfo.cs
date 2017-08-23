@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
@@ -9,6 +10,7 @@ namespace Zer.Entities
     {
         [Key]
         [StringLength(30)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override string Id { get; set; }
         //[StringLength(30)]
         //public string PeccancyId { get; set; }
@@ -33,17 +35,16 @@ namespace Zer.Entities
         public string PeccancyMatter { get; set; }
 
         public decimal GrossWeight { get; set; }
-        public int AxisNumber { get; set; }
 
         [StringLength(50)]
         public string Source { get; set; }
         public Status Status { get; set; }
-       
+
     }
 
     public enum Status
     {
-        未整改=1,
-        已整改=4
+        未整改 = 1,
+        已整改 = 4
     }
 }

@@ -9,10 +9,6 @@ namespace Zer.GytDto
 {
     public class PeccancyRecrodDto : DtoBase
     {
-        //[ExportIgnore]
-        //[ImprotIgnore]
-        //public int Id { get; set; }
-
         [ExportSort(1)]
         [ExportDisplayName("处罚决定书编号")]
         [ImportSort(1)]
