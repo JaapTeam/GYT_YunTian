@@ -6,11 +6,13 @@ using System.Web.Mvc;
 using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Cache;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
+using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
@@ -144,6 +146,21 @@ namespace com.gyt.ms.Controllers
             var exportList = _peccancyRecrodService.GetList(searchDto);
 
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限信息数据库{0:yyyyMMddhhmmssfff}", DateTime.Now));
+        }
+
+        public ActionResult Edit(string peccancyId)
+        {
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
+            var infoDto = _peccancyRecrodService.GetByPeccancyId(peccancyId);
+
+            return View(infoDto);
+        }
+
+        public JsonResult SaveEdit(PeccancyRecrodDto infoDto)
+        {
+            _peccancyRecrodService.Edit(infoDto);
+            return Success();
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)

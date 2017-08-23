@@ -21,5 +21,7 @@ namespace Zer.AppServices
         /// <param name="companyName"></param>
         /// <returns></returns>
         bool ExistsCompanyName(string companyName);
+
+        PeccancyRecrodDto GetByPeccancyId(string peccancyId);
     }
 }

@@ -43,6 +43,11 @@ namespace Zer.AppServices.Impl
             return _truckInfoDataService.AddRange(list.Map<TruckInfo>()).Map<TruckInfoDto>().ToList();
         }
 
+        public TruckInfoDto Edit(TruckInfoDto model)
+        {
+            throw new NotImplementedException();
+        }
+
         public TruckInfoDto GetByTruckNo(string truckNo)
         {
             return _truckInfoDataService.GetAll()

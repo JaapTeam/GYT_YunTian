@@ -8,11 +8,13 @@ using System.Web.Mvc;
 using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
+using Zer.Framework.Cache;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
+using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
@@ -87,7 +89,7 @@ namespace com.gyt.ms.Controllers
             // 初始化检测并注册其中的新车辆信息
             InitTruckInfoDtoList(truckInfoDtoList);
 
-            mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.初审通过);
+            mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.已注销);
 
             // 保存信息，并得到保存成功的结果
             var importSuccessList = _gytInfoService.AddRange(mustImportgtyGytInfoDtoList);
@@ -139,21 +141,29 @@ namespace com.gyt.ms.Controllers
             return Success("审核成功！");
         }
 
-        public ActionResult AddGas()
+        public ActionResult Edit(string infoId)
         {
-            return View();
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
+            var infoDto = _gytInfoService.GetById(infoId);
+            return View(infoDto);
         }
 
-        public ActionResult replaceOld()
+        public JsonResult SaveEdit(GYTInfoDto infoDto)
         {
-            return View();
+            if (infoDto==null)
+            {
+                return Fail("保存失败！");
+            }
+
+            //未做必填检查
+
+
+            _gytInfoService.Edit(infoDto);
+
+            return Success();
         }
 
-        public ActionResult TransferOwner()
-        {
-            return View();
-        }
-        
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {
             var improtCompanyInfoDtoList = new List<CompanyInfoDto>();

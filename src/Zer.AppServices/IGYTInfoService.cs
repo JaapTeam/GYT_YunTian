@@ -10,6 +10,8 @@ namespace Zer.AppServices
 
         List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto);
 
+        GYTInfoDto GetByBidTruckNo(string bidTruckNo);
+
         /// <summary>
         /// 检查车牌以旧换新指标是否已使用
         /// </summary>

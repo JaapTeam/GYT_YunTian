@@ -34,7 +34,7 @@ namespace Zer.GytDto
 
         [ExportSort(4)]
         [ImportSort(4)]
-        [ExportDisplayName("前车牌号")]
+        [ExportDisplayName("后车牌号")]
         public string BehindTruckNo { get; set; }
 
         [ExportSort(5)]
@@ -65,18 +65,14 @@ namespace Zer.GytDto
         [ImportSort(9)]
         [ExportDisplayName("总重")]
         public string GrossWeight { get; set; }
+
         [ExportSort(10)]
         [ImportSort(10)]
-        [ExportDisplayName("轴数")]
-        public int AxisNumber { get; set; }
-
-        [ExportSort(11)]
-        [ImportSort(11)]
         [ExportDisplayName("文件来源")]
         public string Source { get; set; }
 
-        [ImportSort(12)]
-        [ExportSort(12)]
+        [ImportSort(11)]
+        [ExportSort(11)]
         [ExportDisplayName("状态")]
         public Status Status { get; set; }
     }

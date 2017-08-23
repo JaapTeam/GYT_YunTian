@@ -11,6 +11,6 @@ namespace Zer.AppServices
         public abstract TEntityDto Add(TEntityDto model);
 
         public abstract List<TEntityDto> AddRange(List<TEntityDto> list);
-
+        public abstract TEntityDto Edit(TEntityDto model);
     }
 }

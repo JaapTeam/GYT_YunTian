@@ -49,6 +49,11 @@ namespace Zer.AppServices.Impl
             return insertList;
         }
 
+        public PeccancyRecrodDto Edit(PeccancyRecrodDto model)
+        {
+            return _peccancyRecrodDataService.Update(model.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>();
+        }
+
         public bool ChangeStatusById(string id)
         {
             var overLoadInfoDto = _peccancyRecrodDataService.Single(x => x.Id == id);
@@ -149,6 +154,16 @@ namespace Zer.AppServices.Impl
         {
             return _peccancyRecrodDataService.GetAll()
                 .Any(x => x.CompanyName == companyName && x.Status == Status.未整改);
+        }
+
+        public PeccancyRecrodDto GetByPeccancyId(string peccancyId)
+        {
+            return
+                _peccancyRecrodDataService.GetAll()
+                    .Where(x => x.Id.Equals(peccancyId))
+                    .ToList()
+                    .FirstOrDefault()
+                    .Map<PeccancyRecrodDto>();
         }
     }
 }

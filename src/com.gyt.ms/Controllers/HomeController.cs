@@ -39,7 +39,7 @@ namespace com.gyt.ms.Controllers
             {
                 PageSize = homePageSize,
                 PageIndex = 1,
-                Status =  BusinessState.初审通过
+                Status =  BusinessState.已注销
             };
 
             var gytInfoWaitCheckList = _gytInfoService.GetList(searchDto);

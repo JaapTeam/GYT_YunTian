@@ -44,7 +44,12 @@ namespace Zer.AppServices.Impl
             insertList.AddRange(existsList);
             return insertList;
         }
-        
+
+        public LngAllowanceInfoDto Edit(LngAllowanceInfoDto model)
+        {
+            return _lngAllowanceInfoDataService.Update(model.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
+        }
+
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             return _lngAllowanceInfoDataService.GetAll()

@@ -43,8 +43,8 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         public ActionResult Gas()
         {
-            ViewBag.ProvinceList = PartString(CacheHelper.GetCache("Province").ToString(), ',');
-            ViewBag.CharacterList = PartString(CacheHelper.GetCache("Character").ToString(), ',');
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
             return View();
         }
 
@@ -52,8 +52,8 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("过户车辆业务办理", ActionType.查询)]
         public ActionResult Transfer()
         {
-            ViewBag.ProvinceList = PartString(CacheHelper.GetCache("Province").ToString(), ',');
-            ViewBag.CharacterList = PartString(CacheHelper.GetCache("Character").ToString(), ',');
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
             return View();
         }
 
@@ -61,8 +61,8 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("已旧换新车辆业务办理", ActionType.查询)]
         public ActionResult New()
         {
-            ViewBag.ProvinceList = PartString(CacheHelper.GetCache("Province").ToString(), ',');
-            ViewBag.CharacterList = PartString(CacheHelper.GetCache("Character").ToString(), ',');
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
             return View();
         }
 
@@ -94,54 +94,105 @@ namespace com.gyt.ms.Controllers
             return result ? Fail() : Success();
         }
 
-        public ActionResult Commit(GYTInfoDto dto)
+        [UserActionLog("业务办理", ActionType.新增)]
+        public JsonResult Commit(GYTInfoDto dto)
         {
-            if (dto.BidCompanyName.IsNullOrEmpty() || dto.BidTruckNo.IsNullOrEmpty())
-            {
-                throw new CustomException("参数错误，请重新输入");
-            }
-
-            // TODO: 根据业务类型不同，判断条件不同
+            var validateResult = CommonValidate(dto);
             switch (dto.BusinessType)
             {
                 case BusinessType.天然气车辆:
-
-                    break;
-
-                case BusinessType.过户车辆:
-
-                    ValidateAllowBid(dto);
+                    validateResult.AddRange(ValidateWithGasBusiness(dto));
                     break;
 
                 case BusinessType.以旧换新车辆:
-
-                    if (_gytInfoService.TargetIsUse(dto.OriginalTruckNo))
-                    {
-                        throw new CustomException("已旧换新指标已被使用，不符合办理条件");
-                    }
-
-                    ValidateAllowBid(dto);
-
+                    validateResult.AddRange(ValidateWithReplaceBusiness(dto));
                     break;
 
-                default: throw new CustomException("不正常的业务提交");
+                case BusinessType.过户车辆:
+                    validateResult.AddRange(ValidateWithTransferBusiness(dto));
+                    break;
+
+                default: return Fail("不正常的业务提交，请重试.");
             }
 
-            if (_gytInfoService.Exists(dto.BidTruckNo))
+            if (validateResult.Any())
             {
-                throw new CustomException("申办车牌号已存在办理记录，不符合办理条件", "申办车牌号", dto.BidTruckNo);
+                return Fail("办理条件不符合", validateResult);
             }
 
+            var result = SaveCommitedData(dto);
+
+            return result == null ? Fail("数据保存失败，请重试.") : Success(result);
+        }
+
+        private List<string> CommonValidate(GYTInfoDto dto)
+        {
+            var result = new List<string>();
+
+            if (dto.BidCompanyName.IsNullOrEmpty())
+            {
+                result.Add("申办企业名称不能为空");
+                return result;
+            }
+
+            if (dto.BidTruckNo.Substring(2).IsNullOrEmpty())
+            {
+                result.Add("申办车牌号不能为空");
+                return result;
+            }
+
+            // 申办企业不能有违法记录
             if (_peccancyRecrodService.ExistsCompanyName(dto.BidCompanyName))
             {
-                throw new CustomException("申办企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.BidCompanyName);
+                result.Add("申办企业存在超载超限记录,不符合办理条件");
             }
 
-            if (_peccancyRecrodService.ExistsCompanyName(dto.OriginalCompanyName))
+            // 新申请车牌不能存在已办理记录
+            var recordDto = _gytInfoService.GetByBidTruckNo(dto.BidTruckNo);
+            if (recordDto != null)
             {
-                throw new CustomException("原企业存在超载超限违法记录，不符合办理条件", "公司名称", dto.OriginalCompanyName);
+                result.Add(string.Format("申办车牌号[{0}]已经办理港运通,编号为[{1}]", recordDto.BidTruckNo, recordDto.Id));
             }
 
+            return result;
+        }
+
+        private List<string> ValidateWithGasBusiness(GYTInfoDto dto)
+        {
+            // 天然气业务
+            return new List<string>();
+        }
+
+        private List<string> ValidateWithReplaceBusiness(GYTInfoDto dto)
+        {
+            // 以旧换新业务
+            var result = new List<string>();
+
+            // 旧车必须有办理记录
+            if (_gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo) == null)
+            {
+                result.Add("原车牌不存在港运通办理记录，不能办理以旧换新业务");
+            }
+
+            return result;
+        }
+
+        private List<string> ValidateWithTransferBusiness(GYTInfoDto dto)
+        {
+            // 车辆过户业务
+            var result = new List<string>();
+
+            // 旧车必须有办理记录
+            if (_gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo) == null)
+            {
+                result.Add("原车牌不存在港运通办理记录，不能办理车辆过户业务");
+            }
+
+            return result;
+        }
+
+        private GYTInfoDto SaveCommitedData(GYTInfoDto dto)
+        {
             //检测公司是否存在
             var companyList = new List<CompanyInfoDto>
             {
@@ -184,30 +235,10 @@ namespace com.gyt.ms.Controllers
 
             dto.BidName = userInfoDto.UserName;
             dto.BidDisplayName = userInfoDto.DisplayName;
-            dto.Status = BusinessState.初审通过;
+            dto.Status = BusinessState.已办理;
             dto.BidDate = DateTime.Now;
 
-            var result = _gytInfoService.Add(dto);
-
-            if (result == null)
-            {
-                throw new CustomException("数据保存失败，请重试.");
-            }
-
-            return RedirectToAction("Index", "GYTInfo");
-        }
-
-        private void ValidateAllowBid(GYTInfoDto dto)
-        {
-            if (dto.OriginalCompanyName.IsNullOrEmpty() || !_companyService.Exists(dto.OriginalCompanyName))
-            {
-                throw new CustomException("原公司信息不存在", "公司名称", dto.OriginalCompanyName);
-            }
-
-            if (dto.OriginalTruckNo.IsNullOrEmpty() || !_truckInfoService.Exists(dto.OriginalTruckNo))
-            {
-                throw new CustomException("原车辆信息不存在", "车牌号", dto.OriginalTruckNo);
-            }
+            return _gytInfoService.Add(dto);
         }
 
         /// <summary>
@@ -225,21 +256,6 @@ namespace com.gyt.ms.Controllers
             }
 
             return Success();
-        }
-
-        private List<string> PartString(string str, char mark)
-        {
-            if (str.Length <= 0)
-            {
-                return new List<string>();
-            }
-
-            if (mark.ToString().IsNullOrEmpty())
-            {
-                return new List<string>();
-            }
-            var stringList = str.Split(mark).ToList();
-            return stringList;
         }
     }
 }
