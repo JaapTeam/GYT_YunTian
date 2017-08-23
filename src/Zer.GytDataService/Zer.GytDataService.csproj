@@ -78,10 +78,6 @@
     <Compile Include="Migrations\201708231637024_remove_manyPropertyInPeccancyInfoEntity.Designer.cs">
       <DependentUpon>201708231637024_remove_manyPropertyInPeccancyInfoEntity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708231644113_set_database_generateOption.cs" />
-    <Compile Include="Migrations\201708231644113_set_database_generateOption.Designer.cs">
-      <DependentUpon>201708231644113_set_database_generateOption.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
@@ -118,9 +114,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708231637024_remove_manyPropertyInPeccancyInfoEntity.resx">
       <DependentUpon>201708231637024_remove_manyPropertyInPeccancyInfoEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708231644113_set_database_generateOption.resx">
-      <DependentUpon>201708231644113_set_database_generateOption.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
