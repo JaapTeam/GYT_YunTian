@@ -7,13 +7,13 @@ namespace Zer.GytDataService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class add_PeccancyRecordCount_CompanyInfo : IMigrationMetadata
+    public sealed partial class remove_manyPropertyInPeccancyInfoEntity : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_PeccancyRecordCount_CompanyInfo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(remove_manyPropertyInPeccancyInfoEntity));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708190505102_add_PeccancyRecordCount_CompanyInfo"; }
+            get { return "201708231637024_remove_manyPropertyInPeccancyInfoEntity"; }
         }
         
         string IMigrationMetadata.Source

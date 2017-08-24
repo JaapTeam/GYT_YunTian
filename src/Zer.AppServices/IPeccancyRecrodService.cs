@@ -8,9 +8,7 @@ namespace Zer.AppServices
     public interface IPeccancyRecrodService : IAppService<PeccancyRecrodDto, int>
     {
         bool ChangeStatusById(string id);
-
-        List<PeccancyRecrodDto> GetListByIds(int[] ids);
-
+        
         bool Exists(PeccancyRecrodDto overloadRecrodDto);
 
         List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto);
@@ -23,5 +21,7 @@ namespace Zer.AppServices
         /// <param name="companyName"></param>
         /// <returns></returns>
         bool ExistsCompanyName(string companyName);
+
+        PeccancyRecrodDto GetByPeccancyId(string peccancyId);
     }
 }

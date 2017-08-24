@@ -49,22 +49,22 @@ namespace Zer.AppServices.Impl
             return insertList;
         }
 
-        public bool ChangeStatusById(string id)
+        public PeccancyRecrodDto Edit(PeccancyRecrodDto model)
         {
-            var overLoadInfoDto = _peccancyRecrodDataService.Single(x => x.PeccancyId == id);
-            overLoadInfoDto.Status = Status.已整改;
-            return _peccancyRecrodDataService.Update(overLoadInfoDto.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>().Status == Status.已整改;
+            return _peccancyRecrodDataService.Update(model.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>();
         }
 
-        public List<PeccancyRecrodDto> GetListByIds(int[] ids)
+        public bool ChangeStatusById(string id)
         {
-            throw new System.NotImplementedException();
+            var overLoadInfoDto = _peccancyRecrodDataService.Single(x => x.Id == id);
+            overLoadInfoDto.Status = Status.已整改;
+            return _peccancyRecrodDataService.Update(overLoadInfoDto.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>().Status == Status.已整改;
         }
 
         public bool Exists(PeccancyRecrodDto overloadRecrodDto)
         {
             return _peccancyRecrodDataService.GetAll()
-                .Any(x => x.PeccancyId == overloadRecrodDto.PeccancyId);
+                .Any(x => x.Id == overloadRecrodDto.Id);
         }
 
         public List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto)
@@ -154,6 +154,16 @@ namespace Zer.AppServices.Impl
         {
             return _peccancyRecrodDataService.GetAll()
                 .Any(x => x.CompanyName == companyName && x.Status == Status.未整改);
+        }
+
+        public PeccancyRecrodDto GetByPeccancyId(string peccancyId)
+        {
+            return
+                _peccancyRecrodDataService.GetAll()
+                    .Where(x => x.Id.Equals(peccancyId))
+                    .ToList()
+                    .FirstOrDefault()
+                    .Map<PeccancyRecrodDto>();
         }
     }
 }

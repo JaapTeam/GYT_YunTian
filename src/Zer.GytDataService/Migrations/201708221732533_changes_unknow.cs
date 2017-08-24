@@ -3,16 +3,16 @@ namespace Zer.GytDataService.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class aa : DbMigration
+    public partial class changes_unknow : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.GYTInfoes", "OldTruckNo", c => c.String(maxLength: 10));
+            AlterColumn("dbo.GYTInfoes", "OriginalCompanyId", c => c.Int());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.GYTInfoes", "OldTruckNo");
+            AlterColumn("dbo.GYTInfoes", "OriginalCompanyId", c => c.Int(nullable: false));
         }
     }
 }

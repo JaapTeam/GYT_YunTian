@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201708050722440_Init_TestDatas.Designer.cs">
       <DependentUpon>201708050722440_Init_TestDatas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708221458190_addEntity_withstringprimary.cs" />
+    <Compile Include="Migrations\201708221458190_addEntity_withstringprimary.Designer.cs">
+      <DependentUpon>201708221458190_addEntity_withstringprimary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TestDbContext.cs" />
     <Compile Include="TestEntity.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="TestEntityDataService.cs" />
     <Compile Include="TestRepositoryBase.cs" />
     <Compile Include="Tests\EfTests.cs" />
+    <Compile Include="Tests\TestForGenerateId.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zer.AppServices\Zer.AppServices.csproj">
@@ -120,6 +125,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708050722440_Init_TestDatas.resx">
       <DependentUpon>201708050722440_Init_TestDatas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708221458190_addEntity_withstringprimary.resx">
+      <DependentUpon>201708221458190_addEntity_withstringprimary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -80,8 +80,7 @@
                     <th>状态</th>
                     @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                     {
-                        <th>详情</th>
-                        
+                        <th>编辑</th>
                     }
                 </tr>
                 </thead>
@@ -92,12 +91,6 @@
                         foreach (var gytInfoDto in infoList)
                         {
                             <tr>
-                                @*<td class="center">
-                                    <label>
-                                        <input type="checkbox" class="ace"/>
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>*@
                                 <td>
                                     <a href="javascript:;">@gytInfoDto.Id</a>
                                 </td>
@@ -134,8 +127,10 @@
                                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                                 {
                                     <td>
-                                        <a class="btn btn-info btn-minier btn-xs" href="javascript:;">
-                                            <i class=" icon-edit"> 编辑</i>
+
+                                        <a class="btn btn-xs btn-success _edit"
+                                           href="@Url.Action("Edit", "GYTInfo", new {infoId = gytInfoDto.Id})">
+                                            <i class=" icon-check">编辑</i>
                                         </a>
                                     </td>
                                 }
@@ -214,7 +209,6 @@
             }
         </div>
     </div>
-
 
 </div>
 

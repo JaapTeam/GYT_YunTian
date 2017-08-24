@@ -3,16 +3,16 @@ namespace Zer.GytDataService.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class lngAllowanceInfoaddStatus : DbMigration
+    public partial class remove_manyPropertyInPeccancyInfoEntity : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.LngAllowanceInfoes", "Status", c => c.Int(nullable: false));
+            DropColumn("dbo.PeccancyInfoes", "AxisNumber");
         }
         
         public override void Down()
         {
-            DropColumn("dbo.LngAllowanceInfoes", "Status");
+            AddColumn("dbo.PeccancyInfoes", "AxisNumber", c => c.Int(nullable: false));
         }
     }
 }

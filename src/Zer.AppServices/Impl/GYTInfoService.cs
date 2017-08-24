@@ -22,7 +22,7 @@ namespace Zer.AppServices.Impl
             _gytInfoDataService = gytInfoDataService;
         }
 
-        public GYTInfoDto GetById(int id)
+        public GYTInfoDto GetById(string id)
         {
             return _gytInfoDataService.GetById(id).Map<GYTInfoDto>();
         }
@@ -52,6 +52,11 @@ namespace Zer.AppServices.Impl
         {
             var entities = list.Map<GYTInfo>();
             return _gytInfoDataService.AddRange(entities).Map<GYTInfoDto>().ToList();
+        }
+
+        public GYTInfoDto Edit(GYTInfoDto model)
+        {
+            return _gytInfoDataService.Update(model.Map<GYTInfo>()).Map<GYTInfoDto>();
         }
 
         public bool Exists(string bidTruckNo)
@@ -116,7 +121,7 @@ namespace Zer.AppServices.Impl
                     .Any(x => x.OriginalTruckNo == truckNo && x.BusinessType == BusinessType.以旧换新车辆);
         }
 
-        public GYTInfoDto Verify(int infoId)
+        public GYTInfoDto Verify(string infoId)
         {
             var gytInfoDto = _gytInfoDataService.GetById(infoId);
 

@@ -10,5 +10,7 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests
         }
 
         public DbSet<TestEntity> TestEntities { get; set; }
+
+        public DbSet<TestEntityWithStringPrimaryKey> TestEntityWithStringPrimaryKeys { get; set; }
     }
 }

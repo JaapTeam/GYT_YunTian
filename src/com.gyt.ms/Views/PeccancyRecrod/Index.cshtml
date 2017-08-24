@@ -97,7 +97,6 @@
                 <th>违法日期</th>
                 <th>违法事项</th>
                 <th>总重（吨）</th>
-                <th>轴数</th>
                 <th>文件来源</th>
                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                 {
@@ -115,7 +114,7 @@
             @foreach (var peccancyRecrodDto in infoList)
             {
                 <tr>
-                    <td class="__PeccancyId">@peccancyRecrodDto.PeccancyId</td>
+                    <td class="__PeccancyId">@peccancyRecrodDto.Id</td>
                     <td class="__CompanyName">@peccancyRecrodDto.CompanyName</td>
                     <td>
                         @peccancyRecrodDto.FrontTruckNo
@@ -128,7 +127,6 @@
                     </td>
                     <td>@peccancyRecrodDto.PeccancyMatter</td>
                     <td>@peccancyRecrodDto.GrossWeight</td>
-                    <td>@peccancyRecrodDto.AxisNumber</td>
                     <td>@peccancyRecrodDto.Source</td>
                     @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                     {
@@ -142,8 +140,11 @@
 
                             @if (peccancyRecrodDto.Status == Status.未整改)
                             {
-                                <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.PeccancyId">
+                                <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.Id">
                                     <i class=" icon-check">整改</i>
+                                </a>
+                                <a class="btn btn-xs btn-success _edit" href="@Url.Action("Edit", "PeccancyRecrod", new { peccancyId = peccancyRecrodDto.Id })">
+                                    <i class=" icon-check">编辑</i>
                                 </a>
                             }
                         </td>

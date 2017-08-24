@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 using Zer.Framework.Helpers;
@@ -73,6 +75,19 @@ namespace Zer.Framework.Extensions
             return startDate;
         }
 
-        
+        public static List<string> PartString(this string str, char mark)
+        {
+            if (str.Length <= 0)
+            {
+                return new List<string>();
+            }
+
+            if (mark.ToString().IsNullOrEmpty())
+            {
+                return new List<string>();
+            }
+            var stringList = str.Split(mark).ToList();
+            return stringList;
+        }
     }
 }

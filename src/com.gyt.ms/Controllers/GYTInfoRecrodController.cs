@@ -58,7 +58,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("港运通审核",ActionType.更改状态)]
-        public JsonResult Verify(int infoId)
+        public JsonResult Verify(string infoId)
         {
             var gtyInfo = _gytInfoService.GetById(infoId);
 
