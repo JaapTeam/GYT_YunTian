@@ -363,7 +363,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\uploadFiles\LngAllowance\" />
-    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

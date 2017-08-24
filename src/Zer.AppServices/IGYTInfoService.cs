@@ -4,7 +4,7 @@ using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices
 {
-    public interface IGYTInfoService : IAppService<GYTInfoDto, int>
+    public interface IGYTInfoService : IAppService<GYTInfoDto, string>
     {
         bool Exists(string bidTruckNo);
 
@@ -19,6 +19,6 @@ namespace Zer.AppServices
         /// <returns></returns>
         bool TargetIsUse(string truckNo);
 
-        GYTInfoDto Verify(int infoId);
+        GYTInfoDto Verify(string infoId);
     }
 }

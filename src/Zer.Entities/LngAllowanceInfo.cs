@@ -5,7 +5,7 @@ using Zer.Framework.Entities;
 namespace Zer.Entities
 {
     [Serializable]
-    public class LngAllowanceInfo : EntityBase
+    public class LngAllowanceInfo : EntityBase<string>
     {
         public int CompanyId { get; set; }
 
@@ -27,6 +27,9 @@ namespace Zer.Entities
         public string CylinderSeconedId { get; set; }
 
         public LngStatus Status { get; set; }
+        [Key]
+        [StringLength(30)]
+        public override string Id { get; set; }
     }
 
     public enum LngStatus

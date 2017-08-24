@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
     [Serializable]
-    public class GYTInfo:EntityBase
+    public class GYTInfo : EntityBase<string>
     {
         public BusinessType BusinessType { get; set; }
 
-        public int OriginalCompanyId { get; set; }
+        public int? OriginalCompanyId { get; set; }
 
         [StringLength(50)]
         public string OriginalCompanyName { get; set; }
@@ -38,6 +34,9 @@ namespace Zer.Entities
         public string BidDisplayName { get; set; }
 
         public BusinessState Status { get; set; }
+        [Key]
+        [StringLength(30)]
+        public override string Id { get; set; }
     }
 
     /// <summary>

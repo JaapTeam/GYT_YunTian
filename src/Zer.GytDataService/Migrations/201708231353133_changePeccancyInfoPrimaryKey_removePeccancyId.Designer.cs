@@ -7,13 +7,13 @@ namespace Zer.GytDataService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class modify_gytInfoEntity : IMigrationMetadata
+    public sealed partial class changePeccancyInfoPrimaryKey_removePeccancyId : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(modify_gytInfoEntity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changePeccancyInfoPrimaryKey_removePeccancyId));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708191416511_modify_gytInfoEntity"; }
+            get { return "201708231353133_changePeccancyInfoPrimaryKey_removePeccancyId"; }
         }
         
         string IMigrationMetadata.Source

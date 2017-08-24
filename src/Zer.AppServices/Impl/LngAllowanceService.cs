@@ -20,7 +20,7 @@ namespace Zer.AppServices.Impl
             _lngAllowanceInfoDataService = lngAllowanceInfoDataService;
         }
 
-        public LngAllowanceInfoDto GetById(int id)
+        public LngAllowanceInfoDto GetById(string id)
         {
             return Mapper.Map<LngAllowanceInfoDto>(_lngAllowanceInfoDataService.GetById(id));
         }
@@ -50,16 +50,6 @@ namespace Zer.AppServices.Impl
             return _lngAllowanceInfoDataService.Update(model.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
         }
 
-        public List<LngAllowanceInfoDto> GetList(FilterMatchInputDto filterMatchInput)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<LngAllowanceInfoDto> GetList(int[] idList)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             return _lngAllowanceInfoDataService.GetAll()
@@ -80,7 +70,7 @@ namespace Zer.AppServices.Impl
             return query.Map<LngAllowanceInfoDto>().ToList();
         }
 
-        public LngAllowanceInfoDto ChangStatus(int id)
+        public LngAllowanceInfoDto ChangStatus(string id)
         {
             var infoDto = _lngAllowanceInfoDataService.GetById(id);
             if (infoDto.Status == LngStatus.未补贴)

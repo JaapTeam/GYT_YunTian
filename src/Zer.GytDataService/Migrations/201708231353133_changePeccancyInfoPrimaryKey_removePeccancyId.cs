@@ -3,16 +3,16 @@ namespace Zer.GytDataService.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class removePeccancyRecordCount_CompanyInfo : DbMigration
+    public partial class changePeccancyInfoPrimaryKey_removePeccancyId : DbMigration
     {
         public override void Up()
         {
-            DropColumn("dbo.CompanyInfoes", "PeccancyRecordCount");
+            DropColumn("dbo.PeccancyInfoes", "PeccancyId");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.CompanyInfoes", "PeccancyRecordCount", c => c.Int());
+            AddColumn("dbo.PeccancyInfoes", "PeccancyId", c => c.String(maxLength: 30));
         }
     }
 }
