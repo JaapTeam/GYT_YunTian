@@ -34,16 +34,6 @@ namespace Zer.AppServices.Impl
 
         public GYTInfoDto Add(GYTInfoDto model)
         {
-            //if (Exists(model.BidTruckNo))
-            //{
-            //    throw new CustomException(
-            //        "公司信息已经存在",
-            //        new Dictionary<string, string>()
-            //        {
-            //            {"CompanyName", model.BidTruckNo}
-            //        });
-            //}
-
             var gtyInfoDto = model.Map<GYTInfo>();
             return _gytInfoDataService.Insert(gtyInfoDto).Map<GYTInfoDto>();
         }
@@ -56,12 +46,45 @@ namespace Zer.AppServices.Impl
 
         public GYTInfoDto Edit(GYTInfoDto model)
         {
-            return _gytInfoDataService.Update(model.Map<GYTInfo>()).Map<GYTInfoDto>();
+            if (model.Id.IsNullOrEmpty())
+            {
+                throw new CustomException("找不到指定的港运通办理业务记录，港运通ID为空");
+            }
+            var entity = model.Map<GYTInfo>();
+
+            //var originalGytInfo = _gytInfoDataService.FirstOrDefault(x => x.BidTruckNo == model.OriginalTruckNo);
+
+            //if (model.BusinessType != BusinessType.天然气车辆 && originalGytInfo != null)
+            //{
+            //    _gytInfoDataService.Update(originalGytInfo.Id, x => x.Status = BusinessState.已注销);
+            //}
+
+            return _gytInfoDataService.Update(entity.Id, x =>
+             {
+                 x.BidCompanyId = model.BidCompanyId;
+                 x.BidCompanyName = model.BidCompanyName;
+                 x.BidDisplayName = model.BidDisplayName;
+                 x.BidName = model.BidName;
+                 x.BidTruckNo = model.BidTruckNo;
+                 x.BusinessType = model.BusinessType;
+                 x.OriginalCompanyId = model.OriginalCompanyId;
+                 x.OriginalCompanyName = model.OriginalCompanyName;
+                 x.BidDate = model.BidDate;
+                 x.Status = model.Status;
+             }).Map<GYTInfoDto>();
         }
 
         public bool Exists(string bidTruckNo)
         {
-            return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim());
+            return _gytInfoDataService.GetAll().Any(x => x.BidTruckNo == bidTruckNo.Trim() && x.Status == BusinessState.已办理);
+        }
+
+        public List<GYTInfoDto> GetListByBidTruckNoList(List<string> bidTruckNoList)
+        {
+            return _gytInfoDataService.GetAll()
+                .Where(x => bidTruckNoList.Contains(x.BidTruckNo))
+                .Map<GYTInfoDto>()
+                .ToList();
         }
 
         public List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto)
@@ -125,7 +148,7 @@ namespace Zer.AppServices.Impl
         {
             var gytInfoDto = _gytInfoDataService.GetById(infoId);
 
-            if (gytInfoDto.Status==BusinessState.已注销)
+            if (gytInfoDto.Status == BusinessState.已注销)
             {
                 gytInfoDto.Status = BusinessState.已办理;
             }

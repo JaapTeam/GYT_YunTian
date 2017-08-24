@@ -82,13 +82,14 @@ namespace Zer.GytDto
 
         [ImprotIgnore]
         [ExportIgnore]
+        [ImportSort(8)]
         public string BidDisplayName { get; set; }
 
         /// <summary>
         /// 业务状态
         /// </summary>
         [ExportSort(10)]
-        [ImportSort(8)]
+        [ImportSort(9)]
         [ExportDisplayName("业务状态")]
         public BusinessState Status { get; set; }
     }
