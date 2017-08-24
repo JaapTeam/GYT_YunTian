@@ -107,6 +107,16 @@ namespace Zer.AppServices.Impl
             return companyInfoDtoList;
         }
 
+        public CompanyInfoDto QueryAfterValidateAndRegist(string companyName)
+        {
+            var companyInfo = _companyInfoDataService.FirstOrDefault(x => x.CompanyName == companyName);
+            if (companyInfo == null)
+            {
+                companyInfo = _companyInfoDataService.Insert(new CompanyInfo(){CompanyName = companyName,TraderRange = string.Empty});
+            }
+            return companyInfo.Map<CompanyInfoDto>();
+        }
+
         public List<CompanyInfoDto> GetWithPeccancyRecored(CompanySearchDto filter)
         {
             var query = _companyInfoDataService.GetAll();
