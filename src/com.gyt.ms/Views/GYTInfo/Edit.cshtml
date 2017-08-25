@@ -136,7 +136,7 @@
                         }
                     }
                 </select>
-                <input type="text" id="input_originalTruckNo" placeholder="原车牌号" class="col-xs-10 col-sm-5" value="@gytInfoDto.OriginalTruckNo.Substring(2)">
+                <input type="text" id="input_originalTruckNo" placeholder="原车牌号"  style="margin-left: 8px" value="@gytInfoDto.OriginalTruckNo.Substring(2)">
                 <label id="lbl_originalTruckNo" style="color: red; display: none"></label>
                 <input type="text" class="hide" name="OriginalTruckNo">
             </div>
@@ -147,7 +147,7 @@
             <label class="col-sm-4 control-label no-padding-right" for="input_bidTruckNo" style="color: red"> 业务状态 </label>
 
             <div class="col-sm-8">
-                <select class="select2-default __Status col-sm-1" name="Status" id="Status">
+                <select class="select2-default __Status col-sm-2" name="Status" id="Status">
                     <option value="@BusinessState.已办理" @(gytInfoDto.Status == BusinessState.已办理?"selected":"")>已办理</option>
                     <option value="@BusinessState.已注销" @(gytInfoDto.Status == BusinessState.已注销?"selected":"")>已注销</option>
                 </select>
