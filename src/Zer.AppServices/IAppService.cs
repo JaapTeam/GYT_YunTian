@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Zer.AppServices
 {
-    public interface IAppService<TEntityDto,in TPrimaryKey>
+    public interface IAppService<TEntityDto, in TPrimaryKey>
     {
         TEntityDto GetById(TPrimaryKey id);
         List<TEntityDto> GetAll();

@@ -8,6 +8,7 @@ namespace Zer.AppServices
     {
         bool Exists(string bidTruckNo);
 
+        List<GYTInfoDto> GetListByBidTruckNoList(List<string> bidTruckNoList);
         List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto);
 
         GYTInfoDto GetByBidTruckNo(string bidTruckNo);

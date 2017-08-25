@@ -9,6 +9,7 @@ using Castle.Core.Internal;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Cache;
+using Zer.Framework.Exception;
 using Zer.Framework.Export;
 using Zer.Framework.Import;
 using Zer.Framework.Mvc.Logs.Attributes;
@@ -23,12 +24,18 @@ namespace com.gyt.ms.Controllers
         private readonly IGYTInfoService _gytInfoService;
         private readonly ICompanyService _companyService;
         private readonly ITruckInfoService _truckInfoService;
+        private readonly IPeccancyRecrodService _peccancyRecrodService;
 
-        public GYTInfoController(IGYTInfoService gytInfoService, ICompanyService companyService, ITruckInfoService truckInfoService)
+        public GYTInfoController(
+            IGYTInfoService gytInfoService, 
+            ICompanyService companyService,
+            ITruckInfoService truckInfoService, 
+            IPeccancyRecrodService peccancyRecrodService)
         {
             _gytInfoService = gytInfoService;
             _companyService = companyService;
             _truckInfoService = truckInfoService;
+            _peccancyRecrodService = peccancyRecrodService;
         }
 
         // GET: GYTInfo
@@ -55,9 +62,10 @@ namespace com.gyt.ms.Controllers
             if (gtyGytInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
             // 检测数据库中已经存在的重复数据
-            var existsgtyGytInfoDtoList = gtyGytInfoDtoList
-                .Where(x => _gytInfoService.Exists(x.BidTruckNo))
-                .ToList();
+
+            var bidTruckNoList = gtyGytInfoDtoList.Select(x => x.BidTruckNo).ToList();
+
+            var existsgtyGytInfoDtoList = _gytInfoService.GetListByBidTruckNoList(bidTruckNoList);
 
             // 筛选出需要导入的数据
             var mustImportgtyGytInfoDtoList =
@@ -149,19 +157,83 @@ namespace com.gyt.ms.Controllers
             return View(infoDto);
         }
 
-        public JsonResult SaveEdit(GYTInfoDto infoDto)
+        public JsonResult SaveEdit(GYTInfoDto dto)
         {
-            if (infoDto==null)
+            if (dto==null)
             {
                 return Fail("保存失败！");
             }
 
-            //未做必填检查
+            var validateResult = CommonValidate(dto);
+            switch (dto.BusinessType)
+            {
+                case BusinessType.天然气车辆:
+                    validateResult.AddRange(ValidateWithGasBusiness(dto));
+                    break;
 
+                case BusinessType.以旧换新车辆:
+                    validateResult.AddRange(ValidateWithReplaceBusiness(dto));
+                    break;
 
-            _gytInfoService.Edit(infoDto);
+                case BusinessType.过户车辆:
+                    validateResult.AddRange(ValidateWithTransferBusiness(dto));
+                    break;
 
-            return Success();
+                default: return Fail("不正常的业务提交，请重试.");
+            }
+
+            if (validateResult.Any())
+            {
+                return Fail("修改条件不符合", validateResult);
+            }
+
+            var originalDto = _gytInfoService.GetById(dto.Id);
+
+            if (originalDto == null)
+            {
+                return Fail("您正在修改的港运通办理记录不存在，请确认后重试");
+            }
+
+            return saveChanges(dto, originalDto)?Success():Fail("数据保存失败,请重试");
+        }
+
+        private bool saveChanges(GYTInfoDto inputDto, GYTInfoDto originalDto)
+        {
+            originalDto.BidCompanyName = inputDto.BidCompanyName;
+            originalDto.BidTruckNo = inputDto.BidTruckNo;
+
+            if (originalDto.BusinessType != BusinessType.天然气车辆)
+            {
+                originalDto.OriginalCompanyName = inputDto.OriginalCompanyName;
+                originalDto.OriginalTruckNo = inputDto.OriginalTruckNo;
+            }
+
+            originalDto.BidDisplayName = CurrentUser.DisplayName;
+            originalDto.BidName = CurrentUser.UserName;
+
+            originalDto.BidCompanyId = _companyService.QueryAfterValidateAndRegist(originalDto.BidCompanyName).Id;
+            originalDto.OriginalCompanyId = _companyService.QueryAfterValidateAndRegist(originalDto.OriginalCompanyName)
+                .Id;
+
+            _truckInfoService.QueryAfterValidateAndRegist(new List<TruckInfoDto>
+            {
+                new TruckInfoDto()
+                {
+                    FrontTruckNo = originalDto.BidTruckNo,
+                    CompanyId = originalDto.BidCompanyId,
+                    CompanyName = originalDto.BidCompanyName
+                },
+                new TruckInfoDto()
+                {
+                    FrontTruckNo = originalDto.OriginalTruckNo,
+                    CompanyId = originalDto.OriginalCompanyId ?? 0,
+                    CompanyName = originalDto.OriginalCompanyName
+                }
+            });
+
+            var result = _gytInfoService.Edit(originalDto);
+
+            return result != null;
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
@@ -206,6 +278,93 @@ namespace com.gyt.ms.Controllers
         {
             // 注册新增车辆信息
             _truckInfoService.QueryAfterValidateAndRegist(truckInfoDtos);
+        }
+
+        private List<string> CommonValidate(GYTInfoDto dto)
+        {
+            var result = new List<string>();
+
+            if (dto.BidCompanyName.IsNullOrEmpty())
+            {
+                result.Add("申办企业名称不能为空");
+                return result;
+            }
+
+            if (dto.BidTruckNo.Substring(2).IsNullOrEmpty())
+            {
+                result.Add("申办车牌号不能为空");
+                return result;
+            }
+
+            // 申办企业不能有违法记录
+            if (_peccancyRecrodService.ExistsCompanyName(dto.BidCompanyName))
+            {
+                result.Add("申办企业存在超载超限记录,不符合修改条件");
+            }
+
+            // 新申请车牌不能存在已办理记录
+            var recordDto = _gytInfoService.GetByBidTruckNo(dto.BidTruckNo);
+            if (recordDto == null)
+            {
+                result.Add(string.Format("申办车牌号[{0}]不存在办理港运通办理记录,不符合修改条件", dto.BidTruckNo));
+            }
+
+            return result;
+        }
+
+        private List<string> ValidateWithGasBusiness(GYTInfoDto dto)
+        {
+            // 天然气业务
+            return new List<string>();
+        }
+
+        private List<string> ValidateWithReplaceBusiness(GYTInfoDto dto)
+        {
+            // 以旧换新业务
+            var result = new List<string>();
+
+            var gytInfoDto = _gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo);
+
+            // 旧车必须有办理记录
+            if ( gytInfoDto == null)
+            {
+                result.Add(string.Format("原车牌 {0} 不存在港运通办理记录，或已注销，不符合修改条件",dto.OriginalTruckNo));
+            }
+
+            if (gytInfoDto!=null && gytInfoDto.Status == BusinessState.已注销)
+            {
+                result.Add(string.Format(
+                    "原车牌 {0} 与 港运通编号 {1} 的绑定关系已经被注销，以旧换新指标已经使用，不符合修改条件",
+                    dto.OriginalTruckNo,
+                    gytInfoDto.Id));
+            }
+
+            return result;
+        }
+
+        private List<string> ValidateWithTransferBusiness(GYTInfoDto dto)
+        {
+            // 车辆过户业务
+            var result = new List<string>();
+
+            var gytInfoDto = _gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo);
+
+            // 旧车必须有办理记录
+            if (gytInfoDto == null)
+            {
+                result.Add(string.Format("原车牌 {0} 不存在港运通办理记录，不符合修改条件", dto.OriginalTruckNo));
+            }
+
+            if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
+            {
+                result.Add(string.Format(
+                    "原车牌 {0} 与 港运通编号 {1} 的绑定关系已经被注销，车辆过户指标已经使用，不符合修改条件",
+                    dto.OriginalTruckNo,
+                    gytInfoDto.Id));
+            }
+
+
+            return result;
         }
     }
 }
