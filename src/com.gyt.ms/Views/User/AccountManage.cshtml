@@ -67,11 +67,11 @@
                     @userInfoDto.MobilePhone
                 </td>
                 <td>
-                    @if (userInfoDto.State == UserState.Active)
+                    @if (userInfoDto.UserState == UserState.Active)
                     {
                         <span class="label label-sm label-success">已激活</span>
                     }
-                    @if (userInfoDto.State == UserState.Frozen)
+                    @if (userInfoDto.UserState == UserState.Frozen)
                     {
                         <span class="label label-sm label-grey">已冻结</span>
                     }
@@ -113,7 +113,7 @@
 
                             <li role="separator" class="divider"></li>
 
-                            @if (userInfoDto.State == UserState.Active)
+                            @if (userInfoDto.UserState == UserState.Active)
                             {
                                 <li>
                                     <a href="@Url.Action("Frozon", "User", new {userId = userInfoDto.UserId})">冻结用户</a>
@@ -140,32 +140,5 @@
         </tbody>
     </table>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="dataTables_paginate padding-10">
-                <ul class="pagination">
-                    <li class="prev disabled">
-                        <a href="#">
-                            <i class="icon-double-angle-left"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li class="next">
-                        <a href="#">
-                            <i class="icon-double-angle-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 

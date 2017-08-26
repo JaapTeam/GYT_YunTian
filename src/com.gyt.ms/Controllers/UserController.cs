@@ -45,7 +45,7 @@ namespace com.gyt.ms.Controllers
             }
 
             userInfoDto.Password = userInfoDto.Password.Md5Encoding();
-            userInfoDto.State = UserState.Frozen;
+            userInfoDto.UserState = UserState.Frozen;
 
             var registResult = _userInfoService.Regist(userInfoDto);
 
@@ -109,7 +109,7 @@ namespace com.gyt.ms.Controllers
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
-            if (userInfoDto.State != UserState.Active)
+            if (userInfoDto.UserState != UserState.Active)
             {
                 return RedirectToAction("AccountManage", "User");
             }
@@ -130,7 +130,7 @@ namespace com.gyt.ms.Controllers
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
-            if (userInfoDto.State != UserState.Frozen)
+            if (userInfoDto.UserState != UserState.Frozen)
             {
                 return RedirectToAction("AccountManage", "User");
             }

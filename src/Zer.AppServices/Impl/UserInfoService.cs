@@ -54,7 +54,7 @@ namespace Zer.AppServices.Impl
         {
             var entity = _userIbfoDataService.GetById(userId);
 
-            entity.State = State.SoftDeleted;
+            entity.UserState = UserState.Frozen;
 
             return _userIbfoDataService.Update(entity)!=null ? FrozenResult.Success : FrozenResult.UserIsFrzon;
         }
@@ -63,7 +63,7 @@ namespace Zer.AppServices.Impl
         {
             var entity = _userIbfoDataService.GetById(userId);
 
-            entity.State = State.Active;
+            entity.UserState = UserState.Active;
 
             return _userIbfoDataService.Update(entity) != null ? ThawResult.Success : ThawResult.UserIsThaw;
         }
