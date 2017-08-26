@@ -278,9 +278,12 @@
     <Content Include="assets\js\x-editable\bootstrap-editable.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="error.htm" />
     <Content Include="favicon.ico" />
+    <Content Include="FileNotFound.htm" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="NoAccess.htm" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />

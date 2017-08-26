@@ -1,6 +1,5 @@
 /**
  * Simplified Chinese translation for bootstrap-datetimepicker
- * Yuan Cheung <advanimal@gmail.com>
  */
 ;(function($){
 	$.fn.datetimepicker.dates['zh-CN'] = {
