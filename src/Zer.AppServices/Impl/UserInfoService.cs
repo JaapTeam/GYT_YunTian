@@ -82,7 +82,11 @@ namespace Zer.AppServices.Impl
             return _userIbfoDataService.GetAll().Any(x => x.UserName == userName);
         }
 
-       
+        public void SetUserRole(int userId, RoleLevel role)
+        {
+            _userIbfoDataService.Update(userId,x=>x.Role = role);
+        }
+
 
         public UserInfoDto GetById(int id)
         {
