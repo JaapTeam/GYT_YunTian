@@ -168,10 +168,19 @@ namespace com.gyt.ms.Controllers
             // 以旧换新业务
             var result = new List<string>();
 
+            var gytInfoDto = _gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo);
             // 旧车必须有办理记录
-            if (_gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo) == null)
+            if (gytInfoDto == null)
             {
                 result.Add("原车牌不存在港运通办理记录，不能办理以旧换新业务");
+            }
+
+            if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
+            {
+                result.Add(string.Format(
+                    "原车牌 {0} 与 港运通编号 {1} 的绑定关系已经被注销，车辆以旧换新指标已经使用，不能办理以旧换新业务",
+                    dto.OriginalTruckNo,
+                    gytInfoDto.Id));
             }
 
             return result;
@@ -182,10 +191,19 @@ namespace com.gyt.ms.Controllers
             // 车辆过户业务
             var result = new List<string>();
 
+            var gytInfoDto = _gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo);
             // 旧车必须有办理记录
-            if (_gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo) == null)
+            if (gytInfoDto == null)
             {
                 result.Add("原车牌不存在港运通办理记录，不能办理车辆过户业务");
+            }
+
+            if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
+            {
+                result.Add(string.Format(
+                    "原车牌 {0} 与 港运通编号 {1} 的绑定关系已经被注销，车辆过户指标已经使用，不能办理车辆过户业务",
+                    dto.OriginalTruckNo,
+                    gytInfoDto.Id));
             }
 
             return result;

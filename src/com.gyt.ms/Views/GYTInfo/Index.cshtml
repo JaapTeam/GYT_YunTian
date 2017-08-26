@@ -105,7 +105,7 @@
                                 <td>
                                     @string.Format("{0:yyyy-MM-dd}", gytInfoDto.BidDate)
                                 </td>
-                                <td>@gytInfoDto.BidName</td>
+                                <td>@gytInfoDto.BidDisplayName</td>
 
                                 <td>
                                     @if (gytInfoDto.Status == BusinessState.已办理)
@@ -118,7 +118,7 @@
                                     @if (gytInfoDto.Status == BusinessState.已注销)
                                     {
                                         <span class="label label-sm label-danger">
-                                            <i class=" icon-minus-sign"> 已注销</i>
+                                            <i class="icon-minus-sign"> 已注销</i>
                                         </span>
                                     }
 

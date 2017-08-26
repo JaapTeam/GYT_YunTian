@@ -34,6 +34,8 @@ namespace Zer.AppServices
         /// <returns><see cref="List{CompanyInfoDto}"/></returns>
         List<CompanyInfoDto> QueryAfterValidateAndRegist(List<CompanyInfoDto> companyInfoDtos);
 
+        GytDto.CompanyInfoDto QueryAfterValidateAndRegist(string companyName);
+
         List<CompanyInfoDto> GetWithPeccancyRecored(CompanySearchDto filter);
     }
 }

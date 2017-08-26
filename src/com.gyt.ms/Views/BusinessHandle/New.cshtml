@@ -341,7 +341,7 @@
                         type: 'post',
                         data: dto,
                         success: function (d) {
-                            console.log(d);
+                            
                             // 办理成功
                             if (d.C === 901) {
                                 $('.modal-header').removeClass('alert-danger');
@@ -400,7 +400,8 @@
                 } else {
                     $('#sp_bidTruckNo').html("");
                 }
-            }).on('blur', '#input_OriginalTruckNo', function () {
+            })
+            .on('blur', '#input_OriginalTruckNo', function () {
                 var truckNo = $('#input_OriginalTruckNo').val();
 
                 if (truckNo.length !== 5) {
