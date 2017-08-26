@@ -157,6 +157,7 @@ namespace com.gyt.ms.Controllers
             return View(infoDto);
         }
 
+        [AdminRole]
         [UserActionLog("编辑超载超限记录",ActionType.编辑)]
         public ActionResult SaveEdit(PeccancyRecrodDto infoDto)
         {

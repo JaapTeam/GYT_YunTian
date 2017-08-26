@@ -30,6 +30,21 @@
         <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ? "selected" : "")>已补贴</option>
         <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
     </select>
+    
+    <span style="margin-left: 10px">日期：</span>
+    <label class="input-append date form_date" id="startDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+        <input class="input-mini" name="StartDate" size="16"
+               style="width: 90px" type="text"
+               value="@(filter.StartDate.HasValue ? string.Format("{0:yyyy-M-dd}", filter.StartDate.Value) : "")">
+        <span class="add-on"><i class="icon-th"></i></span>
+    </label>  
+    <span>到</span>
+    <label class="input-append date form_date" id="endDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+        <input class="input-mini" name="EndDate" size="16" style="width: 90px"
+               type="text" 
+               value="@(filter.EndDate.HasValue ? string.Format("{0:yyyy-M-dd}", filter.EndDate.Value) : "")">
+        <span class="add-on"><i class="icon-th"></i></span>
+    </label>  
 
     <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
 
@@ -257,17 +272,29 @@
     </div><!-- /.modal -->
 </div>
 
+@section header{
+    <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
 
 @section scripts{
-    <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
-    <script src="@Url.Content("~")assets/js/jquery-ui-1.10.3.full.min.js"></script>
-
-    <link href="@Url.Content("~")assets/css/jquery-ui-1.10.3.full.min.css" rel="stylesheet"/>
 
     <script type="text/javascript">
 
-        $(function() {
+        $(function () {
+
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
 
             var infoId = 0;
 

@@ -108,6 +108,16 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.Status == searchDto.IsAllowanced.Value);
             }
 
+            if (searchDto.StartDate.HasValue)
+            {
+                query = query.Where(x => x.CreateTime >= searchDto.StartDate);
+            }
+
+            if (searchDto.EndDate.HasValue)
+            {
+                query = query.Where(x => x.CreateTime <= searchDto.EndDate);
+            }
+
             return query;
         }
     }

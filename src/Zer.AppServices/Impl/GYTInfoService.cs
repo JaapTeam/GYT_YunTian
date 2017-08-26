@@ -50,16 +50,8 @@ namespace Zer.AppServices.Impl
             {
                 throw new CustomException("找不到指定的港运通办理业务记录，港运通ID为空");
             }
-            var entity = model.Map<GYTInfo>();
 
-            //var originalGytInfo = _gytInfoDataService.FirstOrDefault(x => x.BidTruckNo == model.OriginalTruckNo);
-
-            //if (model.BusinessType != BusinessType.天然气车辆 && originalGytInfo != null)
-            //{
-            //    _gytInfoDataService.Update(originalGytInfo.Id, x => x.Status = BusinessState.已注销);
-            //}
-
-            return _gytInfoDataService.Update(entity.Id, x =>
+            return _gytInfoDataService.Update(model.Id, x =>
              {
                  x.BidCompanyId = model.BidCompanyId;
                  x.BidCompanyName = model.BidCompanyName;

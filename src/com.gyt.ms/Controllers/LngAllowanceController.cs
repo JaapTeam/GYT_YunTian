@@ -176,6 +176,7 @@ namespace com.gyt.ms.Controllers
             return View(infoDto);
         }
 
+        [AdminRole]
         [UserActionLog("编辑LNG补贴信息",ActionType.编辑)]
         public ActionResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
