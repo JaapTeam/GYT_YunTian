@@ -38,8 +38,7 @@ namespace com.gyt.ms.Controllers
             var searchDto =new GYTInfoSearchDto()
             {
                 PageSize = homePageSize,
-                PageIndex = 1,
-                Status =  BusinessState.已注销
+                PageIndex = 1
             };
 
             var gytInfoWaitCheckList = _gytInfoService.GetList(searchDto);

@@ -19,7 +19,7 @@ namespace Zer.GytDto.Users
         public string Password { get; set; }
 
         public string DisplayName { get; set; }
-        public UserState State { get; set; }
+        public UserState UserState { get; set; }
         public string Email { get; set; }
         public string MobilePhone { get; set; }
         public RoleLevel Role { get; set; }

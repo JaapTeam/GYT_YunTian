@@ -5,7 +5,7 @@ using Zer.Framework.Entities;
 namespace Zer.Entities
 {
     [Serializable]
-    public class LngAllowanceInfo : EntityBase<string>
+    public class LngAllowanceInfo : EntityBase<string>,ICreateTime
     {
         public int CompanyId { get; set; }
 
@@ -30,6 +30,8 @@ namespace Zer.Entities
         [Key]
         [StringLength(30)]
         public override string Id { get; set; }
+
+        public DateTime CreateTime { get; set; }
     }
 
     public enum LngStatus

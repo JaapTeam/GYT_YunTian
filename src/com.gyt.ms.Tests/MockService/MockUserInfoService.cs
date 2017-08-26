@@ -15,7 +15,7 @@ namespace com.gyt.ms.Tests.MockService
                 {
                     DisplayName = "Admin",
                     UserName = "administrator",
-                    State = UserState.Active
+                    UserState = UserState.Active
                 });
 
             Mock.Setup(x => x.ChangePassword(1, "123456"))
@@ -44,7 +44,7 @@ namespace com.gyt.ms.Tests.MockService
                 .Returns(() => new UserInfoDto()
                 {
                     DisplayName = "Paul",
-                    State = UserState.Active,
+                    UserState = UserState.Active,
                     UserName = "correctusername"
                 });
 

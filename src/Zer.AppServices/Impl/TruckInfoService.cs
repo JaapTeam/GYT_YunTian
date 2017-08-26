@@ -87,5 +87,13 @@ namespace Zer.AppServices.Impl
             return registedList;
         }
 
+        public TruckInfoDto QueryAfterValidateAndRegist(TruckInfoDto dto)
+        {
+            var truckInfoEntity = _truckInfoDataService.GetAll().FirstOrDefault(x => x.FrontTruckNo == dto.FrontTruckNo);
+
+            return truckInfoEntity != null 
+                ? truckInfoEntity.Map<TruckInfoDto>()
+                : _truckInfoDataService.Insert(dto.Map<TruckInfo>()).Map<TruckInfoDto>();
+        }
     }
 }

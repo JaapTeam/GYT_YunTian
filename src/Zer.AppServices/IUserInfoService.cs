@@ -1,4 +1,5 @@
-﻿using Zer.GytDto.Users;
+﻿using Zer.Entities;
+using Zer.GytDto.Users;
 
 namespace Zer.AppServices
 {
@@ -16,5 +17,7 @@ namespace Zer.AppServices
         ChangePasswordResult ChangePassword(int userId, string newPassword);
 
         bool Exists(string userName);
+
+        void SetUserRole(int userId, RoleLevel role);
     }
 }

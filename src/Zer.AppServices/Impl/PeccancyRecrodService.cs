@@ -51,7 +51,17 @@ namespace Zer.AppServices.Impl
 
         public PeccancyRecrodDto Edit(PeccancyRecrodDto model)
         {
-            return _peccancyRecrodDataService.Update(model.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>();
+            return _peccancyRecrodDataService.Update(model.Id, x =>
+            {
+                x.BehindTruckNo = model.BehindTruckNo;
+                //x.TraderRange = model.TraderRange,
+                x.DriverName = model.DriverName;
+                x.PeccancyDate = model.PeccancyDate;
+                x.PeccancyMatter = model.PeccancyMatter;
+                x.Source = model.Source;
+                x.Status = model.Status;
+            }).Map<PeccancyRecrodDto>();
+            //.Update(model.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>();
         }
 
         public bool ChangeStatusById(string id)
@@ -129,7 +139,7 @@ namespace Zer.AppServices.Impl
 
             if (!searchDto.TruckNo.IsNullOrEmpty())
             {
-                query = query.Where(x => x.BehindTruckNo == searchDto.TruckNo || x.FrontTruckNo == searchDto.TruckNo);
+                query = query.Where(x => x.BehindTruckNo.Contains(searchDto.TruckNo) || x.FrontTruckNo.Contains(searchDto.TruckNo));
             }
 
             if (searchDto.Status.HasValue)

@@ -95,6 +95,7 @@ namespace Zer.Framework.EntityFramework
         {
             var entity = GetById(id);
             updateAction(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
 

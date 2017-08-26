@@ -103,7 +103,7 @@ namespace com.gyt.ms.Tests.Controllers
                 {
                     DisplayName = "Paul",
                     UserName = "Paulyang",
-                    State = UserState.Active
+                    UserState = UserState.Active
                 };
 
 
@@ -126,7 +126,7 @@ namespace com.gyt.ms.Tests.Controllers
                 var userinfoDto = new UserInfoDto()
                 {
                     DisplayName = "a-b-c",
-                    State = UserState.Active,
+                    UserState = UserState.Active,
                     UserId = 1,
                     UserName = "x-y-z"
                 };
@@ -134,7 +134,7 @@ namespace com.gyt.ms.Tests.Controllers
                 var expected = new UserInfoDto()
                 {
                     DisplayName = "a_b_c",
-                    State = UserState.Active,
+                    UserState = UserState.Active,
                     UserId = 1,
                     UserName = "x_y_z"
                 };

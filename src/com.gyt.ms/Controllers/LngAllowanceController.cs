@@ -10,6 +10,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Attributes;
 using Zer.Framework.Cache;
+using Zer.Framework.Exception;
 using Zer.Framework.Export;
 using Zer.Framework.Export.Attributes;
 using Zer.Framework.Import;
@@ -175,10 +176,37 @@ namespace com.gyt.ms.Controllers
             return View(infoDto);
         }
 
-        public JsonResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
+        [AdminRole]
+        [UserActionLog("编辑LNG补贴信息",ActionType.编辑)]
+        public ActionResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
+            if (lngAllowanceInfoDto.Id.IsNullOrEmpty())
+            {
+                throw new CustomException("LNG补贴编号不能为空");
+            }
+
+            var sourceDto = _lngAllowanceService.GetById(lngAllowanceInfoDto.Id);
+
+            var companyInfo = _companyService.QueryAfterValidateAndRegist(lngAllowanceInfoDto.CompanyName);
+            var trcukInfo = _truckInfoService.QueryAfterValidateAndRegist(new TruckInfoDto()
+            {
+                CompanyId = companyInfo.Id,
+                CompanyName = companyInfo.CompanyName,
+                FrontTruckNo = lngAllowanceInfoDto.TruckNo,
+            });
+
+            sourceDto.CompanyName = companyInfo.CompanyName;
+            sourceDto.CompanyId = companyInfo.Id;
+            sourceDto.LotId = lngAllowanceInfoDto.LotId;
+            sourceDto.TruckNo = lngAllowanceInfoDto.TruckNo;
+            sourceDto.EngineId = lngAllowanceInfoDto.EngineId;
+            sourceDto.CylinderDefaultId = lngAllowanceInfoDto.CylinderDefaultId;
+            sourceDto.CylinderSeconedId = lngAllowanceInfoDto.CylinderSeconedId;
+            sourceDto.CreateTime = lngAllowanceInfoDto.CreateTime;
+            sourceDto.Status = lngAllowanceInfoDto.Status;
+
             _lngAllowanceService.Edit(lngAllowanceInfoDto);
-            return Success();
+            return RedirectToAction("index", "LngAllowance");
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
