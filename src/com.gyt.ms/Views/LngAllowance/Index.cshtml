@@ -15,22 +15,22 @@
     }
 }
 
-<form class="form-inline" id="form_search" action="@(Url.Action("Index","LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
-   
+<form class="form-inline" id="form_search" action="@(Url.Action("Index", "LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
+
     <label for="input_TruckNo" style="margin-left: 10px"> 公司名称：</label>
-    <input type="text" class="input-mini" value="@(filter.CompanyName)" style="width: 150px" name="TruckNo" id="input_CompanyName" />
+    <input type="text" class="input-mini" value="@(filter.CompanyName)" style="width: 150px" name="TruckNo" id="input_CompanyName"/>
 
 
     <label for="input_TruckNo" style="margin-left: 10px"> 车牌号码：</label>
-    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
-    
+    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo"/>
+
     <label for="input_TruckNo" style="margin-left: 10px"> 补贴状态：</label>
     <select id="input_IsAllowanced" name="IsAllowanced">
         <option value="" @(!filter.IsAllowanced.HasValue ? "selected" : "")>全部</option>
-        <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ?"selected": "")>已补贴</option>
+        <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ? "selected" : "")>已补贴</option>
         <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
     </select>
-    
+
     <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
 
     <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
@@ -56,7 +56,7 @@
                 <span class="">导出</span>
             </i>
         </a>
-        
+
         <a class="white" href="@Url.Content("~")Content/templates/lng导入模板.xlsx">
             <i class="icon-book bigger-110">
                 <span class="">导入模板下载</span>
@@ -68,97 +68,100 @@
 <div class="table-responsive">
     <table id="sample-table-2" class="table table-striped table-bordered table-hover">
         <thead>
-            <tr>
-                @*<th class="center">
+        <tr>
+            @*<th class="center">
                     <label>
                         <input type="checkbox" class="ace" />
                         <span class="lbl"></span>
                     </label>
                 </th>*@
-                @*<th>编号</th>*@
-                <th>企业名称</th>
-                <th>批次</th>
-                <th>车牌号</th>
-                <th>发动机号</th>
-                <th>气瓶1编号</th>
-                <th>气瓶2编号</th>
-                <th>补贴状态</th>
-                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
-                {
-                    <th></th>
-                    <th></th>
-                }
-               
-            </tr>
+            @*<th>编号</th>*@
+            <th>企业名称</th>
+            <th>批次</th>
+            <th>车牌号</th>
+            <th>发动机号</th>
+            <th>气瓶1编号</th>
+            <th>气瓶2编号</th>
+            <th>补贴日期</th>
+            <th>补贴状态</th>
+            @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+            {
+                <th>审核</th>
+                <th>编辑</th>
+            }
+
+        </tr>
         </thead>
         <tbody>
-            @if (!lngList.IsNullOrEmpty())
+        @if (!lngList.IsNullOrEmpty())
+        {
+            foreach (var item in lngList)
             {
-                foreach (var item in lngList)
-                {
-                    <tr>
-                       
-                        <td>
-                            @item.CompanyName
-                        </td>
-                        <td>
-                            @item.LotId
-                        </td>
-                        <td>
-                            @item.TruckNo
-                        </td>
-                        <td>@item.EngineId</td>
-                        <td>
-                            @item.CylinderDefaultId.Replace('_', '-')
-                        </td>
-                        <td>
-                            @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
-                        </td>
+                <tr>
+
+                    <td>
+                        @item.CompanyName
+                    </td>
+                    <td>
+                        @item.LotId
+                    </td>
+                    <td>
+                        @item.TruckNo
+                    </td>
+                    <td>@item.EngineId</td>
+                    <td>
+                        @item.CylinderDefaultId.Replace('_', '-')
+                    </td>
+                    <td>
+                        @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
+                    </td>
+                    <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
+                    <td>
+                        @if (item.Status == LngStatus.未补贴)
+                        {
+                            <span class="label label-sm label-info">
+                                <i class="icon-spinner"> 未补贴</i>
+                            </span>
+                        }
+                        else if (item.Status == LngStatus.已补贴)
+                        {
+                            <span class="label label-sm label-success">
+                                <i class="icon-ok"> 已补贴</i>
+                            </span>
+                        }
+                    </td>
+                    @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                    {
                         <td>
                             @if (item.Status == LngStatus.未补贴)
                             {
-                                <span class="label label-sm label-info"><i class="icon-spinner"> 未补贴</i></span>
+                                <a class="btn btn-xs btn-danger _verify"
+                                   data-id="@item.Id"
+                                   data-companyname="@item.CompanyName"
+                                   data-truckno="@item.TruckNo ">
+                                    <i class=" icon-check">审核</i>
+                                </a>
                             }
                             else if (item.Status == LngStatus.已补贴)
                             {
-                                <span class="label label-sm label-success"><i class="icon-ok"> 已补贴</i></span>
+                                <span class="label label-sm label-success">
+                                    <i class="icon-ok">已补贴</i>
+                                </span>
                             }
                         </td>
-                        @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
-        {
-
-            <td>
-                @if (item.Status == LngStatus.未补贴)
-                {
-                    <a class="btn btn-xs btn-danger _verify"
-                       data-id="@item.Id"
-                       data-companyname="@item.CompanyName"
-                       data-truckno="@item.TruckNo ">
-                        <i class=" icon-check">
-                            审核
-                        </i>
-                    </a>
-                    <a class="btn btn-xs btn-success _edit"
-                       href="@Url.Action("Edit","LngAllowance",new {infoId=item.Id})">
-                        <i class=" icon-check">
-                            编辑
-                        </i>
-                    </a>
-                }
-                else if (item.Status == LngStatus.已补贴)
-                {
-                    <span class="label label-sm label-success">
-                        <i class="icon-ok"> 已补贴</i>
-                    </span>
-                }
-            </td>
-        }
-                    </tr>
-                }
+                        <td>
+                            <a class="btn btn-xs btn-success _edit"
+                               href="@Url.Action("Edit", "LngAllowance", new {infoId = item.Id})">
+                                <i class=" icon-check">编辑</i>
+                            </a>
+                        </td>
+                    }
+                </tr>
             }
+        }
         </tbody>
     </table>
-    
+
     @if (filter.PageCount > 1)
     {
         <div class="row">
@@ -166,65 +169,66 @@
                 <div class="dataTables_paginate padding-10">
                     <ul class="pagination">
 
-                        <li class="prev @(filter.PageIndex == 1?"disabled":"")">
+                        <li class="prev @(filter.PageIndex == 1 ? "disabled" : "")">
                             <a class="__page" href="javascript:;" data-pageindex='1'>
                                 <i class="icon-double-angle-left"></i>
                             </a>
                         </li>
-                       @{
-        var indexStart = 1;
-        var indexEnd = filter.PageCount;
-        if (filter.PageCount >= 15)
-        {
-            indexStart = filter.PageIndex - 7;
+                        @{
+                            var indexStart = 1;
+                            var indexEnd = filter.PageCount;
+                            if (filter.PageCount >= 15)
+                            {
+                                indexStart = filter.PageIndex - 7;
 
-            if (indexStart <= 0)
-            {
-                indexStart = 1;
-            }
+                                if (indexStart <= 0)
+                                {
+                                    indexStart = 1;
+                                }
 
-            indexEnd = indexStart + 15;
+                                indexEnd = indexStart + 15;
 
-            if (indexStart >= filter.PageCount - 15)
-            {
-                indexStart = filter.PageCount - 15;
-                indexEnd = filter.PageCount;
-            }
-        }
-
-                    }
-
-                    @for (int i = indexStart; i <= indexEnd; i++)
-                    {
-                        <li class="@(filter.PageIndex == i?"active":"")">
-                            <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
-                        </li>
+                                if (indexStart >= filter.PageCount - 15)
+                                {
+                                    indexStart = filter.PageCount - 15;
+                                    indexEnd = filter.PageCount;
+                                }
+                            }
                         }
-                        <li class="next  @(filter.PageIndex == filter.PageCount?"disabled":"")">
+
+                        @for (int i = indexStart; i <= indexEnd; i++)
+                        {
+                            <li class="@(filter.PageIndex == i ? "active" : "")">
+                                <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
+                            </li>
+                        }
+                        <li class="next  @(filter.PageIndex == filter.PageCount ? "disabled" : "")">
                             <a class="__page" href="javascript:;" data-pageindex='@filter.PageCount'>
                                 <i class="icon-double-angle-right"></i>
                             </a>
                         </li>
-                        
+
                         <li class="prev">
                             <label cla for="jump_page">
                                 跳转至：
-                                <input type="text" class="input-mini" value="@filter.PageIndex" style="width: 30px" id="jump_page" />
+                                <input type="text" class="input-mini" value="@filter.PageIndex" style="width: 30px" id="jump_page"/>
                             </label>
-                            <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
+                            <label href="javascript:;" class="btn btn-xs btn-success __jump">
+                                <i class="icon-circle-arrow-right"> </i>
+                            </label>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     }
-    
-    @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+    @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
-        <input type="file" name="file" class="hide" id="input_file" />
-        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+        <input type="file" name="file" class="hide" id="input_file"/>
+        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
     }
-    
+
 </div>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -270,13 +274,17 @@
             $('body')
 
                 // 模态对话框显示
-                .on('click','._verify',function() {
+                .on('click',
+                    '._verify',
+                    function() {
                         var link = $(this);
                         infoId = $(link).attr('data-id');
                         var companyName = $(link).attr('data-companyname');
                         var truckno = $(link).attr('data-truckno');
 
-                        $('.__dialog_content').html("您确认要将<label class='label label-danger'>"+companyName+"</label>公司车牌号为<label class='label label-danger'>" +
+                        $('.__dialog_content').html("您确认要将<label class='label label-danger'>" +
+                            companyName +
+                            "</label>公司车牌号为<label class='label label-danger'>" +
                             truckno +
                             "</label>的记录状态更改为“<label class='label label-danger'>已补贴</label>”吗？");
 
@@ -284,13 +292,17 @@
                     })
 
                 // 点击关闭
-                .on('click','.__modal_close',function() {
-                    infoId = 0;
+                .on('click',
+                    '.__modal_close',
+                    function() {
+                        infoId = 0;
                         $('#myModal').modal("hide");
                     })
 
                 // 点击确认
-                .on('click','.__modal_confirmed',function() {
+                .on('click',
+                    '.__modal_confirmed',
+                    function() {
 
                         $.ajax({
                             type: "Post",
@@ -310,7 +322,9 @@
                     })
 
                 // 导出
-                .on('click','#btn_export',function() {
+                .on('click',
+                    '#btn_export',
+                    function() {
                         var oldUrl = $('#form_search').attr('action');
                         var url = '@Url.Action("Export", "LngAllowance")';
 
@@ -320,24 +334,31 @@
                     })
 
                 // 选择导入文件
-                .on('click','#btn_improt',function() {
+                .on('click',
+                    '#btn_improt',
+                    function() {
                         $("#input_file").click();
                     })
 
                 // 提交导入请求
-                .on('change','#input_file',function() {
+                .on('change',
+                    '#input_file',
+                    function() {
                         $("#Submit").click();
                         $("#input_file").text("");
                     })
 
                 // 分页代码
-                .on('click', '.__jump', function () {
-                    var pageIndex = $('#jump_page').val();
-                    $('#input_pageIndex').val(pageIndex);
-                    $('#btn_submit').click();
-                })
-
-                .on('click','.__page',function() {
+                .on('click',
+                    '.__jump',
+                    function() {
+                        var pageIndex = $('#jump_page').val();
+                        $('#input_pageIndex').val(pageIndex);
+                        $('#btn_submit').click();
+                    })
+                .on('click',
+                    '.__page',
+                    function() {
                         var pageIndex = $(this).attr('data-pageindex');
                         $('#input_pageIndex').val(pageIndex);
                         $('#btn_submit').click();

@@ -203,6 +203,8 @@
 @section scripts
 {
     <script type="text/javascript">
+        $(function() {
+
         $("body")
             .on('click', '.__btn_cancel',function() {
                 window.location = '@Url.Action("Index","GYTInfo")';
@@ -297,5 +299,6 @@
                     }
                 });
             });
+        })
     </script>
 }

@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using Zer.Entities;
 using Zer.Framework.Helpers;
 using Zer.GytDto;
@@ -49,15 +51,20 @@ namespace Zer.Framework.Mvc.Logs.Attributes
             logInfoDto.ActionModel = ActionModel;
             logInfoDto.ActionType = ActionType;
 
-            StringBuilder paramStringBuilder = new StringBuilder();
+            string content = string.Empty;
 
-            foreach (var parametersKey in filterContext.ActionParameters.Keys)
+            try
             {
-                paramStringBuilder.AppendFormat("{0}:{1}|", parametersKey,
-                    filterContext.ActionParameters[parametersKey]);
+                JavaScriptSerializer json = new JavaScriptSerializer();
+
+                content = json.Serialize(filterContext.ActionParameters);
+            }
+            catch
+            {
+                
             }
 
-            logInfoDto.Content = paramStringBuilder.ToString();
+            logInfoDto.Content = content;
             logInfoDto.CreateTime = DateTime.Now;
             logInfoDto.IP = IpHelper.GetWebClientIp();
 

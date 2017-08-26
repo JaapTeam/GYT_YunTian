@@ -47,7 +47,17 @@ namespace Zer.AppServices.Impl
 
         public LngAllowanceInfoDto Edit(LngAllowanceInfoDto model)
         {
-            return _lngAllowanceInfoDataService.Update(model.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
+            return _lngAllowanceInfoDataService.Update(model.Id, x =>
+            {
+                x.CompanyName = model.CompanyName;
+                x.LotId = model.LotId;
+                x.TruckNo = model.TruckNo;
+                x.EngineId = model.EngineId;
+                x.CylinderDefaultId = model.CylinderDefaultId;
+                x.CylinderSeconedId = model.CylinderSeconedId;
+                x.CreateTime = model.CreateTime;
+                x.Status = model.Status;
+            }).Map<LngAllowanceInfoDto>();
         }
 
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)

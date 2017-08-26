@@ -157,10 +157,38 @@ namespace com.gyt.ms.Controllers
             return View(infoDto);
         }
 
-        public JsonResult SaveEdit(PeccancyRecrodDto infoDto)
+        [UserActionLog("编辑超载超限记录",ActionType.编辑)]
+        public ActionResult SaveEdit(PeccancyRecrodDto infoDto)
         {
-            _peccancyRecrodService.Edit(infoDto);
-            return Success();
+            if (infoDto.Id.IsNullOrEmpty())
+            {
+                return Fail("处罚决定书编号不能为空.");
+            }
+
+            var sourceDto = _peccancyRecrodService.GetByPeccancyId(infoDto.Id);
+            sourceDto.BehindTruckNo = infoDto.BehindTruckNo;
+            sourceDto.TraderRange = infoDto.TraderRange;
+            sourceDto.DriverName = infoDto.DriverName;
+            sourceDto.PeccancyDate = infoDto.PeccancyDate;
+            sourceDto.PeccancyMatter = infoDto.PeccancyMatter;
+            sourceDto.Source = infoDto.Source;
+            sourceDto.Status = infoDto.Status;
+
+            var companyInfo = _companyService.QueryAfterValidateAndRegist(infoDto.CompanyName);
+            sourceDto.CompanyId = companyInfo.Id;
+
+            var trcukInfo = _truckInfoService.QueryAfterValidateAndRegist(new TruckInfoDto()
+            {
+                CompanyId = companyInfo.Id,
+                CompanyName = companyInfo.CompanyName,
+                FrontTruckNo = infoDto.FrontTruckNo,
+                BehindTruckNo = infoDto.BehindTruckNo,
+                DriverId =  infoDto.DriverId,
+                DriverName = infoDto.DriverName
+            });
+
+            _peccancyRecrodService.Edit(sourceDto);
+            return RedirectToAction("Index", "PeccancyRecrod");
         }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<PeccancyRecrodDto> overloadRecrodDtos)
