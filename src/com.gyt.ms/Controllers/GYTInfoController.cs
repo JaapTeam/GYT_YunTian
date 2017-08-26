@@ -97,7 +97,7 @@ namespace com.gyt.ms.Controllers
             // 初始化检测并注册其中的新车辆信息
             InitTruckInfoDtoList(truckInfoDtoList);
 
-            mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.已注销);
+            //mustImportgtyGytInfoDtoList.ForEach(x => x.Status = BusinessState.已注销);
 
             // 保存信息，并得到保存成功的结果
             var importSuccessList = _gytInfoService.AddRange(mustImportgtyGytInfoDtoList);
