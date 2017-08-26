@@ -3,6 +3,10 @@ using Zer.Framework.Dto;
 
 namespace Zer.GytDto.SearchFilters
 {
+    public class UserInfoSearchDto : SearchDtoBase
+    {
+        
+    }
     public class PeccancyWithCompanySearchDto : SearchDtoBase
     {
         public PeccancyWithCompanySearchDto()

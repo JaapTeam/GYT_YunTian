@@ -27,6 +27,7 @@ namespace com.gyt.ms.Controllers
             _userInfoService = userInfoService;
         }
 
+        [AdminRole]
         [UserActionLog("新增用户", ActionType.新增)]
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
@@ -44,6 +45,7 @@ namespace com.gyt.ms.Controllers
             }
 
             userInfoDto.Password = userInfoDto.Password.Md5Encoding();
+            userInfoDto.UserState = UserState.Frozen;
 
             var registResult = _userInfoService.Regist(userInfoDto);
 
@@ -101,39 +103,46 @@ namespace com.gyt.ms.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        [AdminRole]
         [UserActionLog("用户状态变更-->冻结", ActionType.更改状态)]
-        public JsonResult Frozon(int userId)
+        public ActionResult Frozon(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
-            if (userInfoDto.State != UserState.Active)
+            if (userInfoDto.UserState != UserState.Active)
             {
-                return Fail("用户已经是冻结状态！");
+                return RedirectToAction("AccountManage", "User");
             }
 
             var frozonResult = _userInfoService.LetUserFrozen(userId);
 
-            return frozonResult == FrozenResult.Success ? Success() : Fail();
+            if (frozonResult == FrozenResult.Success)
+            {
+                return RedirectToAction("AccountManage", "User");
+            }
+
+            throw new CustomException("用户状态修改失败");
         }
 
+        [AdminRole]
         [UserActionLog("用户状态变更-->激活", ActionType.更改状态)]
-        public JsonResult Thaw(int userId)
+        public ActionResult Thaw(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
-            if (userInfoDto.State != UserState.Frozen)
+            if (userInfoDto.UserState != UserState.Frozen)
             {
-                return Fail("用户已经是活动状态！");
+                return RedirectToAction("AccountManage", "User");
             }
 
             var frozonResult = _userInfoService.LetUserThaw(userId);
 
             if (frozonResult == ThawResult.Success)
             {
-                return Success();
+                return RedirectToAction("AccountManage", "User");
             }
 
-            return Fail();
+            throw new CustomException("用户状态修改失败");
         }
 
         [UserActionLog("用户修改密码", ActionType.编辑)]
@@ -180,6 +189,7 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
+        [AdminRole]
         [UserActionLog("查看用户详细信息", ActionType.编辑)]
         public ActionResult AccountInfo(int userId = 0)
         {
@@ -198,6 +208,7 @@ namespace com.gyt.ms.Controllers
             return View();
         }
 
+        [AdminRole]
         [UserActionLog("编辑个人信息", ActionType.编辑)]
         public JsonResult Edit(UserInfoDto userInfoDto)
         {
@@ -226,6 +237,14 @@ namespace com.gyt.ms.Controllers
             _userInfoService.Edit(dto);
 
             return Success();
+        }
+
+        [AdminRole]
+        [UserActionLog("设置用户权限", ActionType.编辑)]
+        public ActionResult SetRole(int userId, RoleLevel roleId)
+        {
+            _userInfoService.SetUserRole(userId,roleId);
+            return RedirectToAction("AccountManage", "User");
         }
     }
 }

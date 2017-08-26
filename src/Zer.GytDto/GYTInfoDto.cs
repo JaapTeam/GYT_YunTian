@@ -76,19 +76,19 @@ namespace Zer.GytDto
         /// 经办人
         /// </summary>
         [ExportSort(9)]
-        [ExportDisplayName("经办人")]
+        [ExportDisplayName("经办人用户名")]
         [ImportSort(7)]
         public string BidName { get; set; }
 
-        [ImprotIgnore]
-        [ExportIgnore]
+        [ExportSort(10)]
+        [ExportDisplayName("经办人姓名")]
         [ImportSort(8)]
         public string BidDisplayName { get; set; }
 
         /// <summary>
         /// 业务状态
         /// </summary>
-        [ExportSort(10)]
+        [ExportSort(11)]
         [ImportSort(9)]
         [ExportDisplayName("业务状态")]
         public BusinessState Status { get; set; }

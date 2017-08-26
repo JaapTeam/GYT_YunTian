@@ -295,6 +295,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
     <None Include="Properties\PublishProfiles\sa.pubxml" />
+    <None Include="Properties\PublishProfiles\ssss.pubxml" />
     <None Include="Properties\PublishProfiles\ssssss.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

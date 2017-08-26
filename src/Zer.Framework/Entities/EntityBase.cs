@@ -6,6 +6,10 @@ namespace Zer.Framework.Entities
 {
     public class EntityBase:EntityBase<int>,IRecordState
     {
+        protected EntityBase()
+        {
+            State = State.Active;
+        }
         public State State { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

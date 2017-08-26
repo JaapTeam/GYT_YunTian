@@ -51,6 +51,11 @@ namespace Zer.GytDto
 
         [ExportSort(8)]
         [ImportSort(7)]
+        [ExportDisplayName("创建日期")]
+        public DateTime CreateTime { get; set; }
+
+        [ExportSort(9)]
+        [ImportSort(8)]
         [ExportDisplayName("补贴状态")]
         public LngStatus Status { get; set; }
     }
