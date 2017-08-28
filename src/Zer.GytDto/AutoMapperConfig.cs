@@ -22,12 +22,10 @@ namespace Zer.GytDto
             {
                 cfg.CreateMap<CompanyInfo, CompanyInfoDto>().ReverseMap();
                 cfg.CreateMap<UserLogInfo, LogInfoDto>().ReverseMap();
-//                cfg.CreateMap<UserInfo, UserInfoDto>()
-//                    .ForMember(dest => dest.UserId, opt => opt.MapFrom(u => u.Id))
-//                    .ReverseMap();
 
                 cfg.CreateMap<UserInfo, UserInfoDto>().ForMember(dest => dest.UserId, opt => opt.MapFrom(u => u.Id));
                 cfg.CreateMap<UserInfoDto, UserInfo>().ForMember(dest => dest.Id, opt => opt.MapFrom(u => u.UserId));
+
                 cfg.CreateMap<LngAllowanceInfo, LngAllowanceInfoDto>().ReverseMap();
                 cfg.CreateMap<TruckInfo, TruckInfoDto>().ReverseMap();
                 cfg.CreateMap<PeccancyInfo, PeccancyRecrodDto>().ReverseMap();
