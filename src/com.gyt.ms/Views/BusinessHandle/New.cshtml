@@ -1,8 +1,7 @@
 ﻿@using Zer.Entities
 
 @{
-    ViewBag.Title = "New";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "以旧换新车辆";
 
     var provinceList = ViewBag.ProvinceList as List<string>;
     var characterList = ViewBag.CharacterList as List<string>;
@@ -217,6 +216,37 @@
     </div>
 
 </div>
+    
+
+    <div class="form-group">
+
+        <label class="col-sm-4 control-label no-padding-right"> 港运通注销状态: </label>
+        <div class="col-sm-8">
+
+            <div class="control-group" style="margin-top: -5px; margin-left: -20px">
+
+                <div class="radio" id="radio_gytStatus">
+
+                    <label>
+
+                        <input name="gytStatus" type="radio" class="ace" checked="checked" value="true">
+                        <span class="lbl"> 已注销 </span>
+
+                    </label>
+                    <label style="margin-left: 20px">
+
+                        <input name="gytStatus" type="radio" class="ace" value="false">
+                        <span class="lbl"> 未注销 </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -316,6 +346,10 @@
                     }
 
                     if ($('#radioInfo input:radio:checked').val() === "false") {
+                        validationResult = false;
+                    }
+
+                    if ($('#radio_gytStatus input:radio:checked').val() === "false") {
                         validationResult = false;
                     }
 

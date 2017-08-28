@@ -3,6 +3,8 @@
 
 @{
     var CompanyList = ViewBag.CompanyList as List<CompanyInfoDto>;
+    var provinceList = ViewBag.ProvinceList as List<string>;
+    var characterList = ViewBag.CharacterList as List<string>;
 }
 
 
@@ -12,27 +14,45 @@
         <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right" for="company_select"> 企业名称: </label>
             <div class="col-sm-9">
-                @if (!CompanyList.IsNullOrEmpty())
-                {
-                    <select id="company_select">
-                        @foreach (var companyInfo in CompanyList)
-                        {
-                            <option value="@companyInfo.Id">@companyInfo.CompanyName</option>
-                        }
-                    </select>
-                }
+                <input type="text" id="CompanyName" placeholder="请输入公司名称" class="col-xs-10 col-sm-5">
+                <span class="help-inline red" id="sp_CompanyName"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right" for="LotId"> 批次: </label>
             <div class="col-sm-9">
-                <input type="text" id="LotId" placeholder="请输入批次" class="col-xs-10 col-sm-5">
+                <input type="text" id="LotId" placeholder="请输入批次,例如:9" class="col-xs-10 col-sm-5">
+                <span class="help-inline red" id="sp_LotId"></span>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right" for="TruckNo"> 车牌号: </label>
             <div class="col-sm-9">
-                <input type="text" id="TruckNo" placeholder="请输入车牌号" class="col-xs-10 col-sm-5">
+                <select class="select2-default _province_truckNo col-sm-1">
+                    @{
+                        if (provinceList != null && provinceList.Count > 0)
+                        {
+                            foreach (var item in provinceList)
+                            {
+                                <option value="@item">@item</option>
+                            }
+                        }
+                    }
+                </select>
+
+                <select class="select2-default _character_truckNo col-sm-1" style="margin-left: 8px">
+                    @{
+                        if (characterList != null && characterList.Count > 0)
+                        {
+                            foreach (var item in characterList)
+                            {
+                        <option value="@item">@item</option>
+                            }
+                        }
+                    }
+                </select>
+                <input type="text" placeholder="请输入车牌号" id="input_TruckNo" class="4" style="margin-left: 8px">
+                <span class="help-inline red" id="sp_TruckNo"></span>
             </div>
         </div>
         <div class="form-group">
@@ -45,6 +65,7 @@
             <label class="col-sm-3 control-label no-padding-right" for="CylinderDefaultId"> 气瓶1编号: </label>
             <div class="col-sm-9">
                 <input type="text" id="CylinderDefaultId" placeholder="请输入气瓶1编号" class="col-xs-10 col-sm-5">
+                <span class="help-inline red" id="sp_CylinderDefaultId"></span>
             </div>
         </div>
         <div class="form-group">
@@ -61,7 +82,37 @@
             <i class="icon-indent-right bigger-110"></i>
             保存
         </a>
+        
+        &nbsp; &nbsp; &nbsp;
+        <button class="btn __btn_cancel" type="reset">
+            <i class="icon-undo bigger-110"></i>
+            取消
+        </button>
     </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-success">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title __dialog_title" id="myModalLabel">
+                    LNG补贴信息登记结果
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success __modal_close" data-dismiss="modal">
+                    确认
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 
 @section scripts{
@@ -70,18 +121,55 @@
             var postUrl = '@Url.Action("AddPost", "LngAllowance")';
 
             $('body')
+                .on('click', '.__btn_cancel', function () {
+                    window.location = '@Url.Action("Index","LngAllowance")';
+                })
+                .on('click', '.__modal_close', function () {
+                    window.location = '@Url.Action("Index","LngAllowance")' + '?TruckNo=' + $("._province_truckNo").val() + $("._character_truckNo").val() + $("#input_TruckNo").val();
+                })
                 .on('click',
                     '#submit',
-                    function() {
-                        var companyId = $('#company_select').val();
+                    function () {
+                        $('#sp_CompanyName').text("");
+                        $('#sp_TruckNo').text("");
+                        $('#sp_CylinderDefaultId').text("");
+                        $('#sp_LotId').text("");
+
+                        var companyName = $('#CompanyName').val();
                         var lotId = $('#LotId').val();
-                        var truckNo = $('#TruckNo').val();
+                        var truckNo = $("._province_truckNo").val() + $("._character_truckNo").val() + $("#input_TruckNo").val();
                         var engineId = $('#EngineId').val();
                         var cylinderDefaultId = $('#CylinderDefaultId').val();
                         var cylinderSeconedId = $('#CylinderSeconedId').val();
 
+                        var validateResult = true;
+
+                        if (companyName.length <= 0) {
+                            $('#sp_CompanyName').text("请输入公司名称");
+                            validateResult = false;
+                        }
+
+                        if (truckNo.length < 7 || truckNo.length > 7) {
+                            $('#sp_TruckNo').text("输入的车牌号不符合规则");
+                            validateResult = false;
+                        }
+
+                        if (cylinderDefaultId <= 0) {
+                            $('#sp_CylinderDefaultId').text("请输入气缸1编号");
+                            validateResult = false;
+                        }
+
+                        if (lotId <= 0) {
+                            $('#sp_LotId').text("请输入补贴批次");
+                            validateResult = false;
+                        }
+
+                        if (validateResult === false) {
+                            return false;
+                        }
+
                         var postModel = {
-                            CompanyId: companyId,
+                            CompanyName: companyName,
                             LotId: lotId,
                             TruckNo: truckNo,
                             EngineId: engineId,
@@ -99,7 +187,15 @@
                                 if (d.C == '901') {
                                     window.location = '@Url.Action("Index","LngAllowance")';
                                 } else {
-                                    alert(d.msg);
+                                    $('.modal-header').removeClass('alert-success');
+                                    $('.modal-header').addClass('alert-danger');
+
+                                    var msg = "<label class='label label-lg label-danger'>登记失败</label><ul>";
+                                    msg += '<li><span><i class="">' + d.msg + '</i></span></li>';
+                                    msg += "</ul>";
+
+                                    $('.__dialog_content').html(msg);
+                                    $('#myModal').modal("show");
                                 }
                             }
                         })

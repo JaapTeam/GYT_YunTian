@@ -75,11 +75,7 @@ namespace com.gyt.ms.Controllers
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
             var result = _peccancyRecrodService.ExistsCompanyName(companyName);
-            if (result)
-            {
-                return Fail();
-            }
-            return Success();
+            return result ? Fail() : Success();
         }
 
         /// <summary>
@@ -172,7 +168,7 @@ namespace com.gyt.ms.Controllers
             // 旧车必须有办理记录
             if (gytInfoDto == null)
             {
-                result.Add("原车牌不存在港运通办理记录，不能办理以旧换新业务");
+                result.Add("原车牌不存在港运通办理记录，或指标已经被使用，不能办理以旧换新业务");
             }
 
             if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
@@ -255,6 +251,8 @@ namespace com.gyt.ms.Controllers
             dto.BidDisplayName = userInfoDto.DisplayName;
             dto.Status = BusinessState.已办理;
             dto.BidDate = DateTime.Now;
+
+            _gytInfoService.SetStatus(dto.OriginalTruckNo, BusinessState.已注销);
 
             return _gytInfoService.Add(dto);
         }
