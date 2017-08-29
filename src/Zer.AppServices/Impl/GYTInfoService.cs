@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Dto;
@@ -134,7 +135,20 @@ namespace Zer.AppServices.Impl
         {
             return
                 _gytInfoDataService.GetAll()
-                    .Any(x => x.OriginalTruckNo == truckNo && x.BusinessType == BusinessType.以旧换新车辆);
+                    .Any(x => x.OriginalTruckNo == truckNo &&
+                        x.BusinessType == BusinessType.以旧换新车辆 &&
+                        x.Status == BusinessState.已办理);
+        }
+
+        public void SetStatus(string truckNo, BusinessState state)
+        {
+            var gytInfo = _gytInfoDataService.FirstOrDefault(x=>x.BidTruckNo == truckNo && x.Status == BusinessState.已办理);
+            if (gytInfo == null)
+            {
+                return;
+            }
+
+            _gytInfoDataService.Update(gytInfo.Id, x => x.Status = state);
         }
 
         public GYTInfoDto Verify(string infoId)

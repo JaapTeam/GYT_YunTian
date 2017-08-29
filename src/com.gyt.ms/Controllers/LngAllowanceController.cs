@@ -49,7 +49,8 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Add()
         {
-            ViewBag.CompanyList = _companyService.GetAll();
+            ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
+            ViewBag.CharacterList = CacheHelper.GetCache("Character").ToString().PartString(',');
             return View();
         }
 
@@ -131,22 +132,14 @@ namespace com.gyt.ms.Controllers
         [UserActionLog("LNG补贴信息单条新增", ActionType.新增)]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
-            CompanyInfoDto companyInfoDto = _companyService.GetById(dto.CompanyId);
-            dto.CompanyName = companyInfoDto.CompanyName;
+            if (_lngAllowanceService.Exists(dto))
+            {
+                return Fail("该车辆相关的车牌号或者气罐已经存在记录，请通过搜索及审核来管理补贴状态。");
+            }
+            var companyInfoDto = _companyService.QueryAfterValidateAndRegist(dto.CompanyName);
 
-            if (_truckInfoService.Exists(dto.TruckNo))
-            {
-                _truckInfoService.GetByTruckNo(dto.TruckNo);
-            }
-            else
-            {
-                _truckInfoService.Add(new TruckInfoDto()
-                {
-                    CompanyId = companyInfoDto.Id,
-                    CompanyName = companyInfoDto.CompanyName,
-                    FrontTruckNo = dto.TruckNo
-                });
-            }
+            dto.CompanyId = companyInfoDto.Id;
+            dto.CreateTime = DateTime.Now;
 
             _lngAllowanceService.Add(dto);
 
