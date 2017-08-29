@@ -144,7 +144,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessHandleController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
-    <Compile Include="Controllers\GYTHandleRecrodController.cs" />
     <Compile Include="Controllers\GYTInfoRecrodController.cs" />
     <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -333,7 +332,6 @@
     <Content Include="Views\Shared\LeftMenu.cshtml" />
     <Content Include="Views\BusinessHandle\Index.cshtml" />
     <Content Include="Views\GYTInfo\Index.cshtml" />
-    <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\AccountManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
