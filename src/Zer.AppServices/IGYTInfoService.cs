@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Zer.Entities;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
@@ -21,5 +22,7 @@ namespace Zer.AppServices
         bool TargetIsUse(string truckNo);
 
         GYTInfoDto Verify(string infoId);
+
+        void SetStatus(string truckNo, BusinessState state);
     }
 }

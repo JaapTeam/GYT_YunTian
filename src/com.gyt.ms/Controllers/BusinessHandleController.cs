@@ -75,11 +75,7 @@ namespace com.gyt.ms.Controllers
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
             var result = _peccancyRecrodService.ExistsCompanyName(companyName);
-            if (result)
-            {
-                return Fail();
-            }
-            return Success();
+            return result ? Fail() : Success();
         }
 
         /// <summary>
@@ -151,7 +147,7 @@ namespace com.gyt.ms.Controllers
             var recordDto = _gytInfoService.GetByBidTruckNo(dto.BidTruckNo);
             if (recordDto != null)
             {
-                result.Add(string.Format("申办车牌号[{0}]已经办理港运通,编号为[{1}]", recordDto.BidTruckNo, recordDto.Id));
+                result.Add(string.Format("申办车牌号[<label class='label label-danger'>{0}</label>]已经办理港运通,编号为[<label class='label label-danger'>{1}</label>]", recordDto.BidTruckNo, recordDto.Id));
             }
 
             return result;
@@ -172,15 +168,20 @@ namespace com.gyt.ms.Controllers
             // 旧车必须有办理记录
             if (gytInfoDto == null)
             {
-                result.Add("原车牌不存在港运通办理记录，不能办理以旧换新业务");
+                result.Add("原车牌不存在港运通办理记录，或指标已经被使用，不能办理以旧换新业务");
             }
 
             if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
             {
                 result.Add(string.Format(
-                    "原车牌 {0} 与 港运通编号 {1} 的绑定关系已经被注销，车辆以旧换新指标已经使用，不能办理以旧换新业务",
+                    "原车牌 <label class='label label-danger'>{0}</label> 与 港运通编号 <label class='label label-danger'>{1}</label> 的绑定关系已经被注销，车辆以旧换新指标已经使用，不能办理以旧换新业务",
                     dto.OriginalTruckNo,
                     gytInfoDto.Id));
+            }
+
+            if (gytInfoDto != null && gytInfoDto.BidCompanyName != dto.OriginalCompanyName)
+            {
+                result.Add(string.Format("该车牌归属公司与信息库记录(<label class='label label-danger'>{0}</label>)不一致，请检查后重新输入", gytInfoDto.BidCompanyName));
             }
 
             return result;
@@ -201,9 +202,14 @@ namespace com.gyt.ms.Controllers
             if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
             {
                 result.Add(string.Format(
-                    "原车牌 {0} 与 港运通编号 {1} 的绑定关系已经被注销，车辆过户指标已经使用，不能办理车辆过户业务",
+                    "原车牌 <label class='label label-danger'>{0}</label> 与 港运通编号 <label class='label label-danger'>{1}</label> 的绑定关系已经被注销，车辆过户指标已经使用，不能办理车辆过户业务",
                     dto.OriginalTruckNo,
                     gytInfoDto.Id));
+            }
+
+            if (gytInfoDto != null && gytInfoDto.BidCompanyName != dto.OriginalCompanyName)
+            {
+                result.Add(string.Format("该车牌归属公司与信息库记录(<label class='label label-danger'>{0}</label>)不一致，请检查后重新输入", gytInfoDto.BidCompanyName));
             }
 
             return result;
@@ -255,6 +261,8 @@ namespace com.gyt.ms.Controllers
             dto.BidDisplayName = userInfoDto.DisplayName;
             dto.Status = BusinessState.已办理;
             dto.BidDate = DateTime.Now;
+
+            _gytInfoService.SetStatus(dto.OriginalTruckNo, BusinessState.已注销);
 
             return _gytInfoService.Add(dto);
         }

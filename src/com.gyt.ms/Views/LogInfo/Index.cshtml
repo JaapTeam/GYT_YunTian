@@ -18,7 +18,7 @@
 <div class="table-header">
 
     <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-        <a class="white" id="btn_export">
+        <a class="white" id="btn_export" href="javascript:;">
             <i class="icon-cloud-download bigger-110">
                 <span class="">导出</span>
             </i>
@@ -53,7 +53,7 @@
                            
                             <td>@log.Id</td>
                             <td>
-                                <a href="@Url.Action("AccountInfo", "User", new { userId = log.UserId, })">@log.DisplayName</a>
+                                @log.DisplayName
                             </td>
                             <td>@log.ActionType</td>
                             <td>@log.ActionModel</td>

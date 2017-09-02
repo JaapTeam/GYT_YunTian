@@ -1,8 +1,7 @@
 ﻿@using Zer.Entities
 
 @{
-    ViewBag.Title = "New";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "以旧换新车辆";
 
     var provinceList = ViewBag.ProvinceList as List<string>;
     var characterList = ViewBag.CharacterList as List<string>;
@@ -111,7 +110,7 @@
 
 <div class="form-group">
 
-    <label class="col-sm-4 control-label no-padding-right"> 超载超限违规情况: </label>
+    <label class="col-sm-4 control-label no-padding-right"> 申办企业超载超限违规情况: </label>
     <div class="col-sm-8">
 
         <span class="label label-lg label-success" id="_sp_Illegal">无违规</span>
@@ -121,7 +120,7 @@
 </div>
 <div class="form-group">
 
-    <label class="col-sm-4 control-label no-padding-right"> 指标无重复使用: </label>
+    <label class="col-sm-4 control-label no-padding-right"> 报废指标无重复使用: </label>
     <div class="col-sm-8">
 
         <span class="label label-lg label-success" id="_sp_quota">无重复使用</span>
@@ -131,7 +130,7 @@
 </div>
 <div class="form-group">
 
-    <label class="col-sm-4 control-label no-padding-right"> 运营证注销状态:</label>
+    <label class="col-sm-4 control-label no-padding-right"> 报废车营运证注销状态:</label>
     <div class="col-sm-8">
 
         <div class="control-group" style="margin-top: -5px; margin-left: -20px">
@@ -160,7 +159,7 @@
 </div>
 <div class="form-group">
 
-    <label class="col-sm-4 control-label no-padding-right"> 运营证存在过户记录: </label>
+    <label class="col-sm-4 control-label no-padding-right"> 报废车营运证存在过户记录: </label>
     <div class="col-sm-8">
 
         <div class="control-group" style="margin-top: -5px; margin-left: -20px">
@@ -190,7 +189,7 @@
 
 <div class="form-group">
 
-    <label class="col-sm-4 control-label no-padding-right"> 报废车回收与系统信息一致: </label>
+    <label class="col-sm-4 control-label no-padding-right"> 报废车回收证明与系统信息一致: </label>
     <div class="col-sm-8">
 
         <div class="control-group" style="margin-top: -5px; margin-left: -20px">
@@ -217,6 +216,37 @@
     </div>
 
 </div>
+    
+
+    <div class="form-group">
+
+        <label class="col-sm-4 control-label no-padding-right"> 港运通注销状态: </label>
+        <div class="col-sm-8">
+
+            <div class="control-group" style="margin-top: -5px; margin-left: -20px">
+
+                <div class="radio" id="radio_gytStatus">
+
+                    <label>
+
+                        <input name="gytStatus" type="radio" class="ace" checked="checked" value="true">
+                        <span class="lbl"> 已注销 </span>
+
+                    </label>
+                    <label style="margin-left: 20px">
+
+                        <input name="gytStatus" type="radio" class="ace" value="false">
+                        <span class="lbl"> 未注销 </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -316,6 +346,10 @@
                     }
 
                     if ($('#radioInfo input:radio:checked').val() === "false") {
+                        validationResult = false;
+                    }
+
+                    if ($('#radio_gytStatus input:radio:checked').val() === "false") {
                         validationResult = false;
                     }
 
