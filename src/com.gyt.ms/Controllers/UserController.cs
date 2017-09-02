@@ -156,11 +156,6 @@ namespace com.gyt.ms.Controllers
                 return Fail("当前密码错误！");
             }
 
-            if (newPassword.IsNullOrEmpty() || newPassword.Length < 6)
-            {
-                throw new ArgumentException("密码长度小于6！");
-            }
-
             var userInfoDto = _userInfoService.GetById(CurrentUser.UserId);
 
             if (userInfoDto.Password == newPassword)
@@ -172,6 +167,7 @@ namespace com.gyt.ms.Controllers
 
             if (changePasswordResult == ChangePasswordResult.Success)
             {
+                CurrentUser.Password = newPassword;
                 return Success();
             }
 
