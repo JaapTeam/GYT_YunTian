@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CacheInitial.cs" />
     <Compile Include="App_Start\ControllerInstaller.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
@@ -142,10 +143,8 @@
     <Compile Include="App_Start\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessHandleController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
-    <Compile Include="Controllers\GYTHandleRecrodController.cs" />
-    <Compile Include="Controllers\GYTSuccessController.cs" />
+    <Compile Include="Controllers\GYTInfoRecrodController.cs" />
     <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\LngAllowanceController.cs" />
@@ -158,7 +157,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HandleDataDto.cs" />
-    <Compile Include="Models\MenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +172,7 @@
     <Content Include="assets\css\ace-rtl.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />
     <Content Include="assets\css\ace.min.css" />
+    <Content Include="assets\css\bootstrap-datetimepicker.min.css" />
     <Content Include="assets\css\bootstrap-editable.css" />
     <Content Include="assets\css\bootstrap-timepicker.css" />
     <Content Include="assets\css\bootstrap.min.css" />
@@ -183,6 +182,11 @@
     <Content Include="assets\css\datepicker.css" />
     <Content Include="assets\css\daterangepicker.css" />
     <Content Include="assets\css\dropzone.css" />
+    <Content Include="assets\css\easyui\easyui.css" />
+    <Content Include="assets\css\easyui\icon.css" />
+    <Content Include="assets\css\easyui\images\calendar_arrows.png" />
+    <Content Include="assets\css\easyui\images\combo_arrow.png" />
+    <Content Include="assets\css\easyui\images\datebox_arrow.png" />
     <Content Include="assets\css\font-awesome-ie7.min.css" />
     <Content Include="assets\css\font-awesome.min.css" />
     <Content Include="assets\css\fullcalendar.css" />
@@ -190,6 +194,7 @@
     <Content Include="assets\css\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="assets\css\jquery-ui-1.10.3.full.min.css" />
     <Content Include="assets\css\jquery.gritter.css" />
+    <Content Include="assets\css\login2.css" />
     <Content Include="assets\css\select2.css" />
     <Content Include="assets\css\ui.jqgrid.css" />
     <Content Include="assets\images\gallery\image-1.jpg" />
@@ -204,6 +209,7 @@
     <Content Include="assets\images\gallery\thumb-4.jpg" />
     <Content Include="assets\images\gallery\thumb-5.jpg" />
     <Content Include="assets\images\gallery\thumb-6.jpg" />
+    <Content Include="assets\images\1.jpg" />
     <Content Include="assets\js\ace-elements.min.js" />
     <Content Include="assets\js\ace-extra.min.js" />
     <Content Include="assets\js\ace.min.js" />
@@ -215,10 +221,15 @@
     <Content Include="assets\js\bootstrap.min.js" />
     <Content Include="assets\js\chosen.jquery.min.js" />
     <Content Include="assets\js\date-time\bootstrap-datepicker.min.js" />
+    <Content Include="assets\js\date-time\bootstrap-datetimepicker.min.js" />
     <Content Include="assets\js\date-time\bootstrap-timepicker.min.js" />
     <Content Include="assets\js\date-time\daterangepicker.min.js" />
+    <Content Include="assets\js\date-time\locales\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="assets\js\date-time\moment.min.js" />
     <Content Include="assets\js\dropzone.min.js" />
+    <Content Include="assets\js\easyui\easyui-lang-zh_CN.js" />
+    <Content Include="assets\js\easyui\jquery.easyui.min.js" />
+    <Content Include="assets\js\easyui\jquery.min.js" />
     <Content Include="assets\js\excanvas.min.js" />
     <Content Include="assets\js\flot\jquery.flot.min.js" />
     <Content Include="assets\js\flot\jquery.flot.pie.min.js" />
@@ -254,6 +265,7 @@
     <Content Include="assets\js\jquery.sparkline.min.js" />
     <Content Include="assets\js\jquery.ui.touch-punch.min.js" />
     <Content Include="assets\js\jquery.validate.min.js" />
+    <Content Include="assets\js\login.js" />
     <Content Include="assets\js\markdown\bootstrap-markdown.min.js" />
     <Content Include="assets\js\markdown\markdown.min.js" />
     <Content Include="assets\js\md5.js" />
@@ -265,13 +277,28 @@
     <Content Include="assets\js\x-editable\bootstrap-editable.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="error.htm" />
     <Content Include="favicon.ico" />
+    <Content Include="FileNotFound.htm" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="NoAccess.htm" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
+    <Content Include="Content\templates\超限超限数据导入模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\lng导入模板.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\港运通信息数据库导入.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\com.gyt.ms.publish.pubxml" />
+    <None Include="Properties\PublishProfiles\sa.pubxml" />
+    <None Include="Properties\PublishProfiles\ssss.pubxml" />
+    <None Include="Properties\PublishProfiles\ssssss.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -305,7 +332,6 @@
     <Content Include="Views\Shared\LeftMenu.cshtml" />
     <Content Include="Views\BusinessHandle\Index.cshtml" />
     <Content Include="Views\GYTInfo\Index.cshtml" />
-    <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\AccountManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
@@ -322,13 +348,23 @@
     <Content Include="Views\PeccancyChangeInfo\Index.cshtml" />
     <Content Include="Views\PeccancyRecrod\ImportResult.cshtml" />
     <Content Include="Views\PeccancyRecrod\Index.cshtml" />
-    <Content Include="Views\GYTSuccess\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\GYTInfoRecrod\Index.cshtml" />
+    <Content Include="Views\GYTInfo\AddGas.cshtml" />
+    <Content Include="Views\GYTInfo\replaceOld.cshtml" />
+    <Content Include="Views\GYTInfo\TransferOwner.cshtml" />
+    <Content Include="Views\BusinessHandle\Gas.cshtml" />
+    <Content Include="Views\BusinessHandle\Transfer.cshtml" />
+    <Content Include="Views\BusinessHandle\New.cshtml" />
+    <Content Include="Views\PeccancyRecrod\Company.cshtml" />
+    <Content Include="Views\Shared\_breadcrumb.cshtml" />
+    <Content Include="Views\GYTInfo\Edit.cshtml" />
+    <Content Include="Views\PeccancyRecrod\Edit.cshtml" />
+    <Content Include="Views\LngAllowance\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\uploadFiles\LngAllowance\" />
-    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

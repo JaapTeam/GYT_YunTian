@@ -1,0 +1,258 @@
+﻿@using Zer.Entities
+@using Zer.Framework.Extensions
+@using Zer.GytDto
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var provinceList = ViewBag.ProvinceList as List<string>;
+    var characterList = ViewBag.CharacterList as List<string>;
+    var peccancyRecrodDto = Model as PeccancyRecrodDto;
+}
+
+<h3 class="header smaller lighter blue">超载超限信息编辑</h3>
+
+@if (peccancyRecrodDto != null)
+{
+    <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit","PeccancyRecrod")">
+        <input value="@peccancyRecrodDto.Id" class="hide" name="Id" />
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_bidCompnyName" style="color: red"> 处罚决定书编号 </label>
+
+            <div class="col-sm-9">
+                <label>@peccancyRecrodDto.Id</label>
+                <input type="text" id="input_bidCompnyName" placeholder="处罚决定书编号" class="col-xs-10 col-sm-5 hide" value="@peccancyRecrodDto.Id" name="PeccancyId">
+
+            </div>
+        </div>
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_companyName" style="color: red"> 公司名称 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_companyName" placeholder="公司名称" class="col-xs-10 col-sm-5" value="@peccancyRecrodDto.CompanyName" name="CompanyName">
+                <label id="lbl_companyName" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_FrontTruckNo" style="color: red"> 前车牌号 </label>
+
+            <div class="col-sm-9">
+                <select class="select2-default _FrontTruckNo_province col-sm-1">
+                    <option></option>
+                    @{
+                        if (provinceList != null && provinceList.Count > 0)
+                        {
+                            foreach (var item in provinceList)
+                            {
+                                if (peccancyRecrodDto.FrontTruckNo.Substring(0, 1).Equals(item))
+                                {
+                                    <option value="@item" selected="selected">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+
+                <select class="select2-default _FrontTruckNo_character col-sm-1" style="margin-left: 8px">
+                    <option></option>
+                    @{
+                        if (characterList != null && characterList.Count > 0)
+                        {
+                            foreach (var item in characterList)
+                            {
+                                if (peccancyRecrodDto.FrontTruckNo.Substring(1, 1).Equals(item))
+                                {
+                                    <option value="@item" selected="selected">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+                <input type="text" id="input_FrontTruckNo" placeholder="" style="margin-left: 8px" value="@peccancyRecrodDto.FrontTruckNo.Substring(2)">
+                <label id="lbl_FrontTruckNo" style="color: red; display: none"></label>
+                <input type="text" value="@peccancyRecrodDto.FrontTruckNo" class="hide" name="FrontTruckNo">
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_BehindTruckNo"> 后车牌号 </label>
+
+            <div class="col-sm-9">
+                <select class="select2-default _BehindTruckNo_province col-sm-1">
+                    <option></option>
+                    @{
+                        if (provinceList != null && provinceList.Count > 0)
+                        {
+                            foreach (var item in provinceList)
+                            {
+                                if (!peccancyRecrodDto.BehindTruckNo.IsNullOrEmpty() && peccancyRecrodDto.BehindTruckNo.Substring(0, 1).Equals(item))
+                                {
+                                    <option value="@item" selected="selected">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+
+
+                <select class="select2-default _BehindTruckNo_character col-sm-1" style="margin-left: 8px">
+                    <option></option>
+                    @{
+                        if (characterList != null && characterList.Count > 0)
+                        {
+                            foreach (var item in characterList)
+                            {
+                                if (!peccancyRecrodDto.BehindTruckNo.IsNullOrEmpty() && peccancyRecrodDto.BehindTruckNo.Substring(1, 1).Equals(item))
+                                {
+                                    <option value="@item" selected="selected">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+
+                <input type="text" id="input_BehindTruckNo" placeholder="" style="margin-left: 8px" value="@(peccancyRecrodDto.BehindTruckNo.IsNullOrEmpty()?"": peccancyRecrodDto.BehindTruckNo.Substring(2))">
+                <label id="lbl_BehindTruckNo" style="color: red; display: none"></label>
+                <input type="text" value="@peccancyRecrodDto.BehindTruckNo" class="hide" name="BehindTruckNo">
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_driverName"> 驾驶员姓名 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_driverName" placeholder="驾驶员姓名" class="col-xs-10 col-sm-5" value="@Model.DriverName" name="DriverName">
+                <label id="lbl_driverName" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_PeccancyDate" style="color: red"> 违法日期 </label>
+
+            <div class="col-sm-9">
+                <label class="input-append date form_date" id="input_PeccancyDate" data-date="@string.Format("{0:yyyy-M-dd}", peccancyRecrodDto.PeccancyDate)" data-date-format="yyyy-M-dd">
+                    <input class="input-mini" name="PeccancyDate" size="16"
+                           style="width: 90px" type="text"
+                           value="@( string.Format("{0:yyyy-M-dd}", peccancyRecrodDto.PeccancyDate))">
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_peccancyMatter" style="color: red"> 违法事项 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_peccancyMatter" placeholder="违法事项" class="col-xs-10 col-sm-5" value="@peccancyRecrodDto.PeccancyMatter" name="PeccancyMatter">
+                <label id="lbl_peccancyMatter" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_source" style="color: red"> 文件来源 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_source" placeholder="文件来源" class="col-xs-10 col-sm-5" value="@peccancyRecrodDto.Source" name="Source">
+                <label id="lbl_source" style="color: red; display: none"></label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_source" style="color: red"> 整改状态 </label>
+
+            <div class="col-sm-9">
+                <select name="Status">
+                    <option value="@Status.未整改" @(peccancyRecrodDto.Status == Status.未整改 ? "selected" : "")>@Status.未整改</option>
+                    <option value="@Status.已整改" @(peccancyRecrodDto.Status == Status.已整改 ? "selected" : "")>@Status.已整改</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-info" type="submit" id="btn_Save">
+                    <i class="icon-ok bigger-110"></i>
+                    保存
+                </button>
+
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn __btn_cancel" type="reset">
+                    <i class="icon-undo bigger-110"></i>
+                    取消
+                </button>
+            </div>
+        </div>
+    </form>
+}
+
+@section header{
+    <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+@section scripts{
+    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script>
+        $(function() {
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+
+            $('body')
+                .on('blur', '#input_FrontTruckNo', function () {
+                    var frontTruckNo = $("._FrontTruckNo_province").val() +
+                        $("._FrontTruckNo_character").val()
+                        + $("#input_FrontTruckNo").val();
+                    $("input[name^='FrontTruckNo']").val(frontTruckNo);
+                })
+                .on('blur', '#input_BehindTruckNo', function () {
+                    var behindTruckNo = $("._BehindTruckNo_province").val() +
+                        $("._BehindTruckNo_character").val()
+                        + $("#input_BehindTruckNo").val();
+                    $("input[name^='BehindTruckNo']").val(behindTruckNo);
+                })
+                .on('click', '.__btn_cancel',function() {
+                        window.location = '@Url.Action("Index","PeccancyRecrod")';
+                    })
+        })
+    </script>
+}

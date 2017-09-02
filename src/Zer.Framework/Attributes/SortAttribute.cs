@@ -2,11 +2,11 @@ using System;
 
 namespace Zer.Framework.Attributes
 {
-    public class SortAttribute:Attribute
+    public class ExportSortAttribute:Attribute
     {
         public int Index { get; private set; }
 
-        public SortAttribute(int index)
+        public ExportSortAttribute(int index)
         {
             Index = index;
         }

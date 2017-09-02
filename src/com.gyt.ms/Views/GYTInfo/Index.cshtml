@@ -1,61 +1,73 @@
-﻿@using System.Diagnostics
+﻿@using Zer.Entities
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
+@using Zer.GytDto.Users
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var truckList = ViewBag.TruckList as List<TruckInfoDto>;
-    var companyList = ViewBag.CompanyList as List<CompanyInfoDto>;
+    var userInfo = ViewBag.UserInfo as UserInfoDto;
+
     var infoList = ViewBag.Result as List<GYTInfoDto>;
 
-    var searchFilter = ViewBag.SearchDto as GYTInfoSearchDto ?? (GYTInfoSearchDto)new GYTInfoSearchDto();
+    var searchFilter = ViewBag.SearchDto as GYTInfoSearchDto ?? (GYTInfoSearchDto) new GYTInfoSearchDto();
 }
 
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-inline" style="height: 50px; line-height: 45px" action="@(Url.Action("Search", "GYTInfo", new { activeId = ViewBag.ActiveId }))" method="post">
-            公司名称：
-            <select class=" chosen-select" style="display: none; width: 200px" name="CompanyId">
-                <option value="">&nbsp;</option>
-                @{
-                    Debug.Assert(companyList != null, "companyList != null");
-                }
-                @foreach (var companyInfoDto in companyList)
-                {
+        <form class="form-inline" id="form_search" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo"))" method="post">
+            <label style="margin-left: 10px" for="input_CompanyName">公司名称：</label>
+            <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName"/>
 
-                    <option value="@companyInfoDto.Id">@companyInfoDto.CompanyName</option>
-                }
-            </select>
-            车牌号码：
-            <select class="chosen-select " style="display: none; width: 115px" name="TruckNo">
-                <option value="">&nbsp;</option>
-                @{
-                    Debug.Assert(truckList != null, "truckList != null");
-                }
-                @foreach (var truckInfoDto in truckList)
-                {
-                    <option value="@truckInfoDto.FrontTruckNo">@truckInfoDto.FrontTruckNo</option>
-                }
-            </select>
+            <label style="margin-left: 10px" for="input_TruckNo">车牌号码：</label>
+            <input type="text" class="input-mini" value="@(searchFilter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo"/>
 
-            <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px">查询</button>
+            <label style="margin-left: 10px" for="input_Status">办理状态：</label>
+            <select name="Status" id="input_Status">
+                <option value="" @(!searchFilter.Status.HasValue ? "selected" : "")>全部</option>
+                <option value="@(BusinessState.已注销)" @(searchFilter.Status == BusinessState.已注销 ? "selected" : "")>已注销</option>
+                <option value="@(BusinessState.已办理)" @(searchFilter.Status == BusinessState.已办理 ? "selected" : "")>已办理</option>
+            </select>
+            
+            <span style="margin-left: 10px">日期：</span>
+            <label class="input-append date form_date" id="startDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+                <input class="input-mini" name="StartDate" size="16"
+                       style="width: 90px" type="text"
+                       value="@(searchFilter.StartDate.HasValue ? string.Format("{0:yyyy-M-dd}", searchFilter.StartDate.Value) : "")">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </label>  
+            <span>到</span>
+            <label class="input-append date form_date" id="endDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+                <input class="input-mini" name="EndDate" size="16" style="width: 90px"
+                       type="text" 
+                       value="@(searchFilter.EndDate.HasValue ? string.Format("{0:yyyy-M-dd}", searchFilter.EndDate.Value) : "")">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </label>  
+
+            <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
+            <button type="submit" class="btn btn-small btn-info" id="btn_submit" style="margin-left: 20px">查询</button>
         </form>
 
         <div class="table-header">
 
             <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-                
+
                 <a class="white" href="javascript:void(0)" id="btn_improt">
-                    <i class="icon-cloud-upload bigger-110" >
+                    <i class="icon-cloud-upload bigger-110">
                         <span class="">批量导入</span>
                     </i>
                 </a>
 
-                <a class="white" id="btn_export" href="@(Url.Action("ExportResult","GYTInfo",new {exportcode="All"}))">
+                <a class="white" id="btn_export" href="javascript:;">
                     <i class="icon-cloud-download bigger-110">
                         <span class="">导出</span>
+                    </i>
+                </a>
+                
+                <a class="white" href="@Url.Content("~")Content/templates/港运通信息数据库导入.xlsx">
+                    <i class="icon-book bigger-110">
+                        <span class="">导入模板下载</span>
                     </i>
                 </a>
             </div>
@@ -66,12 +78,12 @@
             <table id="sample-table-2" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th class="center">
+                    @*<th class="center">
                         <label>
-                            <input type="checkbox" class="ace" />
+                            <input type="checkbox" class="ace"/>
                             <span class="lbl"></span>
                         </label>
-                    </th>
+                    </th>*@
                     <th>办理编号</th>
                     <th>业务类型</th>
                     <th>原企业</th>
@@ -80,7 +92,11 @@
                     <th>申办车牌号</th>
                     <th>办理日期</th>
                     <th>经办人</th>
-                    <th></th>
+                    <th>状态</th>
+                    @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                    {
+                        <th>编辑</th>
+                    }
                 </tr>
                 </thead>
                 <tbody>
@@ -90,12 +106,6 @@
                         foreach (var gytInfoDto in infoList)
                         {
                             <tr>
-                                <td class="center">
-                                    <label>
-                                        <input type="checkbox" class="ace" />
-                                        <span class="lbl"></span>
-                                    </label>
-                                </td>
                                 <td>
                                     <a href="javascript:;">@gytInfoDto.Id</a>
                                 </td>
@@ -108,114 +118,244 @@
                                     @gytInfoDto.BidTruckNo
                                 </td>
                                 <td>
-                                    @gytInfoDto.BidDate
+                                    @string.Format("{0:yyyy-MM-dd}", gytInfoDto.BidDate)
                                 </td>
-                                <td>@gytInfoDto.BidName</td>
-                                <td><a href="javascript:;">详情</a></td>
+                                <td>@gytInfoDto.BidDisplayName</td>
+
+                                <td>
+                                    @if (gytInfoDto.Status == BusinessState.已办理)
+                                    {
+                                        <span class="label label-sm label-success">
+                                            <i class="icon-ok"> 已办理</i>
+                                        </span>
+                                    }
+
+                                    @if (gytInfoDto.Status == BusinessState.已注销)
+                                    {
+                                        <span class="label label-sm label-danger">
+                                            <i class="icon-minus-sign"> 已注销</i>
+                                        </span>
+                                    }
+
+                                </td>
+
+                                @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
+                                {
+                                    <td>
+
+                                        <a class="btn btn-xs btn-info _edit"
+                                           href="@Url.Action("Edit", "GYTInfo", new {infoId = gytInfoDto.Id})">
+                                            <i class=" icon-check">编辑</i>
+                                        </a>
+                                    </td>
+                                }
                             </tr>
                         }
                     }
-
                 }
-                
+
                 </tbody>
             </table>
 
-            @using (Html.BeginForm("Improt", "GYTInfo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Improt", "GYTInfo", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
-                <input type="file" name="file" class="hide" id="input_file" />
-                <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
+                <input type="file" name="file" class="hide" id="input_file"/>
+                <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
             }
 
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="dataTables_paginate padding-10">
-                        <ul class="pagination">
-                            <li class="prev disabled">
-                                <a href="#">
-                                    <i class="icon-double-angle-left"></i>
-                                </a>
-                            </li>
-                            <li class="active">
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li class="next">
-                                <a href="#">
-                                    <i class="icon-double-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>
+            @if (searchFilter.PageCount > 1)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="dataTables_paginate padding-10">
+                            <ul class="pagination">
+
+                                <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
+                                    <a class="__page" href="javascript:;" data-pageindex='1'>
+                                        <i class="icon-double-angle-left"></i>
+                                    </a>
+                                </li>
+                                @{
+                                    var indexStart = 1;
+                                    var indexEnd = searchFilter.PageCount;
+                                    if (searchFilter.PageCount >= 15)
+                                    {
+                                        indexStart = searchFilter.PageIndex - 7;
+
+                                        if (indexStart <= 0)
+                                        {
+                                            indexStart = 1;
+                                        }
+
+                                        indexEnd = indexStart + 15;
+
+                                        if (indexStart >= searchFilter.PageCount - 15)
+                                        {
+                                            indexStart = searchFilter.PageCount - 15;
+                                            indexEnd = searchFilter.PageCount;
+                                        }
+                                    }
+
+                                }
+
+                                @for (int i = indexStart; i <= indexEnd; i++)
+                                {
+                                    <li class="@(searchFilter.PageIndex == i ? "active" : "")">
+                                        <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
+                                    </li>
+                                }
+                                <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
+                                    <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
+                                        <i class="icon-double-angle-right"></i>
+                                    </a>
+                                </li>
+                                
+                                <li class="prev">
+                                    <label cla for="jump_page">
+                                        跳转至：
+                                        <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
+                                    </label>
+                                    <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
+
 </div>
 
-@section scripts{
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    港运通业务办理确认提示
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content">
+                您确认要将这条记录的状态更改为“审批通过”吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger __modal_confirmed">
+                    同意办理
+                </button>
+                <button type="button" class="btn btn-default __modal_close" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
 
-    <script src="@Url.Content("~")assets/js/chosen.jquery.min.js"></script>
+@section header{
+    <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
     <script type="text/javascript">
-        jQuery(function($) {
 
+        $(function () {
 
-            $(".chosen-select").chosen();
+            var infoId = 0;
 
-
-            /////////
-            $('#modal-form input[type=file]')
-                .ace_file_input({
-                    style: 'well',
-                    btn_choose: 'Drop files here or click to choose',
-                    btn_change: null,
-                    no_icon: 'icon-cloud-upload',
-                    droppable: true,
-                    thumbnail: 'large'
-                });
-
-            //chosen plugin inside a modal will have a zero width because the select element is originally hidden
-            //and its width cannot be determined.
-            //so we set the width after modal is show
-            $('#modal-form')
-                .on('shown.bs.modal',
-                    function() {
-                        $(this)
-                            .find('.chosen-container')
-                            .each(function() {
-                                $(this).find('a:first-child').css('width', '210px');
-                                $(this).find('.chosen-drop').css('width', '210px');
-                                $(this).find('.chosen-search input').css('width', '200px');
-                            });
-                    });
-            /**
-             //or you can activate the chosen plugin after modal is shown
-             //this way select element becomes visible with dimensions and chosen works as expected
-             $('#modal-form').on('shown', function () {
-                        $(this).find('.modal-chosen').chosen();
-                    })
-             */
-
-        });
-
-        $(function() {
-            $("#btn_improt")
-            .click(function () {
-                $("#input_file").click();
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
             });
 
-            $("#input_file")
-                .change(function () {
-                    $("#Submit").click();
-                    $("#input_file").text("");
-                });
-        }); 
+            $('body')
+                
+                // 模态对话框显示
+                .on('click', '._verify', function () {
+                    var link = $(this);
+                    infoId = $(link).attr('data-id');
+
+                    var bussinesstype = $(link).attr('data-bussinesstype');
+                    var companyname = $(link).attr('data-companyname');
+                    var bidtruckno = $(link).attr('data-bidtruckno');
+
+                    $('.__dialog_content').html(
+                        "您确认将批准<label class='label label-danger'>" +
+                        companyname + "</label>有关<label class='label label-danger'>" +
+                        bidtruckno + "</label>车辆的<label class='label label-danger'>" +
+                        bussinesstype + "</label>业务申请吗？");
+
+                    $('#myModal').modal("show");
+                })
+
+                // 点击关闭
+                .on('click', '.__modal_close', function () {
+                    infoId = 0;
+                    $('#myModal').modal("hide");
+                })
+
+                // 点击确认
+                .on('click', '.__modal_confirmed', function () {
+                    $.ajax({
+                        type: "Post",
+                        url: "@Url.Action("Verify")",
+                        data: { infoId: infoId },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.C === 901) {
+                                $('#myModal').modal("hide");
+                                $("#btn_submit").click();
+                            }
+                            if (data.C === 801) {
+                                $('#myModal').modal("hide");
+                                alert(data.msg);
+                            }
+                        }
+                    })
+                })
+
+                //弹出文件选择弹框
+                .on('click','#btn_improt',function() {
+                        $("#input_file").click();
+                })
+
+                // 提交文件导入请求
+                .on('change','#input_file',function() {
+                        $("#Submit").click();
+                        $("#input_file").text("");
+                })
+
+                .on('click', '.__jump', function () {
+                    var pageIndex = $('#jump_page').val();
+                    $('#input_pageIndex').val(pageIndex);
+                    $('#btn_submit').click();
+                })
+
+                .on('click','.__page',function() {
+                        var pageIndex = $(this).attr('data-pageindex');
+                        $('#input_pageIndex').val(pageIndex);
+                        $('#btn_submit').click();
+                })
+
+                .on('click','#btn_export',function() {
+                        var oraginActionUrl = $('#form_search').attr("action");
+                        $('#form_search').attr("action", '@Url.Action("ExportResult","GYTInfo")');
+                        $('#btn_submit').click();
+                        $('#form_search').attr("action", oraginActionUrl);
+                    });
+        });
+
     </script>
 
 }

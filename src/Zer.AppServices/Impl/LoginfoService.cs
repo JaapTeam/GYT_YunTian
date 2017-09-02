@@ -1,8 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Zer.AppServices.Extensions;
+using Zer.Entities;
+using Zer.Framework.Dto;
 using Zer.GytDataService;
 using Zer.GytDto;
+using Zer.GytDto.SearchFilters;
+using Zer.GytDto.Users;
 
 namespace Zer.AppServices.Impl
 {
@@ -22,8 +28,23 @@ namespace Zer.AppServices.Impl
 
         public List<LogInfoDto> GetAll()
         {
-            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll());
+            return new List<LogInfoDto>();
         }
+
+        public List<LogInfoDto> GetAll(UserInfoDto userInfo)
+        {
+            var query = _logInfoDataService.GetAll().RoleFilter(userInfo);
+            return Mapper.Map<List<LogInfoDto>>(query.ToList());
+        }
+
+        public List<LogInfoDto> GetList(LogInfoSearchDto filter, UserInfoDto userInfo)
+        {
+            var query = _logInfoDataService.GetAll().RoleFilter(userInfo).ToPageQuery(filter).ToList();
+
+            return Mapper.Map<List<LogInfoDto>>(query);
+        }
+
+
 
         public LogInfoDto Add(LogInfoDto model)
         {
@@ -35,19 +56,28 @@ namespace Zer.AppServices.Impl
             throw new System.NotImplementedException();
         }
 
+        public LogInfoDto Edit(LogInfoDto model)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<LogInfoDto> GetListByFilterMatch(FilterMatchInputDto filterMatch)
         {
             throw new System.NotImplementedException();
         }
 
-        public List<LogInfoDto> GetListByIds(int[] ids)
+        public List<LogInfoDto> GetListByIds(int[] ids, UserInfoDto userinfo)
         {
-            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll().Where(x => ids.Contains(x.Id)).ToList());
+            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll().RoleFilter(userinfo).Where(x => ids.Contains(x.Id)).ToList());
         }
 
-        public List<LogInfoDto> GetListByUserId(int userId)
+        public List<LogInfoDto> GetListByUserId(int userId,UserInfoDto userInfo)
         {
-            return Mapper.Map<List<LogInfoDto>>(_logInfoDataService.GetAll().Where(x=>x.UserId==userId).ToList());
+            return Mapper.Map<List<LogInfoDto>>(
+                _logInfoDataService.GetAll()
+                                   .RoleFilter(userInfo)
+                                   .Where(x=>x.UserId==userId)
+                                   .ToList());
         }
     }
 }

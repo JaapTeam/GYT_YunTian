@@ -7,6 +7,8 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Export;
 using Zer.Framework.Extensions;
+using Zer.Framework.Mvc.Logs;
+using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
 
@@ -26,19 +28,18 @@ namespace com.gyt.ms.Controllers
         }
 
         // GET: OverLoadChangeInfo
-        public ActionResult Index(int activeId=0)
+        [UserActionLog("超载超限已整改记录查询", ActionType.查询)]
+        public ActionResult Index(PeccancySearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
-            ViewBag.TruckList = _truckInfoService.GetAll().ToList();
-            ViewBag.CompanyList = _companyService.GetAll().ToList();
-            ViewBag.Result = _peccancyRecrodService.GetAll().Where(x=>x.Status==Status.已整改).ToList();
+            // todo:这样做不行呀。只显示已整改信息？
+            ViewBag.Result = _peccancyRecrodService.GetList(searchDto).Where(x => x.Status == Status.已整改).ToList();
             return View();
         }
 
         [System.Web.Mvc.HttpPost]
-        public ActionResult Search(PeccancySearchDto searchDto, int activeId = 7)
+        [UserActionLog("超载超限已整改记录查询", ActionType.查询)]
+        public ActionResult Search(PeccancySearchDto searchDto)
         {
-            ViewBag.ActiveId = activeId;
             var truckList = _truckInfoService.GetAll();
             var companyList = _companyService.GetAll();
 
@@ -46,12 +47,14 @@ namespace com.gyt.ms.Controllers
             ViewBag.CompanyList = companyList;
             ViewBag.SearchDto = searchDto;
 
+            // todo:这样做不行呀。只显示已整改信息？
             searchDto.Status = Status.已整改;
             ViewBag.Result = _peccancyRecrodService.GetList(searchDto);
 
             return View("Index");
         }
 
+        [UserActionLog("超载超限记录导出", ActionType.查询)]
         public FileResult Export(string exportCode="")
         {
             List<PeccancyRecrodDto> exportList = new List<PeccancyRecrodDto>();

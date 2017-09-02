@@ -9,14 +9,14 @@ using Zer.Framework.Repository;
 
 namespace Zer.Framework.EntityFramework
 {
-    public abstract class EfRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
+    public abstract class EfRepositoryBaseWithPrimaryKey<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
         where TEntity : class ,IEntity<TPrimaryKey>
     {
         private readonly DbContext _dbContext;
 
         private DbSet<TEntity> Table { get; set; }
 
-        protected EfRepositoryBase(DbContext dbContext)
+        protected EfRepositoryBaseWithPrimaryKey(DbContext dbContext)
         {
             this._dbContext = dbContext;
             Table = _dbContext.Set<TEntity>();
@@ -59,24 +59,24 @@ namespace Zer.Framework.EntityFramework
             return GetAll().FirstOrDefault(predicate);
         }
 
-        public TEntity FirstOrDefault(TPrimaryKey id)
+        public virtual TEntity FirstOrDefault(TPrimaryKey id)
         {
             return GetAll().FirstOrDefault(CreateEqualityExpressionForId(id));
         }
 
-        public TEntity Insert(TEntity entity)
+        public virtual TEntity Insert(TEntity entity)
         {
             var result = Table.Add(entity);
             _dbContext.SaveChanges();
             return result;
         }
 
-        public TPrimaryKey InsertAndGetId(TEntity entity)
+        public virtual TPrimaryKey InsertAndGetId(TEntity entity)
         {
             return Insert(entity).Id;
         }
 
-        public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
+        public virtual IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
         {
             var result = Table.AddRange(list);
             _dbContext.SaveChanges();
@@ -91,21 +91,22 @@ namespace Zer.Framework.EntityFramework
             return entity;
         }
 
-        public TEntity Update(TPrimaryKey id, Action<TEntity> updateAction)
+        public virtual TEntity Update(TPrimaryKey id, Action<TEntity> updateAction)
         {
             var entity = GetById(id);
             updateAction(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
             AttachIfNot(entity);
             Table.Remove(entity);
             _dbContext.SaveChanges();
         }
 
-        public void Delete(TPrimaryKey id)
+        public virtual void Delete(TPrimaryKey id)
         {
             var entity = GetById(id);
 
@@ -114,7 +115,7 @@ namespace Zer.Framework.EntityFramework
             Delete(entity);
         }
 
-        public void Delete(Expression<Func<TEntity, bool>> predicate)
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
         {
             var entityList = Table.Where(predicate).ToList();
             foreach (var entity in entityList)
@@ -125,22 +126,22 @@ namespace Zer.Framework.EntityFramework
             _dbContext.SaveChanges();
         }
 
-        public int Count()
+        public virtual int Count()
         {
             return GetAll().Count();
         }
 
-        public int Count(Expression<Func<TEntity, bool>> predicate)
+        public virtual int Count(Expression<Func<TEntity, bool>> predicate)
         {
             return GetAll().Count(predicate);
         }
 
-        public long LongCount()
+        public virtual long LongCount()
         {
             return GetAll().LongCount();
         }
 
-        public long LongCount(Expression<Func<TEntity, bool>> predicate)
+        public virtual long LongCount(Expression<Func<TEntity, bool>> predicate)
         {
             return GetAll().LongCount(predicate);
         }
@@ -164,5 +165,6 @@ namespace Zer.Framework.EntityFramework
             
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
+
     }
 }

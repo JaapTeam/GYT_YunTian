@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "车辆过户";
+}
+
+
+<div class="form-horizontal" role="form">
+   
+    <div id="container">
+        <div id="gas">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="input_ComnyName_gas"> 申办企业名称: </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="input_ComnyName_gas" placeholder="请输入企业名称" class="col-xs-10 col-sm-5">
+                    <span class="help-inline col-xs-12 col-sm-7">
+                    </span>
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="input_bidTruckNo_gas"> 申办车牌号: </label>
+
+                <div class="col-sm-9">
+                    <input type="text" id="input_bidTruckNo_gas" placeholder="请输入申办车牌号" class="col-xs-10 col-sm-5">
+                </div>
+            </div>
+
+            <div class="space-4"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right"> 超载超限违规情况: </label>
+                <div class="col-sm-9">
+                    <span class="label label-lg label-success" id="_sp_gas_Illegal">无违规</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right"> 车辆年审情况: </label>
+                <div class="col-sm-9">
+                    <div class="control-group" style="margin-top: -5px;margin-left: -20px">
+                        <div class="radio" id="radio_Verify">
+                            <label>
+                                <input type="radio" class="ace" value="true" checked="checked" name="lblAnnual">
+                                <span class="lbl"> 已年审 </span>
+                            </label>
+                            <label style="margin-left: 20px">
+                                <input type="radio" class="ace" value="false" name="lblAnnual">
+                                <span class="lbl"> 未年审 </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-5 col-md-9">
+            <button class="btn btn-info" id="submit" type="button">
+                <i class="icon-indent-right bigger-110"></i>
+                提交审查
+            </button>
+        </div>
+    </div>
+</div>
+

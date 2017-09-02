@@ -1,4 +1,5 @@
-﻿using Zer.GytDto.Users;
+﻿using Zer.Entities;
+using Zer.GytDto.Users;
 
 namespace Zer.AppServices
 {
@@ -17,6 +18,6 @@ namespace Zer.AppServices
 
         bool Exists(string userName);
 
-        bool Edit(UserInfoDto userInfoDto);
+        void SetUserRole(int userId, RoleLevel role);
     }
 }
