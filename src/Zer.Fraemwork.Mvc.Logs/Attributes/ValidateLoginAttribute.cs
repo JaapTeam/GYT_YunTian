@@ -10,16 +10,16 @@ namespace Zer.Framework.Mvc.Logs.Attributes
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Request.Url.ToString().Contains("http://localhost:"))
-            {
-                filterContext.Controller.ControllerContext.HttpContext.Session["UserInfo"] = new UserInfoDto()
-                {
-                    DisplayName = "测试用户",
-                    UserId = -1,
-                    UserName = "local_testuser",
-                    Role = RoleLevel.Administrator
-                };
-            }
+            //if (filterContext.HttpContext.Request.Url.ToString().Contains("http://localhost:"))
+            //{
+            //    filterContext.Controller.ControllerContext.HttpContext.Session["UserInfo"] = new UserInfoDto()
+            //    {
+            //        DisplayName = "测试用户",
+            //        UserId = -1,
+            //        UserName = "local_testuser",
+            //        Role = RoleLevel.Administrator
+            //    };
+            //}
 
             if (!filterContext.GetActionAttribute<UnValidateLoginAttribute>().Any())
             {

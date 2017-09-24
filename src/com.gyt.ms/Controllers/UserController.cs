@@ -14,6 +14,7 @@ using ActionType = Zer.Entities.ActionType;
 
 namespace com.gyt.ms.Controllers
 {
+    [RoutePrefix("u")]
     public class UserController : BaseController
     {
         public UserController()
@@ -29,6 +30,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("新增用户", ActionType.新增)]
+        [Route("r")]
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
             if (userInfoDto.UserName.IsNullOrEmpty() ||
@@ -60,7 +62,8 @@ namespace com.gyt.ms.Controllers
         [UnValidateLogin]
         [UnLog]
         [HttpPost]
-        public ActionResult Login(string userName, string password)
+        [Route("login")]
+        public JsonResult Login(string userName, string password)
         {
             var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
 
@@ -87,6 +90,7 @@ namespace com.gyt.ms.Controllers
             }
         }
 
+        [Route("out")]
         public ActionResult Logout()
         {
             var userInfoDto = GetValueFromSession<UserInfoDto>("UserInfo");
@@ -105,6 +109,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("用户状态变更-->冻结", ActionType.更改状态)]
+        [Route("f/{userId}")]
         public ActionResult Frozon(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
@@ -126,6 +131,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("用户状态变更-->激活", ActionType.更改状态)]
+        [Route("raw/{userId}")]
         public ActionResult Thaw(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
@@ -146,6 +152,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("用户修改密码", ActionType.编辑)]
+        [Route("changepwd/{newPassword}/{currentPassword}")]
         public JsonResult ChangePasswrod(string newPassword, string currentPassword)
         {
             newPassword = newPassword.Md5Encoding();
@@ -174,11 +181,13 @@ namespace com.gyt.ms.Controllers
             return Fail();
         }
 
+        [Route("cpw")]
         public ActionResult ChangePassword()
         {
             return View();
         }
 
+        [Route("accuntmgr")]
         public ActionResult AccountManage()
         {
             ViewBag.Result = _userInfoService.GetAll();
@@ -187,17 +196,20 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("查看用户详细信息", ActionType.编辑)]
+        [Route("accinfo/{userId}")]
         public ActionResult AccountInfo(int userId = 0)
         {
             ViewBag.UserInfo = _userInfoService.GetById(userId);
             return View();
         }
 
+        [Route("au")]
         public ActionResult AddUserInfo()
         {
             return View();
         }
 
+        [Route("editu/{userId}")]
         public ActionResult EditUserInfo(int userId = 0)
         {
             ViewBag.Result = _userInfoService.GetById(userId);
@@ -206,6 +218,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("编辑个人信息", ActionType.编辑)]
+        [Route("uedit")]
         public JsonResult Edit(UserInfoDto userInfoDto)
         {
             if (userInfoDto.UserName.IsNullOrEmpty())
@@ -237,6 +250,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("设置用户权限", ActionType.编辑)]
+        [Route("role/set/{userId}/{roleId}")]
         public ActionResult SetRole(int userId, RoleLevel roleId)
         {
             _userInfoService.SetUserRole(userId,roleId);

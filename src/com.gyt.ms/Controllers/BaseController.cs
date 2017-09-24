@@ -23,29 +23,7 @@ namespace com.gyt.ms.Controllers
                 return HttpContext.Session["UserInfo"] as UserInfoDto;
             }
         }
-
-        public T ReplaceUnsafeChar<T>(T obj)
-            where T : class ,new()
-        {
-            var t = new T();
-            foreach (var property in typeof(T).GetProperties())
-            {
-                var currentValue = property.GetValue(obj);
-                if (currentValue == null) continue;
-
-                var replacedValue = currentValue;
-
-                var s = currentValue as string;
-                if (s != null)
-                {
-                    replacedValue = s.Replace('-', '_');
-                }
-
-                property.SetValue(t, replacedValue);
-            }
-            return t;
-        }
-
+        
         protected string AppendObjectToSession(object obj)
         {
             var sessionCode = Guid.NewGuid().ToString().Replace('-', '_');
