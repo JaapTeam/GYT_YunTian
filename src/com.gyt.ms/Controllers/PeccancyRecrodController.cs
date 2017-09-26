@@ -17,6 +17,7 @@ using Zer.Framework.Extensions;
 namespace com.gyt.ms.Controllers
 {
     //ToDo:还有Add功能没做
+    [RoutePrefix("peccancy")]
     public class PeccancyRecrodController : BaseController
     {
         private readonly IPeccancyRecrodService _peccancyRecrodService;
@@ -31,6 +32,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("超载超限记录查询", ActionType.查询)]
+        [Route("")]
         public ActionResult Index(PeccancySearchDto searchDto)
         {
             ViewBag.SearchDto = searchDto;
@@ -39,6 +41,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("公司违章记录统计", ActionType.查询)]
+        [Route("company")]
         public ActionResult Company(PeccancyWithCompanySearchDto dto)
         {
             ViewBag.Filter = dto;
@@ -48,6 +51,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("公司违章记录统计信息导出", ActionType.查询)]
+        [Route("export/company")]
         public FileResult ExportPecancyWithCompany(PeccancyWithCompanySearchDto dto)
         {
             if (dto == null) return null;
@@ -60,6 +64,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("超载超限记录整改状态变更", ActionType.更改状态)]
+        [Route("change/{id}")]
         public JsonResult Change(string id="")
         {
             if (id.IsNullOrEmpty())
@@ -80,6 +85,7 @@ namespace com.gyt.ms.Controllers
         //Todo: 建议优化检查检查重复业务逻辑
         [System.Web.Mvc.HttpPost]
         [UserActionLog("超载超限记录批量导入", ActionType.新增)]
+        [Route("import")]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -137,6 +143,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("超载超限记录导出", ActionType.查询)]
+        [Route("export")]
         public FileResult ExportResult(PeccancySearchDto searchDto)
         {
             if (searchDto == null) return null;
@@ -148,6 +155,7 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("超载超限信息数据库{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
+        [Route("edit/{peccancyId}")]
         public ActionResult Edit(string peccancyId)
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -159,6 +167,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("编辑超载超限记录",ActionType.编辑)]
+        [Route("se")]
         public ActionResult SaveEdit(PeccancyRecrodDto infoDto)
         {
             if (infoDto.Id.IsNullOrEmpty())

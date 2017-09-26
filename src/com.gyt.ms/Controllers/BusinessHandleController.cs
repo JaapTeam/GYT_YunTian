@@ -17,6 +17,7 @@ using Zer.GytDto.Users;
 
 namespace com.gyt.ms.Controllers
 {
+    [RoutePrefix("handle")]
     public class BusinessHandleController : BaseController
     {
         private readonly IPeccancyRecrodService _peccancyRecrodService;
@@ -41,6 +42,7 @@ namespace com.gyt.ms.Controllers
 
         // GET: BusinessHandle
         [UserActionLog("天然气车辆业务办理", ActionType.查询)]
+        [Route("gas")]
         public ActionResult Gas()
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -50,6 +52,7 @@ namespace com.gyt.ms.Controllers
 
         // GET: BusinessHandle
         [UserActionLog("过户车辆业务办理", ActionType.查询)]
+        [Route("trans")]
         public ActionResult Transfer()
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -59,6 +62,7 @@ namespace com.gyt.ms.Controllers
 
         // GET: BusinessHandle
         [UserActionLog("已旧换新车辆业务办理", ActionType.查询)]
+        [Route("new")]
         public ActionResult New()
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -72,6 +76,7 @@ namespace com.gyt.ms.Controllers
         /// <param name="companyName"></param>
         /// <returns></returns>
         [UnLog]
+        [Route("cpc/{companyName}")]
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
             var result = _peccancyRecrodService.ExistsCompanyName(companyName);
@@ -84,6 +89,7 @@ namespace com.gyt.ms.Controllers
         /// <param name="truckNo"></param>
         /// <returns></returns>
         [UnLog]
+        [Route("trc/{truckNo}")]
         public JsonResult TruckRepetitionCheck(string truckNo)
         {
             var result = _gytInfoService.TargetIsUse(truckNo);
@@ -91,6 +97,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("业务办理", ActionType.新增)]
+        [Route("add")]
         public JsonResult Commit(GYTInfoDto dto)
         {
             var validateResult = CommonValidate(dto);
@@ -119,6 +126,24 @@ namespace com.gyt.ms.Controllers
             var result = SaveCommitedData(dto);
 
             return result == null ? Fail("数据保存失败，请重试.") : Success(result);
+        }
+
+        /// <summary>
+        /// 检查是否重复办理
+        /// </summary>
+        /// <param name="truckNo"></param>
+        /// <returns></returns>
+        [UnLog]
+        [Route("tneh/{truckNo}")]
+        public JsonResult TruckNoExistsHandle(string truckNo)
+        {
+            var isExists = _gytInfoService.Exists(truckNo);
+            if (isExists)
+            {
+                return Fail();
+            }
+
+            return Success();
         }
 
         private List<string> CommonValidate(GYTInfoDto dto)
@@ -265,23 +290,6 @@ namespace com.gyt.ms.Controllers
             _gytInfoService.SetStatus(dto.OriginalTruckNo, BusinessState.已注销);
 
             return _gytInfoService.Add(dto);
-        }
-
-        /// <summary>
-        /// 检查是否重复办理
-        /// </summary>
-        /// <param name="truckNo"></param>
-        /// <returns></returns>
-        [UnLog]
-        public JsonResult TruckNoExistsHandle(string truckNo)
-        {
-            var isExists = _gytInfoService.Exists(truckNo);
-            if (isExists)
-            {
-                return Fail();
-            }
-
-            return Success();
         }
     }
 }

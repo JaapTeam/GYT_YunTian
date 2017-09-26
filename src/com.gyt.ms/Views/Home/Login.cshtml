@@ -27,31 +27,37 @@
 
         <!--登录-->
         <div class="web_login" id="web_login">
-               
-               
+
+
             <div class="login-box">
-    
-            
-                <div class="login_form">
+
+                
+                    <div class="login_form">
                         <input type="hidden" name="to" value="log"/>
                         <div class="uinArea" id="uinArea">
                             <label class="input-tips" for="username">帐号：</label>
                             <div class="inputOuter" id="uArea">
-                    
-                                <input type="text" id="username" name="username" class="inputstyle" />
+
+                                <input type="text" id="username" name="userName" class="inputstyle" />
                             </div>
                         </div>
                         <div class="pwdArea" id="pwdArea">
-                            <label class="input-tips" for="password">密码：</label> 
+                            <label class="input-tips" for="password">密码：</label>
                             <div class="inputOuter" id="pArea">
-                    
-                                <input type="password" id="password" name="p" class="inputstyle" />
+
+                                <input type="password" id="password" name="password" class="inputstyle" />
                             </div>
                         </div>
-               
-                        <div style="padding-left:50px;margin-top:20px;"><input type="button" value="登 录" style="width:150px;" class="button_blue" id="btn_login" /></div>
-                </div>
-           
+
+                        <div style="padding-left: 50px; margin-top: 20px;">
+                            <input type="button" value="登 录" 
+                                   style="width: 150px;" 
+                                   class="button_blue" 
+                                   id="btn_login"
+                                   />
+                        </div>
+                    </div>
+              
             </div>
                
         </div>
@@ -87,7 +93,7 @@
     <script>
         $(function() {
             $('body')
-            .on('click', '#btn_login',function() {
+            .on('click', '#btn_login', function () {
                 var data = {
                     userName:$('#username').val(),
                     password: hex_md5($('#password').val())

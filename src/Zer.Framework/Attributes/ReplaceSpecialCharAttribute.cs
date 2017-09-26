@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.MicroKernel.Registration;
 using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
 
 namespace Zer.Framework.Attributes
 {
@@ -14,7 +15,7 @@ namespace Zer.Framework.Attributes
 
         public ReplaceSpecialCharInParameterAttribute(string source, string target)
         {
-            Source = source;
+            Source = source.StripSQLInjection();
             Target = target;
         }
 

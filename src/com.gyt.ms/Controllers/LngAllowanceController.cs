@@ -21,6 +21,7 @@ using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
+    [RoutePrefix("lng")]
     public class LngAllowanceController : BaseController
     {
         private readonly ILngAllowanceService _lngAllowanceService;
@@ -37,8 +38,8 @@ namespace com.gyt.ms.Controllers
             _truckInfoService = truckInfoService;
         }
 
-        // GET: LngAllowance
         [UserActionLog("LNG补贴信息首页",ActionType.查询)]
+        [Route("{filter?}")]
         public ActionResult Index(LngAllowanceSearchDto filter = null)
         {
             ViewBag.Filter = filter;
@@ -47,6 +48,8 @@ namespace com.gyt.ms.Controllers
             return View(result);
         }
 
+        [HttpGet]
+        [Route("add")]
         public ActionResult Add()
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -55,6 +58,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("LNG补贴信息导出", ActionType.查询)]
+        [Route("export")]
         public FileResult Export(LngAllowanceSearchDto searchDto)
         {
             if (searchDto == null) return null;
@@ -69,6 +73,7 @@ namespace com.gyt.ms.Controllers
 
         //Todo: 建议优化检查检查重复业务逻辑
         [HttpPost]
+        [Route("import")]
         [UserActionLog("LNG补贴信息批量导入", ActionType.新增)]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
@@ -88,6 +93,7 @@ namespace com.gyt.ms.Controllers
         [ReplaceSpecialCharInParameter("-", "_")]
         [GetParameteFromSession("id")]
         [UnLog]
+        [Route("save/{id}")]
         public ActionResult SaveLngAllowanceData(string id)
         {
             var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
@@ -128,6 +134,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [HttpPost]
+        [Route("addpost/{dto}")]
         [ReplaceSpecialCharInParameter("-", "_")]
         [UserActionLog("LNG补贴信息单条新增", ActionType.新增)]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
@@ -146,20 +153,23 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
-        [HttpPost]
-        [UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
-        public JsonResult ChangStatus(string infoId)
-        {
-            var infoDto = _lngAllowanceService.GetById(infoId);
-            if (infoDto.Status==LngStatus.已补贴)
-            {
-                return Fail("这条记录已是补贴状态，请核实！");
-            }
+        //[HttpPost]
+        //[Route("status/{infoId}")]
+        //[UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
+        //public JsonResult ChangStatus(string infoId)
+        //{
+        //    var infoDto = _lngAllowanceService.GetById(infoId);
+        //    if (infoDto.Status==LngStatus.已补贴)
+        //    {
+        //        return Fail("这条记录已是补贴状态，请核实！");
+        //    }
 
-            infoDto = _lngAllowanceService.ChangStatus(infoId);
-            return infoDto.Status!=LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
-        }
+        //    infoDto = _lngAllowanceService.ChangStatus(infoId);
+        //    return infoDto.Status!=LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
+        //}
 
+        [HttpGet]
+        [Route("edit/{infoId}")]
         public ActionResult Edit(string infoId)
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -170,6 +180,8 @@ namespace com.gyt.ms.Controllers
         }
 
         [AdminRole]
+        [HttpPost]
+        [Route("sedit")]
         [UserActionLog("编辑LNG补贴信息",ActionType.编辑)]
         public ActionResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
