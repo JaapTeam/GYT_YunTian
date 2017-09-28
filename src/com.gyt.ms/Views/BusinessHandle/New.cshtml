@@ -297,8 +297,7 @@
         function companyPeccancyCheck(companyName, span) {
             $.ajax({
                 type: "Get",
-                url: "@Url.Action("CompanyPeccancyCheck")",
-                data: { companyName: companyName },
+                url: "@Url.Action("cpc","handle")"+"/"+companyName,
                 dataType: "json",
                 success: function(data) {
                     if (data.C === 901) {
@@ -375,7 +374,7 @@
                         type: 'post',
                         data: dto,
                         success: function (d) {
-                            
+
                             // 办理成功
                             if (d.C === 901) {
                                 $('.modal-header').removeClass('alert-danger');
@@ -460,8 +459,7 @@
                     var val = $("._province_original").val() + $("._character_original").val() + $("#input_OriginalTruckNo").val();
                     $.ajax({
                         type: "Get",
-                        url: "@Url.Action("TruckRepetitionCheck")",
-                        data: { truckNo: val },
+                        url: "@Url.Action("trc","handle")"+"/"+val,
                         dataType: "json",
                         success: function(data) {
                             console.log(data);

@@ -312,8 +312,7 @@
 
                         $.ajax({
                             type: "Post",
-                            url: "@Url.Action("Change", "PeccancyRecrod")",
-                            data: { id: changeId },
+                            url: "@Url.Action("change", "peccancy")" + "/" + changeId,
                             success: function(data) {
                                 if (data.C === 901) {
                                     $('#myModal').modal("hide");
