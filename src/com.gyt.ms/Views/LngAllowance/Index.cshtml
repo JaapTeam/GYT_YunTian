@@ -318,8 +318,7 @@
 
                         $.ajax({
                             type: "Post",
-                            url: "@Url.Action("ChangStatus")",
-                            data: { infoId: infoId },
+                            url: "@Url.Action("status", "lng")" + "/" + infoId,
                             dataType: "json",
                             success: function(data) {
                                 if (data.C === 901) {

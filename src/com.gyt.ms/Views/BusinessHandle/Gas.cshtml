@@ -248,8 +248,7 @@
         function companyPeccancyCheck(companyName, span) {
             $.ajax({
                 type: "Get",
-                url: "@Url.Action("CompanyPeccancyCheck")",
-                data: { companyName: companyName },
+                url: "@Url.Action("cpc","handle")"+"/"+companyName,
                 dataType: "json",
                 success: function(data) {
                     if (data.C === 901) {

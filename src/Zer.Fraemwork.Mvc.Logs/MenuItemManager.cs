@@ -83,7 +83,7 @@ namespace Zer.Framework.Mvc.Logs
                 Id = 103,
                 ActionName = "Transfer",
                 ControllerName = "BusinessHandle",
-                TextInfo = "车辆过户业务",
+                TextInfo = "过户车辆业务",
                 IsCurrentPage = false,
                 Icon = "icon-briefcase"
             });
