@@ -19,6 +19,7 @@ using Zer.Framework.Extensions;
 
 namespace com.gyt.ms.Controllers
 {
+    [RoutePrefix("gyt")]
     public class GYTInfoController : BaseController
     {
         private readonly IGYTInfoService _gytInfoService;
@@ -40,6 +41,7 @@ namespace com.gyt.ms.Controllers
 
         // GET: GYTInfo
         [UserActionLog("港运通信息数据库", ActionType.查询)]
+        [Route("")]
         public ActionResult Index(GYTInfoSearchDto searchDto)
         {
             ViewBag.CompanyList = _companyService.GetAll();
@@ -51,6 +53,7 @@ namespace com.gyt.ms.Controllers
 
         [HttpPost]
         [UserActionLog("港运通信息数据导入", ActionType.新增)]
+        [Route("import")]
         public ActionResult Improt(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null)
@@ -119,6 +122,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("港运通信息数据导出", ActionType.查询)]
+        [Route("export")]
         public FileResult ExportResult(GYTInfoSearchDto searchDto)
         {
             searchDto.PageSize = Int32.MaxValue;
@@ -130,6 +134,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("港运通审核", ActionType.更改状态)]
+        [Route("verify/{infoId}")]
         public JsonResult Verify(string infoId)
         {
             var gtyInfo = _gytInfoService.GetById(infoId);
@@ -149,6 +154,7 @@ namespace com.gyt.ms.Controllers
             return Success("审核成功！");
         }
 
+        [Route("edit/{infoId}")]
         public ActionResult Edit(string infoId)
         {
             ViewBag.ProvinceList = CacheHelper.GetCache("Province").ToString().PartString(',');
@@ -159,6 +165,7 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("港运通信息编辑", ActionType.编辑)]
+        [Route("se")]
         public ActionResult SaveEdit(GYTInfoDto dto)
         {
             if (dto.Id.IsNullOrEmpty())
@@ -201,44 +208,44 @@ namespace com.gyt.ms.Controllers
             return RedirectToAction("index", "GYTInfo");
         }
 
-        private bool saveChanges(GYTInfoDto inputDto, GYTInfoDto originalDto)
-        {
-            originalDto.BidCompanyName = inputDto.BidCompanyName;
-            originalDto.BidTruckNo = inputDto.BidTruckNo;
+        //private bool saveChanges(GYTInfoDto inputDto, GYTInfoDto originalDto)
+        //{
+        //    originalDto.BidCompanyName = inputDto.BidCompanyName;
+        //    originalDto.BidTruckNo = inputDto.BidTruckNo;
 
-            if (originalDto.BusinessType != BusinessType.天然气车辆)
-            {
-                originalDto.OriginalCompanyName = inputDto.OriginalCompanyName;
-                originalDto.OriginalTruckNo = inputDto.OriginalTruckNo;
-            }
+        //    if (originalDto.BusinessType != BusinessType.天然气车辆)
+        //    {
+        //        originalDto.OriginalCompanyName = inputDto.OriginalCompanyName;
+        //        originalDto.OriginalTruckNo = inputDto.OriginalTruckNo;
+        //    }
 
-            originalDto.BidDisplayName = CurrentUser.DisplayName;
-            originalDto.BidName = CurrentUser.UserName;
+        //    originalDto.BidDisplayName = CurrentUser.DisplayName;
+        //    originalDto.BidName = CurrentUser.UserName;
 
-            originalDto.BidCompanyId = _companyService.QueryAfterValidateAndRegist(originalDto.BidCompanyName).Id;
-            originalDto.OriginalCompanyId = _companyService.QueryAfterValidateAndRegist(originalDto.OriginalCompanyName)
-                .Id;
+        //    originalDto.BidCompanyId = _companyService.QueryAfterValidateAndRegist(originalDto.BidCompanyName).Id;
+        //    originalDto.OriginalCompanyId = _companyService.QueryAfterValidateAndRegist(originalDto.OriginalCompanyName)
+        //        .Id;
 
-            _truckInfoService.QueryAfterValidateAndRegist(new List<TruckInfoDto>
-            {
-                new TruckInfoDto()
-                {
-                    FrontTruckNo = originalDto.BidTruckNo,
-                    CompanyId = originalDto.BidCompanyId,
-                    CompanyName = originalDto.BidCompanyName
-                },
-                new TruckInfoDto()
-                {
-                    FrontTruckNo = originalDto.OriginalTruckNo,
-                    CompanyId = originalDto.OriginalCompanyId ?? 0,
-                    CompanyName = originalDto.OriginalCompanyName
-                }
-            });
+        //    _truckInfoService.QueryAfterValidateAndRegist(new List<TruckInfoDto>
+        //    {
+        //        new TruckInfoDto()
+        //        {
+        //            FrontTruckNo = originalDto.BidTruckNo,
+        //            CompanyId = originalDto.BidCompanyId,
+        //            CompanyName = originalDto.BidCompanyName
+        //        },
+        //        new TruckInfoDto()
+        //        {
+        //            FrontTruckNo = originalDto.OriginalTruckNo,
+        //            CompanyId = originalDto.OriginalCompanyId ?? 0,
+        //            CompanyName = originalDto.OriginalCompanyName
+        //        }
+        //    });
 
-            var result = _gytInfoService.Edit(originalDto);
+        //    var result = _gytInfoService.Edit(originalDto);
 
-            return result != null;
-        }
+        //    return result != null;
+        //}
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<GYTInfoDto> gtGytInfoDtos)
         {

@@ -66,13 +66,13 @@
     <div class="table-header" style="margin-top: 20px">
 
         <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-            <a class="white" id="btn_improt">
+            <a class="white" id="btn_improt" href="javascript:;">
                 <i class="icon-cloud-upload bigger-110">
                     <span class="">批量导入</span>
                 </i>
             </a>
 
-            <a class="white" id="btn_export">
+            <a class="white" id="btn_export" href="javascript:;">
                 <i class="icon-cloud-download bigger-110">
                     <span class="">导出</span>
                 </i>
@@ -91,23 +91,18 @@
         <table id="sample-table-2" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th>处罚书编号</th>
+                <th>编号</th>
                 <th>公司名称</th>
                 <th>前车牌号</th>
                 <th>后车牌号</th>
-                @*<th>所属行业</th>*@
                 <th>驾驶员姓名</th>
                 <th>违法日期</th>
                 <th>违法事项</th>
                 <th>总重（吨）</th>
                 <th>文件来源</th>
-                @if (userInfo != null && userInfo.Role == RoleLevel.User)
-                {
-                    <th>整改状态</th>
-                }
+                <th>整改状态</th>
                 @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                 {
-                    <th>整改状态</th>
                     <th>编辑</th>
                 }
 
@@ -135,41 +130,24 @@
                     <td>@peccancyRecrodDto.PeccancyMatter</td>
                     <td>@peccancyRecrodDto.GrossWeight</td>
                     <td>@peccancyRecrodDto.Source</td>
-                    @if (userInfo != null && userInfo.Role == RoleLevel.User)
-                    {
-                        <td>
-                            @if (peccancyRecrodDto.Status == Status.已整改)
-                            {
-                                <span class="label label-sm label-success">
-                                    <i class="icon-ok"> 已整改</i>
-                                </span>
-                            }
+                    <td>
+                        @if (peccancyRecrodDto.Status == Status.已整改)
+                        {
+                            <span class="label label-sm label-success">
+                                <i class="icon-ok"> 已整改</i>
+                            </span>
+                        }
 
-                            @if (peccancyRecrodDto.Status == Status.未整改)
-                            {
-                                <span class="label label-sm label-danger">
-                                    <i class="icon-ok"> 未整改</i>
-                                </span>
-                            }
-                        </td>
-                    }
+                        @if (peccancyRecrodDto.Status == Status.未整改)
+                        {
+                            <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.Id">
+                                <i class=" icon-check">未整改</i>
+                            </a>
+                        }
+                    </td>
                     @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
                     {
-                        <td>
-                            @if (peccancyRecrodDto.Status == Status.已整改)
-                            {
-                                <span class="label label-sm label-success">
-                                    <i class="icon-ok"> 已整改</i>
-                                </span>
-                            }
-
-                            @if (peccancyRecrodDto.Status == Status.未整改)
-                            {
-                                <a class="btn btn-xs btn-danger _verify" data-peccancyid="@peccancyRecrodDto.Id">
-                                    <i class=" icon-check">审核</i>
-                                </a>
-                            }
-                        </td>
+                       
                         <td>
                             <a class="btn btn-xs btn-info _edit" href="@Url.Action("Edit", "PeccancyRecrod", new {peccancyId = peccancyRecrodDto.Id})">
                                 <i class=" icon-check">编辑</i>
@@ -334,8 +312,7 @@
 
                         $.ajax({
                             type: "Post",
-                            url: "@Url.Action("Change", "PeccancyRecrod")",
-                            data: { id: changeId },
+                            url: "@Url.Action("change", "peccancy")" + "/" + changeId,
                             success: function(data) {
                                 if (data.C === 901) {
                                     $('#myModal').modal("hide");

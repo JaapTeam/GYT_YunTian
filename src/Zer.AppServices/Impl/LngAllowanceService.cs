@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
@@ -83,6 +84,7 @@ namespace Zer.AppServices.Impl
         public LngAllowanceInfoDto ChangStatus(string id)
         {
             var infoDto = _lngAllowanceInfoDataService.GetById(id);
+            infoDto.CreateTime = DateTime.Now;
             if (infoDto.Status == LngStatus.未补贴)
             {
                 infoDto.Status = LngStatus.已补贴;

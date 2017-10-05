@@ -14,6 +14,7 @@ using Zer.GytDto.SearchFilters;
 
 namespace com.gyt.ms.Controllers
 {
+    [RoutePrefix("")]
     public class HomeController : BaseController
     {
         private readonly IGYTInfoService _gytInfoService;
@@ -31,6 +32,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("加载首页",ActionType.查询)]
+        [Route("")]
         public ActionResult Index()
         {
             var homePageSize = (int)CacheHelper.GetCache("HomePageSize");
@@ -58,6 +60,7 @@ namespace com.gyt.ms.Controllers
 
         [UnValidateLogin]
         [UnLog]
+        [Route("login")]
         public ActionResult Login()
         {
             return View();

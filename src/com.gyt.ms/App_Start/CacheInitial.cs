@@ -43,6 +43,15 @@ namespace com.gyt.ms
             }
 
             CacheHelper.SetCache("Character", characterString);
+
+            string webHost = ConfigurationManager.AppSettings["WebHost"];
+
+            if (webHost.IsNullOrEmpty())
+            {
+                webHost = "localhost";
+            }
+
+            CacheHelper.SetCache("WebHost", webHost);
         }
     }
 }

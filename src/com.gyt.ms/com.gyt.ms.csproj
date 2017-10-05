@@ -144,7 +144,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BusinessHandleController.cs" />
     <Compile Include="Controllers\GYTInfoController.cs" />
-    <Compile Include="Controllers\GYTHandleRecrodController.cs" />
     <Compile Include="Controllers\GYTInfoRecrodController.cs" />
     <Compile Include="Controllers\LogInfoController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -278,9 +277,12 @@
     <Content Include="assets\js\x-editable\bootstrap-editable.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="error.htm" />
     <Content Include="favicon.ico" />
+    <Content Include="FileNotFound.htm" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="NoAccess.htm" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="assets\font\fontawesome-webfont.woff" />
@@ -324,13 +326,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\LngAllowance\Index.cshtml" />
     <Content Include="Views\Shared\LeftMenu.cshtml" />
     <Content Include="Views\BusinessHandle\Index.cshtml" />
     <Content Include="Views\GYTInfo\Index.cshtml" />
-    <Content Include="Views\GYTHandleRecrod\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\AccountManage.cshtml" />
     <Content Include="Views\User\AccountInfo.cshtml" />
