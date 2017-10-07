@@ -82,6 +82,7 @@
     <Compile Include="Attributes\ValidateInputAttribute.cs" />
     <Compile Include="Attributes\ValidateLoginAttribute.cs" />
     <Compile Include="Attributes\ValidateRoleAttribute.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="MenuItemManager.cs" />
     <Compile Include="MvcLoggerModule.cs" />

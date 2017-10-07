@@ -53,15 +53,15 @@ namespace Zer.AppServices.Impl
         {
             return _peccancyRecrodDataService.Update(model.Id, x =>
             {
+                x.FrontTruckNo = model.FrontTruckNo;
+                x.CompanyName = model.CompanyName;
                 x.BehindTruckNo = model.BehindTruckNo;
-                //x.TraderRange = model.TraderRange,
                 x.DriverName = model.DriverName;
                 x.PeccancyDate = model.PeccancyDate;
                 x.PeccancyMatter = model.PeccancyMatter;
                 x.Source = model.Source;
                 x.Status = model.Status;
             }).Map<PeccancyRecrodDto>();
-            //.Update(model.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>();
         }
 
         public bool ChangeStatusById(string id)

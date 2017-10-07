@@ -17,6 +17,7 @@
 @if (gytInfoDto != null)
 {
     <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit", "GYTInfo")">
+        @Html.AntiForgeryToken()
         <div class="form-horizontal">
             <input value="@gytInfoDto.Id" class="hide" name="Id" id="__Id"/>
             <input value="@gytInfoDto.BusinessType" class="hide" name="BusinessType" id="BusinessType"/>
@@ -99,7 +100,7 @@
 
                     <div class="col-sm-8">
                         <select class="select2-default _OriginalTruckNo_province col-sm-1">
-                            <option></option>
+                            
                             @{
                                 if (provinceList != null && provinceList.Count > 0)
                                 {
@@ -119,7 +120,7 @@
                         </select>
 
                         <select class="select2-default _OriginalTruckNo_character col-sm-1" style="margin-left: 8px">
-                            <option></option>
+                           
                             @{
                                 if (characterList != null && characterList.Count > 0)
                                 {
@@ -186,6 +187,18 @@
                     function() {
                         window.location = '@Url.Action("Index", "GYTInfo")';
                     })
+                .on('change', '._OriginalTruckNo_character',function() {
+                    var originalTruckNo = $("._OriginalTruckNo_province").val() +
+                        $("._OriginalTruckNo_character").val() +
+                        $("#input_originalTruckNo").val();
+                    $("input[name^='OriginalTruckNo']").val(originalTruckNo);
+                })
+                .on('change', '._OriginalTruckNo_province',function() {
+                    var originalTruckNo = $("._OriginalTruckNo_province").val() +
+                        $("._OriginalTruckNo_character").val() +
+                        $("#input_originalTruckNo").val();
+                    $("input[name^='OriginalTruckNo']").val(originalTruckNo);
+                })
                 .on('blur',
                     '#input_originalTruckNo',
                     function() {
@@ -194,6 +207,18 @@
                             $("#input_originalTruckNo").val();
                         $("input[name^='OriginalTruckNo']").val(originalTruckNo);
                     })
+                .on('change', '._bidTruckNo_province',function() {
+                    var bidTruckNo = $("._bidTruckNo_province").val() +
+                        $("._bidTruckNo_character").val() +
+                        $("#input_bidTruckNo").val();
+                    $("input[name^='BidTruckNo']").val(bidTruckNo);
+                })
+                .on('change', '._bidTruckNo_character',function() {
+                    var bidTruckNo = $("._bidTruckNo_province").val() +
+                        $("._bidTruckNo_character").val() +
+                        $("#input_bidTruckNo").val();
+                    $("input[name^='BidTruckNo']").val(bidTruckNo);
+                })
                 .on('blur',
                     '#input_bidTruckNo',
                     function() {
