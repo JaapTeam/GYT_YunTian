@@ -44,7 +44,8 @@
                     </small>
                 </a><!-- /.brand -->
             </div><!-- /.navbar-header -->
-
+        @if (userInfo != null)
+        {
             <div class="navbar-header pull-right" role="navigation">
                 <ul class="nav ace-nav">
                     <li class="light-blue">
@@ -52,26 +53,25 @@
                             <img class="nav-user-photo" src="@Url.Content("~")assets/avatars/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
                                 <small>欢迎光临,</small>
-                                @if (userInfo != null)
-                                {
+                             
                                    @Html.Raw(userInfo.DisplayName)
-                                }
+                              
                             </span>
 
                             <i class="icon-caret-down"></i>
                         </a>
-
+                        
                         <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 
                             <li>
-                                <a href="javascript:();">
+                                <a href="@Url.Action("EditUserInfo", "User", new {userId = userInfo.UserId})">
                                     <i class="icon-user"></i>
                                     个人资料
                                 </a>
                             </li>
 
                             <li>
-                                <a href="javascript:();">
+                                <a href="@Url.Action("ChangePassword","User")">
                                     <i class="icon-key"></i>
                                     修改密码
                                 </a>
@@ -96,6 +96,7 @@
                     </li>
                 </ul><!-- /.ace-nav -->
             </div><!-- /.navbar-header -->
+        }
         </div><!-- /.container -->
     </div>
 

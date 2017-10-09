@@ -32,14 +32,7 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
             _truckInfoService = truckInfoService;
         }
-
-        // GET: BusinessHandle
-        [UserActionLog("天然气车辆业务办理", ActionType.查询)]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
         // GET: BusinessHandle
         [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         [Route("gas")]
