@@ -1,4 +1,5 @@
 ﻿@using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 
 @{
     ViewBag.Title = "Transfer";
@@ -200,9 +201,10 @@
 
         function companyPeccancyCheck(companyName, span) {
             $.ajax({
-                type: "Get",
-                url: "@Url.Action("cpc","handle")"+"/"+companyName,
+                type: "post",
+                url: "@Url.Action("CompanyPeccancyCheck", "BusinessHandle")",
                 dataType: "json",
+                data: { companyName: companyName, @Html.AntiForgeryTokenForAjaxPost() },
                 success: function(data) {
                     if (data.C === 901) {
                         $(span).html("无违规");
@@ -221,10 +223,10 @@
 
         function IsExists(truckNo) {
             $.ajax({
-                type: "Get",
-                url: "@Url.Action("tneh","handle")"+"/"+truckNo,
+                type: "post",
+                url: "@Url.Action("TruckNoExistsHandle", "BusinessHandle")",
                 dataType: "json",
-                async: false,
+                data: {truckNo:truckNo,@Html.AntiForgeryTokenForAjaxPost()},
                 success: function(data) {
                     console.log(data);
                     if (data.C === 901) {
@@ -282,11 +284,12 @@
                         BidTruckNo: truckNo,
                         BusinessType: '@BusinessType.过户车辆',
                         OriginalCompanyName: originalCompanyName,
-                        OriginalTruckNo: originalTruckNo
+                        OriginalTruckNo: originalTruckNo,
+                        @Html.AntiForgeryTokenForAjaxPost()
                     };
                     // 向后台post提交
                     $.ajax({
-                        url: '@Url.Action("Commit","BusinessHandle")',
+                        url: '@Url.Action("Commit", "BusinessHandle")',
                         type: 'post',
                         data: dto,
                         success: function(d) {
@@ -310,9 +313,15 @@
                                 $('.modal-header').addClass('alert-danger');
 
                                 var msg = "<label class='label label-lg label-danger'>业务办理失败</label><ul>";
-                                for (var i = 0; i < d.data.length; i++) {
+                                try {
+                                    for (var i = 0; i < d.data.length; i++) {
+                                        msg += '<li><span><i class="">' +
+                                            d.data[i] +
+                                            '</i></span></li>';
+                                    }
+                                } catch (e) {
                                     msg += '<li><span><i class="">' +
-                                        d.data[i] +
+                                        d.msg +
                                         '</i></span></li>';
                                 }
 
@@ -338,7 +347,7 @@
             .on('click',
                 '.__modal_confirmed',
                 function() {
-                    window.location = '@Url.Action("index","GYTInfo")';
+                    window.location = '@Url.Action("index", "GYTInfo")';
                 })
             // 公司违法记录验证
             .on('input',
@@ -359,7 +368,9 @@
                         $('#sp_bidTruckNo').html("");
                     }
                 })
-            .on('blur', '#input_OriginalTruckNo', function () {
+            .on('blur',
+                '#input_OriginalTruckNo',
+                function() {
                     var truckNo = $('#input_OriginalTruckNo').val();
 
                     if (truckNo.length !== 5) {

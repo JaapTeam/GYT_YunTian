@@ -54,6 +54,7 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [UserActionLog("港运通信息数据导入", ActionType.新增)]
         [Route("import")]
+        [ValidateAntiForgeryToken]
         public ActionResult Improt(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null)
@@ -123,6 +124,7 @@ namespace com.gyt.ms.Controllers
 
         [UserActionLog("港运通信息数据导出", ActionType.查询)]
         [Route("export")]
+        [ValidateAntiForgeryToken]
         public FileResult ExportResult(GYTInfoSearchDto searchDto)
         {
             searchDto.PageSize = Int32.MaxValue;
@@ -135,6 +137,7 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [UserActionLog("港运通审核", ActionType.更改状态)]
         [Route("verify/{infoId}")]
+        [ValidateAntiForgeryToken]
         public JsonResult Verify(string infoId)
         {
             var gtyInfo = _gytInfoService.GetById(infoId);
@@ -166,6 +169,7 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [UserActionLog("港运通信息编辑", ActionType.编辑)]
         [Route("se")]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(GYTInfoDto dto)
         {
             if (dto.Id.IsNullOrEmpty())

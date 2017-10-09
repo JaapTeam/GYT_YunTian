@@ -16,7 +16,9 @@
 
 <div class="row">
     <div class="col-xs-12">
+    
         <form class="form-inline" id="form_search" style="height: 50px; line-height: 45px" action="@(Url.Action("Index", "GYTInfo"))" method="post">
+            @Html.AntiForgeryToken()
             <label style="margin-left: 10px" for="input_CompanyName">公司名称：</label>
             <input type="text" class="input-mini" value="@(searchFilter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName"/>
 
@@ -159,6 +161,7 @@
 
             @using (Html.BeginForm("Improt", "GYTInfo", FormMethod.Post, new {enctype = "multipart/form-data"}))
             {
+                @Html.AntiForgeryToken()
                 <input type="file" name="file" class="hide" id="input_file"/>
                 <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
             }
