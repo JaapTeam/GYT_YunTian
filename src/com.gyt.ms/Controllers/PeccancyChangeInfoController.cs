@@ -29,6 +29,7 @@ namespace com.gyt.ms.Controllers
 
         // GET: OverLoadChangeInfo
         [UserActionLog("超载超限已整改记录查询", ActionType.查询)]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(PeccancySearchDto searchDto)
         {
             // todo:这样做不行呀。只显示已整改信息？
@@ -38,6 +39,7 @@ namespace com.gyt.ms.Controllers
 
         [System.Web.Mvc.HttpPost]
         [UserActionLog("超载超限已整改记录查询", ActionType.查询)]
+        [ValidateAntiForgeryToken]
         public ActionResult Search(PeccancySearchDto searchDto)
         {
             var truckList = _truckInfoService.GetAll();

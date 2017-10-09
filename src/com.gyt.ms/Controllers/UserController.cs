@@ -31,6 +31,7 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [UserActionLog("新增用户", ActionType.新增)]
         [Route("r")]
+        [ValidateAntiForgeryToken]
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
             if (userInfoDto.UserName.IsNullOrEmpty() ||
@@ -63,6 +64,7 @@ namespace com.gyt.ms.Controllers
         [UnLog]
         [HttpPost]
         [Route("login")]
+        [ValidateAntiForgeryToken]
         public JsonResult Login(string userName, string password)
         {
             var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
@@ -109,50 +111,56 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("用户状态变更-->冻结", ActionType.更改状态)]
-        [Route("f/{userId}")]
-        public ActionResult Frozon(int userId)
+        [Route("f")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Frozon(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
             if (userInfoDto.UserState != UserState.Active)
             {
-                return RedirectToAction("AccountManage", "User");
+                return Success();
             }
 
             var frozonResult = _userInfoService.LetUserFrozen(userId);
 
             if (frozonResult == FrozenResult.Success)
             {
-                return RedirectToAction("AccountManage", "User");
+                return Success();
             }
 
-            throw new CustomException("用户状态修改失败");
+            return Fail("用户状态修改失败");
         }
 
         [AdminRole]
         [UserActionLog("用户状态变更-->激活", ActionType.更改状态)]
-        [Route("raw/{userId}")]
-        public ActionResult Thaw(int userId)
+        [Route("raw")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult Thaw(int userId)
         {
             var userInfoDto = _userInfoService.GetById(userId);
 
             if (userInfoDto.UserState != UserState.Frozen)
             {
-                return RedirectToAction("AccountManage", "User");
+                return Success();
             }
 
             var frozonResult = _userInfoService.LetUserThaw(userId);
 
             if (frozonResult == ThawResult.Success)
             {
-                return RedirectToAction("AccountManage", "User");
+                return Success();
             }
 
-            throw new CustomException("用户状态修改失败");
+            return Fail("用户状态修改失败");
         }
 
         [UserActionLog("用户修改密码", ActionType.编辑)]
-        [Route("changepwd/{newPassword}/{currentPassword}")]
+        [Route("changepwd")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult ChangePasswrod(string newPassword, string currentPassword)
         {
             newPassword = newPassword.Md5Encoding();
@@ -219,6 +227,8 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [UserActionLog("编辑个人信息", ActionType.编辑)]
         [Route("uedit")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult Edit(UserInfoDto userInfoDto)
         {
             if (userInfoDto.UserName.IsNullOrEmpty())
@@ -250,11 +260,13 @@ namespace com.gyt.ms.Controllers
 
         [AdminRole]
         [UserActionLog("设置用户权限", ActionType.编辑)]
-        [Route("role/set/{userId}/{roleId}")]
-        public ActionResult SetRole(int userId, RoleLevel roleId)
+        [Route("role/set")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult SetRole(int userId, RoleLevel roleId)
         {
             _userInfoService.SetUserRole(userId,roleId);
-            return RedirectToAction("AccountManage", "User");
+            return Success();
         }
     }
 }
