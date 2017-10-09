@@ -32,14 +32,7 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
             _truckInfoService = truckInfoService;
         }
-
-        // GET: BusinessHandle
-        [UserActionLog("天然气车辆业务办理", ActionType.查询)]
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        
         // GET: BusinessHandle
         [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         [Route("gas")]
@@ -76,7 +69,9 @@ namespace com.gyt.ms.Controllers
         /// <param name="companyName"></param>
         /// <returns></returns>
         [UnLog]
-        [Route("cpc/{companyName}")]
+        [Route("cpc")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
             var result = _peccancyRecrodService.ExistsCompanyName(companyName);
@@ -89,7 +84,9 @@ namespace com.gyt.ms.Controllers
         /// <param name="truckNo"></param>
         /// <returns></returns>
         [UnLog]
-        [Route("trc/{truckNo}")]
+        [Route("trc")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult TruckRepetitionCheck(string truckNo)
         {
             var result = _gytInfoService.TargetIsUse(truckNo);
@@ -98,6 +95,8 @@ namespace com.gyt.ms.Controllers
 
         [UserActionLog("业务办理", ActionType.新增)]
         [Route("add")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult Commit(GYTInfoDto dto)
         {
             var validateResult = CommonValidate(dto);
@@ -134,7 +133,9 @@ namespace com.gyt.ms.Controllers
         /// <param name="truckNo"></param>
         /// <returns></returns>
         [UnLog]
-        [Route("tneh/{truckNo}")]
+        [Route("tneh")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult TruckNoExistsHandle(string truckNo)
         {
             var isExists = _gytInfoService.Exists(truckNo);

@@ -64,7 +64,9 @@ namespace com.gyt.ms.Controllers
         }
 
         [UserActionLog("超载超限记录整改状态变更", ActionType.更改状态)]
-        [Route("change/{id}")]
+        [Route("change")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
         public JsonResult Change(string id="")
         {
             if (id.IsNullOrEmpty())
@@ -86,6 +88,7 @@ namespace com.gyt.ms.Controllers
         [System.Web.Mvc.HttpPost]
         [UserActionLog("超载超限记录批量导入", ActionType.新增)]
         [Route("import")]
+        [ValidateAntiForgeryToken]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -168,6 +171,7 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [UserActionLog("编辑超载超限记录",ActionType.编辑)]
         [Route("se")]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(PeccancyRecrodDto infoDto)
         {
             if (infoDto.Id.IsNullOrEmpty())
@@ -182,6 +186,7 @@ namespace com.gyt.ms.Controllers
             sourceDto.PeccancyDate = infoDto.PeccancyDate;
             sourceDto.PeccancyMatter = infoDto.PeccancyMatter;
             sourceDto.Source = infoDto.Source;
+            sourceDto.FrontTruckNo = infoDto.FrontTruckNo;
             sourceDto.Status = infoDto.Status;
 
             var companyInfo = _companyService.QueryAfterValidateAndRegist(infoDto.CompanyName);

@@ -75,6 +75,7 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [Route("import")]
         [UserActionLog("LNG补贴信息批量导入", ActionType.新增)]
+        [ValidateAntiForgeryToken]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -134,9 +135,10 @@ namespace com.gyt.ms.Controllers
         }
 
         [HttpPost]
-        [Route("addpost/{dto}")]
+        [Route("addpost")]
         [ReplaceSpecialCharInParameter("-", "_")]
         [UserActionLog("LNG补贴信息单条新增", ActionType.新增)]
+        [ValidateAntiForgeryToken]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
             if (_lngAllowanceService.Exists(dto))
@@ -147,6 +149,7 @@ namespace com.gyt.ms.Controllers
 
             dto.CompanyId = companyInfoDto.Id;
             dto.CreateTime = DateTime.Now;
+            dto.Status = LngStatus.已补贴;
 
             _lngAllowanceService.Add(dto);
 
@@ -154,8 +157,9 @@ namespace com.gyt.ms.Controllers
         }
 
         [HttpPost]
-        [Route("status/{infoId}")]
+        [Route("status")]
         [UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
+        [ValidateAntiForgeryToken]
         public JsonResult ChangStatus(string infoId)
         {
             var infoDto = _lngAllowanceService.GetById(infoId);
@@ -183,6 +187,7 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [Route("sedit")]
         [UserActionLog("编辑LNG补贴信息",ActionType.编辑)]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             if (lngAllowanceInfoDto.Id.IsNullOrEmpty())

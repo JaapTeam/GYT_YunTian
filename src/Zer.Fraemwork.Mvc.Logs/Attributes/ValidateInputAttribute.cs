@@ -74,7 +74,6 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                         }
                         ValidateHelper.ValidateObjectIsSafe(obj);
                     }
-                    //var obj = filterContext.HttpContext.Session[]
                 }
 
                 var inputParameters = filterContext.ActionParameters

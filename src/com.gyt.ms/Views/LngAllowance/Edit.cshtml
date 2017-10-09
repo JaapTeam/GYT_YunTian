@@ -13,15 +13,16 @@
 <h3 class="header smaller lighter blue">LNG补贴信息编辑</h3>
 @if (lngAllowanceInfoDto != null)
 {
-    <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit","LngAllowance")">
-        <input value="@lngAllowanceInfoDto.Id" class="hide" name="Id" />
-        
+    <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit", "LngAllowance")">
+        @Html.AntiForgeryToken()
+        <input value="@lngAllowanceInfoDto.Id" class="hide" name="Id"/>
+
         <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right"> LNG补贴编号 </label>
 
             <div class="col-sm-9">
                 <span>@lngAllowanceInfoDto.Id</span>
-                <input value="@lngAllowanceInfoDto.Id" class="hide" name="Id" />
+                <input value="@lngAllowanceInfoDto.Id" class="hide" name="Id"/>
             </div>
         </div>
 
@@ -93,7 +94,7 @@
                     }
                 </select>
 
-                <input type="text" id="input_TruckNo" placeholder="" style="margin-left: 8px" value="@(lngAllowanceInfoDto.TruckNo.IsNullOrEmpty() ?"":lngAllowanceInfoDto.TruckNo.Substring(2))">
+                <input type="text" id="input_TruckNo" placeholder="" style="margin-left: 8px" value="@(lngAllowanceInfoDto.TruckNo.IsNullOrEmpty() ? "" : lngAllowanceInfoDto.TruckNo.Substring(2))">
                 <label id="lbl_TruckNo" style="color: red; display: none"></label>
                 <input type="text" value="@lngAllowanceInfoDto.TruckNo" class="hide" name="TruckNo">
             </div>
@@ -131,7 +132,7 @@
                 <label id="lbl_peccancyMatter" style="color: red; display: none"></label>
             </div>
         </div>
-        
+
         <div class="space-4"></div>
 
         <div class="form-group">
@@ -141,12 +142,12 @@
                 <label class="input-append date form_date" id="input_PeccancyDate" data-date="@string.Format("{0:yyyy-M-dd}", lngAllowanceInfoDto.CreateTime)" data-date-format="yyyy-M-dd">
                     <input class="input-mini" name="CreateTime" size="16"
                            style="width: 90px" type="text"
-                           value="@( string.Format("{0:yyyy-M-dd}", lngAllowanceInfoDto.CreateTime))">
+                           value="@(string.Format("{0:yyyy-M-dd}", lngAllowanceInfoDto.CreateTime))">
                     <span class="add-on"><i class="icon-th"></i></span>
                 </label>
             </div>
         </div>
-        
+
         <div class="space-4"></div>
 
         <div class="form-group">
@@ -208,7 +209,19 @@
                             $("._TruckNo_character").val() +
                             $("#input_TruckNo").val();
                         $("input[name^='TruckNo']").val(truckNo);
-                    })
+                })
+                .on('change', '._TruckNo_province', function () {
+                    var truckNo = $("._TruckNo_province").val() +
+                        $("._TruckNo_character").val() +
+                        $("#input_TruckNo").val();
+                    $("input[name^='TruckNo']").val(truckNo);
+                })
+                .on('change', '._TruckNo_character', function () {
+                    var truckNo = $("._TruckNo_province").val() +
+                        $("._TruckNo_character").val() +
+                        $("#input_TruckNo").val();
+                    $("input[name^='TruckNo']").val(truckNo);
+                })
         })
     </script>
 }
