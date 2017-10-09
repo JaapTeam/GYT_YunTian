@@ -124,7 +124,7 @@ namespace Zer.Framework.Export
                     };
                     var value = x.GetValue(obj);
                     if (value == null) return " ";
-                    if (value is DateTime) return string.Format("{0:yyyy-MM-dd hh:mm:ss}", value);
+                    if (value is DateTime) return string.Format("{0:yyyy-MM-dd HH:mm:ss}", value);
 
                     if (specilTypeList.Contains(value.GetType()))
                     {
