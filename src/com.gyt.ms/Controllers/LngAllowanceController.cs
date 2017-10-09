@@ -75,6 +75,7 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [Route("import")]
         [UserActionLog("LNG补贴信息批量导入", ActionType.新增)]
+        [ValidateAntiForgeryToken]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
@@ -137,6 +138,7 @@ namespace com.gyt.ms.Controllers
         [Route("addpost/{dto}")]
         [ReplaceSpecialCharInParameter("-", "_")]
         [UserActionLog("LNG补贴信息单条新增", ActionType.新增)]
+        [ValidateAntiForgeryToken]
         public JsonResult AddPost(LngAllowanceInfoDto dto)
         {
             if (_lngAllowanceService.Exists(dto))
@@ -153,20 +155,21 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
-        //[HttpPost]
-        //[Route("status/{infoId}")]
-        //[UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
-        //public JsonResult ChangStatus(string infoId)
-        //{
-        //    var infoDto = _lngAllowanceService.GetById(infoId);
-        //    if (infoDto.Status==LngStatus.已补贴)
-        //    {
-        //        return Fail("这条记录已是补贴状态，请核实！");
-        //    }
+        [HttpPost]
+        [Route("status/{infoId}")]
+        [UserActionLog("LNG补贴信息补贴状态更改", ActionType.更改状态)]
+        [ValidateAntiForgeryToken]
+        public JsonResult ChangStatus(string infoId)
+        {
+            var infoDto = _lngAllowanceService.GetById(infoId);
+            if (infoDto.Status == LngStatus.已补贴)
+            {
+                return Fail("这条记录已是补贴状态，请核实！");
+            }
 
-        //    infoDto = _lngAllowanceService.ChangStatus(infoId);
-        //    return infoDto.Status!=LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
-        //}
+            infoDto = _lngAllowanceService.ChangStatus(infoId);
+            return infoDto.Status != LngStatus.已补贴 ? Fail("失败，请联系系统管理人员！") : Success("修改补贴状态成功！");
+        }
 
         [HttpGet]
         [Route("edit/{infoId}")]
@@ -183,6 +186,7 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [Route("sedit")]
         [UserActionLog("编辑LNG补贴信息",ActionType.编辑)]
+        [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             if (lngAllowanceInfoDto.Id.IsNullOrEmpty())

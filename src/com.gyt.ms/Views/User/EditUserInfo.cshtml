@@ -1,5 +1,6 @@
 ﻿@using System.Diagnostics
 @using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto.Users
 
 @{
@@ -124,7 +125,7 @@
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Edit")",
-                    data: { userInfoDto: dto },
+                    data: { userInfoDto: dto ,@Html.AntiForgeryTokenForAjaxPost()},
                     dataType: "json",
                     success: function (data) {
                         window.location.href = "@Url.Action("AccountManage")";

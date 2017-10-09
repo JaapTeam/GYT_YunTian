@@ -1,5 +1,6 @@
 ﻿@using System.Diagnostics
 @using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto.Users
 
 @{
@@ -103,13 +104,14 @@
                                     if (userInfoDto.Role == RoleLevel.Administrator)
                                     {
                                         <li>
-                                            <a href="@Url.Action("SetRole", "User", new {userId = userInfoDto.UserId, roleId = RoleLevel.User})">设置为普通用户</a>
+                                            
+                                            <a href="javascript:;" class="__setRole" data-userId="@userInfoDto.UserId" data-roleId="@RoleLevel.User">设置为普通用户</a>
                                         </li>
                                     }
                                     else
                                     {
                                         <li>
-                                            <a href="@Url.Action("SetRole", "User", new {userId = userInfoDto.UserId, roleId = RoleLevel.Administrator})">设置为管理员</a>
+                                            <a href="javascript:;" class="__setRole" data-userid="@userInfoDto.UserId" data-roleid="@RoleLevel.Administrator">设置为管理员</a>
                                         </li>
                                     }
 
@@ -119,13 +121,13 @@
                                     if (userInfoDto.UserState == UserState.Active)
                                     {
                                         <li>
-                                            <a href="@Url.Action("Frozon", "User", new {userId = userInfoDto.UserId})">冻结用户</a>
+                                            <a class="__frozon" href="javascript:;" data-userId="@userInfoDto.UserId">冻结用户</a>
                                         </li>
                                     }
                                     else
                                     {
                                         <li>
-                                            <a href="@Url.Action("Thaw", "User", new {userId = userInfoDto.UserId})">激活用户</a>
+                                            <a class="__Thaw" href="javascript:;" data-userid="@userInfoDto.UserId">激活用户</a>
                                         </li>
                                     }
 
@@ -145,3 +147,60 @@
     </table>
 
 </div>
+
+@section scripts{
+    <script>
+        $(function() {
+            $('body')
+            .on("click", ".__frozon",function() {
+                var link = $(this);
+                var userId = $(link).attr('data-userId');
+                    $.ajax({
+                        url: '@Url.Action("Frozon", "User")',
+                        type: 'post',
+                        data: { userId: userId,@Html.AntiForgeryTokenForAjaxPost() },
+                        success:function(d) {
+                            if (d.C === 901) {
+                                window.location.reload();
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                })
+            })
+                .on("click", ".__Thaw", function () {
+                    var link = $(this);
+                    var userId = $(link).attr('data-userId');
+                    $.ajax({
+                        url: '@Url.Action("Thaw", "User")',
+                        type: 'post',
+                        data: { userId: userId,@Html.AntiForgeryTokenForAjaxPost() },
+                        success:function(d) {
+                            if (d.C === 901) {
+                                window.location.reload();
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                    })
+                })
+                .on("click", ".__setRole", function () {
+                    var link = $(this);
+                    var userId = $(link).attr('data-userId');
+                    var roleId = $(link).attr('data-roleId');
+                    $.ajax({
+                        url: '@Url.Action("SetRole", "User")',
+                        type: 'post',
+                        data: { userId: userId,roleId:roleId,@Html.AntiForgeryTokenForAjaxPost() },
+                        success:function(d) {
+                            if (d.C === 901) {
+                                window.location.reload();
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                    })
+                })
+        })
+    </script>
+}
