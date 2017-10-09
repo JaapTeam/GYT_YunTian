@@ -316,6 +316,31 @@
             });
         }
 
+        function truckRepetitionCheck() {
+            var val = $("._province_original").val() +
+                $("._character_original").val() +
+                $("#input_OriginalTruckNo").val();
+            $.ajax({
+                type: "post",
+                url: "@Url.Action("TruckRepetitionCheck", "BusinessHandle")",
+                dataType: "json",
+                data: { truckNo: val, @Html.AntiForgeryTokenForAjaxPost() },
+                success: function(data) {
+                    console.log(data);
+                    if (data.C === 901) {
+                        $("#_sp_quota").html("无重复使用");
+                        $("#_sp_quota").removeClass();
+                        $("#_sp_quota").addClass("label label-lg label-success");
+                    }
+                    if (data.C === 801) {
+                        $("#_sp_quota").html("有重复使用");
+                        $("#_sp_quota").removeClass();
+                        $("#_sp_quota").addClass("label label-lg label-warning");
+                    }
+                }
+            });
+        }
+
         $("body")
             .on("click",
                 "#submit",
@@ -475,30 +500,8 @@
             .on("input",
                 "#input_OriginalTruckNo",
                 function(e) {
-                    e.stopPropagation();
-                    var val = $("._province_original").val() +
-                        $("._character_original").val() +
-                        $("#input_OriginalTruckNo").val();
-                    $.ajax({
-                        type: "post",
-                        url: "@Url.Action("TruckRepetitionCheck", "BusinessHandle")",
-                        dataType: "json",
-                        data: {truckNo:val,@Html.AntiForgeryTokenForAjaxPost()},
-                        success: function(data) {
-                            console.log(data);
-                            if (data.C === 901) {
-                                $("#_sp_quota").html("无重复使用");
-                                $("#_sp_quota").removeClass();
-                                $("#_sp_quota").addClass("label label-lg label-success");
-                            }
-                            if (data.C === 801) {
-                                $("#_sp_quota").html("有重复使用");
-                                $("#_sp_quota").removeClass();
-                                $("#_sp_quota").addClass("label label-lg label-warning");
-                            }
-                        }
-                    });
-
+                 e.stopPropagation();
+                 truckRepetitionCheck();   
                 })
             .on("input",
                 "#input_CompanyName",
@@ -506,6 +509,13 @@
                     e.stopPropagation();
                     var val = $("#input_CompanyName").val();
                     companyPeccancyCheck(val, "#_sp_Illegal");
-                });
+                })
+            .on("change", "._province_original", function (e) {
+                e.stopPropagation();
+                truckRepetitionCheck();
+            }).on("change", "._character_original", function (e) {
+                e.stopPropagation();
+                truckRepetitionCheck();
+            });
     </script>
 }
