@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Zer.Framework.Mvc.Logs
+@{
     ViewBag.Title = "AddUserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -156,7 +157,7 @@
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Regist")",
-                    data: { userInfoDto: dto },
+                    data: { userInfoDto: dto,@Html.AntiForgeryTokenForAjaxPost() },
                     dataType: "json",
                     success: function(data) {
                         window.location.href = "@Url.Action("AccountManage")";
