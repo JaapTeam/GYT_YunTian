@@ -31,6 +31,7 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [UserActionLog("新增用户", ActionType.新增)]
         [Route("r")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public JsonResult Regist(UserInfoDto userInfoDto)
         {
@@ -248,7 +249,7 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("未找到对应的用户！");
             }
 
-            dto.UserName = userInfoDto.UserName;
+            //dto.UserName = userInfoDto.UserName;
             dto.DisplayName = userInfoDto.DisplayName;
             dto.Email = userInfoDto.Email;
             dto.MobilePhone = userInfoDto.MobilePhone;

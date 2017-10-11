@@ -276,9 +276,13 @@ namespace com.gyt.ms.Controllers
 
             foreach (var gtGytInfoDto in gtGytInfoDtos)
             {
-                var currentOriginalComapnyInfoDto =
-                    companyInfoDtoList.Single(x => x.CompanyName == gtGytInfoDto.OriginalCompanyName);
-
+                var currentOriginalComapnyInfoDto = new CompanyInfoDto();
+                if (gtGytInfoDto.BusinessType != BusinessType.天然气车辆)
+                {
+                     currentOriginalComapnyInfoDto =
+                        companyInfoDtoList.Single(x => x.CompanyName == gtGytInfoDto.OriginalCompanyName);
+                }
+                
                 var currentBidComapnyInfoDto =
                     companyInfoDtoList.Single(x => x.CompanyName == gtGytInfoDto.BidCompanyName);
 
