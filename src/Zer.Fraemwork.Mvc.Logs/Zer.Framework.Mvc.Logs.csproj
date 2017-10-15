@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
+    <Compile Include="Attributes\CsrfFilterAttribute.cs" />
     <Compile Include="Attributes\CustomExceptionAttribute.cs" />
     <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\SetMenuItemAttribute.cs" />

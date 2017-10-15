@@ -66,9 +66,9 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [Route("login")]
         [ValidateAntiForgeryToken]
-        public JsonResult Login(string userName, string password)
+        public JsonResult Login(string userName, string psd)
         {
-            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
+            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, psd.Md5Encoding());
 
             UserActionLogger.Instance.Info(new LogInfoDto()
             {

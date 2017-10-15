@@ -97,7 +97,7 @@
             .on('click', '#btn_login', function () {
                 var data = {
                     userName:$('#username').val(),
-                    password: hex_md5($('#password').val()),
+                    psd: hex_md5($('#password').val()),
                     @Html.AntiForgeryTokenForAjaxPost()
                     };
                     $.ajax({
