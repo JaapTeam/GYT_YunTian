@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Zer.Framework.Cache;
@@ -9,10 +10,20 @@ namespace Zer.Framework.Mvc.Logs.Attributes
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            
             var context = filterContext.RequestContext.HttpContext;
+
+            var method = context.Request.HttpMethod;
+            var allowMethods = new[] {"GET", "POST"};
+
+            if (!allowMethods.Any(x=>x.Equals(method.ToUpper())))
+            {
+                throw new System.Exception("∑«∑®«Î«Û");
+            }
+
             var host = context.Request.UrlReferrer?.Host;
             var domain = CacheHelper.GetCache("WebHost").ToString();
-
+            
             if (host != null && host.Contains(domain))
             {
                 base.OnActionExecuting(filterContext);
