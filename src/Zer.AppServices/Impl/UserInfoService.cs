@@ -41,7 +41,7 @@ namespace Zer.AppServices.Impl
             }
 
             var entity = Mapper.Map<UserInfo>(userInfo);
-
+            
             if (_userIbfoDataService.Insert(entity) == null)
             {
                 throw new CustomException("注册失败",new Dictionary<string,string>{{"UserName",userInfo.UserName}});
