@@ -58,6 +58,7 @@ namespace Zer.AppServices.Impl
                  x.BidCompanyName = model.BidCompanyName;
                  x.BidDisplayName = model.BidDisplayName;
                  x.BidName = model.BidName;
+                 x.OriginalTruckNo = model.OriginalTruckNo;
                  x.BidTruckNo = model.BidTruckNo;
                  x.BusinessType = model.BusinessType;
                  x.OriginalCompanyId = model.OriginalCompanyId;

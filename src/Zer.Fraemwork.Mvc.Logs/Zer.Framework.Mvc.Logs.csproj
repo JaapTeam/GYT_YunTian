@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
+    <Compile Include="Attributes\CsrfFilterAttribute.cs" />
     <Compile Include="Attributes\CustomExceptionAttribute.cs" />
     <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\SetMenuItemAttribute.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Attributes\ValidateInputAttribute.cs" />
     <Compile Include="Attributes\ValidateLoginAttribute.cs" />
     <Compile Include="Attributes\ValidateRoleAttribute.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="MenuItemManager.cs" />
     <Compile Include="MvcLoggerModule.cs" />

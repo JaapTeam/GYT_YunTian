@@ -1,4 +1,5 @@
 ﻿@using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 
 @{
     ViewBag.Title = "Gas";
@@ -129,7 +130,7 @@
 
 
 @section scripts{
- 
+
     <script type="text/javascript">
 
         $("body")
@@ -159,14 +160,15 @@
                     var companyName = $('#input_CompanyName').val();
                     var truckNo = $("._province").val() + $("._character").val() + $("#input_bidTruckNo").val();
 
-                    var dto = { BidCompanyName: companyName, BidTruckNo: truckNo, BusinessType: '@BusinessType.天然气车辆' };
+                    var dto = { BidCompanyName: companyName, BidTruckNo: truckNo, BusinessType: '@BusinessType.天然气车辆',
+                        @Html.AntiForgeryTokenForAjaxPost()
+                    };
                     // 向后台post提交
                     $.ajax({
-                        url: '@Url.Action("Commit","BusinessHandle")',
+                        url: '@Url.Action("Commit", "BusinessHandle")',
                         type: 'post',
                         data: dto,
                         success: function(d) {
-                            console.log(d);
                             // 办理成功
                             if (d.C === 901) {
                                 $('.modal-header').removeClass('alert-danger');
@@ -186,9 +188,15 @@
                                 $('.modal-header').addClass('alert-danger');
 
                                 var msg = "<label class='label label-lg label-danger'>业务办理失败</label><ul>";
-                                for (var i = 0; i < d.data.length; i++) {
+                                try {
+                                    for (var i = 0; i < d.data.length; i++) {
+                                        msg += '<li><span><i class="">' +
+                                            d.data[i] +
+                                            '</i></span></li>';
+                                    }
+                                } catch (e) {
                                     msg += '<li><span><i class="">' +
-                                        d.data[i] +
+                                        d.msg +
                                         '</i></span></li>';
                                 }
 
@@ -204,36 +212,44 @@
                     return false;
                 })
             // 继续办理按钮
-            .on('click', '.__modal_close',function() {
-                $('#input_CompanyName').val("");
-                $('#input_bidTruckNo').val("");
-            })
+            .on('click',
+                '.__modal_close',
+                function() {
+                    $('#input_CompanyName').val("");
+                    $('#input_bidTruckNo').val("");
+                })
             // 确认按钮
-            .on('click', '.__modal_confirmed',function() {
-                window.location = '@Url.Action("index","GYTInfo")';
-            })
+            .on('click',
+                '.__modal_confirmed',
+                function() {
+                    window.location = '@Url.Action("index", "GYTInfo")';
+                })
             // 公司违法记录验证
-            .on('input','#input_CompanyName',function(e) {
+            .on('input',
+                '#input_CompanyName',
+                function(e) {
                     e.stopPropagation();
                     var val = $("#input_CompanyName").val();
                     companyPeccancyCheck(val, "#_sp_Illegal");
                 })
-            .on('blur', '#input_bidTruckNo', function () {
-                var truckNo = $('#input_bidTruckNo').val();
+            .on('blur',
+                '#input_bidTruckNo',
+                function() {
+                    var truckNo = $('#input_bidTruckNo').val();
 
-                if (truckNo.length !== 5) {
-                    $('._sp_BidTruckNo').html("申办车牌号长度不正确");
-                } else {
-                    $('._sp_BidTruckNo').html("");
-                }
-            })
+                    if (truckNo.length !== 5) {
+                        $('._sp_BidTruckNo').html("申办车牌号长度不正确");
+                    } else {
+                        $('._sp_BidTruckNo').html("");
+                    }
+                })
             .on("blur",
                 "#input_CompanyName",
                 function() {
                     Validate("#input_CompanyName", "._sp_CompanyName", "申办企业名称不能为空");
                 });
 
-        
+
         function Validate(input, span, msg) {
             var companyName = $(input).val();
             if (companyName === "") {
@@ -247,43 +263,43 @@
 
         function companyPeccancyCheck(companyName, span) {
             $.ajax({
-                type: "Get",
-                url: "@Url.Action("CompanyPeccancyCheck")",
-                data: { companyName: companyName },
-                dataType: "json",
-                success: function(data) {
-                    if (data.C === 901) {
-                        $(span).html("无违规");
-                        $(span).removeClass();
-                        $(span).addClass("label label-lg label-success");
-                    }
-                    if (data.C === 801) {
-                        $(span).html("有违规");
-                        $(span).removeClass();
-                        $(span).addClass("label label-lg label-warning");
-                    }
+                type: "post",
+                url: "@Url.Action("CompanyPeccancyCheck", "BusinessHandle")",
+            dataType: "json",
+            data:{companyName:companyName,@Html.AntiForgeryTokenForAjaxPost()},
+            success: function(data) {
+                if (data.C === 901) {
+                    $(span).html("无违规");
+                    $(span).removeClass();
+                    $(span).addClass("label label-lg label-success");
                 }
-            });
-        };
+                if (data.C === 801) {
+                    $(span).html("有违规");
+                    $(span).removeClass();
+                    $(span).addClass("label label-lg label-warning");
+                }
+            }
+        });
+    };
 
-        function IsExists(truckNo) {
-            $.ajax({
-                type: "Get",
-                url: "@Url.Action("TruckNoExistsHandle")",
-                data: { truckNo: truckNo },
-                dataType: "json",
-                async: false,
-                success: function(data) {
-                    console.log(data);
-                    if (data.C === 901) {
-                        $("#sp_bidTruckNo").html("true");
-                    }
-                    if (data.C === 801) {
-                        $("#sp_bidTruckNo").html("false");
-                    }
+    function IsExists(truckNo) {
+        $.ajax({
+            type: "Get",
+            url: "@Url.Action("TruckNoExistsHandle")",
+            data: { truckNo: truckNo },
+            dataType: "json",
+            async: false,
+            success: function(data) {
+                console.log(data);
+                if (data.C === 901) {
+                    $("#sp_bidTruckNo").html("true");
                 }
-            });
-        }
+                if (data.C === 801) {
+                    $("#sp_bidTruckNo").html("false");
+                }
+            }
+        });
+    }
 
     </script>
 }

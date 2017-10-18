@@ -1,5 +1,6 @@
 ﻿@using System.Diagnostics
 @using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
 @using Zer.GytDto.Users
@@ -223,6 +224,7 @@
 
         @using (Html.BeginForm("ImportFile", "PeccancyRecrod", FormMethod.Post, new {enctype = "multipart/form-data"}))
         {
+            @Html.AntiForgeryToken()
             <input type="file" name="file" class="hide" id="input_file"/>
             <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
         }
@@ -313,7 +315,7 @@
                         $.ajax({
                             type: "Post",
                             url: "@Url.Action("Change", "PeccancyRecrod")",
-                            data: { id: changeId },
+                            data: {Id:changeId,@Html.AntiForgeryTokenForAjaxPost()},
                             success: function(data) {
                                 if (data.C === 901) {
                                     $('#myModal').modal("hide");

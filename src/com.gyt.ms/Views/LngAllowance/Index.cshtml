@@ -1,6 +1,7 @@
 ﻿
 @using Zer.Entities
 @using Zer.Framework.Extensions
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto
 @using Zer.GytDto.SearchFilters
 @using Zer.GytDto.Users
@@ -225,6 +226,7 @@
 
     @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
+        @Html.AntiForgeryToken()
         <input type="file" name="file" class="hide" id="input_file"/>
         <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
     }
@@ -268,7 +270,7 @@
 
     <script type="text/javascript">
 
-        $(function () {
+        $(function() {
 
             $('.form_date').datetimepicker({
                 language: 'zh-CN',
@@ -318,9 +320,9 @@
 
                         $.ajax({
                             type: "Post",
-                            url: "@Url.Action("ChangStatus")",
-                            data: { infoId: infoId },
+                            url: "@Url.Action("ChangStatus", "LngAllowance")",
                             dataType: "json",
+                            data: { infoId: infoId,@Html.AntiForgeryTokenForAjaxPost() },
                             success: function(data) {
                                 if (data.C === 901) {
                                     $('#myModal').modal("hide");

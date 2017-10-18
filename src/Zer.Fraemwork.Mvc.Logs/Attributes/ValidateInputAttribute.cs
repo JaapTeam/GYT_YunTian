@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Zer.Framework.Attributes;
-using Zer.Framework.Cache;
 using Zer.Framework.Dto;
 using Zer.Framework.Exception;
 using Zer.Framework.Export.Attributes;
@@ -15,24 +14,6 @@ namespace Zer.Framework.Mvc.Logs.Attributes
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!(filterContext.RequestContext.HttpContext.Request.HttpMethod.Equals("GET") ||
-                  filterContext.RequestContext.HttpContext.Request.HttpMethod.Equals("POST")))
-            {
-                throw new CustomException("非法请求");
-            }
-
-            //filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host .Contains("")
-
-            if (filterContext.RequestContext.HttpContext.Request.UrlReferrer == null)
-            {
-                throw new CustomException("非法请求");
-            }
-
-            if (filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host.Contains(CacheHelper.GetCache("WebHost").ToString()))
-            {
-                throw new CustomException("非法请求");
-            }
-
             var attributes = filterContext.ActionDescriptor.GetCustomAttributes(false);
 
             if (!attributes.Any(x => x is UnValidateInputsAttribute))
@@ -74,7 +55,6 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                         }
                         ValidateHelper.ValidateObjectIsSafe(obj);
                     }
-                    //var obj = filterContext.HttpContext.Session[]
                 }
 
                 var inputParameters = filterContext.ActionParameters
