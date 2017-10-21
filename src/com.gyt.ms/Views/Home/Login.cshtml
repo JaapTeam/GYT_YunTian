@@ -92,27 +92,35 @@
 
     <script src="@Url.Content("~")assets/js/md5.min.js"></script>
     <script>
+        var clicked = false;
         $(function() {
             $('body')
-            .on('click', '#btn_login', function () {
-                var data = {
-                    userName:$('#username').val(),
-                    psd: hex_md5($('#password').val()),
-                    @Html.AntiForgeryTokenForAjaxPost()
+                .on('click', '#btn_login', function () {
+                    var data = {
+                        userName:$('#username').val(),
+                        psd: hex_md5($('#password').val()),
+                        @Html.AntiForgeryTokenForAjaxPost()
                     };
+
+                    if (clicked === true) {
+                        return;
+                    }
+
+                    clicked = true;
+
                     $.ajax({
                         url: '@Url.Action("Login","User")',
                         type: 'post',
                         data: data,
                         success: function (d) {
-                            console.log(d);
                             if (d.C == '901') {
                                 window.location = '@Url.Action("Index","home")';
                             } else {
                                 alert(d.msg);
+                                clicked = false;
                             }
                         }
                     })
-            })
+                })
         })
     </script>

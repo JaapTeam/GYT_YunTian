@@ -24,7 +24,15 @@ namespace Zer.Framework.Mvc.Logs
 
         public void Info(LogInfoDto logInfoDto)
         {
-            _logInfoDataService.Insert(logInfoDto.Map<UserLogInfo>());
+            var entity = logInfoDto.Map<UserLogInfo>();
+            if (entity != null)
+            {
+                _logInfoDataService.Insert(logInfoDto.Map<UserLogInfo>());
+            }
+            else
+            {
+                Log4NetLogger.Logger.Error(logInfoDto);
+            }
         }
     }
 }
