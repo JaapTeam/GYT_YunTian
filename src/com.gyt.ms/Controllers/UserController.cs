@@ -55,7 +55,7 @@ namespace com.gyt.ms.Controllers
 
             if (registResult == RegistResult.UserNameExists)
             {
-                return Fail();
+                return Fail("用户名已经存在!");
             }
 
             return Success();
