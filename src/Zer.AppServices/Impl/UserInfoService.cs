@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
-using Zer.Framework.Entities;
 using Zer.Framework.Exception;
 using Zer.GytDataService;
 using Zer.GytDto.Extensions;
@@ -20,14 +19,15 @@ namespace Zer.AppServices.Impl
             _userIbfoDataService = userIbfoDataService;
         }
 
-        public UserInfoDto GetByUserName(string userName)
+        public UserInfoDto GetByUserName(string userName,string psd)
         {
-            return _userIbfoDataService.Single(x => x.UserName == userName).Map<UserInfoDto>();
+            var entity = _userIbfoDataService.FirstOrDefault(x => x.UserName == userName && x.Password == psd);
+            return entity?.Map<UserInfoDto>();
         }
 
         public LoginStatus VerifyUserNameAndPassword(string userName, string password)
         {
-            var userInfo = _userIbfoDataService.Single(x => x.UserName == userName);
+            var userInfo = _userIbfoDataService.FirstOrDefault(x => x.UserName == userName);
             if(userInfo == null) return LoginStatus.UserNameNotExists;
             if(userInfo.UserState == UserState.Frozen) return LoginStatus.UserFrozen;
             return userInfo.Password == password ? LoginStatus.Success : LoginStatus.IncorrectPassword;
