@@ -28,6 +28,8 @@ namespace Zer.Framework.Mvc.Logs.Attributes
         {
             var exception = filterContext.Exception;
 
+            Log4NetLogger.Logger.Error($"url:{filterContext.RequestContext.HttpContext.Request.Url}", exception);
+
             if (exception is CustomException)
             {
                 
