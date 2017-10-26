@@ -174,9 +174,9 @@
                                 $('.modal-header').removeClass('alert-danger');
                                 $('.modal-header').addClass('alert-success');
                                 $('.__dialog_content')
-                                    .html('<h5>业务办理成功</h5><span>新的港运通编号为:<i class="label label-sm label-danger">' +
+                                    .html('<h5>业务办理成功</h5><span>新的港运通编号为:<b class="label label-sm label-danger">' +
                                         d.data.Id +
-                                        '</i></span>');
+                                        '</b></span>');
 
                                 // 设置【确认】按钮显示
                                 $('.__modal_confirmed').show();
@@ -190,14 +190,14 @@
                                 var msg = "<label class='label label-lg label-danger'>业务办理失败</label><ul>";
                                 try {
                                     for (var i = 0; i < d.data.length; i++) {
-                                        msg += '<li><span><i class="">' +
+                                        msg += '<li><span><b class="">' +
                                             d.data[i] +
-                                            '</i></span></li>';
+                                            '</b></span></li>';
                                     }
                                 } catch (e) {
-                                    msg += '<li><span><i class="">' +
+                                    msg += '<li><span><b class="">' +
                                         d.msg +
-                                        '</i></span></li>';
+                                        '</b></span></li>';
                                 }
 
                                 msg += "</ul>";
