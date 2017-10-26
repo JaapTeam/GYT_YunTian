@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -74,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AuthorizeAttribute.cs" />
+    <Compile Include="Attributes\CsrfFilterAttribute.cs" />
     <Compile Include="Attributes\CustomExceptionAttribute.cs" />
     <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\SetMenuItemAttribute.cs" />
@@ -84,6 +88,7 @@
     <Compile Include="Attributes\ValidateRoleAttribute.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="Log4NetLogger.cs" />
     <Compile Include="MenuItemManager.cs" />
     <Compile Include="MvcLoggerModule.cs" />
     <Compile Include="Attributes\NoAuthorizeAttribute.cs" />

@@ -1,8 +1,10 @@
-﻿@using Zer.Entities
+﻿@using Castle.Core.Internal
+@using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "编辑港运通信息";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 
@@ -14,15 +16,13 @@
 
 <h3 class="header smaller lighter blue">港运通信息编辑</h3>
 
-@if (gytInfoDto != null)
+@if (gytInfoDto != null && !provinceList.IsNullOrEmpty() && !characterList.IsNullOrEmpty())
 {
     <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit", "GYTInfo")">
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
-            <input value="@gytInfoDto.Id" class="hide" name="Id" id="__Id"/>
-            <input value="@gytInfoDto.BusinessType" class="hide" name="BusinessType" id="BusinessType"/>
-
-
+            <input value="@gytInfoDto.Id" class="hide" name="Id" id="__Id" />
+            <input value="@gytInfoDto.BusinessType" class="hide" name="BusinessType" id="BusinessType" />
             <div class="form-group">
                 <label class="col-sm-4 control-label no-padding-right" for="input_bidCompnyName" style="color: red"> 申办企业 </label>
 
@@ -100,13 +100,13 @@
 
                     <div class="col-sm-8">
                         <select class="select2-default _OriginalTruckNo_province col-sm-1">
-                            
+
                             @{
                                 if (provinceList != null && provinceList.Count > 0)
                                 {
                                     foreach (var item in provinceList)
                                     {
-                                        if (gytInfoDto.BidTruckNo.Substring(0, 1).Equals(item))
+                                        if (!gytInfoDto.OriginalTruckNo.IsNullOrEmpty() && gytInfoDto.OriginalTruckNo.Substring(0, 1).Equals(item))
                                         {
                                             <option value="@item" selected="selected">@item</option>
                                         }
@@ -120,13 +120,13 @@
                         </select>
 
                         <select class="select2-default _OriginalTruckNo_character col-sm-1" style="margin-left: 8px">
-                           
+
                             @{
                                 if (characterList != null && characterList.Count > 0)
                                 {
                                     foreach (var item in characterList)
                                     {
-                                        if (gytInfoDto.BidTruckNo.Substring(1, 1).Equals(item))
+                                        if ((!gytInfoDto.OriginalTruckNo.IsNullOrEmpty()) && gytInfoDto.OriginalTruckNo.Substring(1, 1).Equals(item))
                                         {
                                             <option value="@item" selected="selected">@item</option>
                                         }
@@ -138,12 +138,12 @@
                                 }
                             }
                         </select>
-                        <input type="text" id="input_originalTruckNo" placeholder="原车牌号" style="margin-left: 8px" value="@gytInfoDto.OriginalTruckNo.Substring(2)">
+                        <input type="text" id="input_originalTruckNo" placeholder="原车牌号" style="margin-left: 8px" value="@(gytInfoDto.OriginalTruckNo.IsNullOrEmpty() ? "" : gytInfoDto.OriginalTruckNo.Substring(2))">
                         <label id="lbl_originalTruckNo" style="color: red; display: none"></label>
-                        <input type="text" class="hide" value="@gytInfoDto.OriginalTruckNo" name="OriginalTruckNo">
+                        <input type="text" class="hide" value="@(gytInfoDto.OriginalTruckNo.IsNullOrEmpty() ? "" : gytInfoDto.OriginalTruckNo)" name="OriginalTruckNo">
                     </div>
                 </div>
-            }
+                                }
 
             <div class="form-group">
                 <label class="col-sm-4 control-label no-padding-right" for="input_bidTruckNo" style="color: red"> 业务状态 </label>
@@ -174,7 +174,7 @@
             </div>
         </div>
     </form>
-}
+                                }
 
 @section scripts
 {

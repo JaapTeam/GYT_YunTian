@@ -90,14 +90,55 @@
     </div>
 </form>
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    错误提示
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content">
+                您确认要将这条记录的状态更改为“已补贴”吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger __modal_confirmed">
+                    确认
+                </button>
+                <button type="button" class="btn btn-default __modal_close" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
 @section scripts{
-    
+
     <script src="@Url.Content("~")assets/js/md5.min.js"></script>
 
     <script type="text/javascript">
         $(function() {
-            $("#btn_Save")
-                .click(function() {
+            $('body')
+
+                // 点击关闭
+                .on('click',
+                    '.__modal_close',
+                    function() {
+                        $('#myModal').modal("hide");
+                    })
+
+                // 点击确认
+                .on('click',
+                    '.__modal_confirmed',
+                    function() {
+                        $('#myModal').modal("hide");
+                    })
+                .on('click', '#btn_Save', function() {
                     var userName = $("#input_userName").val();
                     var password = $("#input_password").val();
                     var passwordAgian = $("#input_password_again").val();
@@ -131,18 +172,18 @@
                         return;
                     }
 
-                    var dto = 
-                        {
-                            UserName: userName,
-                            Password: hex_md5(password),
-                            DisplayName: displayName,
-                            Email: email,
-                            MobilePhone: mobilePhone
-                        }
-                    ;
+                    var dto =
+                    {
+                        UserName: userName,
+                        Password: hex_md5(password),
+                        DisplayName: displayName,
+                        Email: email,
+                        MobilePhone: mobilePhone,
+                        @Html.AntiForgeryTokenForAjaxPost()
+                    };
 
                     save(dto);
-                });
+                })
 
             function showLable(lable, msg) {
                 lable.css("display", "");
@@ -156,11 +197,17 @@
             function save(dto) {
                 $.ajax({
                     type: "POST",
-                    url: "@Url.Action("Regist")",
-                    data: { userInfoDto: dto,@Html.AntiForgeryTokenForAjaxPost() },
+                    url: "@Url.Action("regist", "user")",
+                    data: dto,
                     dataType: "json",
                     success: function(data) {
-                        window.location.href = "@Url.Action("AccountManage")";
+                        if (data.C === 901) {
+                            window.location.href = "@Url.Action("accountManage", "user")";
+                        } else {
+                            $('.__dialog_content').html(data.msg);
+
+                            $('#myModal').modal("show");
+                        }
                     }
                 });
 
