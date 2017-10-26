@@ -38,14 +38,12 @@ namespace com.gyt.ms.Controllers
             if (userInfoDto.UserName.IsNullOrEmpty() ||
                 userInfoDto.Password.IsNullOrEmpty())
             {
-                throw new ArgumentException("用户名或密码不能为空！");
+                return Fail("用户名或密码不能为空！");
             }
-
-            if (
-                userInfoDto.UserName.Length <= 6 ||
-                userInfoDto.Password.Length < 6)
+            
+            if (userInfoDto.UserName.Length < 6 || userInfoDto.Password.Length < 6)
             {
-                throw new ArgumentException("用户名或密码的长度不能小于6！");
+                return Fail("用户名或密码的长度不能小于6！");
             }
 
             userInfoDto.Password = userInfoDto.Password.Md5Encoding();
@@ -55,7 +53,7 @@ namespace com.gyt.ms.Controllers
 
             if (registResult == RegistResult.UserNameExists)
             {
-                return Fail();
+                return Fail("用户名已经存在!");
             }
 
             return Success();
@@ -66,31 +64,37 @@ namespace com.gyt.ms.Controllers
         [HttpPost]
         [Route("login")]
         [ValidateAntiForgeryToken]
-        public JsonResult Login(string userName, string password)
+        public JsonResult Login(string userName, string psd)
         {
-            var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, password.Md5Encoding());
+            //var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, psd.Md5Encoding());
+            var userinfoDto = _userInfoService.GetByUserName(userName,psd.Md5Encoding());
 
-            UserActionLogger.Instance.Info(new LogInfoDto()
+            var logInfoDto = new LogInfoDto()
             {
                 ActionModel = "登录",
-                ActionType =  ActionType.查询,
-                Content = string.Format("UserName:{0}, Result:{1}",userName,loginResult),
+                ActionType = ActionType.查询,
                 CreateTime = DateTime.Now
-            });
-
-            switch (loginResult)
+            };
+            
+            if (userinfoDto == null)
             {
-                case LoginStatus.IncorrectPassword: return Fail("密码错误.");
-                case LoginStatus.UserFrozen: return Fail("用户被冻结.");
-                case LoginStatus.UserNameNotExists: return Fail("用户名不存在.");
-                default:
-                {
-                    var userinfoDto = _userInfoService.GetByUserName(userName);
-
-                    Session["UserInfo"] = userinfoDto;
-                    return Success();
-                }
+                logInfoDto.Content = string.Format("UserName:{0},result:用户名或密码错误", userName);
+                UserActionLogger.Instance.Info(logInfoDto);
+                return Fail("用户名或密码错误");
             }
+
+            if (userinfoDto.UserState == UserState.Frozen)
+            {
+                logInfoDto.Content = string.Format("UserName:{0},result:{1}", userName, LoginStatus.UserFrozen);
+                UserActionLogger.Instance.Info(logInfoDto);
+                return Fail("用户被冻结.");
+            }
+            
+            logInfoDto.Content = string.Format("UserName:{0},result:{1}", userName, LoginStatus.Success);
+            UserActionLogger.Instance.Info(logInfoDto);
+
+            Session["UserInfo"] = userinfoDto;
+            return Success();
         }
 
         [Route("out")]
