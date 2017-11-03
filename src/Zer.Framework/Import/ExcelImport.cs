@@ -90,7 +90,14 @@ namespace Zer.Framework.Import
                             // Date comes here
                             if (DateUtil.IsCellDateFormatted(cell))
                             {
-                                value = cell.DateCellValue;
+                                try
+                                {
+                                    value = cell.DateCellValue;
+                                }
+                                catch
+                                {
+                                    value = default(DateTime);
+                                }
                             }
                             else
                             {
