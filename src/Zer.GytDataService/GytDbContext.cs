@@ -33,10 +33,9 @@ namespace Zer.GytDataService
                     result = base.SaveChanges();
                     transacton.Commit();
                 }
-                catch (Exception ex)
+                catch 
                 {
                     transacton.Rollback();
-                    result = 0;
                     throw;
                 }
             }
