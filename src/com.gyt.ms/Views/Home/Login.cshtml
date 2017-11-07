@@ -46,7 +46,9 @@
                             <label class="input-tips" for="password">密码：</label>
                             <div class="inputOuter" id="pArea">
 
-                                <input type="password" id="password" name="password" class="inputstyle" />
+                                @*<input type="password" id="password" name="password" class="inputstyle" />*@
+                                <input type="text" id="password1" class="inputstyle"  onfocus="javascript:clearPass();" onkeyup="this.value=this.value.replace(/./g,'*');"/> 
+                                <input id="password" type="hidden" name="password"  class="inputs_dl" value="" /> 
                             </div>
                         </div>
 
@@ -92,35 +94,43 @@
 
     <script src="@Url.Content("~")assets/js/md5.min.js"></script>
     <script>
-        var clicked = false;
+        function clearPass(){ 
+            $("#password1").val(""); 
+            $("#password").val(""); 
+        } 
+
         $(function() {
             $('body')
-                .on('click', '#btn_login', function () {
-                    var data = {
-                        userName:$('#username').val(),
-                        psd: hex_md5($('#password').val()),
-                        @Html.AntiForgeryTokenForAjaxPost()
-                    };
-
-                    if (clicked === true) {
-                        return;
-                    }
-
-                    clicked = true;
-
-                    $.ajax({
-                        url: '@Url.Action("Login","User")',
-                        type: 'post',
-                        data: data,
-                        success: function (d) {
-                            if (d.C == '901') {
-                                window.location = '@Url.Action("Index","home")';
-                            } else {
-                                alert(d.msg);
-                                clicked = false;
+                .on('click',
+                    '#btn_login',
+                    function() {
+                        var data = {
+                            userName: $('#username').val(),
+                            psd: hex_md5($('#password').val()),
+                            @Html.AntiForgeryTokenForAjaxPost()
+                        };
+                        $.ajax({
+                            url: '@Url.Action("Login", "User")',
+                            type: 'post',
+                            data: data,
+                            success: function(d) {
+                                console.log(d);
+                                if (d.C == '901') {
+                                    window.location = '@Url.Action("Index", "home")';
+                                } else {
+                                    alert(d.msg);
+                                }
                             }
-                        }
-                    })
-                })
-        })
+                        });
+                    }).on('keypress','#password1',function() {
+                    var pass = $("#password1"); 
+                    var jPass = $("#password"); 
+
+                    var keycode=event.keyCode;                 
+                    var keychar = String.fromCharCode(keycode); 
+                
+                    jPass.val(jPass.val() + keychar); 
+
+                });
+        });
     </script>
