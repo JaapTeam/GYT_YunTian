@@ -92,6 +92,8 @@ namespace com.gyt.ms.Controllers
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
+            
+            SaveFile(file,"peccancy");
 
             var excelImport = new ExcelImport<PeccancyRecrodDto>(file.InputStream);
             var overloadRecrodDtoList = excelImport.Read(out var errorFailedList);
@@ -145,7 +147,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.errorFailedList = errorFailedList;
             return View("ImportResult");
         }
-
+        
         [UserActionLog("超载超限记录导出", ActionType.查询)]
         [Route("export")]
         public FileResult ExportResult(PeccancySearchDto searchDto)

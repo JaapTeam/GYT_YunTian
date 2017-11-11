@@ -80,6 +80,8 @@ namespace com.gyt.ms.Controllers
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
 
+            SaveFile(file,"lngallowance");
+
             var excelImport = new ExcelImport<LngAllowanceInfoDto>(file.InputStream);
             var lngAllowanceInfoDtoList = excelImport.Read(out var failedMessageList);
 
