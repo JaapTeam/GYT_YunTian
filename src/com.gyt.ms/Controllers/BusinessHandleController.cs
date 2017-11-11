@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using com.gyt.ms.Models;
 using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Cache;
-using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
-using Zer.GytDto.SearchFilters;
 using Zer.GytDto.Users;
 
 namespace com.gyt.ms.Controllers
@@ -32,7 +27,7 @@ namespace com.gyt.ms.Controllers
             _companyService = companyService;
             _truckInfoService = truckInfoService;
         }
-        
+
         // GET: BusinessHandle
         [UserActionLog("天然气车辆业务办理", ActionType.查询)]
         [Route("gas")]
@@ -190,11 +185,20 @@ namespace com.gyt.ms.Controllers
             // 以旧换新业务
             var result = new List<string>();
 
+            var isHanlder = _gytInfoService.TargetIsUse(dto.OriginalTruckNo);
+
+            if (isHanlder)
+            {
+                result.Add($"原车牌<label class='label label-danger'><b>{dto.OriginalTruckNo}</b></label> 指标已被使用，不能办理该业务!");
+            }
+
             var gytInfoDto = _gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo);
+            
             // 旧车必须有办理记录
             if (gytInfoDto == null)
             {
-                result.Add("原车牌不存在港运通办理记录，或指标已经被使用，不能办理以旧换新业务");
+                return result;
+                //result.Add("原车牌不存在港运通办理记录，或指标已经被使用，不能办理以旧换新业务");
             }
 
             if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
@@ -218,11 +222,19 @@ namespace com.gyt.ms.Controllers
             // 车辆过户业务
             var result = new List<string>();
 
+            var isHanlder = _gytInfoService.TargetIsUse(dto.OriginalTruckNo);
+
+            if (isHanlder)
+            {
+                result.Add($"原车牌<label class='label label-danger'><b>{dto.OriginalTruckNo}</b></label> 指标已被使用，不能办理该业务!");
+            }
+
             var gytInfoDto = _gytInfoService.GetByBidTruckNo(dto.OriginalTruckNo);
             // 旧车必须有办理记录
             if (gytInfoDto == null)
             {
-                result.Add("原车牌不存在港运通办理记录，不能办理车辆过户业务");
+                return result;
+                //result.Add("原车牌不存在港运通办理记录，不能办理车辆过户业务");
             }
 
             if (gytInfoDto != null && gytInfoDto.Status == BusinessState.已注销)
@@ -266,7 +278,8 @@ namespace com.gyt.ms.Controllers
             // 检测车辆信息
             var waitForRegistTruckInfo = new List<TruckInfoDto>
             {
-                new TruckInfoDto(){FrontTruckNo =  dto.BidTruckNo,CompanyId = dto.BidCompanyId,CompanyName = dto.BidCompanyName}
+                new TruckInfoDto(){FrontTruckNo =  dto.BidTruckNo,CompanyId = dto.BidCompanyId,CompanyName = dto.BidCompanyName},
+                //new TruckInfoDto(){FrontTruckNo =  dto.OriginalTruckNo,CompanyId = dto.OriginalCompanyId??0 ,CompanyName = dto.OriginalCompanyName}
             };
 
             if (dto.BusinessType.ToInt() > 0)
