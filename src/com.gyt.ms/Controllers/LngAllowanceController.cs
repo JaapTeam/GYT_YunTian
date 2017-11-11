@@ -81,21 +81,22 @@ namespace com.gyt.ms.Controllers
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
 
             var excelImport = new ExcelImport<LngAllowanceInfoDto>(file.InputStream);
-            var lngAllowanceInfoDtoList = excelImport.Read();
+            var lngAllowanceInfoDtoList = excelImport.Read(out var failedMessageList);
 
             if (lngAllowanceInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
             var sessionCode = AppendObjectToSession(lngAllowanceInfoDtoList);
+            var failedMessageListCode = AppendObjectToSession(failedMessageList);
 
             return RedirectToAction("SaveLngAllowanceData", "LngAllowance",
-                new { id = sessionCode });
+                new { id = sessionCode, errorMessageCode = failedMessageListCode });
         }
 
         [ReplaceSpecialCharInParameter("-", "_")]
         [GetParameteFromSession("id")]
         [UnLog]
-        [Route("save/{id}")]
-        public ActionResult SaveLngAllowanceData(string id)
+        [Route("save/{id}/{errorMessageCode}")]
+        public ActionResult SaveLngAllowanceData(string id,string errorMessageCode)
         {
             var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
 
@@ -131,6 +132,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.SuccessList = importSuccessList;
             ViewBag.FailedList = importFailedList;
             ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
+            ViewBag.errorMessageCode = GetValueFromSession<List<string>>(errorMessageCode);
             return View("ImportResult");
         }
 

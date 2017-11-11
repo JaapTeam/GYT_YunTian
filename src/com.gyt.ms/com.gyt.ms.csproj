@@ -365,7 +365,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\uploadFiles\gyt\" />
     <Folder Include="Content\uploadFiles\LngAllowance\" />
+    <Folder Include="Content\uploadFiles\peccancy\" />
     <Folder Include="Views\Company\" />
   </ItemGroup>
   <ItemGroup>

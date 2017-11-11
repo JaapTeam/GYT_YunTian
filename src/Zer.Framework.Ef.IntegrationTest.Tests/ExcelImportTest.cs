@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -73,9 +74,12 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests
                    
                 };
 
-                var actual = excelImport.SetValueWithRow(excelImport.GetPropertyWithSortIdMap(excelImport.GetProperties()),
-                    sheet.GetRow(1));
+                List<string> message = new List<string>();
 
+                var actual = excelImport.SetValueWithRow(excelImport.GetPropertyWithSortIdMap(excelImport.GetProperties()),
+                    sheet.GetRow(1), message);
+
+                message.Should().BeEmpty();
                 actual.ShouldBeEquivalentTo(expected);
             }
         }
