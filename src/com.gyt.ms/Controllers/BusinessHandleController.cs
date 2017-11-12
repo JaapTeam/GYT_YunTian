@@ -6,6 +6,7 @@ using Zer.AppServices;
 using Zer.Entities;
 using Zer.Framework.Cache;
 using Zer.Framework.Extensions;
+using Zer.Framework.Mvc.Logs;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.Users;
@@ -85,6 +86,7 @@ namespace com.gyt.ms.Controllers
         public JsonResult TruckRepetitionCheck(string truckNo)
         {
             var result = _gytInfoService.TargetIsUse(truckNo);
+            
             return result ? Fail() : Success();
         }
 

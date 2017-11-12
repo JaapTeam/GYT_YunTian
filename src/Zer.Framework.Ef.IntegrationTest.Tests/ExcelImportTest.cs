@@ -91,8 +91,9 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var excelImport = new ExcelImport<LngAllowanceInfoDto>(stream);
-                var actual = excelImport.Read();
+                var actual = excelImport.Read(out var failedList);
 
+                failedList.Should().BeEmpty();
                 actual.Should().AllBeOfType<LngAllowanceInfoDto>();
                 actual.Count.Should().Be(17);
             }
