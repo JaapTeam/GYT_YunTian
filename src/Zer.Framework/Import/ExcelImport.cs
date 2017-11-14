@@ -22,7 +22,7 @@ namespace Zer.Framework.Import
 
         private Stream InputExcelStream { get; set; }
 
-        public List<T> Read()
+        public List<T> Read(out List<string> failedList)
         {
             if (InputExcelStream == null)
             {
@@ -35,7 +35,7 @@ namespace Zer.Framework.Import
 
                 var sheet = GetDefaultSheet(workbook);
 
-                return GenerateObjectAndSetValue(sheet);
+                return GenerateObjectAndSetValue(sheet,out failedList);
             }
             catch
             {
@@ -57,20 +57,27 @@ namespace Zer.Framework.Import
             return properties;
         }
 
-        public List<T> GenerateObjectAndSetValue(ISheet sheet)
+        public List<T> GenerateObjectAndSetValue(ISheet sheet,out List<string> faieldList)
         {
             var properties = GetProperties();
             var propertyWithSortIdMap = GetPropertyWithSortIdMap(properties);
             var list = new List<T>();
 
-            var rowReader = sheet.GetRowEnumerator();
+            faieldList = new List<string>();
 
+            var rowReader = sheet.GetRowEnumerator();
+            
             while (rowReader.MoveNext())
             {
                 var currentRow = rowReader.Current as IRow;
                 if (currentRow == null || currentRow.RowNum == 0) continue;
 
-                list.Add(SetValueWithRow(propertyWithSortIdMap, currentRow));
+                var t = SetValueWithRow(propertyWithSortIdMap, currentRow, faieldList);
+
+                if (t != null)
+                {
+                    list.Add(t);
+                }
             }
 
             return list;
@@ -127,17 +134,29 @@ namespace Zer.Framework.Import
             return value;
         }
 
-        public T SetValueWithRow(Dictionary<int, PropertyInfo> dic, IRow currentRow)
+        public T SetValueWithRow(Dictionary<int, PropertyInfo> dic, IRow currentRow,List<string> faieldMessageList)
         {
             T t = new T();
+            var anyError = false;
 
             for (int i = 0; i < currentRow.LastCellNum; i++)
             {
                 var cell = currentRow.GetCell(i);
                 var cellvalue = GetCellValue(cell);
                 var property = dic[i];
-                property.SetValue(t, ConvertHelper.ChangeType(cellvalue, property.PropertyType));
+
+                try
+                {
+                    property.SetValue(t, ConvertHelper.ChangeType(cellvalue, property.PropertyType));
+                }
+                catch
+                {
+                    anyError = true;
+                    faieldMessageList.Add($"原数据中第 {currentRow.RowNum + 1} 行第 {i + 1} 列的值不正确;");
+                }
             }
+
+            return !anyError ? t : null;
 
             //foreach (var index in dic.Keys)
             //{
@@ -152,8 +171,6 @@ namespace Zer.Framework.Import
 
             //    propertyInfo.SetValue(t, cellValue.StringCellValue);
             //}
-
-            return t;
         }
 
         public Dictionary<int, PropertyInfo> GetPropertyWithSortIdMap(List<PropertyInfo> properties)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -73,9 +74,12 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests
                    
                 };
 
-                var actual = excelImport.SetValueWithRow(excelImport.GetPropertyWithSortIdMap(excelImport.GetProperties()),
-                    sheet.GetRow(1));
+                List<string> message = new List<string>();
 
+                var actual = excelImport.SetValueWithRow(excelImport.GetPropertyWithSortIdMap(excelImport.GetProperties()),
+                    sheet.GetRow(1), message);
+
+                message.Should().BeEmpty();
                 actual.ShouldBeEquivalentTo(expected);
             }
         }
@@ -87,8 +91,9 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests
             using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
                 var excelImport = new ExcelImport<LngAllowanceInfoDto>(stream);
-                var actual = excelImport.Read();
+                var actual = excelImport.Read(out var failedList);
 
+                failedList.Should().BeEmpty();
                 actual.Should().AllBeOfType<LngAllowanceInfoDto>();
                 actual.Count.Should().Be(17);
             }

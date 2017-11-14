@@ -136,9 +136,10 @@ namespace Zer.AppServices.Impl
         {
             return
                 _gytInfoDataService.GetAll()
-                    .Any(x => x.OriginalTruckNo == truckNo &&
-                        x.BusinessType == BusinessType.以旧换新车辆 &&
-                        x.Status == BusinessState.已办理);
+                    .Any(x => x.OriginalTruckNo == truckNo
+                    //&& x.BusinessType == BusinessType.以旧换新车辆 
+                    //&& x.Status == BusinessState.已办理
+                        );
         }
 
         public void SetStatus(string truckNo, BusinessState state)
