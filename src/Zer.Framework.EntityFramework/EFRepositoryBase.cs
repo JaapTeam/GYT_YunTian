@@ -30,6 +30,7 @@ namespace Zer.Framework.EntityFramework
             return base.Insert(entity);
         }
 
+
         public override IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
         {
             foreach (var entity in list.Where(x=>x.Id == null || x.Id.ToString().IsNullOrEmpty()))

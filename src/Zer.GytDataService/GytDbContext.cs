@@ -2,8 +2,12 @@
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.Validation;
+using System.Linq;
+using System.Text;
 using Zer.Entities;
 using Zer.Framework.Entities;
+using Zer.Framework.Exception;
 
 namespace Zer.GytDataService
 {
@@ -32,6 +36,19 @@ namespace Zer.GytDataService
                 {
                     result = base.SaveChanges();
                     transacton.Commit();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    transacton.Rollback();
+
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var dbValidationError in ex.EntityValidationErrors.SelectMany(x=>x.ValidationErrors))
+                    {
+                        var msg = $"字段{dbValidationError.PropertyName}的值不符合规范,{dbValidationError.ErrorMessage}";
+                        sb.AppendLine(msg);
+                    }
+
+                    throw new CustomException(sb.ToString());
                 }
                 catch 
                 {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using com.gyt.ms.Models;
 using Zer.Framework.Extensions;
@@ -23,7 +25,28 @@ namespace com.gyt.ms.Controllers
                 return HttpContext.Session["UserInfo"] as UserInfoDto;
             }
         }
-        
+
+        protected virtual void SaveFile(HttpPostedFileBase file,string dirPath)
+        {
+            try
+            {
+                var dir = $"{Server.MapPath("~/content/uploadFiles/")}/{dirPath}";
+
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                var filename = string.Format("{0}/{1:yyyy-MM-dd_HH_mm_ss_fffff}_{3}.{2}",
+                    dir, DateTime.Now, Guid.NewGuid(), CurrentUser.UserId);
+
+                file.SaveAs(filename);
+            }
+            catch
+            {
+            }
+        }
+
         protected string AppendObjectToSession(object obj)
         {
             var sessionCode = Guid.NewGuid().ToString().Replace('-', '_');

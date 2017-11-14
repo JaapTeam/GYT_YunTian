@@ -8,7 +8,7 @@ namespace Zer.AppServices
     public interface IGYTInfoService : IAppService<GYTInfoDto, string>
     {
         bool Exists(string bidTruckNo);
-
+        
         List<GYTInfoDto> GetListByBidTruckNoList(List<string> bidTruckNoList);
         List<GYTInfoDto> GetList(GYTInfoSearchDto searchDto);
 

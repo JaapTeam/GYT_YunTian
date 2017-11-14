@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Zer.Framework.Entities;
@@ -33,7 +34,7 @@ namespace Zer.Entities
 
         [StringLength(20)]
         public string PeccancyMatter { get; set; }
-
+        
         public decimal GrossWeight { get; set; }
 
         [StringLength(50)]
