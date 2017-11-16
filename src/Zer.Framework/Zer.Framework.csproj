@@ -43,6 +43,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -140,6 +143,7 @@
     <Compile Include="JsonData.cs" />
     <Compile Include="Helpers\Md5Helper.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Logger\Log4NetLogger.cs" />
     <Compile Include="Mail\MailHelper.cs" />
     <Compile Include="Mail\MailManager.cs" />
     <Compile Include="Module\ModuleBase.cs" />

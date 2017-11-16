@@ -42,9 +42,10 @@ namespace Zer.GytDataService
                     transacton.Rollback();
 
                     StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("<p>存在一个或多个以下错误，请校验数据后重试:</p>");
                     foreach (var dbValidationError in ex.EntityValidationErrors.SelectMany(x=>x.ValidationErrors))
                     {
-                        var msg = $"字段{dbValidationError.PropertyName}的值不符合规范,{dbValidationError.ErrorMessage}";
+                        var msg = $"<p>字段{dbValidationError.PropertyName}的值不符合规范,{dbValidationError.ErrorMessage}</p>";
                         sb.AppendLine(msg);
                     }
 

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Zer.Framework.Dependency;
+using Zer.Framework.Logger;
 using Zer.Framework.Mvc.Logs;
 using Zer.GytDto;
 
