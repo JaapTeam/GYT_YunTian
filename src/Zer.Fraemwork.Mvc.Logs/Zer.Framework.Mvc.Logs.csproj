@@ -88,7 +88,6 @@
     <Compile Include="Attributes\ValidateRoleAttribute.cs" />
     <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="ILogger.cs" />
-    <Compile Include="Log4NetLogger.cs" />
     <Compile Include="MenuItemManager.cs" />
     <Compile Include="MvcLoggerModule.cs" />
     <Compile Include="Attributes\NoAuthorizeAttribute.cs" />

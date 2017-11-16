@@ -1,5 +1,6 @@
 using Zer.Entities;
 using Zer.Framework.Dependency;
+using Zer.Framework.Logger;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;

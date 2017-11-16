@@ -1,6 +1,6 @@
 ﻿using log4net;
 
-namespace Zer.Framework.Mvc.Logs
+namespace Zer.Framework.Logger
 {
     public static class Log4NetLogger
     {

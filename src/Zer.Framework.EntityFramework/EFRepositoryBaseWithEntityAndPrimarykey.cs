@@ -5,6 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Zer.Framework.Entities;
 using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
+using Zer.Framework.Logger;
 using Zer.Framework.Repository;
 
 namespace Zer.Framework.EntityFramework
@@ -78,10 +80,17 @@ namespace Zer.Framework.EntityFramework
 
         public virtual IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
         {
+            string msg = string.Empty;
             foreach (var entity in list)
             {
                 RepleaseWhitespaceString(entity);
+                msg += "====================\n";
+                msg += entity.Serialization();
+                msg += "====================\n";
             }
+
+            Log4NetLogger.Logger.Info(msg);
+
             var result = Table.AddRange(list);
             _dbContext.SaveChanges();
             return result;
@@ -96,6 +105,8 @@ namespace Zer.Framework.EntityFramework
                 value = value.ToString().Trim();
                 propertyInfo.SetValue(entity, value);
             }
+
+            
         }
 
         public virtual TEntity Update(TEntity entity)
