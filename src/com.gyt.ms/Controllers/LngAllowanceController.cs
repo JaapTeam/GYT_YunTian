@@ -115,7 +115,8 @@ namespace com.gyt.ms.Controllers
             // 初始化检测并注册其中的新公司信息
             var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
 
-            var dic = mustImportLngAllowanceInfoDtoList.ToDictionary(x => x.TruckNo, v => v.CompanyId);
+            var dic = mustImportLngAllowanceInfoDtoList.Select(x => new {x.TruckNo, x.CompanyId}).Distinct()
+                                                       .ToDictionary(x => x.TruckNo, v => v.CompanyId);
 
             // 初始化检测并注册其中的新车辆信息
             InitTruckInfoDtoList(dic, companyInfoDtoList);

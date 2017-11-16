@@ -64,7 +64,7 @@ namespace Zer.AppServices.Impl
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             return _lngAllowanceInfoDataService.GetAll()
-                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
+                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo &&
                           x.CylinderDefaultId == lngAllowanceInfoDto.CylinderDefaultId);
         }
 
