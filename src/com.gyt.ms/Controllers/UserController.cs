@@ -241,10 +241,10 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("用户名不能为空！");
             }
 
-            if (userInfoDto.UserName.Length <= 6)
-            {
-                throw new ArgumentException("用户名的长度不能小于6！");
-            }
+            //if (userInfoDto.UserName.Length <= 6)
+            //{
+            //    throw new ArgumentException("用户名的长度不能小于6！");
+            //}
 
             var dto = _userInfoService.GetById(userInfoDto.UserId);
 

@@ -1,97 +1,83 @@
 ﻿@using Zer.Framework.Mvc.Logs
 
-
 @{
     Layout = null;
 }
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-    <title>港运通信息管理系统</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>港运通信息管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="@Url.Content("~")assets/css/login2.css" rel="stylesheet" />
 </head>
 <body>
-<h1>港运通信息管理系统<sup>V2017</sup></h1>
+    <h1>港运通信息管理系统<sup>V2017</sup></h1>
+    <div class="login" style="margin-top:50px;">
 
-<div class="login" style="margin-top:50px;">
-    
-    <div class="header">
-        <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
-			
+        <div class="header">
+            <div class="switch" id="switch">
+                <a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
+
+            </div>
         </div>
-    </div>    
-  
-    
-    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">    
-
-        <!--登录-->
-        <div class="web_login" id="web_login">
 
 
-            <div class="login-box">
+        <div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">
+            <!--登录-->
+            <div class="web_login" id="web_login">
 
-                
+                <div class="login-box">
+
                     <div class="login_form">
-                        <input type="hidden" name="to" value="log"/>
+                        <input type="hidden" name="to" value="log" />
                         <div class="uinArea" id="uinArea">
                             <label class="input-tips" for="username">帐号：</label>
                             <div class="inputOuter" id="uArea">
-
                                 <input type="text" id="username" name="userName" class="inputstyle" />
                             </div>
                         </div>
                         <div class="pwdArea" id="pwdArea">
                             <label class="input-tips" for="password">密码：</label>
                             <div class="inputOuter" id="pArea">
-
                                 <input type="password" id="password" name="password" class="inputstyle" />
                             </div>
                         </div>
-
                         <div style="padding-left: 50px; margin-top: 20px;">
-                            <input type="button" value="登 录" 
-                                   style="width: 150px;" 
-                                   class="button_blue" 
-                                   id="btn_login"
-                                   />
+                            <input type="button" value="登 录"
+                                   style="width: 150px;"
+                                   class="button_blue"
+                                   id="btn_login" />
                         </div>
                     </div>
-              
+
+                </div>
+
             </div>
-               
+            <!--登录end-->
         </div>
-        <!--登录end-->
     </div>
-
-</div>
-</body></html>
-
+</body>
+</html>
 
 <!-- basic scripts -->
 <!--[if !IE]> -->
-
 <script type="text/javascript">
     window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-2.0.3.min.js'>" + "<" + "script>");
 </script>
-
 <!-- <![endif]-->
 <!--[if IE]>
     <script type="text/javascript">
         window.jQuery || document.write("<script src='@Url.Content("~")assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");
     </script>
 <![endif]-->
-
 <script src="@Url.Content("~")assets/js/bootstrap.min.js"></script>
 <script src="@Url.Content("~")assets/js/typeahead-bs2.min.js"></script>
-
 <!--[if lte IE 8]>
     <script src="@Url.Content("~")assets/js/excanvas.min.js"></script>
 <![endif]-->
-
-    <script src="@Url.Content("~")assets/js/md5.min.js"></script>
-    <script>
+<script src="@Url.Content("~")assets/js/md5.min.js"></script>
+<script>
         var clicked = false;
         $(function() {
             $('body')
@@ -123,4 +109,4 @@
                     })
                 })
         })
-    </script>
+</script>
