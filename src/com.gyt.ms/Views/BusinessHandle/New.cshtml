@@ -124,7 +124,7 @@
     <label class="col-sm-4 control-label no-padding-right"> 报废指标无重复使用: </label>
     <div class="col-sm-8">
 
-        <span class="label label-lg label-success" id="_sp_quota">无重复使用</span>
+        <span class="label label-lg label-success" id="_sp_quota">未被使用</span>
 
     </div>
 
@@ -166,20 +166,19 @@
         <div class="control-group" style="margin-top: -5px; margin-left: -20px">
 
             <div class="radio" id="radioTransfer">
-
+                
                 <label>
 
                     <input type="radio" class="ace" checked="checked" name="lblTransfer" value="true">
-                    <span class="lbl"> 不存在 </span>
-
-                </label>
-                <label style="margin-left: 20px">
-
-                    <input type="radio" class="ace" name="lblTransfer" value="false">
                     <span class="lbl"> 存在 </span>
 
                 </label>
+                <label style="margin-left: 20px">
+                    
+                    <input type="radio" class="ace" name="lblTransfer" value="false">
+                    <span class="lbl"> 不存在 </span>
 
+                </label>
             </div>
 
         </div>
@@ -294,6 +293,8 @@
 @section scripts{
 
     <script type="text/javascript">
+        $(function() {
+            var validationResult = true;
 
         function companyPeccancyCheck(companyName, span) {
             $.ajax({
@@ -301,13 +302,18 @@
                 url: "@Url.Action("CompanyPeccancyCheck", "BusinessHandle")",
                 dataType: "json",
                 data: { companyName: companyName, @Html.AntiForgeryTokenForAjaxPost() },
-                success: function(data) {
+                success: function (data) {
+
                     if (data.C === 901) {
+
+                        validationResult = true;
                         $(span).html("无违规");
                         $(span).removeClass();
                         $(span).addClass("label label-lg label-success");
                     }
                     if (data.C === 801) {
+
+                        validationResult = false;
                         $(span).html("有违规");
                         $(span).removeClass();
                         $(span).addClass("label label-lg label-warning");
@@ -326,14 +332,18 @@
                 dataType: "json",
                 data: { truckNo: val, @Html.AntiForgeryTokenForAjaxPost() },
                 success: function(data) {
-                    console.log(data);
+                    
                     if (data.C === 901) {
-                        $("#_sp_quota").html("无重复使用");
+
+                        validationResult = true;
+                        $("#_sp_quota").html("未被使用");
                         $("#_sp_quota").removeClass();
                         $("#_sp_quota").addClass("label label-lg label-success");
                     }
+
                     if (data.C === 801) {
-                        $("#_sp_quota").html("有重复使用");
+                        validationResult = false;
+                        $("#_sp_quota").html("已被使用");
                         $("#_sp_quota").removeClass();
                         $("#_sp_quota").addClass("label label-lg label-warning");
                     }
@@ -344,8 +354,7 @@
         $("body")
             .on("click",
                 "#submit",
-                function() {
-                    var validationResult = true;
+                function () {
 
                     if ($("#input_CompanyName").val() === "") {
                         $('._sp_CompanyName').html("申办企业不能为空");
@@ -409,9 +418,9 @@
                                 $('.modal-header').removeClass('alert-danger');
                                 $('.modal-header').addClass('alert-success');
                                 $('.__dialog_content')
-                                    .html('<h5>业务办理成功</h5><span>新的港运通编号为:<i class="label label-sm label-danger">' +
+                                    .html('<h5>业务办理成功</h5><span>新的港运通编号为:<b class="label label-sm label-danger">' +
                                         d.data.Id +
-                                        '</i></span>');
+                                        '</b></span>');
 
                                 // 设置【确认】按钮显示
                                 $('.__modal_confirmed').show();
@@ -425,14 +434,14 @@
                                 var msg = "<label class='label label-lg label-danger'>业务办理失败</label><ul>";
                                 try {
                                     for (var i = 0; i < d.data.length; i++) {
-                                        msg += '<li><span><i class="">' +
+                                        msg += '<li><span><b class="">' +
                                             d.data[i] +
-                                            '</i></span></li>';
+                                            '</b></span></li>';
                                     }
                                 } catch (e) {
-                                    msg += '<li><span><i class="">' +
+                                    msg += '<li><span><b class="">' +
                                         d.msg +
-                                        '</i></span></li>';
+                                        '</b></span></li>';
                                 }
 
                                 msg += "</ul>";
@@ -500,8 +509,8 @@
             .on("input",
                 "#input_OriginalTruckNo",
                 function(e) {
-                 e.stopPropagation();
-                 truckRepetitionCheck();   
+                    e.stopPropagation();
+                    truckRepetitionCheck();
                 })
             .on("input",
                 "#input_CompanyName",
@@ -517,5 +526,6 @@
                 e.stopPropagation();
                 truckRepetitionCheck();
             });
+        })
     </script>
 }

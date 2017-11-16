@@ -60,8 +60,11 @@ namespace com.gyt.ms.Controllers
             if (file == null || file.InputStream == null)
                 throw new Exception("文件上传失败，导入失败");
 
+            SaveFile(file,"gyt");
+
             var excelImport = new ExcelImport<GYTInfoDto>(file.InputStream);
-            var gtyGytInfoDtoList = excelImport.Read();
+
+            var gtyGytInfoDtoList = excelImport.Read(out var failedErrorMessageList);
 
             if (gtyGytInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
@@ -119,6 +122,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.SuccessList = importSuccessList;
             ViewBag.FailedList = importFailedList;
             ViewBag.ExistedList = existsgtyGytInfoDtoList;
+            ViewBag.FormatErrorList = failedErrorMessageList;
             return View("ImportResult");
         }
 

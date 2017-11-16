@@ -5,12 +5,14 @@ using System.Linq;
 using System.Linq.Expressions;
 using Zer.Framework.Entities;
 using Zer.Framework.Exception;
+using Zer.Framework.Extensions;
+using Zer.Framework.Logger;
 using Zer.Framework.Repository;
 
 namespace Zer.Framework.EntityFramework
 {
     public abstract class EfRepositoryBaseWithPrimaryKey<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>
-        where TEntity : class ,IEntity<TPrimaryKey>
+        where TEntity : class, IEntity<TPrimaryKey>
     {
         private readonly DbContext _dbContext;
 
@@ -41,14 +43,14 @@ namespace Zer.Framework.EntityFramework
 
         public virtual IQueryable<TEntity> GetAll()
         {
-            return Table.OrderByDescending(x=>x.Id);
+            return Table.OrderByDescending(x => x.Id);
         }
 
         public virtual List<TEntity> GetAllList()
         {
             return GetAll().ToList();
         }
-        
+
         public virtual TEntity Single(Expression<Func<TEntity, bool>> predicate)
         {
             return GetAll().Single(predicate);
@@ -78,9 +80,33 @@ namespace Zer.Framework.EntityFramework
 
         public virtual IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
         {
+            string msg = string.Empty;
+            foreach (var entity in list)
+            {
+                RepleaseWhitespaceString(entity);
+                msg += "====================\n";
+                msg += entity.Serialization();
+                msg += "====================\n";
+            }
+
+            Log4NetLogger.Logger.Info(msg);
+
             var result = Table.AddRange(list);
             _dbContext.SaveChanges();
             return result;
+        }
+
+        private void RepleaseWhitespaceString(TEntity entity)
+        {
+            foreach (var propertyInfo in typeof(TEntity).GetProperties().Where(x => x.PropertyType == typeof(string)))
+            {
+                var value = propertyInfo.GetValue(entity);
+                if (value == null) continue;
+                value = value.ToString().Trim();
+                propertyInfo.SetValue(entity, value);
+            }
+
+            
         }
 
         public virtual TEntity Update(TEntity entity)
@@ -162,7 +188,7 @@ namespace Zer.Framework.EntityFramework
                 Expression.PropertyOrField(lambdaParam, "Id"),
                 Expression.Constant(id, typeof(TPrimaryKey))
             );
-            
+
             return Expression.Lambda<Func<TEntity, bool>>(lambdaBody, lambdaParam);
         }
 

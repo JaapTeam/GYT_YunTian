@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
+using Zer.Framework.Logger;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
 {
