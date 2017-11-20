@@ -244,9 +244,9 @@ namespace com.gyt.ms.Controllers
             foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
             {
                 var currentComapnyInfoDto =
-                    companyInfoDtoList.Single(x => x.CompanyName == lngAllowanceInfoDto.CompanyName);
+                    companyInfoDtoList.FirstOrDefault(x => x.CompanyName.Trim() == lngAllowanceInfoDto.CompanyName.Trim());
 
-                lngAllowanceInfoDto.CompanyId = currentComapnyInfoDto.Id;
+                lngAllowanceInfoDto.CompanyId = currentComapnyInfoDto?.Id ?? 0;
             }
             return companyInfoDtoList;
         }
