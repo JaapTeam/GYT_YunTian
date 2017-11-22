@@ -92,7 +92,7 @@ namespace Zer.AppServices.Impl
 
         public List<PeccancyGroupByCompanyDto> GetPeccancyGroupByCompany(PeccancyWithCompanySearchDto filter)
         {
-            var sourceQuery = _peccancyRecrodDataService.GetAll().Where(x => x.Status == Status.未整改);
+            var sourceQuery = _peccancyRecrodDataService.GetAll();//.Where(x => x.Status == Status.未整改);
 
             if (filter.EndDateTime.HasValue)
             {
@@ -110,24 +110,40 @@ namespace Zer.AppServices.Impl
 
             filter.Total = query.Count();
 
-            var peccancyCountWithCompanyId = query.Skip((filter.PageIndex - 1) * filter.PageSize)
-                                                  .Take(filter.PageSize)
-                                                  .Select(x => new { CompanyId = x.Key, PeccancyRecordCount = x.Count() })
-                                                  .ToList();
+            var currentPagePeccancyWithCompanyIdList = query.Skip((filter.PageIndex - 1) * filter.PageSize)
+                                                            .Take(filter.PageSize)
+                                                            .Select(x => new
+                                                            {
+                                                                CompanyId = x.Key,
+                                                                PeccancyRecordCount = x.Count(),
+                                                                CanceledCount = x.Count(y=>y.Status == Status.已整改),
+                                                                UnCanceledCount = x.Count(y=>y.Status == Status.未整改)
+                                                            }).ToList();
 
-            var companyIdList = peccancyCountWithCompanyId.Select(x => x.CompanyId).ToList();
+            var companyIdList = currentPagePeccancyWithCompanyIdList.Select(x => x.CompanyId).ToList();
 
-            var result = _companyInfoDataService.GetAll().Where(x => companyIdList.Contains(x.Id)).Map<PeccancyGroupByCompanyDto>()
-                .ToList();
+            var companyList = _companyInfoDataService.GetAll().Where(x => companyIdList.Contains(x.Id)).ToList();
 
-            return result.Join(peccancyCountWithCompanyId, x => x.Id, x => x.CompanyId,
-                        (companyInfo, group) => new PeccancyGroupByCompanyDto()
-                        {
-                            CompanyName = companyInfo.CompanyName,
-                            Id = companyInfo.Id,
-                            PeccancyRecordCount = group.PeccancyRecordCount,
-                            TraderRange = companyInfo.TraderRange
-                        }).OrderByDescending(x => x.PeccancyRecordCount).ToList();
+            var resultList = new List<PeccancyGroupByCompanyDto>();
+
+            foreach (var companyInfo in companyList)
+            {
+                var peccWithCom = currentPagePeccancyWithCompanyIdList.FirstOrDefault(x => x.CompanyId == companyInfo.Id);
+                resultList.Add(new PeccancyGroupByCompanyDto()
+                {
+                    Id = companyInfo.Id,
+                    CompanyName = companyInfo.CompanyName,
+                    CanceledCount = peccWithCom?.CanceledCount ?? 0,
+                    PeccancyRecordCount = peccWithCom?.PeccancyRecordCount ?? 0,
+                    UnCanceledCount = peccWithCom?.UnCanceledCount ?? 0,
+                    TraderRange = companyInfo.TraderRange
+                });
+            }
+
+            return resultList.OrderByDescending(x => x.UnCanceledCount)
+                             .ThenByDescending(x=>x.PeccancyRecordCount)
+                             .ThenBy(x=>x.CanceledCount)
+                             .ToList();
         }
 
         private IQueryable<PeccancyInfo> Filter(PeccancySearchDto searchDto, IQueryable<PeccancyInfo> query)

@@ -119,7 +119,9 @@
                                 公司名称
                             </th>
                             <th>经营范围</th>
-                            <th class="hidden-480">违章次数</th>
+                            <th class="hidden-480">待整改数</th>
+                            <th class="hidden-480">已整改数</th>
+                            <th class="hidden-480">总违章数</th>
                         </tr>
                         </thead>
 
@@ -139,8 +141,15 @@
                                         @(item.TraderRange.IsNullOrEmpty() ? "" : (item.TraderRange.Length > 10 ? item.TraderRange.Substring(0, 9) + "..." : item.TraderRange))
                                     </td>
                                     <td class="hidden-480">
+                                        @item.UnCanceledCount
+                                    </td>
+                                    <td class="hidden-480">
+                                        @item.CanceledCount
+                                    </td>
+                                    <td class="hidden-480">
                                         @item.PeccancyRecordCount
                                     </td>
+
                                    
                                 </tr>
                             }
