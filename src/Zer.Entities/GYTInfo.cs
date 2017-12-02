@@ -1,40 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zer.Framework.Entities;
 
 namespace Zer.Entities
 {
     [Serializable]
-    public class GYTInfo:EntityBase
+    public class GYTInfo : EntityBase<string>
     {
         public BusinessType BusinessType { get; set; }
 
-        public int OriginalCompanyId { get; set; }
+        public int? OriginalCompanyId { get; set; }
 
-        [MaxLength(100)]
+        [StringLength(50)]
         public string OriginalCompanyName { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(10)]
         public string OriginalTruckNo { get; set; }
 
         public int BidCompanyId { get; set; }
 
-        [MaxLength(100)]
+        [StringLength(50)]
         public string BidCompanyName { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(10)]
         public string BidTruckNo { get; set; }
 
         public DateTime? BidDate { get; set; }
 
-        [MaxLength(20)]
+        [StringLength(20)]
         public string BidName { get; set; }
 
+        [StringLength(20)]
+        public string BidDisplayName { get; set; }
+
         public BusinessState Status { get; set; }
+        [Key]
+        [StringLength(30)]
+        public override string Id { get; set; }
     }
 
     /// <summary>
@@ -52,8 +54,7 @@ namespace Zer.Entities
     /// </summary>
     public enum BusinessState
     {
-        初始 = 0,
-        未通过 = 4,
-        已通过 = 8
+        已注销 = 4,
+        已办理 = 8
     }
 }

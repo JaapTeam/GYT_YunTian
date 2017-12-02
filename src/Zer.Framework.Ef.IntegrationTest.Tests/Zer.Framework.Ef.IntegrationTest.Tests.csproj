@@ -42,6 +42,23 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\packages\NPOI.2.2.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -55,9 +72,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelImportTest.cs" />
     <Compile Include="Migrations\201708050722440_Init_TestDatas.cs" />
     <Compile Include="Migrations\201708050722440_Init_TestDatas.Designer.cs">
       <DependentUpon>201708050722440_Init_TestDatas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708221458190_addEntity_withstringprimary.cs" />
+    <Compile Include="Migrations\201708221458190_addEntity_withstringprimary.Designer.cs">
+      <DependentUpon>201708221458190_addEntity_withstringprimary.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="TestDbContext.cs" />
@@ -66,6 +88,7 @@
     <Compile Include="TestEntityDataService.cs" />
     <Compile Include="TestRepositoryBase.cs" />
     <Compile Include="Tests\EfTests.cs" />
+    <Compile Include="Tests\TestForGenerateId.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zer.AppServices\Zer.AppServices.csproj">
@@ -91,11 +114,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="AssertFile\lng.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AssertFile\lng.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708050722440_Init_TestDatas.resx">
       <DependentUpon>201708050722440_Init_TestDatas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708221458190_addEntity_withstringprimary.resx">
+      <DependentUpon>201708221458190_addEntity_withstringprimary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

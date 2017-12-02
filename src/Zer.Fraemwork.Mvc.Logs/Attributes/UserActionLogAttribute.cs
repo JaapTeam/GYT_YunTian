@@ -2,57 +2,76 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using Zer.Entities;
 using Zer.Framework.Helpers;
 using Zer.GytDto;
+using Zer.GytDto.Users;
 
 namespace Zer.Framework.Mvc.Logs.Attributes
 {
     public class UserActionLogAttribute : ActionFilterAttribute
     {
+        public UserActionLogAttribute(string actionModel, ActionType actionType)
+        {
+            ActionModel = actionModel;
+            ActionType = actionType;
+        }
+
+        private string ActionModel { get; set; }
+        private ActionType ActionType { get; set; }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //if(filterContext.ActionDescriptor.get)
             if (filterContext.ActionDescriptor.GetCustomAttributes(typeof(UnLogAttribute), false).Any())
             {
                 base.OnActionExecuting(filterContext);
                 return;
             }
 
-            // TODO: 完善用户信息获取
             var logInfoDto = new LogInfoDto();
-            logInfoDto.UserId = 1;
-            logInfoDto.DisplayName = "测试用户";
-            logInfoDto.ActionModel = string.Format("{0}/{1}",
-                filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
-                filterContext.ActionDescriptor.ActionName
-            );
 
-            StringBuilder paramStringBuilder = new StringBuilder();
+            logInfoDto.UserId = -1;
+            logInfoDto.DisplayName = "非法用户";
 
-            foreach (var parametersKey in filterContext.ActionParameters.Keys)
+            if (filterContext.HttpContext.Session != null)
             {
-                paramStringBuilder.AppendFormat("{0}:{1}|", parametersKey,
-                    filterContext.ActionParameters[parametersKey]);
+                var userInfoDto = filterContext.HttpContext.Session["UserInfo"] as UserInfoDto;
+                if (userInfoDto == null)
+                {
+                    filterContext.Result = new RedirectResult("~/home/login");
+                    return;
+                }
+
+                logInfoDto.UserId = userInfoDto.UserId;
+                logInfoDto.DisplayName = userInfoDto.DisplayName;
             }
 
-            logInfoDto.Content = paramStringBuilder.ToString();
+            logInfoDto.ActionModel = ActionModel;
+            logInfoDto.ActionType = ActionType;
+
+            string content = string.Empty;
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+
+                content = json.Serialize(filterContext.ActionParameters);
+            }
+            catch
+            {
+                
+            }
+
+            logInfoDto.Content = content;
             logInfoDto.CreateTime = DateTime.Now;
-            logInfoDto.IP = IpHelper.GetIp();
+            logInfoDto.IP = IpHelper.GetWebClientIp();
 
             UserActionLogger.Instance.Info(logInfoDto);
-
-            //var userInfodto = filterContext.HttpContext.Session["UserInfo"] as UserInfoDto;
-
-            //if (userInfodto == null)
-            //{
-            //    filterContext.Result =new RedirectToRouteResult(new RouteValueDictionary(new
-            //    {
-            //        Controller = "User",
-            //        Action = "index"
-            //    }));
-            //}
-
+            
             base.OnActionExecuting(filterContext);
         }
     }
 }
+

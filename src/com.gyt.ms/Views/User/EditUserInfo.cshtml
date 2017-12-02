@@ -1,8 +1,10 @@
 ﻿@using System.Diagnostics
+@using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto.Users
 
 @{
-    ViewBag.Title = "EditUserInfo";
+    ViewBag.Title = "编辑UserInfo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var userInfoDto = ViewBag.Result as UserInfoDto;
@@ -18,7 +20,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="input_userName" style="color: red"> 用户名 </label>
 
         <div class="col-sm-9">
-            <input type="text" id="input_userName" placeholder="用户名" class="col-xs-10 col-sm-5" value="@userInfoDto.UserName">
+            <input type="text" id="input_userName" placeholder="用户名" class="col-xs-10 col-sm-5" value="@userInfoDto.UserName" disabled="disabled">
             <label id="lbl_userName" style="color: red;display: none"></label>
         </div>
     </div>
@@ -51,7 +53,7 @@
             <input type="text" id="input_mobilePhone" placeholder="联系号码" class="col-xs-10 col-sm-5" value="@userInfoDto.MobilePhone">
         </div>
     </div>
-
+    
     <div class="space-10"></div>
 
 
@@ -63,9 +65,9 @@
             </button>
 
             &nbsp; &nbsp; &nbsp;
-            <button class="btn" type="reset">
+            <button class="btn __btn_cancel" type="reset">
                 <i class="icon-undo bigger-110"></i>
-                清空
+                取消
             </button>
         </div>
     </div>
@@ -74,6 +76,12 @@
 @section scripts{
     <script type="text/javascript">
         $(function () {
+
+            $('body')
+                .on('click','.__btn_cancel',function() {
+                        window.location = '@Url.Action("AccountManage","User")';
+                    });
+
             $("#btn_Save")
                 .click(function () {
                     var userName = $("#input_userName").val();
@@ -81,6 +89,7 @@
                     var email = $("#input_email").val();
                     var displayName = $("#input_displayName").val();
                     var mobilePhone = $("#input_mobilePhone").val();
+                    var userRole = $('#__userRole').val();
 
                     if (userName === "") {
                         showLable($("#lbl_userName"), "用户名不能为空");
@@ -95,7 +104,8 @@
                             UserName: userName,
                             DisplayName: displayName,
                             Email: email,
-                            MobilePhone: mobilePhone
+                            MobilePhone: mobilePhone,
+                            Role : userRole
                         }
                     ;
 
@@ -115,10 +125,10 @@
                 $.ajax({
                     type: "POST",
                     url: "@Url.Action("Edit")",
-                    data: { userInfoDto: dto },
+                    data: { userInfoDto: dto ,@Html.AntiForgeryTokenForAjaxPost()},
                     dataType: "json",
                     success: function (data) {
-                        window.location.href = "@Url.Action("AccountManage",new {activeId=ViewBag.ActiveId})";
+                        window.location.href = "@Url.Action("AccountManage")";
                     }
                 });
 

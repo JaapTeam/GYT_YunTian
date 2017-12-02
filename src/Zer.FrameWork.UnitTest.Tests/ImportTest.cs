@@ -111,16 +111,16 @@ namespace Zer.Framework.UnitTest.Tests
 
         private class CompanyInfoDto
         {
-            [Sort(1)]
+            [ExportSort(1)]
             public int Id { get; set; }
 
-            [Sort(3)]
+            [ExportSort(3)]
             public string CompanyName { get; set; }
 
-            [Sort(2)]
+            [ExportSort(2)]
             public string TraderRange { get; set; }
 
-            [Sort(4)]
+            [ExportSort(4)]
             public DateTime CreateDate { get; set; }
 
             public override string ToString()

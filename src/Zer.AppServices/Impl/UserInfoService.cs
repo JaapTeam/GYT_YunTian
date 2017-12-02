@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Zer.Entities;
-using Zer.Framework.Entities;
 using Zer.Framework.Exception;
 using Zer.GytDataService;
 using Zer.GytDto.Extensions;
@@ -20,14 +19,15 @@ namespace Zer.AppServices.Impl
             _userIbfoDataService = userIbfoDataService;
         }
 
-        public UserInfoDto GetByUserName(string userName)
+        public UserInfoDto GetByUserName(string userName,string psd)
         {
-            return _userIbfoDataService.Single(x => x.UserName == userName).Map<UserInfoDto>();
+            var entity = _userIbfoDataService.FirstOrDefault(x => x.UserName == userName && x.Password == psd);
+            return entity?.Map<UserInfoDto>();
         }
 
         public LoginStatus VerifyUserNameAndPassword(string userName, string password)
         {
-            var userInfo = _userIbfoDataService.Single(x => x.UserName == userName);
+            var userInfo = _userIbfoDataService.FirstOrDefault(x => x.UserName == userName);
             if(userInfo == null) return LoginStatus.UserNameNotExists;
             if(userInfo.UserState == UserState.Frozen) return LoginStatus.UserFrozen;
             return userInfo.Password == password ? LoginStatus.Success : LoginStatus.IncorrectPassword;
@@ -41,7 +41,7 @@ namespace Zer.AppServices.Impl
             }
 
             var entity = Mapper.Map<UserInfo>(userInfo);
-
+            
             if (_userIbfoDataService.Insert(entity) == null)
             {
                 throw new CustomException("注册失败",new Dictionary<string,string>{{"UserName",userInfo.UserName}});
@@ -54,7 +54,7 @@ namespace Zer.AppServices.Impl
         {
             var entity = _userIbfoDataService.GetById(userId);
 
-            entity.State = State.SoftDeleted;
+            entity.UserState = UserState.Frozen;
 
             return _userIbfoDataService.Update(entity)!=null ? FrozenResult.Success : FrozenResult.UserIsFrzon;
         }
@@ -63,7 +63,7 @@ namespace Zer.AppServices.Impl
         {
             var entity = _userIbfoDataService.GetById(userId);
 
-            entity.State = State.Active;
+            entity.UserState = UserState.Active;
 
             return _userIbfoDataService.Update(entity) != null ? ThawResult.Success : ThawResult.UserIsThaw;
         }
@@ -82,17 +82,11 @@ namespace Zer.AppServices.Impl
             return _userIbfoDataService.GetAll().Any(x => x.UserName == userName);
         }
 
-        public bool Edit(UserInfoDto userInfoDto)
+        public void SetUserRole(int userId, RoleLevel role)
         {
-            var entity = _userIbfoDataService.GetById(userInfoDto.UserId);
-
-            entity.UserName = userInfoDto.UserName;
-            entity.DisplayName = userInfoDto.DisplayName;
-            entity.Email = userInfoDto.Email;
-            entity.MobilePhone = userInfoDto.MobilePhone;
-
-            return _userIbfoDataService.Update(entity) != null;
+            _userIbfoDataService.Update(userId,x=>x.Role = role);
         }
+
 
         public UserInfoDto GetById(int id)
         {
@@ -112,6 +106,18 @@ namespace Zer.AppServices.Impl
         public List<UserInfoDto> AddRange(List<UserInfoDto> list)
         {
             throw new NotImplementedException();
+        }
+
+        public UserInfoDto Edit(UserInfoDto model)
+        {
+            var entity = _userIbfoDataService.GetById(model.UserId);
+
+            entity.UserName = model.UserName;
+            entity.DisplayName = model.DisplayName;
+            entity.Email = model.Email;
+            entity.MobilePhone = model.MobilePhone;
+
+            return _userIbfoDataService.Update(entity).Map<UserInfoDto>();
         }
     }
 }

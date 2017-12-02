@@ -69,11 +69,11 @@ namespace Zer.Framework.Export
                                  .Where(x => !x.GetCustomAttributes().Any(t => t is ExportIgnoreAttribute))
                                  .OrderBy(x =>
                                      {
-                                         var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
+                                         var sortAttribute = x.GetCustomAttribute(typeof(ExportSortAttribute)) as ExportSortAttribute;
                                          if (sortAttribute == null)
                                          {
                                              throw new CustomException(
-                                                 "缺少属性" + typeof(SortAttribute).FullName,
+                                                 "缺少属性" + typeof(ExportSortAttribute).FullName,
                                                  "属性名:",
                                                  x.Name
                                              );
@@ -105,11 +105,11 @@ namespace Zer.Framework.Export
                 //                .Where(x=>x.GetCustomAttributes())
                 .OrderBy(x =>
                     {
-                        var sortAttribute = x.GetCustomAttribute(typeof(SortAttribute)) as SortAttribute;
+                        var sortAttribute = x.GetCustomAttribute(typeof(ExportSortAttribute)) as ExportSortAttribute;
                         if (sortAttribute == null)
                         {
                             throw new CustomException(
-                                "缺少属性" + typeof(SortAttribute).FullName,
+                                "缺少属性" + typeof(ExportSortAttribute).FullName,
                                 "属性名:",
                                 x.Name
                                 );
@@ -124,7 +124,7 @@ namespace Zer.Framework.Export
                     };
                     var value = x.GetValue(obj);
                     if (value == null) return " ";
-                    if (value is DateTime) return string.Format("{0:yyyy-MM-dd hh:mm:ss}", value);
+                    if (value is DateTime) return string.Format("{0:yyyy-MM-dd HH:mm:ss}", value);
 
                     if (specilTypeList.Contains(value.GetType()))
                     {

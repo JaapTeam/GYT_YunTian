@@ -55,7 +55,6 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                         }
                         ValidateHelper.ValidateObjectIsSafe(obj);
                     }
-                    //var obj = filterContext.HttpContext.Session[]
                 }
 
                 var inputParameters = filterContext.ActionParameters
@@ -72,6 +71,7 @@ namespace Zer.Framework.Mvc.Logs.Attributes
                     {
                         foreach (var replaceAttribute in replaceAttributes)
                         {
+
                             filterContext.ActionParameters[inputParameter.Key] = replaceAttribute.ReplaceUnsafeChar(inputParameter.Value);
                         }
                     }

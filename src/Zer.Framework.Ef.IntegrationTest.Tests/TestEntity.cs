@@ -13,4 +13,9 @@ namespace Zer.Framework.Ef.IntegrationTest.Tests
         public bool BoolenField { get; set; }
         public DateTime CreateTime { get; set; }
     }
+
+    public class TestEntityWithStringPrimaryKey:EntityBase<string>
+    {
+        public override string Id { get; set; }
+    }
 }

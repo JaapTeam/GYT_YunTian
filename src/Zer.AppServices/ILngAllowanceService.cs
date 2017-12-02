@@ -4,14 +4,14 @@ using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices
 {
-    public interface ILngAllowanceService: AppServices.IAppService<LngAllowanceInfoDto,int>
+    public interface ILngAllowanceService: IAppService<LngAllowanceInfoDto,string>
     {
-        List<LngAllowanceInfoDto> GetList(AppServices.FilterMatchInputDto filterMatchInput);
-
-        List<LngAllowanceInfoDto> GetList(int[] idList);
-
         bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto);
 
         List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto);
+
+        LngAllowanceInfoDto ChangStatus(string id);
+
+        void AddDescription(string id, string description);
     }
 }

@@ -1,216 +1,204 @@
 ﻿@using System.Diagnostics
 @using Zer.Entities
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto.Users
 
 @{
-    ViewBag.Title = "AccountManage";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
     var infoList = ViewBag.Result as List<UserInfoDto>;
+    var currentUserInfoDto = ViewBag.UserInfo as UserInfoDto;
 }
 
 <h3 class="header smaller lighter blue">帐号管理</h3>
 
-    <div class="table-header">
+<div class="table-header">
 
-        <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
-            <a class="white" id="btn_Add">
-                <i class="icon-plus-sign bigger-110">
-                    <span class="">新增用户</span>
-                </i>
-            </a>
-
-            <a class="white" id="btn_Edit">
-                <i class="icon-edit bigger-110">
-                    <span class="">编辑用户</span>
-                </i>
-            </a>
-
-            <a class="white" id="btn_Frozon">
-                <i class="icon-lock bigger-110">
-                    <span class="">冻结用户</span>
-                </i>
-            </a>
-            
-            <a class="white" id="btn_Thaw">
-                <i class="icon-unlock bigger-110">
-                    <span class="">解冻用户</span>
-                </i>
-            </a>
-        </div>
+    <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+        <a href="@Url.Action("AddUserInfo", "User")" class="white" id="btn_Add">
+            <i class="icon-plus-sign bigger-110">
+                <span class="">新增用户</span>
+            </i>
+        </a>
 
     </div>
 
-    <div class="table-responsive">
-        <table id="tb_Info" class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th class="center">
-                        <label>
-                            <input type="checkbox" class="ace">
-                            <span class="lbl"></span>
-                        </label>
-                    </th>
-                    <th>序号</th>
-                    <th>用户名</th>
-                    <th>用户姓名</th>
-                    <th>邮箱</th>
-                    <th>联系方式</th>
-                    <th>状态</th>
-                    <th>创建日期</th>
-                    <!--link to log detail page, to view the logs with user-->
-                    <th>日志信息</th>
-                </tr>
-            </thead>
+</div>
 
-            <tbody>
+<div class="table-responsive">
+    <table id="tb_Info" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
 
-                @{
-                    Debug.Assert(infoList != null, "infoList != null");
-                }
+                <th>序号</th>
+                <th>用户名</th>
+                <th>用户姓名</th>
+                <th>邮箱</th>
+                <th>联系方式</th>
+                <th>状态</th>
+                <th>权限</th>
+                <th>管理</th>
+                <!--link to log detail page, to view the logs with user-->
 
+            </tr>
+        </thead>
 
-                @foreach (var userInfoDto in infoList)
-                {
-                    <tr>
-                        <td class="center">
-                            <label>
-                                <input type="checkbox" class="ace">
-                                <span class="lbl"></span>
-                            </label>
-                        </td>
-                        <td>@userInfoDto.UserId</td>
+        <tbody>
 
-                        <td>
-                            <a href="javascript:();">
-                                @userInfoDto.UserName
-                            </a>
-                        </td>
-
-                        <td>
-                            @userInfoDto.DisplayName
-                        </td>
-                        <td>@userInfoDto.Email</td>
-                        <td>
-                            @userInfoDto.MobilePhone
-                        </td>
-                        <td>
-                            <span class="@(userInfoDto.State == UserState.Active ? "label label-sm label-success" : "label label-sm label-danger")">@userInfoDto.State</span>
-                        </td>
-                        <td>2017/06/25</td>
-                        <td class="hidden-480">
-                            <a href="@Url.Action("UserLogInfo","LogInfo",new {activeId=ViewBag.ActiveId,userId=userInfoDto.UserId})">
-                                详情
-                            </a>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="dataTables_paginate padding-10">
-                    <ul class="pagination">
-                        <li class="prev disabled">
-                            <a href="#">
-                                <i class="icon-double-angle-left"></i>
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li class="next">
-                            <a href="#">
-                                <i class="icon-double-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-@section scripts
-{
-    <script type="text/javascript">
-    $(function () {
-        $("#btn_Add")
-            .click(function () {
-                window.location = "@Url.Action("AddUserInfo", new {activeId = ViewBag.ActiveId})";
-            });
-
-        $("#btn_Edit")
-            .click(function () {
-
-                var ids = getSelectIds();
-
-                if (ids.length > 0) {
-                    window.location = "@Url.Action("EditUserInfo", new {activeId = ViewBag.ActiveId})&userId=" +
-                        ids[0];
-                }
-            });
-
-        $("#btn_Frozon")
-            .click(function () {
-
-                var ids = getSelectIds();
-
-                if (ids.length > 0) {
-
-                    $.ajax({
-                        type: "POST",
-                        url: "@Url.Action("Frozon")",
-                        data: { userId: ids[0] },
-                    dataType: "json",
-                    success: function(data) {
-                        window.location.href = "@Url.Action("AccountManage",new {activeId=ViewBag.ActiveId})";
-                    }
-                });
-                }
-
-            });
-        $("#btn_Thaw")
-            .click(function () {
-
-                var ids = getSelectIds();
-
-                if (ids.length > 0) {
-
-                    $.ajax({
-                        type: "POST",
-                        url: "@Url.Action("Thaw")",
-                        data: { userId: ids[0] },
-                    dataType: "json",
-                    success: function(data) {
-                        window.location.href = "@Url.Action("AccountManage",new {activeId=ViewBag.ActiveId})";
-                    }
-                });
+            @{
+                Debug.Assert(infoList != null, "infoList != null");
             }
 
-        });
-    });
 
-    function getSelectIds() {
-        var ids = [];
-        var index = 0;
+            @foreach (var userInfoDto in infoList)
+            {
+                <tr>
 
-        var tbodyObj = document.getElementById('tb_Info');
-        $("table :checkbox")
-            .each(function (key, value) {
-                if ($(value).prop('checked')) {
-                    ids[index] = tbodyObj.rows[key].cells[1].innerHTML;
-                    index++;
-                }
-            });
-        return ids;
-    }
+                    <td>@userInfoDto.UserId</td>
+
+                    <td>
+                        <a href="javascript:();">
+                            @userInfoDto.UserName
+                        </a>
+                    </td>
+
+                    <td>
+                        @userInfoDto.DisplayName
+                    </td>
+                    <td>@userInfoDto.Email</td>
+                    <td>
+                        @userInfoDto.MobilePhone
+                    </td>
+                    <td>
+                        @if (userInfoDto.UserState == UserState.Active)
+                        {
+                            <span class="label label-sm label-success">已激活</span>
+                        }
+                        @if (userInfoDto.UserState == UserState.Frozen)
+                        {
+                            <span class="label label-sm label-grey">已冻结</span>
+                        }
+                    </td>
+                    <td>
+                        @if (userInfoDto.Role == RoleLevel.Administrator)
+                        {
+                            <span>管理员</span>
+                        }
+
+                        @if (userInfoDto.Role == RoleLevel.User)
+                        {
+                            <span>普通用户</span>
+                        }
+                    </td>
+                    <td class="hidden-480">
+                        <!-- Single button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                管理<i class="icon-angle-down icon-on-right"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+
+                                @if (currentUserInfoDto != null && currentUserInfoDto.UserId != userInfoDto.UserId)
+                                {
+                                    if (userInfoDto.Role == RoleLevel.Administrator)
+                                    {
+                                        <li>
+                                            
+                                            <a href="javascript:;" class="__setRole" data-userId="@userInfoDto.UserId" data-roleId="@RoleLevel.User">设置为普通用户</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="javascript:;" class="__setRole" data-userid="@userInfoDto.UserId" data-roleid="@RoleLevel.Administrator">设置为管理员</a>
+                                        </li>
+                                    }
+
+
+                                    <li role="separator" class="divider"></li>
+
+                                    if (userInfoDto.UserState == UserState.Active)
+                                    {
+                                        <li>
+                                            <a class="__frozon" href="javascript:;" data-userId="@userInfoDto.UserId">冻结用户</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a class="__Thaw" href="javascript:;" data-userid="@userInfoDto.UserId">激活用户</a>
+                                        </li>
+                                    }
+
+                                    <li role="separator" class="divider"></li>
+                                }
+
+                                <li>
+                                    <a href="@Url.Action("EditUserInfo", "User", new {userId = userInfoDto.UserId})">编辑用户信息</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+@section scripts{
+    <script>
+        $(function() {
+            $('body')
+            .on("click", ".__frozon",function() {
+                var link = $(this);
+                var userId = $(link).attr('data-userId');
+                    $.ajax({
+                        url: '@Url.Action("Frozon", "User")',
+                        type: 'post',
+                        data: { userId: userId,@Html.AntiForgeryTokenForAjaxPost() },
+                        success:function(d) {
+                            if (d.C === 901) {
+                                window.location.reload();
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                })
+            })
+                .on("click", ".__Thaw", function () {
+                    var link = $(this);
+                    var userId = $(link).attr('data-userId');
+                    $.ajax({
+                        url: '@Url.Action("Thaw", "User")',
+                        type: 'post',
+                        data: { userId: userId,@Html.AntiForgeryTokenForAjaxPost() },
+                        success:function(d) {
+                            if (d.C === 901) {
+                                window.location.reload();
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                    })
+                })
+                .on("click", ".__setRole", function () {
+                    var link = $(this);
+                    var userId = $(link).attr('data-userId');
+                    var roleId = $(link).attr('data-roleId');
+                    $.ajax({
+                        url: '@Url.Action("SetRole", "User")',
+                        type: 'post',
+                        data: { userId: userId,roleId:roleId,@Html.AntiForgeryTokenForAjaxPost() },
+                        success:function(d) {
+                            if (d.C === 901) {
+                                window.location.reload();
+                            } else {
+                                alert(d.msg);
+                            }
+                        }
+                    })
+                })
+        })
     </script>
 }

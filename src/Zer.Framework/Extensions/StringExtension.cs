@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Web;
 using Zer.Framework.Helpers;
@@ -73,6 +76,31 @@ namespace Zer.Framework.Extensions
             return startDate;
         }
 
-        
+        public static List<string> PartString(this string str, char mark)
+        {
+            if (str.Length <= 0)
+            {
+                return new List<string>();
+            }
+
+            if (mark.ToString().IsNullOrEmpty())
+            {
+                return new List<string>();
+            }
+            var stringList = str.Split(mark).ToList();
+            return stringList;
+        }
+
+        public static string Serialization<T>(this T obj) where T:class
+        {
+            var sb = new StringBuilder();
+            var t = typeof(T);
+            sb.AppendLine(t.FullName);
+            foreach (var pi in typeof(T).GetProperties())
+            {
+                sb.AppendLine($"\t[{pi.Name}:{pi.GetValue(obj)?.ToString()}]\n");
+            }
+            return sb.ToString();
+        }
     }
 }

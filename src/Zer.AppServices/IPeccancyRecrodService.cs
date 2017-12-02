@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
 using Zer.GytDto;
+using Zer.GytDto.OutputDto;
 using Zer.GytDto.SearchFilters;
 
 namespace Zer.AppServices
 {
-    public interface IPeccancyRecrodService : AppServices.IAppService<PeccancyRecrodDto, int>
+    public interface IPeccancyRecrodService : IAppService<PeccancyRecrodDto, int>
     {
-        List<PeccancyRecrodDto> GetListByFilterMatch(AppServices.FilterMatchInputDto filterMatch);
-
-        bool ChangeStatusById(int id);
-
-        List<PeccancyRecrodDto> GetListByIds(int[] ids);
-
+        bool ChangeStatusById(string id);
+        
         bool Exists(PeccancyRecrodDto overloadRecrodDto);
 
         List<PeccancyRecrodDto> GetList(PeccancySearchDto searchDto);
+
+        List<PeccancyGroupByCompanyDto> GetPeccancyGroupByCompany(PeccancyWithCompanySearchDto filter);
 
         /// <summary>
         /// 检查公司是否有未整改记录
@@ -22,5 +21,7 @@ namespace Zer.AppServices
         /// <param name="companyName"></param>
         /// <returns></returns>
         bool ExistsCompanyName(string companyName);
+
+        PeccancyRecrodDto GetByPeccancyId(string peccancyId);
     }
 }

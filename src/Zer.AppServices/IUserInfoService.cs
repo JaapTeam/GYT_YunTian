@@ -1,10 +1,11 @@
-﻿using Zer.GytDto.Users;
+﻿using Zer.Entities;
+using Zer.GytDto.Users;
 
 namespace Zer.AppServices
 {
     public interface IUserInfoService : AppServices.IAppService<UserInfoDto,int>
     {
-        UserInfoDto GetByUserName(string userName);
+        UserInfoDto GetByUserName(string userName,string psd);
         LoginStatus VerifyUserNameAndPassword(string userName, string password);
 
         RegistResult Regist(UserInfoDto userInfo);
@@ -17,6 +18,6 @@ namespace Zer.AppServices
 
         bool Exists(string userName);
 
-        bool Edit(UserInfoDto userInfoDto);
+        void SetUserRole(int userId, RoleLevel role);
     }
 }

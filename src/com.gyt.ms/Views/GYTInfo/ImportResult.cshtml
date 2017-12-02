@@ -4,8 +4,43 @@
     var successList = ViewBag.SuccessList as List<GYTInfoDto>;
     var failedList = ViewBag.FailedList as List<GYTInfoDto>;
     var existedList = ViewBag.ExistedList as List<GYTInfoDto>;
+    var formatFailed = ViewBag.FormatErrorList as List<string>;
 }
 
+<!--格式化错误的列表-->
+@if (!formatFailed.IsNullOrEmpty())
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header header-color-pink header-color-orange">
+                    <h5>数据格式化出错</h5>
+
+                    <div class="widget-toolbar">
+                        <a href="#" data-action="collapse">
+                            <i class="1 bigger-125 icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-body-inner" style="display: block;">
+                        <div class="widget-main">
+                            <ul>
+                                @foreach (var msg in formatFailed)
+                                {
+                                    <li>
+                                        <label>@msg</label>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <!--导入失败的列表-->
 @if (!failedList.IsNullOrEmpty())
 {
@@ -50,7 +85,7 @@
                                         <th>申办车牌号</th>
                                         <th>办理日期</th>
                                         <th>经办人</th>
-                                        <th></th>
+                                        <th>业务状态</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,7 +117,7 @@
                 </td>
                 <td>@gytInfoDto.BidName</td>
                 <td>
-                    <a href="javascript:;">详情</a>
+                   @gytInfoDto.Status
                 </td>
             </tr>
         }
@@ -145,7 +180,7 @@
                                         <th>申办车牌号</th>
                                         <th>办理日期</th>
                                         <th>经办人</th>
-                                        <th></th>
+                                        <th>业务状态</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -177,7 +212,7 @@
                 </td>
                 <td>@gytInfoDto.BidName</td>
                 <td>
-                    <a href="javascript:;">详情</a>
+                    @gytInfoDto.Status
                 </td>
             </tr>
         }
@@ -255,7 +290,7 @@ else
                                             <th>申办车牌号</th>
                                             <th>办理日期</th>
                                             <th>经办人</th>
-                                            <th></th>
+                                            <th>业务状态</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -287,7 +322,7 @@ else
                 </td>
                 <td>@gytInfoDto.BidName</td>
                 <td>
-                    <a href="javascript:;">详情</a>
+                    @gytInfoDto.Status
                 </td>
             </tr>
         }

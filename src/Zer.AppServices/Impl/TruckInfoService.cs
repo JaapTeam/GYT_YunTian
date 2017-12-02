@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Zer.Entities;
+using Zer.Framework.Extensions;
 using Zer.GytDataService;
 using Zer.GytDto;
 using Zer.GytDto.Extensions;
@@ -42,6 +43,11 @@ namespace Zer.AppServices.Impl
             return _truckInfoDataService.AddRange(list.Map<TruckInfo>()).Map<TruckInfoDto>().ToList();
         }
 
+        public TruckInfoDto Edit(TruckInfoDto model)
+        {
+            throw new NotImplementedException();
+        }
+
         public TruckInfoDto GetByTruckNo(string truckNo)
         {
             return _truckInfoDataService.GetAll()
@@ -61,10 +67,33 @@ namespace Zer.AppServices.Impl
 
         public List<TruckInfoDto> QueryAfterValidateAndRegist(List<TruckInfoDto> list)
         {
-            var waitForRegistList = list.Where(x => !(Exists(x.FrontTruckNo) || Exists(x.BehindTruckNo))).ToList();
+            if (list.IsNullOrEmpty())
+            {
+                return new List<TruckInfoDto>();
+            }
 
-            return AddRange(waitForRegistList);
+            var truckNoList = list.Select(x => x.FrontTruckNo).ToList();
+
+            var existsTruckList = _truckInfoDataService.GetAll()
+                .Where(x => truckNoList.Contains(x.FrontTruckNo)).ToList();
+
+            var waitForRegistList = list.Where(x => existsTruckList.All(y => y.FrontTruckNo != x.FrontTruckNo))
+                .ToList();
+
+            var registedList = AddRange(waitForRegistList);
+
+            registedList.AddRange(existsTruckList.Map<TruckInfoDto>().ToList());
+
+            return registedList;
         }
 
+        public TruckInfoDto QueryAfterValidateAndRegist(TruckInfoDto dto)
+        {
+            var truckInfoEntity = _truckInfoDataService.GetAll().FirstOrDefault(x => x.FrontTruckNo == dto.FrontTruckNo);
+
+            return truckInfoEntity != null 
+                ? truckInfoEntity.Map<TruckInfoDto>()
+                : _truckInfoDataService.Insert(dto.Map<TruckInfo>()).Map<TruckInfoDto>();
+        }
     }
 }

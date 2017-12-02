@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic;
 using AutoMapper;
 using Zer.Entities;
 using Zer.Framework.Dto;
@@ -21,7 +21,7 @@ namespace Zer.AppServices.Impl
             _lngAllowanceInfoDataService = lngAllowanceInfoDataService;
         }
 
-        public LngAllowanceInfoDto GetById(int id)
+        public LngAllowanceInfoDto GetById(string id)
         {
             return Mapper.Map<LngAllowanceInfoDto>(_lngAllowanceInfoDataService.GetById(id));
         }
@@ -46,14 +46,19 @@ namespace Zer.AppServices.Impl
             return insertList;
         }
 
-        public List<LngAllowanceInfoDto> GetList(FilterMatchInputDto filterMatchInput)
+        public LngAllowanceInfoDto Edit(LngAllowanceInfoDto model)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public List<LngAllowanceInfoDto> GetList(int[] idList)
-        {
-            throw new System.NotImplementedException();
+            return _lngAllowanceInfoDataService.Update(model.Id, x =>
+            {
+                x.CompanyName = model.CompanyName;
+                x.LotId = model.LotId;
+                x.TruckNo = model.TruckNo;
+                x.EngineId = model.EngineId;
+                x.CylinderDefaultId = model.CylinderDefaultId;
+                x.CylinderSeconedId = model.CylinderSeconedId;
+                x.CreateTime = model.CreateTime;
+                x.Status = model.Status;
+            }).Map<LngAllowanceInfoDto>();
         }
 
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
@@ -76,6 +81,23 @@ namespace Zer.AppServices.Impl
             return query.Map<LngAllowanceInfoDto>().ToList();
         }
 
+        public LngAllowanceInfoDto ChangStatus(string id)
+        {
+            var infoDto = _lngAllowanceInfoDataService.GetById(id);
+            infoDto.CreateTime = DateTime.Now;
+            if (infoDto.Status == LngStatus.未补贴)
+            {
+                infoDto.Status = LngStatus.已补贴;
+            }
+
+            return _lngAllowanceInfoDataService.Update(infoDto.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
+        }
+
+        public void AddDescription(string id, string description)
+        {
+            _lngAllowanceInfoDataService.Update(id, x => x.Description = description);
+        }
+
         private IQueryable<LngAllowanceInfo> Filter(LngAllowanceSearchDto searchDto, IQueryable<LngAllowanceInfo> query)
         {
             if (!searchDto.TruckNo.IsNullOrEmpty())
@@ -83,15 +105,26 @@ namespace Zer.AppServices.Impl
                 query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo));
             }
 
-            if (!searchDto.EngineId.IsNullOrEmpty())
+            if (!searchDto.CompanyName.IsNullOrEmpty())
             {
-                query = query.Where(x => x.EngineId.Contains(searchDto.EngineId));
+                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName));
             }
 
             if (searchDto.IsAllowanced.HasValue)
             {
-                //query = query.Where(x=>x.)
+                query = query.Where(x => x.Status == searchDto.IsAllowanced.Value);
             }
+
+            if (searchDto.StartDate.HasValue)
+            {
+                query = query.Where(x => x.CreateTime >= searchDto.StartDate);
+            }
+
+            if (searchDto.EndDate.HasValue)
+            {
+                query = query.Where(x => x.CreateTime <= searchDto.EndDate);
+            }
+
             return query;
         }
     }

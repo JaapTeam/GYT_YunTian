@@ -1,0 +1,203 @@
+﻿@using Zer.Framework.Extensions
+@using Zer.GytDto
+@using Zer.GytDto.OutputDto
+@using Zer.GytDto.SearchFilters
+
+@{
+    var companyList = ViewBag.CompanyList as List<PeccancyGroupByCompanyDto>;
+    var searchFilter = ViewBag.Filter as PeccancyWithCompanySearchDto;
+}
+
+
+<div class="row">
+    <form action="@(Url.Action("Company", "PeccancyRecrod"))" method="post" id="form_search">
+
+        <div class="div-inline" style="height: 30px">
+
+            <span style="margin-left: 10px">最少未整改违章次数：</span>
+            <input type="text" class="input-mini" value="@(searchFilter.MinCount??0)" style="width: 150px" name="MinCount" id="input_CompanyName" />
+            
+            <span style="margin-left: 10px">日期：</span>
+            <label class="input-append date form_date" id="startDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+                <input class="input-mini" name="StartDateTime" size="16"
+                       style="width: 90px" type="text"
+                       value="@(searchFilter.StartDateTime.HasValue ? string.Format("{0:yyyy-M-dd}", searchFilter.StartDateTime.Value) : "")">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </label>  
+            <span>到</span>
+            <label class="input-append date form_date" id="endDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
+                <input class="input-mini" name="EndDateTime" size="16" style="width: 90px"
+                       type="text"
+                       value="@(searchFilter.EndDateTime.HasValue? string.Format("{0:yyyy-M-dd}",searchFilter.EndDateTime.Value):"")">
+                <span class="add-on"><i class="icon-th"></i></span>
+            </label>  
+            <div class="div-inline hidden" style="height: 30px">
+                <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
+            </div>
+        
+            <button type="submit" class="btn btn-sm btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="table-header" style="margin-top: 20px">
+
+        <div class="visible-sm visible-md hidden-sm hidden-xs action-buttons">
+            <a class="white" id="btn_export" href="javascript:;">
+                <i class="icon-cloud-download bigger-110">
+                    <span class="">导出</span>
+                </i>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thin-border-bottom">
+            <tr>
+                <th>
+                    公司名称
+                </th>
+                <th>经营范围</th>
+                <th class="hidden-480">待整改数</th>
+                <th class="hidden-480">已整改数</th>
+                <th class="hidden-480">总违章数</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            @if (!companyList.IsNullOrEmpty())
+            {
+                foreach (var item in companyList)
+                {
+                    <tr>
+                        <td>
+                            <a href="javascript:;" class="__btn_company_details" data-companyname='@item.CompanyName'>@item.CompanyName</a>
+                        </td>
+                        <td>
+                            @(item.TraderRange.IsNullOrEmpty() ? "" : item.TraderRange)
+                        </td>
+                        <td class="hidden-480">
+                            @item.UnCanceledCount
+                        </td>
+                        <td class="hidden-480">
+                            @item.CanceledCount
+                        </td>
+                        <td class="hidden-480">
+                            @item.PeccancyRecordCount
+                        </td>
+
+                    </tr>
+                }
+            }
+
+            </tbody>
+        </table>
+        
+        @if (searchFilter.PageCount > 1)
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dataTables_paginate padding-10">
+                        <ul class="pagination">
+
+                            <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
+                                <a class="__page" href="javascript:;" data-pageindex='1'>
+                                    <i class="icon-double-angle-left"></i>
+                                </a>
+                            </li>
+                            @for (int i = 1; i <= searchFilter.PageCount; i++)
+                            {
+                                <li class="@(searchFilter.PageIndex == i ? "active" : "")">
+                                    <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
+                                </li>
+                            }
+                            <li class="next  @(searchFilter.PageIndex == searchFilter.PageCount ? "disabled" : "")">
+                                <a class="__page" href="javascript:;" data-pageindex='@searchFilter.PageCount'>
+                                    <i class="icon-double-angle-right"></i>
+                                </a>
+                            </li>
+                            
+                            <li class="prev">
+                                <label cla for="jump_page">
+                                    跳转至：
+                                    <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
+                                </label>
+                                <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<form action="@Url.Action("index", "PeccancyRecrod")" method="post">
+    <input type="text" name="CompanyName" id="search_peccancyrecord_companyName" class="hidden" />
+    <input type="submit" id="search_peccancyrecord" class="hidden" />
+</form>
+
+@section header{
+    <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+  
+    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var changeId = "";
+
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+
+       
+            $('body')
+
+                // 分页
+                .on('click', '.__jump', function () {
+                    var pageIndex = $('#jump_page').val();
+                    $('#input_pageIndex').val(pageIndex);
+                    $('#btn_submit').click();
+                })
+
+                .on('click','.__page',function () {
+                    var pageIndex = $(this).attr('data-pageindex');
+                    $('#input_pageIndex').val(pageIndex);
+                    $('#btn_submit').click();
+                })
+
+                .on('click','.__btn_company_details',function() {
+                        var companyName = $(this).attr('data-companyName');
+                        $('#search_peccancyrecord_companyName').val(companyName);
+                        $('#search_peccancyrecord').click();
+                    })
+
+                // 文件导出
+                .on('click',
+                    '#btn_export',
+                    function () {
+                        var oraginActionUrl = $('#form_search').attr("action");
+                        $('#form_search').attr("action", '@Url.Action("ExportPecancyWithCompany", "PeccancyRecrod")');
+                        $('#btn_submit').click();
+                        $('#form_search').attr("action", oraginActionUrl);
+                    });
+
+        });
+    </script>
+}

@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationServiceModule.cs" />
+    <Compile Include="Extensions\LogInfoAppServiceExtensions.cs" />
     <Compile Include="Impl\GYTInfoService.cs" />
     <Compile Include="IGYTInfoService.cs" />
     <Compile Include="Impl\CompanyService.cs" />
@@ -88,10 +89,6 @@
     <ProjectReference Include="..\Zer.Entities\Zer.Entities.csproj">
       <Project>{CCBD3F93-64C6-40EB-A213-1F762F04796E}</Project>
       <Name>Zer.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Zer.Framework.Logs\Zer.Framework.Logs.csproj">
-      <Project>{875FC68E-339B-41F5-AE9C-CBE034918D8D}</Project>
-      <Name>Zer.Framework.Logs</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zer.Framework\Zer.Framework.csproj">
       <Project>{43706F4B-C6AF-44E1-9DA0-9EDD48C6ADC3}</Project>

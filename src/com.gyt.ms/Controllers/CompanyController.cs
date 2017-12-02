@@ -9,6 +9,7 @@ using Zer.GytDto;
 
 namespace com.gyt.ms.Controllers
 {
+    [RoutePrefix("company")]
     public class CompanyController : BaseController
     {
         private readonly ICompanyService _companyService;
@@ -20,11 +21,12 @@ namespace com.gyt.ms.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.ActiveId = 1;
+           
             var dto = _companyService.GetById(1);
             return View(dto);
         }
 
+        [Route("add")]
         public JsonResult AddCompany(CompanyInfoDto companyInfoDto)
         {
             var companyInfo = new CompanyInfo()
@@ -44,6 +46,7 @@ namespace com.gyt.ms.Controllers
             return Success();
         }
 
+        [Route("like/{likeName?}")]
         public JsonResult GetCopanyByLikeName(string likeName = "")
         {
             if (likeName.IsNullOrEmpty())
@@ -56,12 +59,14 @@ namespace com.gyt.ms.Controllers
             return Success(companyList);
         }
 
-        public JsonResult GetCompanyById(int id = 0)
+        [Route("get/{id?}")]
+        public JsonResult GetCompanyById(int? id = 0)
         {
-            var dto = _companyService.GetById(id);
+            var dto = _companyService.GetById(id ?? 0);
             return Success(dto);
         }
 
+        [Route("exists/{companyFullName}")]
         public JsonResult CompanyIsExists(string companyFullName)
         {
             return Success(_companyService.Exists(companyFullName));

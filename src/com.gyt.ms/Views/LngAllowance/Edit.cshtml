@@ -1,0 +1,227 @@
+﻿@using Zer.Entities
+@using Zer.Framework.Extensions
+@using Zer.GytDto
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lngAllowanceInfoDto = Model as LngAllowanceInfoDto;
+    var provinceList = ViewBag.ProvinceList as List<string>;
+    var characterList = ViewBag.CharacterList as List<string>;
+}
+
+<h3 class="header smaller lighter blue">LNG补贴信息编辑</h3>
+@if (lngAllowanceInfoDto != null)
+{
+    <form class="form-horizontal" role="form" method="post" action="@Url.Action("SaveEdit", "LngAllowance")">
+        @Html.AntiForgeryToken()
+        <input value="@lngAllowanceInfoDto.Id" class="hide" name="Id"/>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"> LNG补贴编号 </label>
+
+            <div class="col-sm-9">
+                <span>@lngAllowanceInfoDto.Id</span>
+                <input value="@lngAllowanceInfoDto.Id" class="hide" name="Id"/>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_companyName" style="color: red"> 公司名称 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_companyName" placeholder="公司名称" class="col-xs-10 col-sm-5" value="@lngAllowanceInfoDto.CompanyName" name="CompanyName">
+                <label id="lbl_companyName" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_lotId" style="color: red"> 批次 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_lotId" placeholder="批次" class="col-xs-10 col-sm-5" value="@lngAllowanceInfoDto.LotId" name="LotId">
+                <label id="lbl_lotId" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_truckNo" style="color: red"> 车牌号 </label>
+
+            <div class="col-sm-9">
+                <select class="select2-default _TruckNo_province col-sm-1">
+                    <option></option>
+                    @{
+                        if (provinceList != null && provinceList.Count > 0)
+                        {
+                            foreach (var item in provinceList)
+                            {
+                                if (!lngAllowanceInfoDto.TruckNo.IsNullOrEmpty() && lngAllowanceInfoDto.TruckNo.Substring(0, 1).Equals(item))
+                                {
+                                    <option value="@item" selected="selected">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+
+
+                <select class="select2-default _TruckNo_character col-sm-1" style="margin-left: 8px">
+                    <option></option>
+                    @{
+                        if (characterList != null && characterList.Count > 0)
+                        {
+                            foreach (var item in characterList)
+                            {
+                                if (!lngAllowanceInfoDto.TruckNo.IsNullOrEmpty() && lngAllowanceInfoDto.TruckNo.Substring(1, 1).Equals(item))
+                                {
+                                    <option value="@item" selected="selected">@item</option>
+                                }
+                                else
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            }
+                        }
+                    }
+                </select>
+
+                <input type="text" id="input_TruckNo" placeholder="" style="margin-left: 8px" value="@(lngAllowanceInfoDto.TruckNo.IsNullOrEmpty() ? "" : lngAllowanceInfoDto.TruckNo.Substring(2))">
+                <label id="lbl_TruckNo" style="color: red; display: none"></label>
+                <input type="text" value="@lngAllowanceInfoDto.TruckNo" class="hide" name="TruckNo">
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_engineId"> 发动机号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_engineId" placeholder="发动机号" class="col-xs-10 col-sm-5" value="@lngAllowanceInfoDto.EngineId" name="EngineId">
+                <label id="lbl_traderRange" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_cylinderDefaultId"> 汽缸1编号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_cylinderDefaultId" placeholder="汽缸1编号" class="col-xs-10 col-sm-5" value="@lngAllowanceInfoDto.CylinderDefaultId" name="CylinderDefaultId">
+                <label id="lbl_driverName" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_cylinderSeconedId"> 汽缸2编号 </label>
+
+            <div class="col-sm-9">
+                <input type="text" id="input_cylinderSeconedId" placeholder="汽缸2编号" class="col-xs-10 col-sm-5" value="@lngAllowanceInfoDto.CylinderSeconedId" name="CylinderSeconedId">
+                <label id="lbl_peccancyMatter" style="color: red; display: none"></label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_cylinderSeconedId" style="color: red"> 补贴日期 </label>
+
+            <div class="col-sm-9">
+                <label class="input-append date form_date" id="input_PeccancyDate" data-date="@string.Format("{0:yyyy-M-dd}", lngAllowanceInfoDto.CreateTime)" data-date-format="yyyy-M-dd">
+                    <input class="input-mini" name="CreateTime" size="16"
+                           style="width: 90px" type="text"
+                           value="@(string.Format("{0:yyyy-M-dd}", lngAllowanceInfoDto.CreateTime))">
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="space-4"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="input_cylinderSeconedId" style="color: red"> 补贴状态 </label>
+
+            <div class="col-sm-9">
+                <select name="Status">
+                    <option value="@LngStatus.已补贴" @(lngAllowanceInfoDto.Status == LngStatus.已补贴 ? "selected" : "")>@LngStatus.已补贴</option>
+                    <option value="@LngStatus.未补贴" @(lngAllowanceInfoDto.Status == LngStatus.未补贴 ? "selected" : "")>@LngStatus.未补贴</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="clearfix form-actions">
+            <div class="col-md-offset-3 col-md-9">
+                <button class="btn btn-info" type="submit" id="btn_Save">
+                    <i class="icon-ok bigger-110"></i>
+                    保存
+                </button>
+
+                &nbsp; &nbsp; &nbsp;
+                <button class="btn __btn_cancel" type="reset">
+                    <i class="icon-undo bigger-110"></i>
+                    清空
+                </button>
+            </div>
+        </div>
+    </form>
+}
+
+@section header{
+    <link href="@Url.Content("~")assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="@Url.Content("~")assets/js/date-time/bootstrap-datetimepicker.min.js"></script>
+    <script src="@Url.Content("~")assets/js/date-time/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+    <script>
+        $(function() {
+            $('.form_date').datetimepicker({
+                language: 'zh-CN',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                minView: 2,
+                forceParse: 0
+            });
+
+
+            $('body')
+                .on('click','.__btn_cancel',function() {
+                        window.location = '@Url.Action("index","LngAllowance")';
+                    })
+                .on('blur','#input_TruckNo',function() {
+                        var truckNo = $("._TruckNo_province").val() +
+                            $("._TruckNo_character").val() +
+                            $("#input_TruckNo").val();
+                        $("input[name^='TruckNo']").val(truckNo);
+                })
+                .on('change', '._TruckNo_province', function () {
+                    var truckNo = $("._TruckNo_province").val() +
+                        $("._TruckNo_character").val() +
+                        $("#input_TruckNo").val();
+                    $("input[name^='TruckNo']").val(truckNo);
+                })
+                .on('change', '._TruckNo_character', function () {
+                    var truckNo = $("._TruckNo_province").val() +
+                        $("._TruckNo_character").val() +
+                        $("#input_TruckNo").val();
+                    $("input[name^='TruckNo']").val(truckNo);
+                })
+        })
+    </script>
+}
