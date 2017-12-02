@@ -70,6 +70,15 @@ namespace com.gyt.ms.Controllers
             return exportList == null ? null : ExportCsv(exportList.GetBuffer(), string.Format("LNG补贴信息{0:yyyyMMddhhmmssfff}", DateTime.Now));
         }
 
+        [HttpPost]
+        [Route("desc")]
+        [UserActionLog("添加备注信息", ActionType.编辑)]
+        [ValidateAntiForgeryToken]
+        public JsonResult AddDescription(string id, string desc)
+        {
+            _lngAllowanceService.AddDescription(id, desc);
+            return Success();
+        }
 
         //Todo: 建议优化检查检查重复业务逻辑
         [HttpPost]
@@ -244,9 +253,9 @@ namespace com.gyt.ms.Controllers
             foreach (var lngAllowanceInfoDto in lngAllowanceInfoDtoList)
             {
                 var currentComapnyInfoDto =
-                    companyInfoDtoList.Single(x => x.CompanyName == lngAllowanceInfoDto.CompanyName);
+                    companyInfoDtoList.FirstOrDefault(x => x.CompanyName.Trim() == lngAllowanceInfoDto.CompanyName.Trim());
 
-                lngAllowanceInfoDto.CompanyId = currentComapnyInfoDto.Id;
+                lngAllowanceInfoDto.CompanyId = currentComapnyInfoDto?.Id ?? 0;
             }
             return companyInfoDtoList;
         }

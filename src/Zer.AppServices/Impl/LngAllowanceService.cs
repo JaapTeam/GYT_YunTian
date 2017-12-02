@@ -64,7 +64,7 @@ namespace Zer.AppServices.Impl
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             return _lngAllowanceInfoDataService.GetAll()
-                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo &&
+                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
                           x.CylinderDefaultId == lngAllowanceInfoDto.CylinderDefaultId);
         }
 
@@ -91,6 +91,11 @@ namespace Zer.AppServices.Impl
             }
 
             return _lngAllowanceInfoDataService.Update(infoDto.Map<LngAllowanceInfo>()).Map<LngAllowanceInfoDto>();
+        }
+
+        public void AddDescription(string id, string description)
+        {
+            _lngAllowanceInfoDataService.Update(id, x => x.Description = description);
         }
 
         private IQueryable<LngAllowanceInfo> Filter(LngAllowanceSearchDto searchDto, IQueryable<LngAllowanceInfo> query)

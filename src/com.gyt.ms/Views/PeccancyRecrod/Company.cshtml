@@ -14,7 +14,7 @@
 
         <div class="div-inline" style="height: 30px">
 
-            <span style="margin-left: 10px">最少违章次数：</span>
+            <span style="margin-left: 10px">最少未整改违章次数：</span>
             <input type="text" class="input-mini" value="@(searchFilter.MinCount??0)" style="width: 150px" name="MinCount" id="input_CompanyName" />
             
             <span style="margin-left: 10px">日期：</span>
@@ -62,7 +62,9 @@
                     公司名称
                 </th>
                 <th>经营范围</th>
-                <th class="hidden-480">违章次数</th>
+                <th class="hidden-480">待整改数</th>
+                <th class="hidden-480">已整改数</th>
+                <th class="hidden-480">总违章数</th>
             </tr>
             </thead>
 
@@ -78,6 +80,12 @@
                         </td>
                         <td>
                             @(item.TraderRange.IsNullOrEmpty() ? "" : item.TraderRange)
+                        </td>
+                        <td class="hidden-480">
+                            @item.UnCanceledCount
+                        </td>
+                        <td class="hidden-480">
+                            @item.CanceledCount
                         </td>
                         <td class="hidden-480">
                             @item.PeccancyRecordCount
