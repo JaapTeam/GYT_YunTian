@@ -105,8 +105,10 @@ namespace Zer.AppServices.Impl
             }
 
             var query = sourceQuery.GroupBy(x => x.CompanyId, x => x)
-                                   .OrderByDescending(x => x.Count())
-                                   .Where(x => x.Count() >= filter.MinCount);
+                                   .OrderByDescending(x => x.Count(y=>y.Status == Status.未整改))
+                                   .ThenByDescending(x=>x.Count())
+                                   .ThenBy(x=>x.Count(y => y.Status == Status.已整改))
+                                   .Where(x => x.Count(y => y.Status == Status.未整改) >= filter.MinCount);
 
             filter.Total = query.Count();
 

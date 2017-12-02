@@ -206,16 +206,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.Result = _userInfoService.GetAll();
             return View();
         }
-
-        [AdminRole]
-        [UserActionLog("查看用户详细信息", ActionType.编辑)]
-        [Route("accinfo/{userId}")]
-        public ActionResult AccountInfo(int userId = 0)
-        {
-            ViewBag.UserInfo = _userInfoService.GetById(userId);
-            return View();
-        }
-
+        
         [Route("au")]
         public ActionResult AddUserInfo()
         {
@@ -241,19 +232,13 @@ namespace com.gyt.ms.Controllers
                 throw new ArgumentException("用户名不能为空！");
             }
 
-            //if (userInfoDto.UserName.Length <= 6)
-            //{
-            //    throw new ArgumentException("用户名的长度不能小于6！");
-            //}
-
             var dto = _userInfoService.GetById(userInfoDto.UserId);
 
             if (dto == null)
             {
                 throw new ArgumentException("未找到对应的用户！");
             }
-
-            //dto.UserName = userInfoDto.UserName;
+            
             dto.DisplayName = userInfoDto.DisplayName;
             dto.Email = userInfoDto.Email;
             dto.MobilePhone = userInfoDto.MobilePhone;

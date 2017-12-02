@@ -11,5 +11,7 @@ namespace Zer.AppServices
         List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto);
 
         LngAllowanceInfoDto ChangStatus(string id);
+
+        void AddDescription(string id, string description);
     }
 }
