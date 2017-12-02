@@ -339,7 +339,6 @@
     <Content Include="Views\GYTInfo\Index.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\AccountManage.cshtml" />
-    <Content Include="Views\User\AccountInfo.cshtml" />
     <Content Include="Views\LogInfo\Index.cshtml" />
     <Content Include="Views\LogInfo\LogInfo.cshtml" />
     <Content Include="Views\LogInfo\UserLogInfo.cshtml" />

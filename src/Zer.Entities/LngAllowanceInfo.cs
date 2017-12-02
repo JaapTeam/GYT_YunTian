@@ -27,6 +27,9 @@ namespace Zer.Entities
         public string CylinderSeconedId { get; set; }
 
         public LngStatus Status { get; set; }
+
+        [MaxLength]
+        public string Description { get; set; }
         [Key]
         [StringLength(30)]
         public override string Id { get; set; }

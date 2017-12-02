@@ -23,7 +23,7 @@
 
 
     <label for="input_TruckNo" style="margin-left: 10px"> 车牌号码：</label>
-    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo"/>
+    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
 
     <label for="input_TruckNo" style="margin-left: 10px"> 补贴状态：</label>
     <select id="input_IsAllowanced" name="IsAllowanced">
@@ -31,23 +31,23 @@
         <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ? "selected" : "")>已补贴</option>
         <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
     </select>
-    
+
     <span style="margin-left: 10px">日期：</span>
     <label class="input-append date form_date" id="startDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
         <input class="input-mini" name="StartDate" size="16"
                style="width: 90px" type="text"
                value="@(filter.StartDate.HasValue ? string.Format("{0:yyyy-M-dd}", filter.StartDate.Value) : "")">
         <span class="add-on"><i class="icon-th"></i></span>
-    </label>  
+    </label>
     <span>到</span>
     <label class="input-append date form_date" id="endDate" data-date="@string.Format("{0:yyyy-M-dd}",DateTime.Now)" data-date-format="yyyy-M-dd">
         <input class="input-mini" name="EndDate" size="16" style="width: 90px"
-               type="text" 
+               type="text"
                value="@(filter.EndDate.HasValue ? string.Format("{0:yyyy-M-dd}", filter.EndDate.Value) : "")">
         <span class="add-on"><i class="icon-th"></i></span>
-    </label>  
+    </label>
 
-    <input type="text" class="hidden" name="PageIndex" id="input_pageIndex"/>
+    <input type="text" class="hidden" name="PageIndex" id="input_pageIndex" />
 
     <button type="submit" class="btn btn-small btn-info" style="margin-left: 20px" id="btn_submit">查询</button>
 </form>
@@ -84,82 +84,98 @@
 <div class="table-responsive">
     <table id="sample-table-2" class="table table-striped table-bordered table-hover">
         <thead>
-        <tr>
-            @*<th class="center">
-                    <label>
-                        <input type="checkbox" class="ace" />
-                        <span class="lbl"></span>
-                    </label>
-                </th>*@
-            @*<th>编号</th>*@
-            <th>企业名称</th>
-            <th>批次</th>
-            <th>车牌号</th>
-            <th>发动机号</th>
-            <th>气瓶1编号</th>
-            <th>气瓶2编号</th>
-            <th>登记日期</th>
-            <th>审核</th>
-            @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
-            {
-                <th>编辑</th>
-            }
-
-        </tr>
+            <tr>
+                @*<th class="center">
+                        <label>
+                            <input type="checkbox" class="ace" />
+                            <span class="lbl"></span>
+                        </label>
+                    </th>*@
+                @*<th>编号</th>*@
+                <th>企业名称</th>
+                <th>批次</th>
+                <th>车牌号</th>
+                <th>发动机号</th>
+                <th>气瓶1编号</th>
+                <th>气瓶2编号</th>
+                <th>登记日期</th>
+                <th>备注</th>
+                <th>审核</th>
+                <th>管理</th>
+            </tr>
         </thead>
         <tbody>
-        @if (!lngList.IsNullOrEmpty())
-        {
-            foreach (var item in lngList)
+            @if (!lngList.IsNullOrEmpty())
             {
-                <tr>
+                foreach (var item in lngList)
+                {
+                    <tr>
 
-                    <td>
-                        @item.CompanyName
-                    </td>
-                    <td>
-                        @item.LotId
-                    </td>
-                    <td>
-                        @item.TruckNo
-                    </td>
-                    <td>@item.EngineId</td>
-                    <td>
-                        @item.CylinderDefaultId.Replace('_', '-')
-                    </td>
-                    <td>
-                        @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
-                    </td>
-                    <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
-                    <td>
-                        @if (item.Status == LngStatus.未补贴)
-                        {
-                            <a class="btn btn-xs btn-danger _verify"
-                               data-id="@item.Id"
-                               data-companyname="@item.CompanyName"
-                               data-truckno="@item.TruckNo ">
-                                <i class=" icon-check">未补贴</i>
-                            </a>
-                        }
-                        else if (item.Status == LngStatus.已补贴)
-                        {
-                            <span class="label label-sm label-success">
-                                <i class="icon-ok">已补贴</i>
-                            </span>
-                        }
-                    </td>
-                    @if (userInfo != null && userInfo.Role == RoleLevel.Administrator)
-                    {
                         <td>
-                            <a class="btn btn-xs btn-info _edit"
-                               href="@Url.Action("Edit", "LngAllowance", new {infoId = item.Id})">
-                                <i class=" icon-check">编辑</i>
-                            </a>
+                            @item.CompanyName
                         </td>
-                    }
-                </tr>
+                        <td>
+                            @item.LotId
+                        </td>
+                        <td>
+                            @item.TruckNo
+                        </td>
+                        <td>@item.EngineId</td>
+                        <td>
+                            @(item.CylinderDefaultId.IsNullOrEmpty() ? "无" : item.CylinderDefaultId.Replace('_', '-'))
+                        </td>
+                        <td>
+                            @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
+                        </td>
+                        <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
+                        <td>@(item.Description.IsNullOrEmpty()?"":item.Description)</td>
+                        <td>
+                            @if (item.Status == LngStatus.未补贴)
+                            {
+                                <a class="btn btn-xs btn-danger _verify"
+                                   data-id="@item.Id"
+                                   data-companyname="@item.CompanyName"
+                                   data-truckno="@item.TruckNo ">
+                                    <i class=" icon-check">未补贴</i>
+                                </a>
+                            }
+                            else if (item.Status == LngStatus.已补贴)
+                            {
+                                <span class="label label-sm label-success">
+                                    <i class="icon-ok">已补贴</i>
+                                </span>
+                            }
+                        </td>
+                        
+                        <td>
+                            <!-- Single button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-danger dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    管理<i class="icon-angle-down icon-on-right"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+
+                                    @if (item != null && userInfo != null)
+                                    {
+                                        if (userInfo.Role == RoleLevel.Administrator)
+                                        {
+
+                                            <li>
+                                                <a href="@Url.Action("Edit", "LngAllowance", new {infoId = item.Id})" class="_edit">编辑</a>
+                                            </li>
+                                        }
+                                        
+                                        <li>
+                                            <a href="javascript:;" class="_add_description" data-id ="@item.Id" data-dsec="@item.Description">添加备注</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
             }
-        }
         </tbody>
     </table>
 
@@ -212,7 +228,7 @@
                         <li class="prev">
                             <label cla for="jump_page">
                                 跳转至：
-                                <input type="text" class="input-mini" value="@filter.PageIndex" style="width: 30px" id="jump_page"/>
+                                <input type="text" class="input-mini" value="@filter.PageIndex" style="width: 30px" id="jump_page" />
                             </label>
                             <label href="javascript:;" class="btn btn-xs btn-success __jump">
                                 <i class="icon-circle-arrow-right"> </i>
@@ -222,13 +238,13 @@
                 </div>
             </div>
         </div>
-    }
+                            }
 
-    @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    @using (Html.BeginForm("ImportFile", "LngAllowance", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-        <input type="file" name="file" class="hide" id="input_file"/>
-        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide"/>
+        <input type="file" name="file" class="hide" id="input_file" />
+        <input type="submit" name="Submit" id="Submit" value="Upload" class="hide" />
     }
 
 </div>
@@ -252,6 +268,34 @@
                     确认已补贴
                 </button>
                 <button type="button" class="btn btn-default __modal_close" data-dismiss="modal">
+                    取消
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!-- 添加备注 模态框（Modal） -->
+<div class="modal fade" id="myModal_add_description" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header alert-info">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel_add_description">
+                    请输入备注信息
+                </h4>
+            </div>
+            <div class="modal-body __dialog_content_description">
+                <input type="hidden" value="" id="lb_description_Id" />
+                <textarea class="form-control" id="tb_description" placeholder="Default Text"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info __modal_add_description_confirmed">
+                    提交
+                </button>
+                <button type="button" class="btn btn-default __modal_cancle" data-dismiss="modal">
                     取消
                 </button>
             </div>
@@ -302,7 +346,7 @@
                             truckno +
                             "</label>的记录状态更改为“<label class='label label-danger'>已补贴</label>”吗？");
 
-                        $('#myModal').modal("show");
+                        $('#myModal').modal("toggle");
                     })
 
                 // 点击关闭
@@ -311,6 +355,14 @@
                     function() {
                         infoId = 0;
                         $('#myModal').modal("hide");
+                    })
+
+                // 点击关闭
+                .on('click',
+                    '.__modal_cancle',
+                    function() {
+                        infoId = 0;
+                        $('#myModal_add_description').modal("hide");
                     })
 
                 // 点击确认
@@ -322,7 +374,7 @@
                             type: "Post",
                             url: "@Url.Action("ChangStatus", "LngAllowance")",
                             dataType: "json",
-                            data: { infoId: infoId,@Html.AntiForgeryTokenForAjaxPost() },
+                            data: { infoId: infoId, @Html.AntiForgeryTokenForAjaxPost() },
                             success: function(data) {
                                 if (data.C === 901) {
                                     $('#myModal').modal("hide");
@@ -362,6 +414,40 @@
                         $("#input_file").text("");
                     })
 
+                // 添加备注对话框
+                .on('click',
+                    '._add_description',
+                    function() {
+                        var currentElement = $(this);
+                        var lng_id = $(currentElement).attr('data-id');
+                        var desc = $(currentElement).attr('data-dsec');
+
+                        $('#lb_description_Id').val(lng_id);
+                        $('#tb_description').val(desc);
+                        $('#myModal_add_description').modal("toggle");
+                    })
+
+                // 提交备注
+                .on('click',
+                    '.__modal_add_description_confirmed',
+                    function() {
+                        var lng_id = $('#lb_description_Id').val();
+                        var desc = $('#tb_description').val();
+                        var data = { id: lng_id,desc:desc, @Html.AntiForgeryTokenForAjaxPost()}        
+
+                        $.ajax({
+                            type: 'post',
+                            url: '@Url.Action("AddDescription","LngAllowance")',
+                            dataType: 'json',
+                            data: data,
+                            success:function(data) {
+                                if (data.C === 901) {
+                                    window.location.reload();
+                                }
+                            }
+                        })
+                    })
+
                 // 分页代码
                 .on('click',
                     '.__jump',
@@ -377,6 +463,7 @@
                         $('#input_pageIndex').val(pageIndex);
                         $('#btn_submit').click();
                     });
+
         });
 
     </script>
