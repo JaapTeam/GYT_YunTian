@@ -80,7 +80,7 @@ namespace Zer.AppServices.Impl
 
             return query.Map<LngAllowanceInfoDto>().ToList();
         }
-
+        
         public LngAllowanceInfoDto ChangStatus(string id)
         {
             var infoDto = _lngAllowanceInfoDataService.GetById(id);
@@ -98,6 +98,15 @@ namespace Zer.AppServices.Impl
             _lngAllowanceInfoDataService.Update(id, x => x.Description = description);
         }
 
+        public void ForceImport(List<LngAllowanceInfoDto> list)
+        {
+            foreach (var item in list)
+            {
+                item.IsForceImport = true;
+            }
+            _lngAllowanceInfoDataService.AddRange(list.Map<LngAllowanceInfo>().ToList());
+        }
+
         private IQueryable<LngAllowanceInfo> Filter(LngAllowanceSearchDto searchDto, IQueryable<LngAllowanceInfo> query)
         {
             if (!searchDto.TruckNo.IsNullOrEmpty())
@@ -108,6 +117,16 @@ namespace Zer.AppServices.Impl
             if (!searchDto.CompanyName.IsNullOrEmpty())
             {
                 query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName));
+            }
+
+            if (!searchDto.CylinderDefaultId.IsNullOrEmpty())
+            {
+                query = query.Where(x => x.CylinderDefaultId.Contains(searchDto.CylinderDefaultId));
+            }
+
+            if (searchDto.IsForceImport.HasValue)
+            {
+                query = query.Where(x => x.IsForceImport == searchDto.IsForceImport.Value);
             }
 
             if (searchDto.IsAllowanced.HasValue)

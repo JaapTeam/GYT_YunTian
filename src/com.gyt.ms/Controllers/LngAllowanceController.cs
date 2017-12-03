@@ -232,6 +232,16 @@ namespace com.gyt.ms.Controllers
             _lngAllowanceService.Edit(lngAllowanceInfoDto);
             return RedirectToAction("index", "LngAllowance");
         }
+        
+        [HttpPost]
+        [Route("force")]
+        [UserActionLog("强制导入数据", ActionType.编辑)]
+        [ValidateAntiForgeryToken]
+        public JsonResult ForceImport(List<LngAllowanceInfoDto> list)
+        {
+            _lngAllowanceService.ForceImport(list);
+            return Success();
+        }
 
         private List<CompanyInfoDto> InitCompanyInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
         {

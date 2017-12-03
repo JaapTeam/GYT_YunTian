@@ -18,18 +18,28 @@
 
 <form class="form-inline" id="form_search" action="@(Url.Action("Index", "LngAllowance"))" method="post" style="height: 50px; line-height: 45px">
 
-    <label for="input_TruckNo" style="margin-left: 10px"> 公司名称：</label>
-    <input type="text" class="input-mini" value="@(filter.CompanyName)" style="width: 150px" name="CompanyName" id="input_CompanyName" />
+    <label for="input_TruckNo" style="margin-left: 10px">公司名称:</label>
+    <input type="text" class="input-mini" value="@(filter.CompanyName)" style="width: 75px" name="CompanyName" id="input_CompanyName" />
 
 
-    <label for="input_TruckNo" style="margin-left: 10px"> 车牌号码：</label>
-    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 150px" name="TruckNo" id="input_TruckNo" />
+    <label for="input_TruckNo" style="margin-left: 10px">车牌号码:</label>
+    <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 75px" name="TruckNo" id="input_TruckNo" />
+    
+    <label for="input_TruckNo" style="margin-left: 10px">气瓶1:</label>
+    <input type="text" class="input-mini" value="@(filter.CylinderDefaultId)" style="width: 75px" name="CylinderDefaultId" id="input_CylinderDefaultId" />
 
-    <label for="input_TruckNo" style="margin-left: 10px"> 补贴状态：</label>
+    <label for="input_TruckNo" style="margin-left: 10px">补贴状态:</label>
     <select id="input_IsAllowanced" name="IsAllowanced">
         <option value="" @(!filter.IsAllowanced.HasValue ? "selected" : "")>全部</option>
         <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ? "selected" : "")>已补贴</option>
         <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
+    </select>
+    
+    <label for="input_TruckNo" style="margin-left: 10px">强制导入:</label>
+    <select id="input_IsAllowanced" name="IsForceImport">
+        <option value="" @(!filter.IsForceImport.HasValue ? "selected" : "")>全部</option>
+        <option value="true" @(filter.IsForceImport.HasValue && filter.IsForceImport.Value ? "selected" : "")>是</option>
+        <option value="false" @(filter.IsForceImport.HasValue && !filter.IsForceImport.Value  ? "selected" : "")>否</option>
     </select>
 
     <span style="margin-left: 10px">日期：</span>
@@ -99,6 +109,7 @@
                 <th>气瓶1编号</th>
                 <th>气瓶2编号</th>
                 <th>登记日期</th>
+                <th>强制导入</th>
                 <th>备注</th>
                 <th>审核</th>
                 <th>管理</th>
@@ -128,6 +139,7 @@
                             @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
                         </td>
                         <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
+                        <td>@(item.IsForceImport?"是":"否")</td>
                         <td>@(item.Description.IsNullOrEmpty()?"":item.Description)</td>
                         <td>
                             @if (item.Status == LngStatus.未补贴)

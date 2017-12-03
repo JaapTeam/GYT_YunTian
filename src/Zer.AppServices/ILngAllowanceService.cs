@@ -13,5 +13,7 @@ namespace Zer.AppServices
         LngAllowanceInfoDto ChangStatus(string id);
 
         void AddDescription(string id, string description);
+
+        void ForceImport(List<LngAllowanceInfoDto> list);
     }
 }
