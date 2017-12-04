@@ -65,7 +65,7 @@ namespace Zer.AppServices.Impl
         {
             return _lngAllowanceInfoDataService.GetAll()
                 .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
-                          x.CylinderDefaultId == lngAllowanceInfoDto.CylinderDefaultId);
+                          x.EngineId == lngAllowanceInfoDto.EngineId);
         }
 
         public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)

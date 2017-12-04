@@ -475,6 +475,13 @@
                     var val = $("#input_CompanyName").val();
                     companyPeccancyCheck(val, "#_sp_Illegal");
                 })
+            //.on("input",
+            //"#input_CompanyName",
+            //function (e) {
+            //    e.stopPropagation();
+            //    var val = $("#input_CompanyName").val();
+            //    companyPeccancyCheck(val, "#_sp_Illegal");
+            //})
             .on('blur',
                 '#input_bidTruckNo',
                 function() {
@@ -490,7 +497,7 @@
                 '#input_OriginalTruckNo',
                 function() {
                     var truckNo = $('#input_OriginalTruckNo').val();
-
+                    
                     if (truckNo.length !== 5) {
                         $('#sp_originalTruckNo').html("原车牌号长度不正确");
                     } else {
@@ -512,13 +519,7 @@
                     e.stopPropagation();
                     truckRepetitionCheck();
                 })
-            .on("input",
-                "#input_CompanyName",
-                function(e) {
-                    e.stopPropagation();
-                    var val = $("#input_CompanyName").val();
-                    companyPeccancyCheck(val, "#_sp_Illegal");
-                })
+            
             .on("change", "._province_original", function (e) {
                 e.stopPropagation();
                 truckRepetitionCheck();

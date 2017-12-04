@@ -38,7 +38,7 @@ namespace com.gyt.ms.Controllers
             _truckInfoService = truckInfoService;
         }
 
-        [UserActionLog("LNG补贴信息首页",ActionType.查询)]
+        [UserActionLog("LNG补贴信息首页", ActionType.查询)]
         [Route("{filter?}")]
         public ActionResult Index(LngAllowanceSearchDto filter = null)
         {
@@ -89,7 +89,7 @@ namespace com.gyt.ms.Controllers
         {
             if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
 
-            SaveFile(file,"lngallowance");
+            SaveFile(file, "lngallowance");
 
             var excelImport = new ExcelImport<LngAllowanceInfoDto>(file.InputStream);
             var lngAllowanceInfoDtoList = excelImport.Read(out var failedMessageList);
@@ -107,24 +107,34 @@ namespace com.gyt.ms.Controllers
         [GetParameteFromSession("id")]
         [UnLog]
         [Route("save/{id}/{errorMessageCode}")]
-        public ActionResult SaveLngAllowanceData(string id,string errorMessageCode)
+        public ActionResult SaveLngAllowanceData(string id, string errorMessageCode)
         {
             var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
 
+            var truckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var enginedIdList = lngAllowanceInfoDtoList.Select(x => x.EngineId.Trim()).Distinct().ToList();
+
+            var relayTruckNoList = truckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
+            var relayEnginedIdList = enginedIdList.Where(x => lngAllowanceInfoDtoList.Count(y => y.EngineId.Trim() == x) > 1).ToList();
+
             // 检测数据库中已经存在的重复数据
             var existsLngAllowanceInfoDtoList = lngAllowanceInfoDtoList
-                .Where(x => _lngAllowanceService.Exists(x))
-                .ToList();
+                                                .Where(x => _lngAllowanceService.Exists(x)
+                                                || relayEnginedIdList.Contains(x.EngineId)
+                                                || relayTruckNoList.Contains(x.TruckNo))
+                                                .ToList();
 
             // 筛选出需要导入的数据
             var mustImportLngAllowanceInfoDtoList =
                 lngAllowanceInfoDtoList
-                    .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Contains(x.TruckNo)).ToList();
+                    .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Contains(x.TruckNo)
+                                && !existsLngAllowanceInfoDtoList.Select(y => y.EngineId).Contains(x.EngineId))
+                    .ToList();
 
             // 初始化检测并注册其中的新公司信息
             var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
 
-            var dic = mustImportLngAllowanceInfoDtoList.Select(x => new {x.TruckNo, x.CompanyId}).Distinct()
+            var dic = mustImportLngAllowanceInfoDtoList.Select(x => new { x.TruckNo, x.CompanyId }).Distinct()
                                                        .ToDictionary(x => x.TruckNo, v => v.CompanyId);
 
             // 初始化检测并注册其中的新车辆信息
@@ -200,7 +210,7 @@ namespace com.gyt.ms.Controllers
         [AdminRole]
         [HttpPost]
         [Route("sedit")]
-        [UserActionLog("编辑LNG补贴信息",ActionType.编辑)]
+        [UserActionLog("编辑LNG补贴信息", ActionType.编辑)]
         [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
@@ -232,7 +242,7 @@ namespace com.gyt.ms.Controllers
             _lngAllowanceService.Edit(lngAllowanceInfoDto);
             return RedirectToAction("index", "LngAllowance");
         }
-        
+
         [HttpPost]
         [Route("force")]
         [UserActionLog("强制导入数据", ActionType.编辑)]

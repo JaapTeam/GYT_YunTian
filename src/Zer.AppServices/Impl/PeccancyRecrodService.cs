@@ -81,13 +81,13 @@ namespace Zer.AppServices.Impl
         {
             var query = _peccancyRecrodDataService.GetAll();
 
-            if (searchDto == null) return query.Map<PeccancyRecrodDto>().ToList();
+            if (searchDto == null) return query.AsEnumerable().Map<PeccancyRecrodDto>().ToList();
 
             query = Filter(searchDto, query);
 
             query = query.ToPageQuery(searchDto);
 
-            return query.Map<PeccancyRecrodDto>().ToList();
+            return query.AsEnumerable().Map<PeccancyRecrodDto>().ToList();
         }
 
         public List<PeccancyGroupByCompanyDto> GetPeccancyGroupByCompany(PeccancyWithCompanySearchDto filter)
