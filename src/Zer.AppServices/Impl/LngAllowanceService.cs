@@ -64,8 +64,8 @@ namespace Zer.AppServices.Impl
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             return _lngAllowanceInfoDataService.GetAll()
-                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo ||
-                          x.EngineId == lngAllowanceInfoDto.EngineId);
+                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo
+                       || x.EngineId == lngAllowanceInfoDto.EngineId);
         }
 
         public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)
@@ -76,11 +76,11 @@ namespace Zer.AppServices.Impl
 
             query = Filter(searchDto, query);
 
-            query = query.ToPageQuery(searchDto); 
+            query = query.ToPageQuery(searchDto);
 
             return query.Map<LngAllowanceInfoDto>().ToList();
         }
-        
+
         public LngAllowanceInfoDto ChangStatus(string id)
         {
             var infoDto = _lngAllowanceInfoDataService.GetById(id);

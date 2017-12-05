@@ -65,5 +65,13 @@ namespace com.gyt.ms.Controllers
         {
             return View();
         }
+
+        [UserActionLog("重启服务", ActionType.更改状态)]
+        [Route("restart")]
+        public ActionResult Restart()
+        {
+            System.IO.File.SetLastWriteTime(Server.MapPath("~\\Web.config"), DateTime.Now);
+            return RedirectToAction("index", "Home");
+        }
     }
 }

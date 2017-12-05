@@ -177,6 +177,7 @@
                                         <tr>
                                             <th class="center">
                                                 <label>
+                                                    <input type="checkbox" data-selected="all" class="ace __selectAll" />
                                                     <span class="lbl"></span>
                                                 </label>
                                             </th>
@@ -315,7 +316,7 @@ else
                                         <tr>
                                             <td class="center">
                                                 <label>
-                                                    <input type="checkbox" class="ace" />
+                                                    <input type="checkbox" class="ace" checked="checked" />
                                                     <span class="lbl"></span>
                                                 </label>
                                             </td>
@@ -359,10 +360,28 @@ else
     <script type="text/javascript">
         $(function() {
             $('body')
+                // 全选/反选
+                .on('click','.__selectAll',function() {
+                    var currentCheckBox = $(this);
+
+                    var currentState = $(currentCheckBox).is(":checked");
+                    console.log(currentState);
+                    var checkedList = $('.__failed_list input:checkbox');
+                    console.log(checkedList.length);
+                    for (var i = 0; i < checkedList.length; i++) {
+
+                        if (currentState) {
+                            $(checkedList[i]).prop('checked', true);
+                        } else {
+                            $(checkedList[i]).prop('checked', false);
+                        }
+                    }
+                })
+
                 .on('click',
                     '.__btn_force_import',
                     function() {
-                        var checked_list = $('.__failed_list input:checked ');
+                        var checked_list = $('.__failed_list input:not([data-selected=all]):checked');
 
                         var data = new Array();
 
