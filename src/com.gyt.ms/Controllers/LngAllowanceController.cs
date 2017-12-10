@@ -111,24 +111,19 @@ namespace com.gyt.ms.Controllers
         {
             var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
 
-            var truckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
-            var enginedIdList = lngAllowanceInfoDtoList.Select(x => x.EngineId.Trim()).Distinct().ToList();
-
-            var relayTruckNoList = truckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
-            var relayEnginedIdList = enginedIdList.Where(x => lngAllowanceInfoDtoList.Count(y => y.EngineId.Trim() == x) > 1).ToList();
-
             // 检测数据库中已经存在的重复数据
-            var existsLngAllowanceInfoDtoList = lngAllowanceInfoDtoList
-                                                .Where(x => _lngAllowanceService.Exists(x)
-                                                || relayEnginedIdList.Contains(x.EngineId)
-                                                || relayTruckNoList.Contains(x.TruckNo))
-                                                .ToList();
+            var existsLngAllowanceInfoDtoList = FilterExistsLngInfoDtoList(lngAllowanceInfoDtoList);
+            ////lngAllowanceInfoDtoList
+            ////                                .Where(x => _lngAllowanceService.Exists(x)
+            ////                                || relayEnginedIdList.Contains(x.EngineId)
+            ////                                || relayTruckNoList.Contains(x.TruckNo))
+            ////                                .ToList();
 
             // 筛选出需要导入的数据
             var mustImportLngAllowanceInfoDtoList =
                 lngAllowanceInfoDtoList
-                    .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Contains(x.TruckNo)
-                                && !existsLngAllowanceInfoDtoList.Select(y => y.EngineId).Contains(x.EngineId))
+                    .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Distinct().Contains(x.TruckNo)
+                                && !existsLngAllowanceInfoDtoList.Select(y => y.EngineId).Distinct().Contains(x.EngineId))
                     .ToList();
 
             // 初始化检测并注册其中的新公司信息
@@ -156,6 +151,18 @@ namespace com.gyt.ms.Controllers
             ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
             ViewBag.errorMessageCode = GetValueFromSession<List<string>>(errorMessageCode);
             return View("ImportResult");
+        }
+
+        private List<LngAllowanceInfoDto> FilterExistsLngInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
+        {
+            var truckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var enginedIdList = lngAllowanceInfoDtoList.Select(x => x.EngineId.Trim()).Distinct().ToList();
+
+            var relayTruckNoList = truckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
+            var relayEnginedIdList = enginedIdList.Where(x => lngAllowanceInfoDtoList.Where(y => !y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
+
+            return lngAllowanceInfoDtoList.Where(x => relayEnginedIdList.Contains(x.EngineId) || relayTruckNoList.Contains(x.TruckNo)).ToList()
+                                          .Where(x => _lngAllowanceService.Exists(x)).ToList();
         }
 
         [HttpPost]
