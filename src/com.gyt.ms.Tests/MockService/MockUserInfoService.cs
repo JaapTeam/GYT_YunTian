@@ -10,7 +10,7 @@ namespace com.gyt.ms.Tests.MockService
     {
         protected override void SetMock()
         {
-            Mock.Setup(x => x.GetByUserName("administrator"))
+            Mock.Setup(x => x.GetByUserName("administrator","123"))
                 .Returns(() => new UserInfoDto
                 {
                     DisplayName = "Admin",
@@ -40,7 +40,7 @@ namespace com.gyt.ms.Tests.MockService
             Mock.Setup(x => x.VerifyUserNameAndPassword("correctusername", "1234567"))
                 .Returns(() => LoginStatus.Success);
 
-            Mock.Setup(x => x.GetByUserName("correctusername"))
+            Mock.Setup(x => x.GetByUserName("correctusername","123"))
                 .Returns(() => new UserInfoDto()
                 {
                     DisplayName = "Paul",

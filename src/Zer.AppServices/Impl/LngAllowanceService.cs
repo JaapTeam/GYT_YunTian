@@ -63,9 +63,13 @@ namespace Zer.AppServices.Impl
 
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
+            if (lngAllowanceInfoDto.EngineId.Trim().IsNullOrEmpty())
+            {
+                return _lngAllowanceInfoDataService.GetAll().Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo);
+            }
+            
             return _lngAllowanceInfoDataService.GetAll()
-                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo
-                       || x.EngineId == lngAllowanceInfoDto.EngineId);
+                .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo || x.EngineId == lngAllowanceInfoDto.EngineId);
         }
 
         public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)

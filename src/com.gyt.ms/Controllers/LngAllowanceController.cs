@@ -109,8 +109,14 @@ namespace com.gyt.ms.Controllers
         [Route("save/{id}/{errorMessageCode}")]
         public ActionResult SaveLngAllowanceData(string id, string errorMessageCode)
         {
+            /* 获取CSV所有数据
+             * 1. 筛选出有空发动机号的数据
+             *  1.1 空发动机号只检查是否有重复车牌号，无则导入，有则抛出
+             *  
+             * 2. 有发动机号的按原有规则导入
+             */
             var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
-
+            
             // 检测数据库中已经存在的重复数据
             var existsLngAllowanceInfoDtoList = FilterExistsLngInfoDtoList(lngAllowanceInfoDtoList);
             ////lngAllowanceInfoDtoList
@@ -153,7 +159,7 @@ namespace com.gyt.ms.Controllers
             return View("ImportResult");
         }
 
-        private List<LngAllowanceInfoDto> FilterExistsLngInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
+        public List<LngAllowanceInfoDto> FilterExistsLngInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
         {
             var truckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
             var enginedIdList = lngAllowanceInfoDtoList.Select(x => x.EngineId.Trim()).Distinct().ToList();
@@ -161,8 +167,10 @@ namespace com.gyt.ms.Controllers
             var relayTruckNoList = truckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
             var relayEnginedIdList = enginedIdList.Where(x => lngAllowanceInfoDtoList.Where(y => !y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
 
-            return lngAllowanceInfoDtoList.Where(x => relayEnginedIdList.Contains(x.EngineId) || relayTruckNoList.Contains(x.TruckNo)).ToList()
-                                          .Where(x => _lngAllowanceService.Exists(x)).ToList();
+            var list = lngAllowanceInfoDtoList.Where(x => relayEnginedIdList.Contains(x.EngineId) || relayTruckNoList.Contains(x.TruckNo)).ToList()
+                                          .Where(_lngAllowanceService.Exists).ToList();
+
+            return list;
         }
 
         [HttpPost]
