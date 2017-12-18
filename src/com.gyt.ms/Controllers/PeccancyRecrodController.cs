@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -91,13 +92,20 @@ namespace com.gyt.ms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
-            if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
+            if (file?.InputStream == null) throw new Exception("文件上传失败，导入失败");
             
-            SaveFile(file,"peccancy");
+            var fileName = SaveFile(file,"peccancy");
 
-            var excelImport = new ExcelImport<PeccancyRecrodDto>(file.InputStream);
-            var overloadRecrodDtoList = excelImport.Read(out var errorFailedList);
+            List<PeccancyRecrodDto> overloadRecrodDtoList;
 
+            List<string> errorFailedList;
+
+            using (var fs = new FileStream(fileName,FileMode.Open,FileAccess.Read))
+            {
+                var excelImport = new ExcelImport<PeccancyRecrodDto>(fs);
+                overloadRecrodDtoList = excelImport.Read(out errorFailedList);
+            }
+            
             if (overloadRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
             // 检测数据库中已经存在的重复数据
