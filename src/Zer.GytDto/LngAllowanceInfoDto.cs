@@ -59,7 +59,13 @@ namespace Zer.GytDto
         [ExportDisplayName("补贴状态")]
         public LngStatus Status { get; set; }
 
+
         [ExportSort(10)]
+        [ImprotIgnore]
+        [ExportDisplayName("是否强制导入")]
+        public bool IsForceImport { get; set; }
+
+        [ExportSort(11)]
         [ImportSort(9)]
         [ExportDisplayName("备注")]
         public string Description { get; set; }

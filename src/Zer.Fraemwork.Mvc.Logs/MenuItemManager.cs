@@ -201,9 +201,20 @@ namespace Zer.Framework.Mvc.Logs
             changPassword.IsCurrentPage = false;
             changPassword.Icon = " icon-key";
 
-            
+            //systemManage.ChildItems.Add(new MenuItem
+            //{
+            //    Id = 14,
+            //    ActionName = "Restart",
+            //    ControllerName = "Home",
+            //    TextInfo = "ÖØÆô·þÎñ",
+            //    IsCurrentPage = false,
+            //    Icon = "icon-retweet"
+            //});
+
+
             systemManage.ChildItems.Add(logInfo);
             systemManage.ChildItems.Add(changPassword);
+            systemManage.ChildItems = systemManage.ChildItems.OrderBy(x => x.Id).ToList();
             MenuItems.Add(systemManage);
 
             #endregion

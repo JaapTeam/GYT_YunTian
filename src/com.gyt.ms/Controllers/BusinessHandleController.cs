@@ -70,7 +70,7 @@ namespace com.gyt.ms.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult CompanyPeccancyCheck(string companyName)
         {
-            var result = _peccancyRecrodService.ExistsCompanyName(companyName);
+            var result = _peccancyRecrodService.ExistsCompanyName(companyName.Trim());
             return result ? Fail() : Success();
         }
 

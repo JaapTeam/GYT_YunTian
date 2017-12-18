@@ -10,7 +10,7 @@ namespace Zer.GytDataService.Impl
     {
         public override string GeneratePrimaryKey()
         {
-            return string.Format("LNG{0:yyMMddhhmm}{1}", DateTime.Now, UUIdManager.Instance.Queue());
+            return string.Format("LNG{0:yyMMddHHmm}{1}", DateTime.Now, UUIdManager.Instance.Queue());
         }
     }
 }

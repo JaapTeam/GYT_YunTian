@@ -1,4 +1,5 @@
 ﻿@using Castle.Core.Internal
+@using Zer.Framework.Mvc.Logs
 @using Zer.GytDto
 @{
     var successList = ViewBag.SuccessList as List<LngAllowanceInfoDto>;
@@ -50,7 +51,7 @@
         <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
             <div class="widget-box">
                 <div class="widget-header header-color-pink header-color-red">
-                    <h5>Bottom Toolbox (Footer)</h5>
+                    <h5>导入失败的数据</h5>
 
                     <div class="widget-toolbar">
                         <a href="#" data-action="collapse">
@@ -140,7 +141,7 @@
 
 @if (!existedList.IsNullOrEmpty())
 {
-    <div class="row">
+    <div class="row __failed_list">
         <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
             <div class="widget-box">
                 <div class="widget-header header-color-dark">
@@ -153,10 +154,16 @@
                     </div>
 
                     <div class="widget-toolbar no-border">
+                        <a class="btn btn-xs btn-inverse bigger __btn_force_import" target="_blank" href="javascript:;">
+                            <i class="icon-legal"></i>
+                            强制导入选中数据
+                        </a>
+
                         <a class="btn btn-xs btn-inverse bigger" target="_blank" href="@Url.Action("Export", "LngAllowance", new {exportCode = ViewBag.ExistedCode.ToString()})">
                             <i class="icon-share"></i>
                             导出
                         </a>
+
                     </div>
                 </div>
 
@@ -170,17 +177,19 @@
                                         <tr>
                                             <th class="center">
                                                 <label>
-                                                    <input type="checkbox" class="ace" />
+                                                    <input type="checkbox" data-selected="all" class="ace __selectAll" />
                                                     <span class="lbl"></span>
                                                 </label>
                                             </th>
-                                            <th>编号</th>
                                             <th>企业名称</th>
                                             <th>批次</th>
                                             <th>车牌号</th>
                                             <th>发动机号</th>
                                             <th>气瓶1编号</th>
                                             <th>气瓶2编号</th>
+                                            <th>登记日期</th>
+                                            <th>补贴状态</th>
+                                            <th>备注</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -190,12 +199,19 @@
                                             <tr>
                                                 <td class="center">
                                                     <label>
-                                                        <input type="checkbox" class="ace" />
+                                                        <input type="checkbox" class="ace"
+                                                               data-CompanyName ="@item.CompanyName"
+                                                               data-CompanyId ="@item.CompanyId"
+                                                               data-LotId ="@item.LotId"
+                                                               data-TruckNo ="@item.TruckNo"
+                                                               data-EngineId="@item.EngineId"
+                                                               data-CylinderDefaultId="@item.CylinderDefaultId"
+                                                               data-CylinderSeconedId ="@item.CylinderSeconedId"
+                                                               data-CreateTime="@item.CreateTime"
+                                                               data-Description="@item.Description"
+                                                               data-Status="@item.Status"/>
                                                         <span class="lbl"></span>
                                                     </label>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:;">@item.Id</a>
                                                 </td>
                                                 <td>
                                                     @item.CompanyName
@@ -213,6 +229,9 @@
                                                 <td>
                                                     @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
                                                 </td>
+                                                <td>@(string.Format("{0:yyyy-MM-dd}",item.CreateTime))</td>
+                                                <td>@(item.Status == Zer.Entities.LngStatus.已补贴? "已补贴" : "未补贴")</td>
+                                                <td>@(item.Description.IsNullOrEmpty()?"":item.Description)</td>
                                             </tr>
                                         }
                                     </tbody>
@@ -275,12 +294,7 @@ else
                                 <table id="sample-table-2" class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="center">
-                                            <label>
-                                                <input type="checkbox" class="ace" />
-                                                <span class="lbl"></span>
-                                            </label>
-                                        </th>
+                                        
                                         <th>编号</th>
                                         <th>企业名称</th>
                                         <th>批次</th>
@@ -295,12 +309,7 @@ else
                                     @foreach (var item in successList)
                                     {
                                         <tr>
-                                            <td class="center">
-                                                <label>
-                                                    <input type="checkbox" class="ace" />
-                                                    <span class="lbl"></span>
-                                                </label>
-                                            </td>
+                                           
                                             <td>
                                                 <a href="javascript:;">@item.Id</a>
                                             </td>
@@ -336,3 +345,67 @@ else
     </div>
 }
 
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $('body')
+                // 全选/反选
+                .on('click','.__selectAll',function() {
+                    var currentCheckBox = $(this);
+
+                    var currentState = $(currentCheckBox).is(":checked");
+                    console.log(currentState);
+                    var checkedList = $('.__failed_list input:checkbox');
+                    console.log(checkedList.length);
+                    for (var i = 0; i < checkedList.length; i++) {
+
+                        if (currentState) {
+                            $(checkedList[i]).prop('checked', true);
+                        } else {
+                            $(checkedList[i]).prop('checked', false);
+                        }
+                    }
+                })
+
+                .on('click',
+                    '.__btn_force_import',
+                    function() {
+                        var checked_list = $('.__failed_list input:not([data-selected=all]):checked');
+
+                        var data = new Array();
+
+                        for (var i = 0; i < checked_list.length; i++) {
+                            item = {
+                                "CompanyName": $(checked_list[i]).attr("data-CompanyName"),
+                                "CompanyId": $(checked_list[i]).attr("data-CompanyId"),
+                                "LotId": $(checked_list[i]).attr("data-LotId"),
+                                "TruckNo": $(checked_list[i]).attr("data-TruckNo"),
+                                "EngineId": $(checked_list[i]).attr("data-EngineId"),
+                                "CylinderDefaultId": $(checked_list[i]).attr("data-CylinderDefaultId"),
+                                "CylinderSeconedId": $(checked_list[i]).attr("data-CylinderSeconedId"),
+                                "CreateTime": $(checked_list[i]).attr("data-CreateTime"),
+                                "Status": $(checked_list[i]).attr("data-Status"),
+                                "Description": $(checked_list[i]).attr("data-Description")
+                            };
+                            data.push(item);
+                        }
+//                        console.log(data);
+//                        console.log(JSON.stringify(data));
+
+                        $.ajax({
+                            url: '@Url.Action("ForceImport","LngAllowance")',
+                            type: 'POST',
+                            data: { list: data,@Html.AntiForgeryTokenForAjaxPost()},
+                            success:function(d) {
+                                if (d.C === 901) {
+                                    window.location = '@Url.Action("Index","LngAllowance")';
+                                } else {
+                                    alert(d.msg);
+                                }
+                            }
+                        })
+                    })
+        })
+    </script>
+}

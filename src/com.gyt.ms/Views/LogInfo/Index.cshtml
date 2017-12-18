@@ -57,7 +57,7 @@
                             </td>
                             <td>@log.ActionType</td>
                             <td>@log.ActionModel</td>
-                            <td>@string.Format("{0:yyyy-MM-dd hh:mm:ss}", log.CreateTime)</td>
+                            <td>@string.Format("{0:yyyy-MM-dd HH:mm:ss}", log.CreateTime)</td>
                             <td>
                                 <a href="@(Url.Action("LogInfo","LogInfo",new {logId=log.Id}))">详细</a>
                             </td>

@@ -10,6 +10,10 @@ namespace Zer.GytDto.SearchFilters
         public string TruckNo { get; set; }
         public LngStatus? IsAllowanced { get; set; }
 
+        public bool? IsForceImport { get; set; }
+
+        public string CylinderDefaultId { get; set; }
+
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }
