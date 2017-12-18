@@ -57,14 +57,20 @@ namespace com.gyt.ms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Improt(HttpPostedFileBase file)
         {
-            if (file == null || file.InputStream == null)
+            if (file?.InputStream == null)
                 throw new Exception("文件上传失败，导入失败");
 
-            SaveFile(file,"gyt");
+            var fileName = SaveFile(file,"gyt");
 
-            var excelImport = new ExcelImport<GYTInfoDto>(file.InputStream);
+            List<GYTInfoDto> gtyGytInfoDtoList;
+            List<string> failedErrorMessageList;
 
-            var gtyGytInfoDtoList = excelImport.Read(out var failedErrorMessageList);
+            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            {
+                var excelImport = new ExcelImport<GYTInfoDto>(fs);
+
+                gtyGytInfoDtoList = excelImport.Read(out failedErrorMessageList);
+            }
 
             if (gtyGytInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 

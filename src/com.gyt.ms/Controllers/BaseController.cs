@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using com.gyt.ms.Models;
+using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
 using Zer.Framework.Mvc.Logs;
@@ -26,7 +27,7 @@ namespace com.gyt.ms.Controllers
             }
         }
 
-        protected virtual void SaveFile(HttpPostedFileBase file,string dirPath)
+        protected virtual string SaveFile(HttpPostedFileBase file,string dirPath)
         {
             try
             {
@@ -37,13 +38,16 @@ namespace com.gyt.ms.Controllers
                     Directory.CreateDirectory(dir);
                 }
 
-                var filename = string.Format("{0}/{1:yyyy-MM-dd_HH_mm_ss_fffff}_{3}.{2}",
-                    dir, DateTime.Now, Guid.NewGuid(), CurrentUser.UserId);
+                var filename = string.Format("{0}/{1:yyyy-MM-dd_HH_mm_ss_fffff}_{2}.xlsx",
+                    dir, DateTime.Now, CurrentUser.UserId);
 
                 file.SaveAs(filename);
+
+                return filename;
             }
             catch
             {
+                throw new CustomException("上传文件失败.");
             }
         }
 

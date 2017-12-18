@@ -29,6 +29,8 @@ namespace Zer.Framework.Import
                 throw new CustomException("文件流为空或者上传文件失败，请重试!");
             }
 
+            
+
             try
             {
                 XSSFWorkbook workbook = new XSSFWorkbook(InputExcelStream);
@@ -39,7 +41,17 @@ namespace Zer.Framework.Import
             }
             catch
             {
-                throw new System.Exception("文件内容读取失败，目前仅支持 Excel 2007 及以上版本的数据导入，检查文件格式，并确保文件后辍为 !\".xlsx\" !");
+                try
+                {
+                    HSSFWorkbook workbook = new HSSFWorkbook(InputExcelStream);
+
+                    var sheet = GetDefaultSheet(workbook);
+                    return GenerateObjectAndSetValue(sheet, out failedList);
+                }
+                catch
+                {
+                    throw new System.Exception("文件内容读取失败，目前仅支持 Excel 2007 及以上版本的数据导入，检查文件格式，并确保文件后辍为 !\".xlsx\" !");
+                }
             }
         }
 
@@ -190,7 +202,7 @@ namespace Zer.Framework.Import
             return dic;
         }
 
-        public ISheet GetDefaultSheet(XSSFWorkbook workbook)
+        public ISheet GetDefaultSheet(IWorkbook workbook)
         {
             var sheet = workbook.GetSheetAt(0);
 

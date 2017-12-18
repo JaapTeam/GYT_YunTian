@@ -87,12 +87,20 @@ namespace com.gyt.ms.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
-            if (file == null || file.InputStream == null) throw new Exception("文件上传失败，导入失败");
+            if (file?.InputStream == null) throw new Exception("文件上传失败，导入失败");
 
-            SaveFile(file, "lngallowance");
+            var fileName = SaveFile(file, "lngallowance");
 
-            var excelImport = new ExcelImport<LngAllowanceInfoDto>(file.InputStream);
-            var lngAllowanceInfoDtoList = excelImport.Read(out var failedMessageList);
+            List<LngAllowanceInfoDto> lngAllowanceInfoDtoList;
+
+            List<string> failedMessageList;
+
+            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            {
+                var excelImport = new ExcelImport<LngAllowanceInfoDto>(fs);
+                lngAllowanceInfoDtoList = excelImport.Read(out failedMessageList);
+            }
+
 
             if (lngAllowanceInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
