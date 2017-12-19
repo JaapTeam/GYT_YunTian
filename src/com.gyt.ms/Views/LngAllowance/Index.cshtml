@@ -25,18 +25,18 @@
     <label for="input_TruckNo" style="margin-left: 10px">车牌号码:</label>
     <input type="text" class="input-mini" value="@(filter.TruckNo)" style="width: 75px" name="TruckNo" id="input_TruckNo" />
     
-    <label for="input_TruckNo" style="margin-left: 10px">气瓶1:</label>
-    <input type="text" class="input-mini" value="@(filter.CylinderDefaultId)" style="width: 75px" name="CylinderDefaultId" id="input_CylinderDefaultId" />
+    <label for="input_EngineId" style="margin-left: 10px">发动机号:</label>
+    <input type="text" class="input-mini" value="@(filter.EngineId)" style="width: 75px" name="EngineId" id="input_EngineId" />
 
-    <label for="input_TruckNo" style="margin-left: 10px">补贴状态:</label>
+    <label for="input_IsAllowanced" style="margin-left: 10px">补贴状态:</label>
     <select id="input_IsAllowanced" name="IsAllowanced">
         <option value="" @(!filter.IsAllowanced.HasValue ? "selected" : "")>全部</option>
         <option value="@(LngStatus.已补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.已补贴 ? "selected" : "")>已补贴</option>
         <option value="@(LngStatus.未补贴)" @(filter.IsAllowanced.HasValue && filter.IsAllowanced.Value == LngStatus.未补贴 ? "selected" : "")>未补贴</option>
     </select>
     
-    <label for="input_TruckNo" style="margin-left: 10px">强制导入:</label>
-    <select id="input_IsAllowanced" name="IsForceImport">
+    <label for="input_IsForceImport" style="margin-left: 10px">强制导入:</label>
+    <select id="input_IsForceImport" name="IsForceImport">
         <option value="" @(!filter.IsForceImport.HasValue ? "selected" : "")>全部</option>
         <option value="true" @(filter.IsForceImport.HasValue && filter.IsForceImport.Value ? "selected" : "")>是</option>
         <option value="false" @(filter.IsForceImport.HasValue && !filter.IsForceImport.Value  ? "selected" : "")>否</option>

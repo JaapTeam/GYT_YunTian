@@ -44,7 +44,6 @@
 }
 
 <!--导入失败的列表-->
-
 @if (!failedList.IsNullOrEmpty())
 {
     <div class="row">
@@ -136,9 +135,7 @@
     </div>
 }
 
-<!--重复数据的列表-->
-
-
+@*重复数据的列表*@
 @if (!existedList.IsNullOrEmpty())
 {
     <div class="row __failed_list">
@@ -200,16 +197,16 @@
                                                 <td class="center">
                                                     <label>
                                                         <input type="checkbox" class="ace"
-                                                               data-CompanyName ="@item.CompanyName"
-                                                               data-CompanyId ="@item.CompanyId"
-                                                               data-LotId ="@item.LotId"
-                                                               data-TruckNo ="@item.TruckNo"
+                                                               data-CompanyName="@item.CompanyName"
+                                                               data-CompanyId="@item.CompanyId"
+                                                               data-LotId="@item.LotId"
+                                                               data-TruckNo="@item.TruckNo"
                                                                data-EngineId="@item.EngineId"
                                                                data-CylinderDefaultId="@item.CylinderDefaultId"
-                                                               data-CylinderSeconedId ="@item.CylinderSeconedId"
+                                                               data-CylinderSeconedId="@item.CylinderSeconedId"
                                                                data-CreateTime="@item.CreateTime"
                                                                data-Description="@item.Description"
-                                                               data-Status="@item.Status"/>
+                                                               data-Status="@item.Status" />
                                                         <span class="lbl"></span>
                                                     </label>
                                                 </td>
@@ -229,9 +226,9 @@
                                                 <td>
                                                     @(item.CylinderSeconedId.IsNullOrEmpty() ? "无" : item.CylinderSeconedId.Replace('_', '-'))
                                                 </td>
-                                                <td>@(string.Format("{0:yyyy-MM-dd}",item.CreateTime))</td>
-                                                <td>@(item.Status == Zer.Entities.LngStatus.已补贴? "已补贴" : "未补贴")</td>
-                                                <td>@(item.Description.IsNullOrEmpty()?"":item.Description)</td>
+                                                <td>@(string.Format("{0:yyyy-MM-dd}", item.CreateTime))</td>
+                                                <td>@(item.Status == Zer.Entities.LngStatus.已补贴 ? "已补贴" : "未补贴")</td>
+                                                <td>@(item.Description.IsNullOrEmpty() ? "" : item.Description)</td>
                                             </tr>
                                         }
                                     </tbody>

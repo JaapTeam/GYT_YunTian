@@ -12,7 +12,7 @@ namespace Zer.GytDto.SearchFilters
 
         public bool? IsForceImport { get; set; }
 
-        public string CylinderDefaultId { get; set; }
+        public string EngineId { get; set; }
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }

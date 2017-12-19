@@ -8,6 +8,8 @@ namespace Zer.AppServices
     {
         bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto);
 
+        List<LngAllowanceInfoDto> RepeatedValidate(List<LngAllowanceInfoDto> list);
+
         List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto);
 
         LngAllowanceInfoDto ChangStatus(string id);

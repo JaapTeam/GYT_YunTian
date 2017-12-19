@@ -72,6 +72,33 @@ namespace Zer.AppServices.Impl
                 .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo || x.EngineId == lngAllowanceInfoDto.EngineId);
         }
 
+        /// <summary>
+        /// 检查重复
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public List<LngAllowanceInfoDto> RepeatedValidate(List<LngAllowanceInfoDto> list)
+        {
+            var allTruckNoList = list.Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var allEngieIdList = list.Where(x=>!x.EngineId.Trim().IsNullOrEmpty()).Select(x => x.EngineId.Trim()).Distinct().ToList();
+
+            var query = _lngAllowanceInfoDataService.GetAll().Where(x=> x.EngineId!=null || x.EngineId.Trim().Length>0)
+                                                             .Where(x=>allTruckNoList.Any(y=>y==x.TruckNo.Trim())
+                                                             || allEngieIdList.Any(y=>y==x.EngineId.Trim())).ToList();
+
+            var result = list.Where(x => query.Any(y => y.EngineId.Trim() == x.EngineId.Trim() 
+                                                     || y.TruckNo.Trim() == x.TruckNo.Trim())).ToList();
+
+            return result;
+
+            //var repeatedTruckNoList = allTruckNoList.Where(x => list.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
+            //var repeatedEngieIdList = allEngieIdList.Where(x => list.Count(y => y.EngineId.Trim() == x) > 1).ToList();
+
+            //var query = list.Where(x => repeatedEngieIdList.Any(y => y == x.EngineId.Trim()));
+            //query = query.Where(x => repeatedTruckNoList.Any(y => y == x.TruckNo.Trim()));
+
+        }
+
         public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)
         {
             var query = _lngAllowanceInfoDataService.GetAll();
@@ -115,17 +142,17 @@ namespace Zer.AppServices.Impl
         {
             if (!searchDto.TruckNo.IsNullOrEmpty())
             {
-                query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo));
+                query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo.Trim()));
             }
 
             if (!searchDto.CompanyName.IsNullOrEmpty())
             {
-                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName));
+                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName.Trim()));
             }
 
-            if (!searchDto.CylinderDefaultId.IsNullOrEmpty())
+            if (!searchDto.EngineId.IsNullOrEmpty())
             {
-                query = query.Where(x => x.CylinderDefaultId.Contains(searchDto.CylinderDefaultId));
+                query = query.Where(x => x.EngineId.Contains(searchDto.EngineId.Trim()));
             }
 
             if (searchDto.IsForceImport.HasValue)
