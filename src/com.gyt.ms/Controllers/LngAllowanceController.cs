@@ -112,10 +112,10 @@ namespace com.gyt.ms.Controllers
             repeatedDtoList.AddRange(truckNoRepeatedDtoList);
 
             // 检查发动机号重复
-            var allEngineIdList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.Trim().IsNullOrEmpty())
+            var allEngineIdList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.IsNullOrEmpty())
                                                          .Select(x => x.EngineId).Distinct().ToList();
-            var repeatedEngineIdList = allEngineIdList.Where(x => lngAllowanceInfoDtoList.Count(y => y.EngineId.Trim() == x) > 1).ToList();
-            var engineIdRepeatedDtoList = lngAllowanceInfoDtoList.Where(x => repeatedEngineIdList.Contains(x.EngineId.Trim())).ToList();
+            var repeatedEngineIdList = allEngineIdList.Where(x => lngAllowanceInfoDtoList.Where(y=>!y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
+            var engineIdRepeatedDtoList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.IsNullOrEmpty() && repeatedEngineIdList.Contains(x.EngineId)).ToList();
             repeatedDtoList.AddRange(engineIdRepeatedDtoList);
 
             // 从数据库中检查重复

@@ -61,13 +61,16 @@ namespace Zer.AppServices.Impl
             }).Map<LngAllowanceInfoDto>();
         }
 
+        /// <summary>
+        /// 检查重复
+        /// </summary>
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             if (lngAllowanceInfoDto.EngineId.Trim().IsNullOrEmpty())
             {
                 return _lngAllowanceInfoDataService.GetAll().Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo);
             }
-            
+
             return _lngAllowanceInfoDataService.GetAll()
                 .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo || x.EngineId == lngAllowanceInfoDto.EngineId);
         }
@@ -79,24 +82,43 @@ namespace Zer.AppServices.Impl
         /// <returns></returns>
         public List<LngAllowanceInfoDto> RepeatedValidate(List<LngAllowanceInfoDto> list)
         {
-            var allTruckNoList = list.Select(x => x.TruckNo.Trim()).Distinct().ToList();
-            var allEngieIdList = list.Where(x=>!x.EngineId.Trim().IsNullOrEmpty()).Select(x => x.EngineId.Trim()).Distinct().ToList();
+            var existsTruckNoList = _lngAllowanceInfoDataService.GetAll().Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var existsEngieIdList = _lngAllowanceInfoDataService.GetAll().Where(x=>x.EngineId!=null || string.IsNullOrEmpty( x.EngineId.Trim()))
+                                                                         .Select(x => x.EngineId.Trim()).Distinct().ToList();
 
-            var query = _lngAllowanceInfoDataService.GetAll().Where(x=> x.EngineId!=null || x.EngineId.Trim().Length>0)
-                                                             .Where(x=>allTruckNoList.Any(y=>y==x.TruckNo.Trim())
-                                                             || allEngieIdList.Any(y=>y==x.EngineId.Trim())).ToList();
+            var repeartedList = new List<LngAllowanceInfoDto>();
 
-            var result = list.Where(x => query.Any(y => y.EngineId.Trim() == x.EngineId.Trim() 
-                                                     || y.TruckNo.Trim() == x.TruckNo.Trim())).ToList();
+            foreach (var truckNo in existsTruckNoList)
+            {
+                var repeartedTruckNoList = list.Where(x => string.Equals(x.TruckNo.Trim(), truckNo.Trim(), StringComparison.CurrentCultureIgnoreCase));
+                repeartedList.AddRange(repeartedTruckNoList);
+            }
 
-            return result;
+            var notEmptyEngieIdList = list.Where(x => !x.EngineId.IsNullOrEmpty()).ToList();
+            foreach (var engieId in existsEngieIdList)
+            {
+                var repeartedEngieIdList = notEmptyEngieIdList.Where(x => string.Equals(x.EngineId.Trim(), engieId.Trim(), StringComparison.CurrentCultureIgnoreCase));
+                repeartedList.AddRange(repeartedEngieIdList);
+            }
 
-            //var repeatedTruckNoList = allTruckNoList.Where(x => list.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
-            //var repeatedEngieIdList = allEngieIdList.Where(x => list.Count(y => y.EngineId.Trim() == x) > 1).ToList();
+            //foreach (var dto in list)
+            //{
+            //    if (!dto.EngineId.Trim().IsNullOrEmpty())
+            //    {
+            //        if (existsEngieIdList.Any(x => string.Equals(x.Trim(), dto.EngineId.Trim(), StringComparison.CurrentCultureIgnoreCase)))
+            //        {
+            //            repeartedList.Add(dto);
+            //            continue;
+            //        }
+            //    }
 
-            //var query = list.Where(x => repeatedEngieIdList.Any(y => y == x.EngineId.Trim()));
-            //query = query.Where(x => repeatedTruckNoList.Any(y => y == x.TruckNo.Trim()));
-
+            //    if (existsTruckNoList.Any(x => string.Equals(x.Trim(), dto.TruckNo.Trim(), StringComparison.CurrentCultureIgnoreCase)))
+            //    {
+            //        repeartedList.Add(dto);
+            //    }
+            //}
+            repeartedList = repeartedList.Distinct().ToList();
+            return repeartedList;
         }
 
         public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)
