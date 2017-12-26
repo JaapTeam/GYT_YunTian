@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201712031226125_lng_add_field_IsForceImport.Designer.cs">
       <DependentUpon>201712031226125_lng_add_field_IsForceImport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712261236191_update_peccancy_PeccancyMatter.cs" />
+    <Compile Include="Migrations\201712261236191_update_peccancy_PeccancyMatter.Designer.cs">
+      <DependentUpon>201712261236191_update_peccancy_PeccancyMatter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\UserInfoDataService.cs" />
@@ -135,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712031226125_lng_add_field_IsForceImport.resx">
       <DependentUpon>201712031226125_lng_add_field_IsForceImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712261236191_update_peccancy_PeccancyMatter.resx">
+      <DependentUpon>201712261236191_update_peccancy_PeccancyMatter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

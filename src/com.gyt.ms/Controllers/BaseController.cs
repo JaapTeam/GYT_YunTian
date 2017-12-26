@@ -31,14 +31,14 @@ namespace com.gyt.ms.Controllers
         {
             try
             {
-                var dir = $"{Server.MapPath("~/content/uploadFiles/")}/{dirPath}";
+                var dir = $"{Server.MapPath("~/content/uploadFiles/")}"+"\\"+$"{dirPath}";
 
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
                 }
 
-                var filename = string.Format("{0}/{1:yyyy-MM-dd_HH_mm_ss_fffff}_{2}.xlsx",
+                var filename = string.Format("{0}\\{1:yyyy-MM-dd_HH_mm_ss_fffff}_{2}.xlsx",
                     dir, DateTime.Now, CurrentUser.UserId);
 
                 file.SaveAs(filename);
