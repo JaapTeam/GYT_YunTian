@@ -100,11 +100,11 @@ namespace com.gyt.ms.Controllers
                 var excelImport = new ExcelImport<LngAllowanceInfoDto>(fs);
                 lngAllowanceInfoDtoList = excelImport.Read(out failedMessageList);
             }
-            
+
             if (lngAllowanceInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
             var repeatedDtoList = new List<LngAllowanceInfoDto>();
-           // 检查车牌重复
+            // 检查车牌重复
             var allTruckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
             var repeatedTruckNoList = allTruckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
 
@@ -114,7 +114,7 @@ namespace com.gyt.ms.Controllers
             // 检查发动机号重复
             var allEngineIdList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.IsNullOrEmpty())
                                                          .Select(x => x.EngineId).Distinct().ToList();
-            var repeatedEngineIdList = allEngineIdList.Where(x => lngAllowanceInfoDtoList.Where(y=>!y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
+            var repeatedEngineIdList = allEngineIdList.Where(x => lngAllowanceInfoDtoList.Where(y => !y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
             var engineIdRepeatedDtoList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.IsNullOrEmpty() && repeatedEngineIdList.Contains(x.EngineId)).ToList();
             repeatedDtoList.AddRange(engineIdRepeatedDtoList);
 
@@ -151,7 +151,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.errorMessageCode = failedMessageList;
             return View("ImportResult");
         }
-        
+
         //[ReplaceSpecialCharInParameter("-", "_")]
         //[GetParameteFromSession("id")]
         //[UnLog]
@@ -165,7 +165,7 @@ namespace com.gyt.ms.Controllers
         //     * 2. 有发动机号的按原有规则导入
         //     */
         //    var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
-            
+
         //    // 检测数据库中已经存在的重复数据
         //    var existsLngAllowanceInfoDtoList = FilterExistsLngInfoDtoList(lngAllowanceInfoDtoList);
         //    ////lngAllowanceInfoDtoList
@@ -350,11 +350,11 @@ namespace com.gyt.ms.Controllers
 
             foreach (var truckNo in dic.Keys)
             {
-                var companyInfo = companyInfoDtoList.Single(x => x.Id == dic[truckNo]);
+                var companyInfo = companyInfoDtoList.FirstOrDefault(x => x.Id == dic[truckNo]);
                 var truckDto = new TruckInfoDto()
                 {
-                    CompanyName = companyInfo.CompanyName,
-                    CompanyId = companyInfo.Id,
+                    CompanyName = companyInfo?.CompanyName ?? string.Empty,
+                    CompanyId = companyInfo?.Id ?? 0,
                     FrontTruckNo = truckNo
                 };
 

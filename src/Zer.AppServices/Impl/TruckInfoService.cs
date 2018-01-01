@@ -51,7 +51,7 @@ namespace Zer.AppServices.Impl
         public TruckInfoDto GetByTruckNo(string truckNo)
         {
             return _truckInfoDataService.GetAll()
-                .Single(x => x.FrontTruckNo == truckNo || x.BehindTruckNo == truckNo)
+                .FirstOrDefault(x => x.FrontTruckNo == truckNo)
                 .Map<TruckInfoDto>();
         }
 

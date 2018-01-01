@@ -290,14 +290,14 @@ namespace com.gyt.ms.Controllers
                 if (gtGytInfoDto.BusinessType != BusinessType.天然气车辆)
                 {
                      currentOriginalComapnyInfoDto =
-                        companyInfoDtoList.Single(x => x.CompanyName == gtGytInfoDto.OriginalCompanyName);
+                        companyInfoDtoList.FirstOrDefault(x => x.CompanyName == gtGytInfoDto.OriginalCompanyName);
                 }
                 
                 var currentBidComapnyInfoDto =
-                    companyInfoDtoList.Single(x => x.CompanyName == gtGytInfoDto.BidCompanyName);
+                    companyInfoDtoList.FirstOrDefault(x => x.CompanyName == gtGytInfoDto.BidCompanyName);
 
-                gtGytInfoDto.OriginalCompanyId = currentOriginalComapnyInfoDto.Id;
-                gtGytInfoDto.BidCompanyId = currentBidComapnyInfoDto.Id;
+                gtGytInfoDto.OriginalCompanyId = currentOriginalComapnyInfoDto?.Id ?? 0;
+                gtGytInfoDto.BidCompanyId = currentBidComapnyInfoDto?.Id ?? 0;
             }
 
             return companyInfoDtoList;

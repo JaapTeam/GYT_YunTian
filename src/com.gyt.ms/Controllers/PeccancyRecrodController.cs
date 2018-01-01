@@ -96,29 +96,32 @@ namespace com.gyt.ms.Controllers
             
             var fileName = SaveFile(file,"peccancy");
 
-            List<PeccancyRecrodDto> overloadRecrodDtoList;
+            List<PeccancyRecrodDto> peccancyRecrodDtoList;
 
             List<string> errorFailedList;
 
             using (var fs = new FileStream(fileName,FileMode.Open,FileAccess.Read))
             {
                 var excelImport = new ExcelImport<PeccancyRecrodDto>(fs);
-                overloadRecrodDtoList = excelImport.Read(out errorFailedList);
+                peccancyRecrodDtoList = excelImport.Read(out errorFailedList);
             }
             
-            if (overloadRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+            if (peccancyRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+
+            var importFailedList = peccancyRecrodDtoList.Where(x => x.CompanyName.Trim().IsNullOrEmpty() || x.FrontTruckNo.Trim().IsNullOrEmpty()).ToList();
 
             // 检测数据库中已经存在的重复数据
-            var existsoverloadRecrodDtoList = overloadRecrodDtoList
+            var existsoverloadRecrodDtoList = peccancyRecrodDtoList
                 .Where(x => _peccancyRecrodService.Exists(x))
                 .ToList();
 
             // 筛选出需要导入的数据
-            var mustImportoverloadRecrodDtoList =
-                overloadRecrodDtoList
-                    .Where(x => !existsoverloadRecrodDtoList
-                        .Select(overLoad => overLoad.Id)
-                        .Contains(x.Id)).ToList();
+            var mustImportoverloadRecrodDtoList = peccancyRecrodDtoList
+                                                    .Where(x =>
+                                                     !x.CompanyName.Trim().IsNullOrEmpty() &&
+                                                     !x.FrontTruckNo.Trim().IsNullOrEmpty() &&
+                                                     !existsoverloadRecrodDtoList.Select(peccancyRecrodDto => peccancyRecrodDto.Id)
+                                                     .Contains(x.Id)).ToList();
 
             // 初始化检测并注册其中的新公司信息
             InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
@@ -141,8 +144,7 @@ namespace com.gyt.ms.Controllers
             // 保存信息，并得到保存成功的结果
             var importSuccessList = _peccancyRecrodService.AddRange(mustImportoverloadRecrodDtoList);
 
-            var importFailedList = mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x))
-                .ToList();
+            importFailedList.AddRange(mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x)).ToList());
 
             // 展示导入结果
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
@@ -237,9 +239,9 @@ namespace com.gyt.ms.Controllers
             foreach (var overloadRecrodDto in overloadRecrodDtos)
             {
                 var currentComapnyInfoDto =
-                    companyInfoDtoList.Single(x => x.CompanyName == overloadRecrodDto.CompanyName);
+                    companyInfoDtoList.FirstOrDefault(x => x.CompanyName == overloadRecrodDto.CompanyName);
 
-                overloadRecrodDto.CompanyId = currentComapnyInfoDto.Id;
+                overloadRecrodDto.CompanyId = currentComapnyInfoDto?.Id ?? 0;
             }
             return companyInfoDtoList;
         }
