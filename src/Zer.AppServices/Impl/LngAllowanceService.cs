@@ -82,9 +82,9 @@ namespace Zer.AppServices.Impl
         /// <returns></returns>
         public List<LngAllowanceInfoDto> RepeatedValidate(List<LngAllowanceInfoDto> list)
         {
-            var existsTruckNoList = _lngAllowanceInfoDataService.GetAll().Select(x => x.TruckNo.Trim()).Distinct().ToList();
-            var existsEngieIdList = _lngAllowanceInfoDataService.GetAll().Where(x=>x.EngineId!=null || string.IsNullOrEmpty( x.EngineId.Trim()))
-                                                                         .Select(x => x.EngineId.Trim()).Distinct().ToList();
+            var lngDataList = _lngAllowanceInfoDataService.GetAllList();
+            var existsTruckNoList = lngDataList.Where(x => !x.TruckNo.IsNullOrEmpty()).Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var existsEngieIdList = lngDataList.Where(x => !x.EngineId.IsNullOrEmpty()).Select(x => x.EngineId.Trim()).Distinct().ToList();
 
             var repeartedList = new List<LngAllowanceInfoDto>();
 
@@ -100,23 +100,7 @@ namespace Zer.AppServices.Impl
                 var repeartedEngieIdList = notEmptyEngieIdList.Where(x => string.Equals(x.EngineId.Trim(), engieId.Trim(), StringComparison.CurrentCultureIgnoreCase));
                 repeartedList.AddRange(repeartedEngieIdList);
             }
-
-            //foreach (var dto in list)
-            //{
-            //    if (!dto.EngineId.Trim().IsNullOrEmpty())
-            //    {
-            //        if (existsEngieIdList.Any(x => string.Equals(x.Trim(), dto.EngineId.Trim(), StringComparison.CurrentCultureIgnoreCase)))
-            //        {
-            //            repeartedList.Add(dto);
-            //            continue;
-            //        }
-            //    }
-
-            //    if (existsTruckNoList.Any(x => string.Equals(x.Trim(), dto.TruckNo.Trim(), StringComparison.CurrentCultureIgnoreCase)))
-            //    {
-            //        repeartedList.Add(dto);
-            //    }
-            //}
+            
             repeartedList = repeartedList.Distinct().ToList();
             return repeartedList;
         }
