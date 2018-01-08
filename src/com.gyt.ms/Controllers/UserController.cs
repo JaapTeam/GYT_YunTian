@@ -68,7 +68,7 @@ namespace com.gyt.ms.Controllers
         {
             //var loginResult = _userInfoService.VerifyUserNameAndPassword(userName, psd.Md5Encoding());
             var userinfoDto = _userInfoService.GetByUserName(userName,psd.Md5Encoding());
-
+            
             var logInfoDto = new LogInfoDto()
             {
                 ActionModel = "登录",

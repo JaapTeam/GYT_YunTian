@@ -68,7 +68,7 @@ namespace com.gyt.ms.Controllers
         [Route("change")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public JsonResult Change(string id="")
+        public JsonResult Change(string id = "")
         {
             if (id.IsNullOrEmpty())
             {
@@ -93,22 +93,24 @@ namespace com.gyt.ms.Controllers
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file?.InputStream == null) throw new Exception("文件上传失败，导入失败");
-            
-            var fileName = SaveFile(file,"peccancy");
+
+            var fileName = SaveFile(file, "peccancy");
 
             List<PeccancyRecrodDto> peccancyRecrodDtoList;
 
             List<string> errorFailedList;
 
-            using (var fs = new FileStream(fileName,FileMode.Open,FileAccess.Read))
+            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
                 var excelImport = new ExcelImport<PeccancyRecrodDto>(fs);
                 peccancyRecrodDtoList = excelImport.Read(out errorFailedList);
             }
-            
+
             if (peccancyRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
-            var importFailedList = peccancyRecrodDtoList.Where(x => x.CompanyName.Trim().IsNullOrEmpty() || x.FrontTruckNo.Trim().IsNullOrEmpty()).ToList();
+            var importFailedList = peccancyRecrodDtoList.Where(x =>
+                                                               x.CompanyName.IsNullOrEmpty() ||
+                                                               x.FrontTruckNo.IsNullOrEmpty()).ToList();
 
             // 检测数据库中已经存在的重复数据
             var existsoverloadRecrodDtoList = peccancyRecrodDtoList
@@ -116,12 +118,19 @@ namespace com.gyt.ms.Controllers
                 .ToList();
 
             // 筛选出需要导入的数据
-            var mustImportoverloadRecrodDtoList = peccancyRecrodDtoList
+            var mustImportoverloadRecrodDtoQuery = peccancyRecrodDtoList
                                                     .Where(x =>
-                                                     !x.CompanyName.Trim().IsNullOrEmpty() &&
-                                                     !x.FrontTruckNo.Trim().IsNullOrEmpty() &&
-                                                     !existsoverloadRecrodDtoList.Select(peccancyRecrodDto => peccancyRecrodDto.Id)
-                                                     .Contains(x.Id)).ToList();
+                                                     !x.CompanyName.IsNullOrEmpty() &&
+                                                     !x.FrontTruckNo.IsNullOrEmpty());
+
+            if (!existsoverloadRecrodDtoList.IsNullOrEmpty())
+            {
+                mustImportoverloadRecrodDtoQuery = mustImportoverloadRecrodDtoQuery.Where(x =>
+                    !existsoverloadRecrodDtoList.Select(peccancyRecrodDto => peccancyRecrodDto.Id)
+                        .Contains(x.Id));
+            }
+            
+            var mustImportoverloadRecrodDtoList = mustImportoverloadRecrodDtoQuery.ToList();
 
             // 初始化检测并注册其中的新公司信息
             InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
@@ -157,7 +166,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.errorFailedList = errorFailedList;
             return View("ImportResult");
         }
-        
+
         [UserActionLog("超载超限记录导出", ActionType.查询)]
         [Route("export")]
         public FileResult ExportResult(PeccancySearchDto searchDto)
@@ -182,7 +191,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [AdminRole]
-        [UserActionLog("编辑超载超限记录",ActionType.编辑)]
+        [UserActionLog("编辑超载超限记录", ActionType.编辑)]
         [Route("se")]
         [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(PeccancyRecrodDto infoDto)
@@ -211,7 +220,7 @@ namespace com.gyt.ms.Controllers
                 CompanyName = companyInfo.CompanyName,
                 FrontTruckNo = infoDto.FrontTruckNo,
                 BehindTruckNo = infoDto.BehindTruckNo,
-                DriverId =  infoDto.DriverId,
+                DriverId = infoDto.DriverId,
                 DriverName = infoDto.DriverName
             });
 
