@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using com.gyt.ms.Models;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
 using Zer.Framework.Mvc;
-using Zer.Framework.Mvc.Logs;
-using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto.Users;
 
 namespace com.gyt.ms.Controllers
@@ -38,8 +33,7 @@ namespace com.gyt.ms.Controllers
                     Directory.CreateDirectory(dir);
                 }
 
-                var filename = string.Format("{0}\\{1:yyyy-MM-dd_HH_mm_ss_fffff}_{2}.xlsx",
-                    dir, DateTime.Now, CurrentUser.UserId);
+                var filename = $"{dir}\\{DateTime.Now:yyyy-MM-dd_HH_mm_ss_fffff}_{CurrentUser.UserId}.xlsx";
 
                 file.SaveAs(filename);
 
