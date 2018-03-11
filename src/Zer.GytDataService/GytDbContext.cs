@@ -26,39 +26,39 @@ namespace Zer.GytDataService
             //base.OnModelCreating(modelBuilder);
         }
 
-        public override int SaveChanges()
-        {
-            int result;
+        //public override int SaveChanges()
+        //{
+        //    int result;
 
-            using (var transacton = this.Database.BeginTransaction(IsolationLevel.ReadCommitted))
-            {
-                try
-                {
-                    result = base.SaveChanges();
-                    transacton.Commit();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    transacton.Rollback();
+        //    using (var transacton = this.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+        //    {
+        //        try
+        //        {
+        //            result = base.SaveChanges();
+        //            transacton.Commit();
+        //        }
+        //        catch (DbEntityValidationException ex)
+        //        {
+        //            transacton.Rollback();
 
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("<p>存在一个或多个以下错误，请校验数据后重试:</p>");
-                    foreach (var dbValidationError in ex.EntityValidationErrors.SelectMany(x=>x.ValidationErrors))
-                    {
-                        var msg = $"<p>字段{dbValidationError.PropertyName}的值不符合规范,{dbValidationError.ErrorMessage}</p>";
-                        sb.AppendLine(msg);
-                    }
+        //            StringBuilder sb = new StringBuilder();
+        //            sb.AppendLine("<p>存在一个或多个以下错误，请校验数据后重试:</p>");
+        //            foreach (var dbValidationError in ex.EntityValidationErrors.SelectMany(x=>x.ValidationErrors))
+        //            {
+        //                var msg = $"<p>字段{dbValidationError.PropertyName}的值不符合规范,{dbValidationError.ErrorMessage}</p>";
+        //                sb.AppendLine(msg);
+        //            }
 
-                    throw new CustomException(sb.ToString());
-                }
-                catch 
-                {
-                    transacton.Rollback();
-                    throw;
-                }
-            }
-            return result;
-        }
+        //            throw new CustomException(sb.ToString());
+        //        }
+        //        catch 
+        //        {
+        //            transacton.Rollback();
+        //            throw;
+        //        }
+        //    }
+        //    return result;
+        //}
 
         public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<TruckInfo> TruckInfos { get; set; }

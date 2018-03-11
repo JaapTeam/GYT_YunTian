@@ -10,12 +10,12 @@ namespace Zer.Entities
         /// <summary>
         /// 前车牌
         /// </summary>
-        [StringLength(10)]
+        [StringLength(20)]
         public string FrontTruckNo { get; set; }
         /// <summary>
         /// 后车牌
         /// </summary>
-        [StringLength(10)]
+        [StringLength(20)]
         public string BehindTruckNo { get; set; }
 
         public int CompanyId { get; set; }

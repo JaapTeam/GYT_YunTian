@@ -50,7 +50,7 @@
         <div class="col-xs-12 col-sm-12 widget-container-span ui-sortable">
             <div class="widget-box">
                 <div class="widget-header header-color-pink header-color-red">
-                    <h5>Bottom Toolbox (Footer)</h5>
+                    <h5>导入失败的数据</h5>
 
                     <div class="widget-toolbar">
                         <a href="#" data-action="collapse">
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="widget-toolbar no-border">
-                        <a class="btn btn-xs btn-info bigger" target="_blank" href="@(Url.Action("ExportResult", "PeccancyRecrod", new {exportCode = ViewBag.FailedCode.ToString()}))">
+                        <a class="btn btn-xs bigger" target="_blank" href="@(Url.Action("ExportResult", "PeccancyRecrod", new {exportCode = ViewBag.FailedCode.ToString()}))">
                             >
                             <i class="icon-share"></i>
                             导出
@@ -90,7 +90,6 @@
                                         <th>违法日期</th>
                                         <th>违法事项</th>
                                         <th>总重（吨）</th>
-                                        <th>轴数</th>
                                         <th>文件来源</th>
                                     </tr>
                                     </thead>
@@ -188,7 +187,6 @@
                                         <th>违法日期</th>
                                         <th>违法事项</th>
                                         <th>总重（吨）</th>
-                                        <th>轴数</th>
                                         <th>文件来源</th>
                                     </tr>
                                     </thead>
@@ -300,7 +298,6 @@ else
                                         <th>违法日期</th>
                                         <th>违法事项</th>
                                         <th>总重（吨）</th>
-                                        <th>轴数</th>
                                         <th>文件来源</th>
                                     </tr>
                                     </thead>

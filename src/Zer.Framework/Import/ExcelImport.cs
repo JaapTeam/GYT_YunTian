@@ -133,7 +133,15 @@ namespace Zer.Framework.Import
                             break;
                         default:
                             // String type
-                            value = cell.StringCellValue;
+                            
+                            var tempValue = cell.StringCellValue;
+                            if (tempValue.Trim().IsNullOrEmpty())
+                            {
+                                tempValue = String.Empty;
+                            }
+
+                            value = tempValue;
+
                             break;
                     }
                 }

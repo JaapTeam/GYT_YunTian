@@ -66,7 +66,11 @@ namespace Zer.AppServices.Impl
 
         public bool ChangeStatusById(string id)
         {
-            var overLoadInfoDto = _peccancyRecrodDataService.Single(x => x.Id == id);
+            var overLoadInfoDto = _peccancyRecrodDataService.FirstOrDefault(x => x.Id == id);
+            if (overLoadInfoDto == null)
+            {
+                return false;
+            }
             overLoadInfoDto.Status = Status.已整改;
             return _peccancyRecrodDataService.Update(overLoadInfoDto.Map<PeccancyInfo>()).Map<PeccancyRecrodDto>().Status == Status.已整改;
         }

@@ -67,7 +67,7 @@ namespace com.gyt.ms.Tests.AppService
             ILngAllowanceInfoDataService lngAllowanceInfoDataService = FakeILngAllowanceInfoDataService();
             var service = new LngAllowanceService(lngAllowanceInfoDataService);
 
-            LngAllowanceInfoDto lngAllowanceInfoDto = new LngAllowanceInfoDto()
+            LngAllowanceInfoDto lngAllowanceInfoDto = new LngAllowanceInfoDto
             {
                 EngineId = "",
                 TruckNo = "TYU"

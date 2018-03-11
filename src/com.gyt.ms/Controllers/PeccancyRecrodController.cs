@@ -68,7 +68,7 @@ namespace com.gyt.ms.Controllers
         [Route("change")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public JsonResult Change(string id="")
+        public JsonResult Change(string id = "")
         {
             if (id.IsNullOrEmpty())
             {
@@ -93,32 +93,44 @@ namespace com.gyt.ms.Controllers
         public ActionResult ImportFile(HttpPostedFileBase file)
         {
             if (file?.InputStream == null) throw new Exception("文件上传失败，导入失败");
-            
-            var fileName = SaveFile(file,"peccancy");
 
-            List<PeccancyRecrodDto> overloadRecrodDtoList;
+            var fileName = SaveFile(file, "peccancy");
+
+            List<PeccancyRecrodDto> peccancyRecrodDtoList;
 
             List<string> errorFailedList;
 
-            using (var fs = new FileStream(fileName,FileMode.Open,FileAccess.Read))
+            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
                 var excelImport = new ExcelImport<PeccancyRecrodDto>(fs);
-                overloadRecrodDtoList = excelImport.Read(out errorFailedList);
+                peccancyRecrodDtoList = excelImport.Read(out errorFailedList);
             }
-            
-            if (overloadRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+
+            if (peccancyRecrodDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
+
+            var importFailedList = peccancyRecrodDtoList.Where(x =>
+                                                               x.CompanyName.IsNullOrEmpty() ||
+                                                               x.FrontTruckNo.IsNullOrEmpty()).ToList();
 
             // 检测数据库中已经存在的重复数据
-            var existsoverloadRecrodDtoList = overloadRecrodDtoList
+            var existsoverloadRecrodDtoList = peccancyRecrodDtoList
                 .Where(x => _peccancyRecrodService.Exists(x))
                 .ToList();
 
             // 筛选出需要导入的数据
-            var mustImportoverloadRecrodDtoList =
-                overloadRecrodDtoList
-                    .Where(x => !existsoverloadRecrodDtoList
-                        .Select(overLoad => overLoad.Id)
-                        .Contains(x.Id)).ToList();
+            var mustImportoverloadRecrodDtoQuery = peccancyRecrodDtoList
+                                                    .Where(x =>
+                                                     !x.CompanyName.IsNullOrEmpty() &&
+                                                     !x.FrontTruckNo.IsNullOrEmpty());
+
+            if (!existsoverloadRecrodDtoList.IsNullOrEmpty())
+            {
+                mustImportoverloadRecrodDtoQuery = mustImportoverloadRecrodDtoQuery.Where(x =>
+                    !existsoverloadRecrodDtoList.Select(peccancyRecrodDto => peccancyRecrodDto.Id)
+                        .Contains(x.Id));
+            }
+            
+            var mustImportoverloadRecrodDtoList = mustImportoverloadRecrodDtoQuery.ToList();
 
             // 初始化检测并注册其中的新公司信息
             InitCompanyInfoDtoList(mustImportoverloadRecrodDtoList);
@@ -141,8 +153,7 @@ namespace com.gyt.ms.Controllers
             // 保存信息，并得到保存成功的结果
             var importSuccessList = _peccancyRecrodService.AddRange(mustImportoverloadRecrodDtoList);
 
-            var importFailedList = mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x))
-                .ToList();
+            importFailedList.AddRange(mustImportoverloadRecrodDtoList.Where(x => importSuccessList.Contains(x)).ToList());
 
             // 展示导入结果
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
@@ -155,7 +166,7 @@ namespace com.gyt.ms.Controllers
             ViewBag.errorFailedList = errorFailedList;
             return View("ImportResult");
         }
-        
+
         [UserActionLog("超载超限记录导出", ActionType.查询)]
         [Route("export")]
         public FileResult ExportResult(PeccancySearchDto searchDto)
@@ -180,7 +191,7 @@ namespace com.gyt.ms.Controllers
         }
 
         [AdminRole]
-        [UserActionLog("编辑超载超限记录",ActionType.编辑)]
+        [UserActionLog("编辑超载超限记录", ActionType.编辑)]
         [Route("se")]
         [ValidateAntiForgeryToken]
         public ActionResult SaveEdit(PeccancyRecrodDto infoDto)
@@ -209,7 +220,7 @@ namespace com.gyt.ms.Controllers
                 CompanyName = companyInfo.CompanyName,
                 FrontTruckNo = infoDto.FrontTruckNo,
                 BehindTruckNo = infoDto.BehindTruckNo,
-                DriverId =  infoDto.DriverId,
+                DriverId = infoDto.DriverId,
                 DriverName = infoDto.DriverName
             });
 
@@ -237,9 +248,9 @@ namespace com.gyt.ms.Controllers
             foreach (var overloadRecrodDto in overloadRecrodDtos)
             {
                 var currentComapnyInfoDto =
-                    companyInfoDtoList.Single(x => x.CompanyName == overloadRecrodDto.CompanyName);
+                    companyInfoDtoList.FirstOrDefault(x => x.CompanyName == overloadRecrodDto.CompanyName);
 
-                overloadRecrodDto.CompanyId = currentComapnyInfoDto.Id;
+                overloadRecrodDto.CompanyId = currentComapnyInfoDto?.Id ?? 0;
             }
             return companyInfoDtoList;
         }

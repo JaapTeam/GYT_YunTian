@@ -32,7 +32,7 @@ namespace Zer.Entities
 
         public DateTime? PeccancyDate { get; set; }
 
-        [StringLength(20)]
+        [StringLength(200)]
         public string PeccancyMatter { get; set; }
         
         public decimal GrossWeight { get; set; }

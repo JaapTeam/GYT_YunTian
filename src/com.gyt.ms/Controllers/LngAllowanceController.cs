@@ -101,50 +101,36 @@ namespace com.gyt.ms.Controllers
                 lngAllowanceInfoDtoList = excelImport.Read(out failedMessageList);
             }
 
-
             if (lngAllowanceInfoDtoList.IsNullOrEmpty()) throw new Exception("没有从文件中读取到任何数据，导入失败，请重试!");
 
-            var sessionCode = AppendObjectToSession(lngAllowanceInfoDtoList);
-            var failedMessageListCode = AppendObjectToSession(failedMessageList);
+            var repeatedDtoList = new List<LngAllowanceInfoDto>();
+            // 检查车牌重复
+            var allTruckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var repeatedTruckNoList = allTruckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
 
-            return RedirectToAction("SaveLngAllowanceData", "LngAllowance",
-                new { id = sessionCode, errorMessageCode = failedMessageListCode });
-        }
+            var truckNoRepeatedDtoList = lngAllowanceInfoDtoList.Where(x => repeatedTruckNoList.Contains(x.TruckNo.Trim())).ToList();
+            repeatedDtoList.AddRange(truckNoRepeatedDtoList);
 
-        [ReplaceSpecialCharInParameter("-", "_")]
-        [GetParameteFromSession("id")]
-        [UnLog]
-        [Route("save/{id}/{errorMessageCode}")]
-        public ActionResult SaveLngAllowanceData(string id, string errorMessageCode)
-        {
-            /* 获取CSV所有数据
-             * 1. 筛选出有空发动机号的数据
-             *  1.1 空发动机号只检查是否有重复车牌号，无则导入，有则抛出
-             *  
-             * 2. 有发动机号的按原有规则导入
-             */
-            var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
-            
-            // 检测数据库中已经存在的重复数据
-            var existsLngAllowanceInfoDtoList = FilterExistsLngInfoDtoList(lngAllowanceInfoDtoList);
-            ////lngAllowanceInfoDtoList
-            ////                                .Where(x => _lngAllowanceService.Exists(x)
-            ////                                || relayEnginedIdList.Contains(x.EngineId)
-            ////                                || relayTruckNoList.Contains(x.TruckNo))
-            ////                                .ToList();
+            // 检查发动机号重复
+            var allEngineIdList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.IsNullOrEmpty())
+                                                         .Select(x => x.EngineId).Distinct().ToList();
+            var repeatedEngineIdList = allEngineIdList.Where(x => lngAllowanceInfoDtoList.Where(y => !y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
+            var engineIdRepeatedDtoList = lngAllowanceInfoDtoList.Where(x => !x.EngineId.IsNullOrEmpty() && repeatedEngineIdList.Contains(x.EngineId)).ToList();
+            repeatedDtoList.AddRange(engineIdRepeatedDtoList);
 
-            // 筛选出需要导入的数据
-            var mustImportLngAllowanceInfoDtoList =
-                lngAllowanceInfoDtoList
-                    .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Distinct().Contains(x.TruckNo)
-                                && !existsLngAllowanceInfoDtoList.Select(y => y.EngineId).Distinct().Contains(x.EngineId))
-                    .ToList();
+            // 从数据库中检查重复
+            var repeatedInDbList = _lngAllowanceService.RepeatedValidate(lngAllowanceInfoDtoList);
+            repeatedDtoList.AddRange(repeatedInDbList);
 
+            // 合规的数据保存到数据库，并将重复数据返回
+            var mustImportLngAllowanceInfoDtoList = lngAllowanceInfoDtoList.Where(x => !repeatedDtoList.Contains(x)).ToList();
+
+            // 保存合规数据
             // 初始化检测并注册其中的新公司信息
             var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
 
             var dic = mustImportLngAllowanceInfoDtoList.Select(x => new { x.TruckNo, x.CompanyId }).Distinct()
-                                                       .ToDictionary(x => x.TruckNo, v => v.CompanyId);
+                .ToDictionary(x => x.TruckNo, v => v.CompanyId);
 
             // 初始化检测并注册其中的新车辆信息
             InitTruckInfoDtoList(dic, companyInfoDtoList);
@@ -152,34 +138,89 @@ namespace com.gyt.ms.Controllers
             // 保存LNG补贴信息，并得到保存成功的结果
             var importSuccessList = _lngAllowanceService.AddRange(mustImportLngAllowanceInfoDtoList);
 
-            var importFailedList = mustImportLngAllowanceInfoDtoList.Where(x => importSuccessList.Contains(x))
-                .ToList();
+            var importFailedList = mustImportLngAllowanceInfoDtoList.Where(x => importSuccessList.Contains(x)).ToList();
 
             // 展示导入结果
             ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
             ViewBag.FailedCode = AppendObjectToSession(importFailedList);
-            ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
+            ViewBag.ExistedCode = AppendObjectToSession(repeatedDtoList);
 
             ViewBag.SuccessList = importSuccessList;
             ViewBag.FailedList = importFailedList;
-            ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
-            ViewBag.errorMessageCode = GetValueFromSession<List<string>>(errorMessageCode);
+            ViewBag.ExistedList = repeatedDtoList.Distinct().ToList();
+            ViewBag.errorMessageCode = failedMessageList;
             return View("ImportResult");
         }
 
-        public List<LngAllowanceInfoDto> FilterExistsLngInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
-        {
-            var truckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
-            var enginedIdList = lngAllowanceInfoDtoList.Select(x => x.EngineId.Trim()).Distinct().ToList();
+        //[ReplaceSpecialCharInParameter("-", "_")]
+        //[GetParameteFromSession("id")]
+        //[UnLog]
+        //[Route("save/{id}/{errorMessageCode}")]
+        //public ActionResult SaveLngAllowanceData(string id, string errorMessageCode)
+        //{
+        //    /* 获取CSV所有数据
+        //     * 1. 筛选出有空发动机号的数据
+        //     *  1.1 空发动机号只检查是否有重复车牌号，无则导入，有则抛出
+        //     *  
+        //     * 2. 有发动机号的按原有规则导入
+        //     */
+        //    var lngAllowanceInfoDtoList = GetValueFromSession<List<LngAllowanceInfoDto>>(id);
 
-            var relayTruckNoList = truckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
-            var relayEnginedIdList = enginedIdList.Where(x => lngAllowanceInfoDtoList.Where(y => !y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
+        //    // 检测数据库中已经存在的重复数据
+        //    var existsLngAllowanceInfoDtoList = FilterExistsLngInfoDtoList(lngAllowanceInfoDtoList);
+        //    ////lngAllowanceInfoDtoList
+        //    ////                                .Where(x => _lngAllowanceService.Exists(x)
+        //    ////                                || relayEnginedIdList.Contains(x.EngineId)
+        //    ////                                || relayTruckNoList.Contains(x.TruckNo))
+        //    ////                                .ToList();
 
-            var list = lngAllowanceInfoDtoList.Where(x => relayEnginedIdList.Contains(x.EngineId) || relayTruckNoList.Contains(x.TruckNo)).ToList()
-                                          .Where(_lngAllowanceService.Exists).ToList();
+        //    // 筛选出需要导入的数据
+        //    var mustImportLngAllowanceInfoDtoList =
+        //        lngAllowanceInfoDtoList
+        //            .Where(x => !existsLngAllowanceInfoDtoList.Select(lng => lng.TruckNo).Distinct().Contains(x.TruckNo)
+        //                        && !existsLngAllowanceInfoDtoList.Select(y => y.EngineId).Distinct().Contains(x.EngineId))
+        //            .ToList();
 
-            return list;
-        }
+        //    // 初始化检测并注册其中的新公司信息
+        //    var companyInfoDtoList = InitCompanyInfoDtoList(mustImportLngAllowanceInfoDtoList);
+
+        //    var dic = mustImportLngAllowanceInfoDtoList.Select(x => new { x.TruckNo, x.CompanyId }).Distinct()
+        //                                               .ToDictionary(x => x.TruckNo, v => v.CompanyId);
+
+        //    // 初始化检测并注册其中的新车辆信息
+        //    InitTruckInfoDtoList(dic, companyInfoDtoList);
+
+        //    // 保存LNG补贴信息，并得到保存成功的结果
+        //    var importSuccessList = _lngAllowanceService.AddRange(mustImportLngAllowanceInfoDtoList);
+
+        //    var importFailedList = mustImportLngAllowanceInfoDtoList.Where(x => importSuccessList.Contains(x))
+        //        .ToList();
+
+        //    // 展示导入结果
+        //    ViewBag.SuccessCode = AppendObjectToSession(importSuccessList);
+        //    ViewBag.FailedCode = AppendObjectToSession(importFailedList);
+        //    ViewBag.ExistedCode = AppendObjectToSession(existsLngAllowanceInfoDtoList);
+
+        //    ViewBag.SuccessList = importSuccessList;
+        //    ViewBag.FailedList = importFailedList;
+        //    ViewBag.ExistedList = existsLngAllowanceInfoDtoList;
+        //    ViewBag.errorMessageCode = GetValueFromSession<List<string>>(errorMessageCode);
+        //    return View("ImportResult");
+        //}
+
+        //public List<LngAllowanceInfoDto> FilterExistsLngInfoDtoList(List<LngAllowanceInfoDto> lngAllowanceInfoDtoList)
+        //{
+        //    var truckNoList = lngAllowanceInfoDtoList.Select(x => x.TruckNo.Trim()).Distinct().ToList();
+        //    var enginedIdList = lngAllowanceInfoDtoList.Select(x => x.EngineId.Trim()).Distinct().ToList();
+
+        //    var relayTruckNoList = truckNoList.Where(x => lngAllowanceInfoDtoList.Count(y => y.TruckNo.Trim() == x) > 1).ToList();
+        //    var relayEnginedIdList = enginedIdList.Where(x => lngAllowanceInfoDtoList.Where(y => !y.EngineId.IsNullOrEmpty()).Count(y => y.EngineId.Trim() == x) > 1).ToList();
+
+        //    var list = lngAllowanceInfoDtoList.Where(x => relayEnginedIdList.Contains(x.EngineId) || relayTruckNoList.Contains(x.TruckNo)).ToList()
+        //                                  .Where(_lngAllowanceService.Exists).ToList();
+
+        //    return list;
+        //}
 
         [HttpPost]
         [Route("addpost")]
@@ -309,11 +350,11 @@ namespace com.gyt.ms.Controllers
 
             foreach (var truckNo in dic.Keys)
             {
-                var companyInfo = companyInfoDtoList.Single(x => x.Id == dic[truckNo]);
+                var companyInfo = companyInfoDtoList.FirstOrDefault(x => x.Id == dic[truckNo]);
                 var truckDto = new TruckInfoDto()
                 {
-                    CompanyName = companyInfo.CompanyName,
-                    CompanyId = companyInfo.Id,
+                    CompanyName = companyInfo?.CompanyName ?? string.Empty,
+                    CompanyId = companyInfo?.Id ?? 0,
                     FrontTruckNo = truckNo
                 };
 

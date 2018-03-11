@@ -104,13 +104,35 @@
                 <div class="col-sm-12">
                     <div class="dataTables_paginate padding-10">
                         <ul class="pagination">
-
+                            
                             <li class="prev @(searchFilter.PageIndex == 1 ? "disabled" : "")">
                                 <a class="__page" href="javascript:;" data-pageindex='1'>
                                     <i class="icon-double-angle-left"></i>
                                 </a>
                             </li>
-                            @for (int i = 1; i <= searchFilter.PageCount; i++)
+                            @{
+                                var indexStart = 1;
+                                var indexEnd = searchFilter.PageCount;
+                                if (searchFilter.PageCount >= 15)
+                                {
+                                    indexStart = searchFilter.PageIndex - 7;
+
+                                    if (indexStart <= 0)
+                                    {
+                                        indexStart = 1;
+                                    }
+
+                                    indexEnd = indexStart + 15;
+
+                                    if (indexStart >= searchFilter.PageCount - 15)
+                                    {
+                                        indexStart = searchFilter.PageCount - 15;
+                                        indexEnd = searchFilter.PageCount;
+                                    }
+                                }
+                            }
+
+                            @for (int i = indexStart; i <= indexEnd; i++)
                             {
                                 <li class="@(searchFilter.PageIndex == i ? "active" : "")">
                                     <a class="__page" href="javascript:;" data-pageindex='@i'>@i</a>
@@ -121,14 +143,18 @@
                                     <i class="icon-double-angle-right"></i>
                                 </a>
                             </li>
-                            
+
                             <li class="prev">
                                 <label cla for="jump_page">
                                     跳转至：
                                     <input type="text" class="input-mini" value="@searchFilter.PageIndex" style="width: 30px" id="jump_page" />
                                 </label>
-                                <label href="javascript:;" class="btn btn-xs btn-success __jump"><i class="icon-circle-arrow-right"> </i></label>
+                                <label href="javascript:;" class="btn btn-xs btn-success __jump">
+                                    <i class="icon-circle-arrow-right"> </i>
+                                </label>
                             </li>
+                            
+                            
                         </ul>
                     </div>
                 </div>
@@ -186,6 +212,22 @@
                         var companyName = $(this).attr('data-companyName');
                         $('#search_peccancyrecord_companyName').val(companyName);
                         $('#search_peccancyrecord').click();
+                })
+
+                // 分页代码
+                .on('click',
+                    '.__jump',
+                    function() {
+                        var pageIndex = $('#jump_page').val();
+                        $('#input_pageIndex').val(pageIndex);
+                        $('#btn_submit').click();
+                    })
+                .on('click',
+                    '.__page',
+                    function() {
+                        var pageIndex = $(this).attr('data-pageindex');
+                        $('#input_pageIndex').val(pageIndex);
+                        $('#btn_submit').click();
                     })
 
                 // 文件导出
@@ -197,6 +239,8 @@
                         $('#btn_submit').click();
                         $('#form_search').attr("action", oraginActionUrl);
                     });
+
+
 
         });
     </script>

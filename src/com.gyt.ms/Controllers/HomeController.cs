@@ -8,6 +8,7 @@ using Zer.Entities;
 using Zer.Framework.Cache;
 using Zer.Framework.Exception;
 using Zer.Framework.Extensions;
+using Zer.Framework.Logger;
 using Zer.Framework.Mvc.Logs.Attributes;
 using Zer.GytDto;
 using Zer.GytDto.SearchFilters;
@@ -36,7 +37,6 @@ namespace com.gyt.ms.Controllers
         public ActionResult Index()
         {
             var homePageSize = (int)CacheHelper.GetCache("HomePageSize");
-
             var searchDto =new GYTInfoSearchDto()
             {
                 PageSize = homePageSize,

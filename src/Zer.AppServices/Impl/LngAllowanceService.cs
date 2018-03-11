@@ -61,15 +61,48 @@ namespace Zer.AppServices.Impl
             }).Map<LngAllowanceInfoDto>();
         }
 
+        /// <summary>
+        /// 检查重复
+        /// </summary>
         public bool Exists(LngAllowanceInfoDto lngAllowanceInfoDto)
         {
             if (lngAllowanceInfoDto.EngineId.Trim().IsNullOrEmpty())
             {
                 return _lngAllowanceInfoDataService.GetAll().Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo);
             }
-            
+
             return _lngAllowanceInfoDataService.GetAll()
                 .Any(x => x.TruckNo == lngAllowanceInfoDto.TruckNo || x.EngineId == lngAllowanceInfoDto.EngineId);
+        }
+
+        /// <summary>
+        /// 检查重复
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public List<LngAllowanceInfoDto> RepeatedValidate(List<LngAllowanceInfoDto> list)
+        {
+            var lngDataList = _lngAllowanceInfoDataService.GetAllList();
+            var existsTruckNoList = lngDataList.Where(x => !x.TruckNo.IsNullOrEmpty()).Select(x => x.TruckNo.Trim()).Distinct().ToList();
+            var existsEngieIdList = lngDataList.Where(x => !x.EngineId.IsNullOrEmpty()).Select(x => x.EngineId.Trim()).Distinct().ToList();
+
+            var repeartedList = new List<LngAllowanceInfoDto>();
+
+            foreach (var truckNo in existsTruckNoList)
+            {
+                var repeartedTruckNoList = list.Where(x => string.Equals(x.TruckNo.Trim(), truckNo.Trim(), StringComparison.CurrentCultureIgnoreCase));
+                repeartedList.AddRange(repeartedTruckNoList);
+            }
+
+            var notEmptyEngieIdList = list.Where(x => !x.EngineId.IsNullOrEmpty()).ToList();
+            foreach (var engieId in existsEngieIdList)
+            {
+                var repeartedEngieIdList = notEmptyEngieIdList.Where(x => string.Equals(x.EngineId.Trim(), engieId.Trim(), StringComparison.CurrentCultureIgnoreCase));
+                repeartedList.AddRange(repeartedEngieIdList);
+            }
+            
+            repeartedList = repeartedList.Distinct().ToList();
+            return repeartedList;
         }
 
         public List<LngAllowanceInfoDto> GetList(LngAllowanceSearchDto searchDto)
@@ -115,17 +148,17 @@ namespace Zer.AppServices.Impl
         {
             if (!searchDto.TruckNo.IsNullOrEmpty())
             {
-                query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo));
+                query = query.Where(x => x.TruckNo.Contains(searchDto.TruckNo.Trim()));
             }
 
             if (!searchDto.CompanyName.IsNullOrEmpty())
             {
-                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName));
+                query = query.Where(x => x.CompanyName.Contains(searchDto.CompanyName.Trim()));
             }
 
-            if (!searchDto.CylinderDefaultId.IsNullOrEmpty())
+            if (!searchDto.EngineId.IsNullOrEmpty())
             {
-                query = query.Where(x => x.CylinderDefaultId.Contains(searchDto.CylinderDefaultId));
+                query = query.Where(x => x.EngineId.Contains(searchDto.EngineId.Trim()));
             }
 
             if (searchDto.IsForceImport.HasValue)
