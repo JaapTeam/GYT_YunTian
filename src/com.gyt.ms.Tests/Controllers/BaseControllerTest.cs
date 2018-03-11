@@ -1,14 +1,4 @@
-﻿using System;
-using com.gyt.ms.Controllers;
-using FluentAssertions;
-using NUnit.Framework;
-using Zer.AppServices;
-using Zer.Entities;
-using Zer.Framework.Exception;
-using Zer.GytDto;
-using Zer.GytDto.Users;
-using Zer.NUnit;
-
+﻿using NUnit.Framework;
 
 namespace com.gyt.ms.Tests.Controllers
 {
@@ -91,32 +81,32 @@ namespace com.gyt.ms.Tests.Controllers
         //    }
         //}
 
-        [Test]
-        [Category("BaseController")]
-        [Description("正常获取Session，返回期望值")]
-        public void TestForGetCurrentUser_Normal_ReturnCorrectResult()
-        {
-            using (var userController = new UserController(MockService<IUserInfoService, UserInfoDto>.Mock()))
-            {
-                // Arrange
-                var expected = new UserInfoDto()
-                {
-                    DisplayName = "Paul",
-                    UserName = "Paulyang",
-                    UserState = UserState.Active
-                };
+        //[Test]
+        //[Category("BaseController")]
+        //[Description("正常获取Session，返回期望值")]
+        //public void TestForGetCurrentUser_Normal_ReturnCorrectResult()
+        //{
+        //    using (var userController = new UserController(MockService<IUserInfoService, UserInfoDto>.Mock()))
+        //    {
+        //        // Arrange
+        //        var expected = new UserInfoDto()
+        //        {
+        //            DisplayName = "Paul",
+        //            UserName = "Paulyang",
+        //            UserState = UserState.Active
+        //        };
 
 
-                userController.ControllerContext = MockSpecific.GetMockControllerContextWithSesionUserInfo(expected);
+        //        userController.ControllerContext = MockSpecific.GetMockControllerContextWithSesionUserInfo(expected);
 
-                // Act
-                userController.Login("paulyang", "1234567");
-                var actual = userController.CurrentUser;
+        //        // Act
+        //        userController.Login("paulyang", "1234567");
+        //        var actual = userController.CurrentUser;
 
-                // Assert
-                actual.ShouldBeEquivalentTo(expected);
-            }
-        }
+        //        // Assert
+        //        actual.ShouldBeEquivalentTo(expected);
+        //    }
+        //}
 
         //[Test]
         //public void TestFor_ReplaceUnSafeChar_Success()
